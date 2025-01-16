@@ -21,8 +21,14 @@ export default function useWallet({ source }: Params) {
   }, []);
 
   const handleConnect = React.useCallback(async() => {
+    console.log('开始连接钱包');
     setIsModalOpening(true);
-    await open();
+    try {
+      await open();
+      console.log('钱包弹窗已打开');
+    } catch (error) {
+      console.error('打开钱包弹窗失败:', error);
+    }
     setIsModalOpening(false);
     mixpanel.logEvent(mixpanel.EventTypes.WALLET_CONNECT, { Source: source, Status: 'Started' });
     isConnectionStarted.current = true;
@@ -35,7 +41,14 @@ export default function useWallet({ source }: Params) {
   }, [ source ]);
 
   const handleDisconnect = React.useCallback(() => {
-    disconnect();
+    try {
+      console.log('这里是disconnect');
+      disconnect();
+    } catch (error) {
+      console.error('这里是disconnect error', error);
+      
+
+    }
   }, [ disconnect ]);
 
   useAccountEffect({ onConnect: handleAccountConnected });
