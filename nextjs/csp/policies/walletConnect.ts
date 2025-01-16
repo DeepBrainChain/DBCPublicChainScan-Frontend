@@ -20,11 +20,23 @@ export function walletConnect(): CspDev.DirectiveDescriptor {
       'https://rpc.walletconnect.org',
     ],
     'frame-ancestors': [
+      "'self'",  // 必须添加
       '*.walletconnect.org',
       '*.walletconnect.com',
       'http://localhost:*',
-      'https://*.dbcscan.io',  // 添加测试环境域名
-      'https://test.dbcscan.io'  // 明确指定测试环境域名
+      'https://*.dbcscan.io',
+      'https://test.dbcscan.io',
+      'https://*.pages.dev',
+      'https://*.vercel.app',
+      'https://*.ngrok-free.app',
+      'https://secure-mobile.walletconnect.com',
+      'https://secure-mobile.walletconnect.org'
+    ],
+    'frame-src': [  // 添加 frame-src
+      "'self'",
+      'https://secure.walletconnect.com',
+      '*.walletconnect.com',
+      '*.walletconnect.org'
     ],
     'img-src': [
       KEY_WORDS.BLOB,
