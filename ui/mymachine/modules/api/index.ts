@@ -63,7 +63,7 @@ export async function createMachine(req: any) {
   // 是否是生产环境
   const isProduction = process.env.NODE_ENV === 'production';
   // 开发环境baseUrl
-  const url = isProduction ? 'https://testnet.dbcscan.io/api/nestapi/machine' : 'http://localhost:3001/machine';
+  const url = isProduction ? 'https://testnet.dbcscan.io/nestapi/machine' : 'http://localhost:3001/machine';
 
   const timeout = 120000;
   const controller = new AbortController();
