@@ -18,7 +18,6 @@ import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useConfig } from 'wagmi';
 import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
-import { deleteMachine } from './api/index';
 import { usePolling } from './hooks/usePolling';
 import { usStake } from './api/index';
 

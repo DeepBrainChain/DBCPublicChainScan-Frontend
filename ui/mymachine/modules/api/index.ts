@@ -18,22 +18,55 @@ export async function fetchMachineData(address: any) {
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      console.log(response, 'responseresponseresponseresponseresponse');
+
+      return response;
     }
 
     const data = await response.json();
     return data; // 返回数据
   } catch (error) {
-    console.error('Error fetching machine data:', error);
-    throw error; // 抛出错误，供调用者处理
+    console.log(error, 'responseresponseresponseresponseresponse');
+    return error;
   }
 }
 
 // 创建机器
-export async function createMachine(req: any) {
-  // const url = '/nestapi/machine';
+// export async function createMachine(req: any) {
+//   // const url = '/nestapi/machine';
 
+//   const url = baseUrl;
+
+//   try {
+//     const response = await fetch(url, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(req),
+//     });
+//     console.log(response, '创建机器返回的数据');
+
+//     if (response.ok) {
+//       const data = await response.json();
+//       return data; // 返回创建结果
+//     } else {
+//       console.log(response, 'responseresponseresponseresponseresponse');
+
+//       return response;
+//     }
+//   } catch (error) {
+//     console.log(error, 'responseresponseresponseresponseresponse');
+//     return error;
+//   }
+// }
+
+export async function createMachine(req: any) {
   const url = baseUrl;
+  const timeout = 1200000; // 固定超时时间为 120 秒（可调整）
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
     const response = await fetch(url, {
@@ -42,60 +75,27 @@ export async function createMachine(req: any) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(req),
+      signal: controller.signal, // 添加超时控制
     });
+    clearTimeout(timeoutId); // 请求成功后清除超时
+
     console.log(response, '创建机器返回的数据');
 
     if (response.ok) {
       const data = await response.json();
       return data; // 返回创建结果
     } else {
-      const toast = useToast();
-      toast({
-        title: '错误',
-        description: '请求失败',
-        status: 'error',
-        duration: 5000,
-      });
       console.log(response, 'responseresponseresponseresponseresponse');
+      return response; // 返回原始 response 给调用者处理
     }
   } catch (error) {
-    const toast = useToast();
-
-    console.error('Error creating machine:', error);
-    toast({
-      title: '错误',
-      description: '请求失败',
-      status: 'error',
-      duration: 5000,
-    });
+    clearTimeout(timeoutId); // 出错时也清除超时
+    console.log(error, 'responseresponseresponseresponseresponse');
+    return error; // 返回错误给调用者处理
   }
 }
 
-// 删除机器
-export async function deleteMachine(id: any) {
-  // /nestapi/machine
-  try {
-    const response = await fetch(`${baseUrl}/?id=${id}`, {
-      method: 'DELETE', // 指定 DELETE 方法
-      headers: {
-        'Content-Type': 'application/json', // 可选，视后端要求
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`删除失败: ${response.status} ${response.statusText}`);
-    }
-
-    const result = await response.json(); // 假设后端返回 JSON 数据
-    console.log('删除成功:', result);
-    return result;
-  } catch (error: any) {
-    console.error('删除机器出错:', error.message);
-    throw error;
-  }
-}
-
-// 获得时间戳
+// 解除质押
 export async function usStake(mashineId: any) {
   // const url = `/nestapi/machine?address=${encodeURIComponent(address)}`;
   const url = `${baseUrl}/unStake?mashineId=${mashineId}`;
@@ -109,13 +109,15 @@ export async function usStake(mashineId: any) {
     });
 
     if (!response.ok) {
-      throw new Error('Network response was not ok');
+      console.log(response, 'responseresponseresponseresponseresponse');
+
+      return response;
     }
 
     const data = await response.json();
     return data; // 返回数据
   } catch (error) {
-    console.error('Error fetching machine data:', error);
-    throw error; // 抛出错误，供调用者处理
+    console.log(error, 'responseresponseresponseresponseresponse');
+    return error;
   }
 }
