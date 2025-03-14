@@ -1,6 +1,5 @@
 const handler = async (nextReq, nextRes) => {
-  const backendHost = 'http://localhost:3001';
-  const url = `${backendHost}/${nextReq.query.path?.join('/') || ''}`;
+  const url = `http://localhost:3001/${nextReq.query.path?.join('/') || ''}`;
   console.log('Proxying to:', url);
   console.log('Request method:', nextReq.method, 'Body:', nextReq.body);
 
@@ -10,7 +9,10 @@ const handler = async (nextReq, nextRes) => {
 
     const fetchOptions = {
       method: nextReq.method,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
       body: nextReq.body ? JSON.stringify(nextReq.body) : undefined,
       signal: controller.signal,
     };
@@ -24,8 +26,9 @@ const handler = async (nextReq, nextRes) => {
     console.log('Backend response:', apiRes.status, data);
     nextRes.status(apiRes.status).send(data);
   } catch (error) {
-    console.error('Proxy error:', error);
-    console.error('Error details:', error.cause); // Node.js 18+ 提供更多信息
+    console.error('Proxy error:', error.message);
+    console.error('Error stack:', error.stack);
+    console.error('Error cause:', error.cause || 'No cause available');
     nextRes.status(500).json({ code: 1001, msg: '代理错误', error: error.message });
   }
 };

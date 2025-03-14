@@ -31,33 +31,62 @@ export async function fetchMachineData(address: any) {
 }
 
 // 创建机器
-export async function createMachine(req: any) {
-  // const url = '/nestapi/machine';
+// export async function createMachine(req: any) {
+//   // const url = '/nestapi/machine';
 
-  const url = baseUrl;
+//   const url = baseUrl;
+
+//   try {
+//     const response = await fetch(url, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(req),
+//     });
+//     if (response.ok) {
+//       const data = await response.json();
+//       return data; // 返回创建结果
+//     } else {
+//       console.log(response, 'responseresponseresponseresponseresponse');
+
+//       return response;
+//     }
+//   } catch (error) {
+//     console.log(error, 'responseresponseresponseresponseresponse');
+//     return error;
+//   }
+// }
+export async function createMachine(req: any) {
+  const url = 'https://testnet.dbcscan.io/nestapi/machine';
+  const timeout = 120000;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req),
+      signal: controller.signal,
     });
-    if (response.ok) {
-      const data = await response.json();
-      return data; // 返回创建结果
-    } else {
-      console.log(response, 'responseresponseresponseresponseresponse');
+    clearTimeout(timeoutId);
 
-      return response;
+    const rawText = await response.text();
+    console.log('Status:', response.status, 'Raw:', rawText);
+
+    const data = JSON.parse(rawText);
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(`请求失败: ${response.status}`);
     }
   } catch (error) {
-    console.log(error, 'responseresponseresponseresponseresponse');
-    return error;
+    clearTimeout(timeoutId);
+    console.error('Fetch error:', error);
+    throw error;
   }
 }
-
 // 解除质押
 export async function usStake(mashineId: any) {
   // const url = `/nestapi/machine?address=${encodeURIComponent(address)}`;
