@@ -1,7 +1,7 @@
 // pages/api/nestapi/[...path].js
 
 const handler = async (nextReq, nextRes) => {
-  const url = `http://localhost:3001/nestapi/${nextReq.query.path?.join('/') || ''}`;
+  const url = `http://localhost:3001/${nextReq.query.path?.join('/') || ''}`; // 移除 /nestapi/
   console.log('Proxying to:', url);
 
   try {
