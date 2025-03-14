@@ -22,7 +22,6 @@ const moduleExports = {
   i18n,
   transpilePackages: ['react-syntax-highlighter', 'swagger-client', 'swagger-ui-react'],
   reactStrictMode: true,
-  proxyTimeout: 300000, // 代理超时设为 300 秒（5 分钟）
 
   webpack(config, { isServer, webpack }) {
     config.plugins.push(

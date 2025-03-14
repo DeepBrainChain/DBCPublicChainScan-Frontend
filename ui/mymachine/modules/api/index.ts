@@ -31,30 +31,64 @@ export async function fetchMachineData(address: any) {
 }
 
 // 创建机器
-export async function createMachine(req: any) {
-  // const url = '/nestapi/machine';
+// export async function createMachine(req: any) {
+//   // const url = '/nestapi/machine';
 
-  const url = baseUrl;
+//   const url = baseUrl;
+
+//   try {
+//     const response = await fetch(url, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify(req),
+//     });
+//     if (response.ok) {
+//       const data = await response.json();
+//       return data; // 返回创建结果
+//     } else {
+//       console.log(response, 'responseresponseresponseresponseresponse');
+
+//       return response;
+//     }
+//   } catch (error) {
+//     console.log(error, 'responseresponseresponseresponseresponse');
+//     return error;
+//   }
+// }
+
+// index.ts
+export async function createMachine(req: any) {
+  // 是否是生产环境
+  const isProduction = process.env.NODE_ENV === 'production';
+  // 开发环境baseUrl
+  const url = isProduction ? 'https://testnet.dbcscan.io/api/nestapi/machine' : 'http://localhost:3001/machine';
+
+  const timeout = 120000;
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
 
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req),
+      signal: controller.signal,
     });
-    if (response.ok) {
-      const data = await response.json();
-      return data; // 返回创建结果
-    } else {
-      console.log(response, 'responseresponseresponseresponseresponse');
+    clearTimeout(timeoutId);
+    console.log('Status:', response.status, 'Raw:', await response.text());
 
-      return response;
+    const data = await response.json();
+    if (response.ok) {
+      return data;
+    } else {
+      throw new Error(`请求失败: ${response.status}`);
     }
   } catch (error) {
-    console.log(error, 'responseresponseresponseresponseresponse');
-    return error;
+    clearTimeout(timeoutId);
+    console.error('Fetch error:', error);
+    throw error;
   }
 }
 

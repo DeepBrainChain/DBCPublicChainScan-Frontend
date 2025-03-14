@@ -74,6 +74,7 @@
     "graphiql": "^2.2.0",
     "graphql": "^16.8.1",
     "graphql-ws": "^5.11.3",
+    "http-proxy": "^1.18.1",
     "i18next": "^24.2.2",
     "ignore-loader": "^0.1.2",
     "js-cookie": "^3.0.1",
