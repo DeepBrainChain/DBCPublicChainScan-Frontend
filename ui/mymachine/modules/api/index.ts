@@ -80,9 +80,9 @@ export async function deleteMachine(id: any) {
 }
 
 // 获得时间戳
-export async function getTimestamp(mashineId: any) {
+export async function usStake(mashineId: any) {
   // const url = `/nestapi/machine?address=${encodeURIComponent(address)}`;
-  const url = `${baseUrl}/getMachineTime?mashineId=${encodeURIComponent(mashineId)}`;
+  const url = `${baseUrl}/unStake?mashineId=${mashineId}`;
 
   try {
     const response = await fetch(url, {
