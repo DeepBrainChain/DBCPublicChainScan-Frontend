@@ -68,6 +68,12 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     setLoading(true);
     // refetch();
 
+    // try {
+
+    // } catch (error) {
+
+    // }
+
     const hash = await nftApproval.writeContractAsync({
       address: NFT_CONTRACT_ADDRESS,
       abi: nftAbi,
@@ -159,95 +165,6 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       };
     }
   };
-
-  // 最终的质押方法
-  // const staking = useWriteContract();
-  // const stake = async () => {
-  //   try {
-  //     console.log('开始刷新 NFT 余额...');
-  //     const { data: newNftData } = await refetch();
-  //     console.log(newNftData, 'nftDatanftDatanftDatanftData');
-
-  //     const hash = await staking.writeContractAsync({
-  //       address: STAKING_CONTRACT_ADDRESS,
-  //       abi: stakingAbi,
-  //       functionName: 'stake',
-  //       args: [
-  //         address,
-  //         rentalMachineIdOnChain,
-  //         newNftData === undefined ? [] : newNftData[0],
-  //         newNftData === undefined ? [] : newNftData[1],
-  //         machineId,
-  //       ],
-  //     });
-  //     console.log('质押:', hash);
-  //     toast({
-  //       position: 'top',
-  //       title: '交易已发送',
-  //       status: 'success',
-  //       description: `质押交易发送成功，请等待成功！hash:${hash}`,
-  //       isClosable: true,
-  //     });
-  //     waitForTransactionReceipt(config, { hash: hash }).then((receipt) => {
-  //       console.log(receipt);
-  //       if (receipt.status === 'success') {
-  //         console.log('成功质押了');
-
-  //         // 在组件中定义创建机器的函数
-  //         const handleCreateMachine = async () => {
-  //           const machineData = {
-  //             address: address,
-  //             machineId: rentalMachineIdOnChain,
-  //             numberOfNodes: nftNodeCount,
-  //             rentalMachineId: machineId,
-  //           };
-
-  //           try {
-  //             const res: any = await createMachine(machineData);
-  //             if (res.code === 1000) {
-  //               toast({
-  //                 position: 'top',
-  //                 title: '成功',
-  //                 status: 'success',
-  //                 description: '成功质押了',
-  //                 isClosable: true,
-  //               });
-  //               if (onPledgeModalClose) {
-  //                 onPledgeModalClose();
-  //               }
-  //             } else {
-  //               toast({
-  //                 position: 'top',
-  //                 title: '质押成功，但创建机器失败！',
-  //                 status: 'error',
-  //                 description: res.msg,
-  //                 isClosable: true,
-  //               });
-  //               setLoading(false);
-  //             }
-  //           } catch (err: any) {
-  //             console.log(err, '////////////////');
-  //             toast({
-  //               position: 'top',
-  //               title: '警告',
-  //               status: 'warning',
-  //               description: '质押成功，但创建机器失败！',
-  //               isClosable: true,
-  //             });
-  //             setLoading(false);
-  //           }
-  //         };
-  //         handleCreateMachine();
-  //       } else {
-  //         console.log('失败了', receipt);
-  //         setLoading(false);
-  //       }
-  //     });
-  //   } catch (error: any) {
-  //     setLoading(false);
-  //     console.log(error, 'errorerror');
-  //   }
-  // };
 
   // DLC 授权
   const [dlcBtnLoading, setDlcBtnLoading] = useState(false);

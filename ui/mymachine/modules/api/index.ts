@@ -2,6 +2,7 @@
 const isProduction = process.env.NODE_ENV === 'production';
 // 开发环境baseUrl
 const baseUrl = isProduction ? '/nestapi/machine' : 'http://localhost:3001/machine';
+import { useToast } from '@chakra-ui/react';
 
 // 获取机器列表数据
 export async function fetchMachineData(address: any) {
@@ -42,16 +43,31 @@ export async function createMachine(req: any) {
       },
       body: JSON.stringify(req),
     });
+    console.log(response, '创建机器返回的数据');
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    if (response.ok) {
+      const data = await response.json();
+      return data; // 返回创建结果
+    } else {
+      const toast = useToast();
+      toast({
+        title: '错误',
+        description: '请求失败',
+        status: 'error',
+        duration: 5000,
+      });
+      console.log(response, 'responseresponseresponseresponseresponse');
     }
-
-    const data = await response.json();
-    return data; // 返回创建结果
   } catch (error) {
+    const toast = useToast();
+
     console.error('Error creating machine:', error);
-    throw error; // 抛出错误，供调用者处理
+    toast({
+      title: '错误',
+      description: '请求失败',
+      status: 'error',
+      duration: 5000,
+    });
   }
 }
 
