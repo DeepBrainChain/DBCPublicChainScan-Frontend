@@ -31,64 +31,30 @@ export async function fetchMachineData(address: any) {
 }
 
 // 创建机器
-// export async function createMachine(req: any) {
-//   // const url = '/nestapi/machine';
-
-//   const url = baseUrl;
-
-//   try {
-//     const response = await fetch(url, {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(req),
-//     });
-//     if (response.ok) {
-//       const data = await response.json();
-//       return data; // 返回创建结果
-//     } else {
-//       console.log(response, 'responseresponseresponseresponseresponse');
-
-//       return response;
-//     }
-//   } catch (error) {
-//     console.log(error, 'responseresponseresponseresponseresponse');
-//     return error;
-//   }
-// }
-
-// index.ts
 export async function createMachine(req: any) {
-  // 是否是生产环境
-  const isProduction = process.env.NODE_ENV === 'production';
-  // 开发环境baseUrl
-  const url = isProduction ? 'https://testnet.dbcscan.io/nestapi/machine' : 'http://localhost:3001/machine';
+  // const url = '/nestapi/machine';
 
-  const timeout = 120000;
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  const url = baseUrl;
 
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(req),
-      signal: controller.signal,
     });
-    clearTimeout(timeoutId);
-    console.log('Status:', response.status, 'Raw:', await response.text());
-
-    const data = await response.json();
     if (response.ok) {
-      return data;
+      const data = await response.json();
+      return data; // 返回创建结果
     } else {
-      throw new Error(`请求失败: ${response.status}`);
+      console.log(response, 'responseresponseresponseresponseresponse');
+
+      return response;
     }
   } catch (error) {
-    clearTimeout(timeoutId);
-    console.error('Fetch error:', error);
-    throw error;
+    console.log(error, 'responseresponseresponseresponseresponse');
+    return error;
   }
 }
 
