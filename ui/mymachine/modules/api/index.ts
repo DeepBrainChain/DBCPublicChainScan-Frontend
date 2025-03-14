@@ -2,6 +2,7 @@
 const isProduction = process.env.NODE_ENV === 'production';
 // 开发环境baseUrl
 const baseUrl = isProduction ? '/nestapi/machine' : 'http://localhost:3001/machine';
+import axios from 'axios';
 
 // 获取机器列表数据
 export async function fetchMachineData(address: any) {
@@ -57,36 +58,34 @@ export async function fetchMachineData(address: any) {
 //     return error;
 //   }
 // }
+
+// 创建机器
 export async function createMachine(req: any) {
-  const url = 'https://testnet.dbcscan.io/nestapi/machine';
-  const timeout = 120000;
-  const controller = new AbortController();
-  const timeoutId = setTimeout(() => controller.abort(), timeout);
+  const url = baseUrl; // 保持您的 baseUrl，例如 'https://testnet.dbcscan.io/nestapi/machine'
 
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(req),
-      signal: controller.signal,
+    const response = await axios.post(url, req, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      timeout: 100000000,
     });
-    clearTimeout(timeoutId);
 
-    const rawText = await response.text();
-    console.log('Status:', response.status, 'Raw:', rawText);
-
-    const data = JSON.parse(rawText);
-    if (response.ok) {
-      return data;
+    // axios 的 response.data 直接是解析后的 JSON
+    return response.data; // 返回创建结果
+  } catch (error: any) {
+    if (error.response) {
+      // 请求已发出，但服务器返回错误状态码（如 500）
+      console.log(error.response, 'responseresponseresponseresponseresponse');
+      return error.response; // 返回错误响应
     } else {
-      throw new Error(`请求失败: ${response.status}`);
+      // 请求未发出（如网络错误）
+      console.log(error, 'responseresponseresponseresponseresponse');
+      return error;
     }
-  } catch (error) {
-    clearTimeout(timeoutId);
-    console.error('Fetch error:', error);
-    throw error;
   }
 }
+
 // 解除质押
 export async function usStake(mashineId: any) {
   // const url = `/nestapi/machine?address=${encodeURIComponent(address)}`;

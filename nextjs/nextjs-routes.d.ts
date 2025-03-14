@@ -21,7 +21,6 @@ declare module "nextjs-routes" {
     | StaticRoute<"/api/log">
     | StaticRoute<"/api/media-type">
     | StaticRoute<"/api/metrics">
-    | DynamicRoute<"/api/nestapi/[...path]", { "path": string[] }>
     | StaticRoute<"/api/proxy">
     | StaticRoute<"/api-docs">
     | StaticRoute<"/apps">
