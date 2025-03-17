@@ -52,7 +52,7 @@ export function app(): CspDev.DirectiveDescriptor {
       '*.walletconnect.org',
       'wss://relay.walletconnect.com', // 保留 .com
       'wss://relay.walletconnect.org',
-
+      'https://rpc.walletconnect.com',
       // APIs
       config.api.endpoint,
       config.api.socket,
