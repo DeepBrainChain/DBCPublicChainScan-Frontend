@@ -12,7 +12,7 @@ const wagmiConfig = (() => {
       throw new Error();
     }
 
-    const chains: CreateConfigParameters['chains'] = [ currentChain ];
+    const chains: CreateConfigParameters['chains'] = [currentChain];
 
     const wagmiConfig = defaultWagmiConfig({
       chains,
@@ -22,10 +22,10 @@ const wagmiConfig = (() => {
       },
       projectId: feature.walletConnect.projectId,
       metadata: {
-        name: `${ config.chain.name } explorer`,
-        description: `${ config.chain.name } explorer`,
+        name: `${config.chain.name} explorer`,
+        description: `${config.chain.name} explorer`,
         url: config.app.baseUrl,
-        icons: [ config.UI.sidebar.icon.default ].filter(Boolean),
+        icons: [config.UI.sidebar.icon.default].filter(Boolean),
       },
       enableEmail: true,
       ssr: true,
