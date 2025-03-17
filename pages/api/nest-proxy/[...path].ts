@@ -4,8 +4,10 @@ import fetch from 'node-fetch';
 const BACKEND_URL = 'http://8.214.55.62:3001';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { path } = req.query;
-  const targetUrl = `${BACKEND_URL}/${Array.isArray(path) ? path.join('/') : path || ''}`;
+  const { path, ...queryParams } = req.query; // 分离路径和查询参数
+  const basePath = Array.isArray(path) ? path.join('/') : path || '';
+  const queryString = new URLSearchParams(queryParams as Record<string, string>).toString();
+  const targetUrl = `${BACKEND_URL}/${basePath}${queryString ? `?${queryString}` : ''}`;
 
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 300000);
@@ -17,13 +19,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       signal: controller.signal,
     };
 
-    // 修复 body 处理
     if (req.method !== 'GET' && req.method !== 'HEAD' && req.body !== undefined) {
       fetchOptions.body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
-      fetchOptions.headers = {
-        ...fetchOptions.headers,
-        'Content-Type': 'application/json',
-      };
+      fetchOptions.headers = { ...fetchOptions.headers, 'Content-Type': 'application/json' };
     }
 
     console.log('代理请求:', { targetUrl, method: req.method, body: fetchOptions.body });
