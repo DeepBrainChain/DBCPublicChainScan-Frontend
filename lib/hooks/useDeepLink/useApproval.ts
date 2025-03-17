@@ -5,27 +5,22 @@ import stakingAbi from './stakingLongAbi.json';
 import { useToast } from '@chakra-ui/react';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useEffect, useState } from 'react';
-
-// 主网：
-// 长租质押合约：0x3c059dbe0f42d65acd763c3c3da8b5a1b12bb74f
-//  NFT: 0x905dE58579886C5afe9B6406CFDE82bd6a1087C1
-//  DLC: 0xC8b47112D5413c6d06D4BB7573fD903908246614
-// 短租质押合约：0x6268aba94d0d0e4fb917cc02765f631f309a7388
+import { useContractAddress } from '../../../lib/hooks/useContractAddress';
+import { createMachine } from '../../../ui/mymachine/modules/api/index';
 
 // machin ID: a8aeafb706433fc89c16817e8405705bd66f28b6d5cfc46c9da2faf7b204da78
 // private key: d85789ca443866f898a928bba3d863a5e3c66dc03b03a7d947e8dde99e19368e
-const NFT_CONTRACT_ADDRESS = '0x905dE58579886C5afe9B6406CFDE82bd6a1087C1';
-const DLC_TOKEN_ADDRESS = '0xC8b47112D5413c6d06D4BB7573fD903908246614';
-const STAKING_CONTRACT_ADDRESS = '0x7FDC6ed8387f3184De77E0cF6D6f3B361F906C21';
-import { createMachine } from '../../../ui/mymachine/modules/api/index';
 
 export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseDLC?: () => void) {
   const { address, isConnected } = useAccount();
   const toast = useToast();
   const config = useConfig(); // 获取全局配置
-
+  const NFT_CONTRACT_ADDRESS = useContractAddress('NFT_CONTRACT_ADDRESS');
+  const DLC_TOKEN_ADDRESS = useContractAddress('DLC_TOKEN_ADDRESS');
+  const STAKING_CONTRACT_ADDRESS_LONG = useContractAddress('STAKING_CONTRACT_ADDRESS_LONG');
   // 读取 NFT 余额 (getBalance)
   const [nftNodeCount, setNftNodeCount] = useState('');
+
   const {
     data: nftData,
     isLoading,
@@ -39,12 +34,6 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       enabled: !!address && !!nftNodeCount,
     },
   }) as any;
-
-  useEffect(() => {
-    if (!isLoading) {
-      console.log(nftData, 'VVVVVVVVVVVVVVVVVVVVVVVVVV');
-    }
-  }, [isLoading]);
 
   // NFT 授权
   const [nftLoading, setLoading] = useState(false);
@@ -66,19 +55,12 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     }
 
     setLoading(true);
-    // refetch();
-
-    // try {
-
-    // } catch (error) {
-
-    // }
 
     const hash = await nftApproval.writeContractAsync({
       address: NFT_CONTRACT_ADDRESS,
       abi: nftAbi,
       functionName: 'setApprovalForAll',
-      args: [STAKING_CONTRACT_ADDRESS, true],
+      args: [STAKING_CONTRACT_ADDRESS_LONG, true],
     });
     console.log(hash, '授权交易hash');
 
@@ -190,7 +172,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       address: DLC_TOKEN_ADDRESS,
       abi: erc20Abi,
       functionName: 'approve',
-      args: [STAKING_CONTRACT_ADDRESS, dlcNodeCount],
+      args: [STAKING_CONTRACT_ADDRESS_LONG, dlcNodeCount],
     });
 
     console.log('dlc授权hash:', hash);
@@ -238,44 +220,8 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
   // 开始质押 DLC
   const handleAddDLCToStake = async () => {
     try {
-      // return toast.promise(
-      //   dlcStake.writeContractAsync({
-      //     address: STAKING_CONTRACT_ADDRESS,
-      //     abi: stakingAbi,
-      //     functionName: 'addDLCToStake',
-      //     args: [dlcNodeId, dlcNodeCount], // 使用传入的 machineId 和 amount
-      //   }),
-      //   {
-      //     loading: {
-      //       title: 'In Progress',
-      //       description: 'Please confirm the transaction in your wallet',
-      //       position: 'top',
-      //     },
-      //     success: (txHash) => {
-      //       console.log('DLC staking transaction sent:', txHash);
-      //       return {
-      //         title: 'Transaction Sent',
-      //         description: 'DLC transaction sent successfully, please wait for confirmation!',
-      //         position: 'top',
-      //         duration: 2000,
-      //         isClosable: true,
-      //       };
-      //     },
-      //     error: (err) => {
-      //       setDlcBtnLoading(false);
-      //       return {
-      //         title: 'Transaction sending failed',
-      //         description: err.message || 'Please check wallet settings or network',
-      //         position: 'top',
-      //         status: 'error',
-      //         duration: 2000,
-      //         isClosable: true,
-      //       };
-      //     },
-      //   }
-      // );
       const hash = await dlcStake.writeContractAsync({
-        address: STAKING_CONTRACT_ADDRESS,
+        address: STAKING_CONTRACT_ADDRESS_LONG,
         abi: stakingAbi,
         functionName: 'addDLCToStake',
         args: [dlcNodeId, dlcNodeCount], // 使用传入的 machineId 和 amount

@@ -5,6 +5,7 @@ import React, { useEffect } from 'react';
 import stakingAbi from '../../lib/hooks/useDeepLink/stakingAbi.json';
 import { useReadContract } from 'wagmi';
 import { formatUnits } from 'viem'; // 使用 viem 的格式化工具
+import { useContractAddress } from '../../lib/hooks/useContractAddress';
 
 interface Props {
   id: string;
@@ -41,12 +42,12 @@ const MarketplaceAppCard = ({
     query: { id },
   };
 
-  const STAKING_CONTRACT_ADDRESS = '0x59bb02e28e8335c38a275eb0efd158f0065a447d';
+  const STAKING_CONTRACT_ADDRESS_SHORT = useContractAddress('STAKING_CONTRACT_ADDRESS_SHORT');
 
   // 读取 dailyRewardAmount
 
   const { data: dailyRewardAmount, isLoading: rewardLoading } = useReadContract({
-    address: STAKING_CONTRACT_ADDRESS,
+    address: STAKING_CONTRACT_ADDRESS_SHORT,
     abi: stakingAbi,
     functionName: 'dailyRewardAmount',
   });
@@ -58,7 +59,7 @@ const MarketplaceAppCard = ({
       : '0.00';
 
   const { data: totalStakingGpuCount, isLoading: gpuLoading } = useReadContract({
-    address: STAKING_CONTRACT_ADDRESS,
+    address: STAKING_CONTRACT_ADDRESS_SHORT,
     abi: stakingAbi,
     functionName: 'totalStakingGpuCount',
   });
@@ -88,7 +89,7 @@ const MarketplaceAppCard = ({
         border="1px"
         borderColor={useColorModeValue('gray.200', 'gray.600')}
         bg={useColorModeValue('white', 'gray.800')}
-        onClick={(e) => onAppClick(e, id)}
+        onClick={(e: any) => onAppClick(e, id)}
         display="block"
       >
         <Flex direction="column" gap={4}>
