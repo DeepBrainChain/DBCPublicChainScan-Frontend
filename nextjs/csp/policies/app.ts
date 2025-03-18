@@ -46,7 +46,6 @@ export function app(): CspDev.DirectiveDescriptor {
       config.app.isDev ? 'ws://localhost:3000/_next/webpack-hmr' : '',
       config.app.isDev ? 'http://localhost:3001' : 'http://8.214.55.62:3001',
       'https://dbchaininfo.congtu.cloud/',
-      'https://c00.reckonkvm.com',
       'wss://testnet.dbcscan.io',
       '*.walletconnect.com', // 通配符支持所有 .com 子域
       '*.walletconnect.org',

@@ -43,7 +43,6 @@ const TopBarStats = () => {
       return data;
     } catch (error) {
       console.error('Error fetching DBC info:', error);
-      throw error;
     }
   }
 

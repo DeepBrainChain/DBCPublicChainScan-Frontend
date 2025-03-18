@@ -199,7 +199,7 @@ const nativeTokenData = {
 };
 
 // 定义 getIndicators 函数，接受 t 参数
-export const getIndicators = (t: TFunction): Array<TChainIndicator<any>> => [
+export const getIndicators = (t: TFunction, dbcInfo: any): Array<TChainIndicator<any>> => [
   {
     id: 'daily_txs',
     title: t('daily-transactions'),
@@ -231,14 +231,14 @@ export const getIndicators = (t: TFunction): Array<TChainIndicator<any>> => [
     id: 'coin_price',
     title: `${config.chain.currency.symbol} ${t('price')}`,
     value: (stats) =>
-      stats.coin_price === null
+      dbcInfo.price === null
         ? '$N/A'
         : '$' +
-          Number(stats.coin_price).toLocaleString(undefined, {
+          Number(dbcInfo.price).toLocaleString(undefined, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 6,
           }),
-    valueDiff: (stats) => (stats?.coin_price !== null ? stats?.coin_price_change_percentage : null),
+    valueDiff: (stats) => (dbcInfo.price !== null ? dbcInfo.change : null),
     icon: <TokenEntity.Icon token={nativeTokenData} boxSize={6} marginRight={0} />,
     hint: `${config.chain.currency.symbol} ${t('token-daily-price-usd')}`,
     api: {

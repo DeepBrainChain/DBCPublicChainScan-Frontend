@@ -20,7 +20,6 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
   const STAKING_CONTRACT_ADDRESS_LONG = useContractAddress('STAKING_CONTRACT_ADDRESS_LONG');
   // 读取 NFT 余额 (getBalance)
   const [nftNodeCount, setNftNodeCount] = useState('');
-
   const {
     data: nftData,
     isLoading,

@@ -5,8 +5,10 @@ import type { CreateConfigParameters } from 'wagmi';
 import config from 'configs/app';
 import currentChain from 'lib/web3/currentChain';
 const feature = config.features.blockchainInteraction;
+import { getEnvValue } from '../../configs/app/utils';
 
 const wagmiConfig = (() => {
+  console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL'), 'AAAAAAAAAAAAAAAa');
   try {
     if (!feature.isEnabled) {
       throw new Error();
@@ -18,7 +20,7 @@ const wagmiConfig = (() => {
       chains,
       multiInjectedProviderDiscovery: true,
       transports: {
-        [currentChain.id]: http(),
+        [currentChain.id]: http(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL')),
       },
       projectId: feature.walletConnect.projectId,
       metadata: {

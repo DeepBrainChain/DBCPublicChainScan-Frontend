@@ -1,5 +1,5 @@
 import { Box, Flex, Skeleton, Text, useColorModeValue } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import config from 'configs/app';
 import useApiQuery from 'lib/api/useApiQuery';
@@ -32,7 +32,54 @@ import { getIndicators } from './utils/indicators'; // 导入 getIndicators
 const ChainIndicators = () => {
   const { t } = useTranslation('common');
 
-  const indicators = getIndicators(t)
+  // 价格
+  const [dbcInfo, setDbcInfo] = React.useState({
+    price: 0,
+    change: 0,
+  });
+
+  async function fetchDbcInfo() {
+    const url = 'https://dbchaininfo.congtu.cloud/query/dbc_info';
+
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data: any = await response.json();
+      console.log(data, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
+      setDbcInfo({
+        price: data.content.dbc_price,
+        change: data.content.percent_change_24h,
+      });
+      return data;
+    } catch (error) {
+      console.error('Error fetching DBC info:', error);
+    }
+  }
+
+  const { data, isPlaceholderData, isError, refetch, dataUpdatedAt } = useApiQuery('stats', {
+    queryOptions: {
+      placeholderData: HOMEPAGE_STATS,
+      refetchOnMount: false,
+    },
+  });
+
+  React.useEffect(() => {
+    if (isPlaceholderData || !data?.gas_price_updated_at) {
+      return;
+    }
+    fetchDbcInfo();
+  }, [isPlaceholderData, data?.gas_price_updated_at, dataUpdatedAt, data?.gas_prices_update_in, refetch]);
+
+  const indicators = getIndicators(t, dbcInfo)
     .filter(({ id }) => config.UI.homepage.charts.includes(id))
     .sort((a, b) => {
       if (config.UI.homepage.charts.indexOf(a.id) > config.UI.homepage.charts.indexOf(b.id)) {
@@ -50,13 +97,14 @@ const ChainIndicators = () => {
   const indicator = indicators.find(({ id }) => id === selectedIndicator);
 
   const queryResult = useFetchChartData(indicator);
+
   const statsQueryResult = useApiQuery('stats', {
     queryOptions: {
       refetchOnMount: false,
       placeholderData: HOMEPAGE_STATS,
     },
   });
-
+  // console.log(statsQueryResult, 'statsQueryResultstatsQueryResultstatsQueryResultstatsQueryResult');
   const bgColorDesktop = useColorModeValue('white', 'gray.900');
   const bgColorMobile = useColorModeValue('white', 'black');
   const listBgColorDesktop = useColorModeValue('gray.50', 'black');
