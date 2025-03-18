@@ -52,6 +52,7 @@ export function app(): CspDev.DirectiveDescriptor {
       'wss://relay.walletconnect.com', // 保留 .com
       'wss://relay.walletconnect.org',
       'https://rpc.walletconnect.com',
+      'https://rpc.dbcwallet.io', // 新增
       // APIs
       config.api.endpoint,
       config.api.socket,
