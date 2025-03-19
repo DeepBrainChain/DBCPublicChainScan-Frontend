@@ -74,7 +74,6 @@ const WalletMenuDesktop = ({ isHomePage, className, size = 'md' }: Props) => {
     setIsPopoverOpen.toggle();
   }, [setIsPopoverOpen]);
 
-  console.log('KKKKKKKKKKKKKKKKKKKKKKKKKKKKKK');
   return (
     <Popover
       openDelay={300}

@@ -41,7 +41,6 @@ const GasInfoTooltip = ({ children, data, dataUpdatedAt, isOpen }: Props) => {
   if (!data.gas_prices) {
     return null;
   }
-  console.log('111');
   const columnNum =
     Object.values(data.gas_prices).some((price) => price?.fiat_price) &&
     Object.values(data.gas_prices).some((price) => price?.price) &&

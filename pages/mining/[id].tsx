@@ -65,7 +65,6 @@ export default function MiningAppDetail() {
   const { t, i18n } = useTranslation('common');
 
   useEffect(() => {
-    console.log(router, 'routerrouter');
     if (id && gpuMiningData) {
       const matchedApp = gpuMiningData.find((app) => app.id === id || app.title === id);
 

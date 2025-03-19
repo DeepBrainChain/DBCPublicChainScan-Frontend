@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Text,
@@ -18,12 +18,76 @@ import {
   useDisclosure,
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import dbcAbi from './abi/dbcAbi.json';
+import stakeAbi from './abi/stakeAbi.json';
+import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi';
+import { waitForTransactionReceipt } from 'wagmi/actions';
+import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
+import { parseEther } from 'viem';
 
 function cpuStakeDbcBtn() {
   const { t } = useTranslation('common');
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [gpuCount, setGpuCount] = React.useState('');
-  const [machineId, setMachineId] = React.useState('');
+  const [pledgedDbcCount, setPledgedDbcCount] = React.useState('');
+  const [dockerId, setDockerId] = React.useState('');
+  const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
+  const { address, isConnected } = useAccount();
+  const toast = useToast();
+  const config = useConfig();
+  const [loading, setLoading] = useState(false);
+  const stake = useWriteContract();
+
+  // 开始质押dbc
+  const startStakeDBC = async () => {
+    if (!isConnected) {
+      toast({
+        position: 'top',
+        title: '提示',
+        description: '请先连接你的钱包',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      // 质押
+      const stakeHash = await stake.writeContractAsync({
+        address: DBC_CONTRACT_ADDRESS,
+        abi: dbcAbi,
+        functionName: 'stakeDbc',
+        args: [dockerId, parseEther(pledgedDbcCount)],
+        value: parseEther(pledgedDbcCount),
+      });
+
+      const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
+      if (stakeReceipt.status !== 'success') {
+        throw new Error('质押交易失败');
+      }
+
+      toast({
+        position: 'top',
+        title: '成功',
+        status: 'success',
+        description: '质押成功！',
+        isClosable: true,
+      });
+      onClose();
+    } catch (error: any) {
+      toast({
+        position: 'top',
+        title: '失败',
+        status: 'error',
+        description: error.message || '操作失败',
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div>
@@ -41,8 +105,8 @@ function cpuStakeDbcBtn() {
               <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('gpu-count')}</FormLabel>
                 <Input
-                  value={gpuCount}
-                  onChange={(e) => setGpuCount(e.target.value)}
+                  value={pledgedDbcCount}
+                  onChange={(e) => setPledgedDbcCount(e.target.value)}
                   placeholder={t('input-gpu-count')}
                   size="sm"
                 />
@@ -52,14 +116,14 @@ function cpuStakeDbcBtn() {
               <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('machine-id')}</FormLabel>
                 <Input
-                  value={machineId}
-                  onChange={(e) => setMachineId(e.target.value)}
+                  value={dockerId}
+                  onChange={(e) => setDockerId(e.target.value)}
                   placeholder={t('input-machine-id')}
                   size="sm"
                 />
               </FormControl>
 
-              <Button colorScheme="blue" width="full" onClick={onClose}>
+              <Button isLoading={loading} colorScheme="blue" width="full" onClick={startStakeDBC}>
                 {t('submit')}
               </Button>
             </div>

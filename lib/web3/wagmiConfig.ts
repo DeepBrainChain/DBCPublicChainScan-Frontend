@@ -20,7 +20,7 @@ const wagmiConfig = (() => {
       chains,
       multiInjectedProviderDiscovery: true,
       transports: {
-        [currentChain.id]: http('https://rpc.dbcwallet.io'),
+        [currentChain.id]: http('https://rpc-testnet.dbcwallet.io'),
       },
       projectId: feature.walletConnect.projectId,
       metadata: {

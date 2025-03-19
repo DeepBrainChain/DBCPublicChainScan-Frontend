@@ -7,16 +7,17 @@ import { useToast } from '@chakra-ui/react';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useEffect, useState } from 'react';
 import { parseEther } from 'viem';
-
-const NFT_CONTRACT_ADDRESS = '0xC40ba6AC7Fcd11B8E0Dc73c86b0F8D63714F6494';
-const DGC_CONTRACT_ADDRESS = '0xb6aD0ddC796A110D469D868F6A94c80e3f53D384';
-const DBC_CONTRACT_ADDRESS = '0x8CD8F5517ab18edfA7c121140B03229cD0771B83';
-const FREEMODE_CONTRACT_ADDRESS = '0x9b35c3b9E13E058d958364eA0e7692a0d5D39Ab4';
+import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
 
 export function useFreeH(nftOnPledgeModalClose: () => void, dbcOnPledgeModalClose: () => void) {
   const { address, isConnected } = useAccount();
   const toast = useToast();
   const config = useConfig(); // 获取全局配置
+
+  const NFT_CONTRACT_ADDRESS = '0xC40ba6AC7Fcd11B8E0Dc73c86b0F8D63714F6494';
+  const DGC_CONTRACT_ADDRESS = '0xb6aD0ddC796A110D469D868F6A94c80e3f53D384';
+  const FREEMODE_CONTRACT_ADDRESS = '0x9b35c3b9E13E058d958364eA0e7692a0d5D39Ab4';
+  const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
 
   // 授权NFT
   const [nftBtnLoading, setNftBtnLoading] = useState(false);
