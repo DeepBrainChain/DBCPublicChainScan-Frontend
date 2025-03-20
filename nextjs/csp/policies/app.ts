@@ -53,6 +53,8 @@ export function app(): CspDev.DirectiveDescriptor {
       'wss://relay.walletconnect.org',
       'https://rpc.walletconnect.com',
       'https://rpc.dbcwallet.io', // 新增
+      'https://health0.deepbrainchain.org',
+      'https://health-test.deepbrainchain.org',
       // APIs
       config.api.endpoint,
       config.api.socket,

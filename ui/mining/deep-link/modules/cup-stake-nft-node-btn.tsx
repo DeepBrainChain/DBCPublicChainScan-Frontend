@@ -23,6 +23,7 @@ import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi'
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import nftAbi from '../../../../lib/hooks/useDeepLink/nftAbi.json';
 import stakeAbi from './abi/stakeAbi.json';
+import { useContractActions } from '../hooks/stake-before';
 
 function cpuStakeNftBtn() {
   const { t } = useTranslation('common');
@@ -30,16 +31,15 @@ function cpuStakeNftBtn() {
   const { address, isConnected } = useAccount();
   const toast = useToast();
   const config = useConfig();
-
   const NFT_CONTRACT_ADDRESS = useContractAddress('CPU_CONTRACT_ADDRESS_NFT');
   const CPU_CONTRACT_ADDRESS_STAKING = useContractAddress('CPU_CONTRACT_ADDRESS_STAKING');
-
   const [nftNodeCount, setNftNodeCount] = useState('');
   const [loading, setLoading] = useState(false);
   const [machineId, setMachineId] = useState('');
   const [rentId, setRentId] = useState('');
   const nftApproval = useWriteContract();
   const stake = useWriteContract();
+  const { register, unregister } = useContractActions(machineId);
 
   const { data: nftData, refetch } = useReadContract({
     address: NFT_CONTRACT_ADDRESS,
@@ -73,6 +73,11 @@ function cpuStakeNftBtn() {
       isClosable: false,
     });
     try {
+      const res: any = await register();
+      console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
+      if (res.code !== 0) {
+        throw new Error('注册接口失败');
+      }
       // 授权
       const approvalHash = await nftApproval.writeContractAsync({
         address: NFT_CONTRACT_ADDRESS,

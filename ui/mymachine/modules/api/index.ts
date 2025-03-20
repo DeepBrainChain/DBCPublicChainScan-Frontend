@@ -3,6 +3,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 // 开发环境baseUrl
 const baseUrl = isProduction ? '/nestapi/machine' : 'http://localhost:3001/machine';
 // const baseUrl = isProduction ? 'https://c00.reckonkvm.com/machine' : 'http://localhost:3001/machine';
+import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
 
 // 获取机器列表数据
 export async function fetchMachineData(address: any) {
@@ -68,50 +69,6 @@ export async function usStake(mashineId: any) {
 
     const data = await response.json();
     return data; // 返回数据
-  } catch (error) {
-    return error;
-  }
-}
-
-// 质押之前的注册
-export async function contractRegisterH() {
-  const url = `${baseUrl}/contractRegister`;
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      return data; // 返回创建结果
-    } else {
-      return response;
-    }
-  } catch (error) {
-    return error;
-  }
-}
-
-// 质押之前的注销
-export async function contractUnregisterH() {
-  const url = `${baseUrl}/contractUnregister`;
-
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      return data; // 返回创建结果
-    } else {
-      return response;
-    }
   } catch (error) {
     return error;
   }

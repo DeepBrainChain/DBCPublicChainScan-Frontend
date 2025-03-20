@@ -79,8 +79,8 @@ const FixedComponent = () => {
             <Text mb={2}>{t('add-gpu-to-dbc-network')}</Text>
             <Text mb={2}>
               {t('reference-document')}:
-              <LinkExternal href="https://deepbrainchain.github.io/DBC-Wiki/install-update-dbc-node/install-update-dbc/dbc-bare-metal-node.html">
-                https://deepbrainchain.github.io/DBC-Wiki/install-update-dbc-node/install-update-dbc/dbc-bare-metal-node.html
+              <LinkExternal href="https://deepbrainchain.github.io/DBC-Wiki/onchain-guide/bonding-machine.html">
+                https://deepbrainchain.github.io/DBC-Wiki/onchain-guide/bonding-machine.html
               </LinkExternal>
             </Text>
           </Box>

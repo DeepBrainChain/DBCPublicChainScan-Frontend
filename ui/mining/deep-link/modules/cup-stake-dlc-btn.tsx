@@ -23,6 +23,7 @@ import stakeAbi from './abi/stakeAbi.json';
 import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
+import { useContractActions } from '../hooks/stake-before';
 
 function cpuStakeDlcBtn() {
   const { t } = useTranslation('common');
@@ -37,6 +38,7 @@ function cpuStakeDlcBtn() {
   const stake = useWriteContract();
   const [machineId, setMachineId] = useState('');
   const [amount, setaMount] = useState('');
+  const { register, unregister } = useContractActions(machineId);
 
   // 开始质押dlc
   const startStakeDLC = async () => {
@@ -61,6 +63,11 @@ function cpuStakeDlcBtn() {
       isClosable: false,
     });
     try {
+      const res: any = await register();
+      console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
+      if (res.code !== 0) {
+        throw new Error('注册接口失败');
+      }
       // 授权
       const approvalHash = await dlcApproval.writeContractAsync({
         address: CPU_CONTRACT_ADDRESS_DLC,
