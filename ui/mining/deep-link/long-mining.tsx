@@ -33,8 +33,6 @@ const FixedComponent = () => {
   } = useDisclosure();
 
   const {
-    approveNft,
-    approveDlcToken,
     dlcBtnLoading,
     dlcNodeId,
     setdlcNodeId,
@@ -47,11 +45,13 @@ const FixedComponent = () => {
     setRentalMachineIdOnChain,
     nftNodeCount,
     setNftNodeCount,
+    startStakeNft,
+    startStakeDLC,
   } = useApproval(onPledgeModalClose, onPledgeModalCloseDLC);
 
   // nft按钮提交事件
   const handlePledgeSubmit = () => {
-    approveNft();
+    startStakeNft();
   };
 
   return (
@@ -227,7 +227,7 @@ const FixedComponent = () => {
                   size="sm"
                 />
               </FormControl>
-              <Button isLoading={dlcBtnLoading} colorScheme="blue" width="full" onClick={approveDlcToken}>
+              <Button isLoading={dlcBtnLoading} colorScheme="blue" width="full" onClick={startStakeDLC}>
                 {t('submit')}
               </Button>
             </div>
