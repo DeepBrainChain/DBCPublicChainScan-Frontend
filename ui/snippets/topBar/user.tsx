@@ -2,6 +2,7 @@ import { Text, Menu, MenuButton, MenuItem, MenuList, MenuButtonProps, Spinner } 
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { FaUserPlus, FaSignOutAlt, FaUserCircle } from 'react-icons/fa';
+import { useContractActions } from '../../../ui/mining/deep-link/hooks/stake-before';
 
 const langIcon = <FaUserCircle style={{ color: 'var(--chakra-colors-blue-300)' }} />;
 

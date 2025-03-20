@@ -26,7 +26,7 @@ const TopBar = () => {
         )}
         <LanguageSwitcher />
         <Settings />
-        {router.asPath === '/mining/DeepLink' ? <MyUser /> : null}
+        {/* {router.asPath === '/mining/DeepLink' ? <MyUser /> : null} */}
       </Flex>
     </Flex>
   );
