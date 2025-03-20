@@ -50,10 +50,16 @@ function cpuStakeDbcBtn() {
       });
       return;
     }
-
+    setLoading(true);
+    const toastId = toast({
+      position: 'top',
+      title: '质押中',
+      description: '正在处理您的质押请求，请稍候...',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
     try {
-      setLoading(true);
-
       // 质押
       const stakeHash = await stake.writeContractAsync({
         address: DBC_CONTRACT_ADDRESS,
@@ -68,21 +74,23 @@ function cpuStakeDbcBtn() {
         throw new Error('质押交易失败');
       }
 
-      toast({
+      toast.update(toastId, {
         position: 'top',
         title: '成功',
         status: 'success',
-        description: '质押成功！',
+        description: 'DBC质押成功！',
+        duration: 5000,
         isClosable: true,
       });
       onClose();
     } catch (error: any) {
-      toast({
+      toast.update(toastId, {
         position: 'top',
         title: '失败',
         status: 'error',
         description: error.message || '操作失败',
         isClosable: true,
+        duration: 5000,
       });
     } finally {
       setLoading(false);

@@ -51,10 +51,16 @@ function cpuStakeDlcBtn() {
       });
       return;
     }
-
+    setLoading(true);
+    const toastId = toast({
+      position: 'top',
+      title: '质押中',
+      description: '正在处理您的质押请求，请稍候...',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
     try {
-      setLoading(true);
-
       // 授权
       const approvalHash = await dlcApproval.writeContractAsync({
         address: CPU_CONTRACT_ADDRESS_DLC,
@@ -62,26 +68,11 @@ function cpuStakeDlcBtn() {
         functionName: 'approve',
         args: [CPU_CONTRACT_ADDRESS_STAKING, true],
       });
-      toast({
-        position: 'top',
-        title: '交易已发送',
-        status: 'success',
-        description: `授权交易发送成功，请等待确认！hash:${approvalHash}`,
-        isClosable: true,
-      });
 
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
       if (approvalReceipt.status !== 'success') {
         throw new Error('授权交易失败');
       }
-
-      toast({
-        position: 'top',
-        title: '成功',
-        status: 'success',
-        description: '授权成功，开始质押，请继续等待！',
-        isClosable: true,
-      });
 
       // 质押
       const stakeHash = await stake.writeContractAsync({
@@ -96,21 +87,24 @@ function cpuStakeDlcBtn() {
         throw new Error('质押交易失败');
       }
 
-      toast({
+      toast.update(toastId, {
         position: 'top',
         title: '成功',
         status: 'success',
-        description: '质押成功！',
+        description: 'DLC质押成功！',
+        duration: 5000,
         isClosable: true,
       });
+
       onClose();
     } catch (error: any) {
-      toast({
+      toast.update(toastId, {
         position: 'top',
         title: '失败',
         status: 'error',
         description: error.message || '操作失败',
         isClosable: true,
+        duration: 5000,
       });
     } finally {
       setLoading(false);

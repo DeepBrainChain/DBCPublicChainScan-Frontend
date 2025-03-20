@@ -17,15 +17,12 @@ export async function fetchMachineData(address: any) {
     });
 
     if (!response.ok) {
-      console.log(response, 'responseresponseresponseresponseresponse');
-
       return response;
     }
 
     const data = await response.json();
     return data; // 返回数据
   } catch (error) {
-    console.log(error, 'responseresponseresponseresponseresponse');
     return error;
   }
 }
@@ -46,12 +43,9 @@ export async function createMachine(req: any) {
       const data = await response.json();
       return data; // 返回创建结果
     } else {
-      console.log(response, 'responseresponseresponseresponseresponse');
-
       return response;
     }
   } catch (error) {
-    console.log(error, 'responseresponseresponseresponseresponse');
     return error;
   }
 }
@@ -69,15 +63,56 @@ export async function usStake(mashineId: any) {
     });
 
     if (!response.ok) {
-      console.log(response, 'responseresponseresponseresponseresponse');
-
       return response;
     }
 
     const data = await response.json();
     return data; // 返回数据
   } catch (error) {
-    console.log(error, 'responseresponseresponseresponseresponse');
+    return error;
+  }
+}
+
+// 质押之前的注册
+export async function contractRegisterH() {
+  const url = `${baseUrl}/contractRegister`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data; // 返回创建结果
+    } else {
+      return response;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+
+// 质押之前的注销
+export async function contractUnregisterH() {
+  const url = `${baseUrl}/contractUnregister`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data; // 返回创建结果
+    } else {
+      return response;
+    }
+  } catch (error) {
     return error;
   }
 }

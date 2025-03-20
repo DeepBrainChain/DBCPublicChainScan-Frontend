@@ -26,10 +26,11 @@ import useSecurityReports from '../marketplace/useSecurityReports';
 
 const feature = config.features.marketplace;
 
-const IFRAME_SANDBOX_ATTRIBUTE = 'allow-forms allow-orientation-lock ' +
-'allow-pointer-lock allow-popups-to-escape-sandbox ' +
-'allow-same-origin allow-scripts ' +
-'allow-top-navigation-by-user-activation allow-popups';
+const IFRAME_SANDBOX_ATTRIBUTE =
+  'allow-forms allow-orientation-lock ' +
+  'allow-pointer-lock allow-popups-to-escape-sandbox ' +
+  'allow-same-origin allow-scripts ' +
+  'allow-top-navigation-by-user-activation allow-popups';
 
 const IFRAME_ALLOW_ATTRIBUTE = 'clipboard-read; clipboard-write;';
 
@@ -43,13 +44,13 @@ type Props = {
 const MarketplaceAppContent = ({ address, data, isPending, appUrl }: Props) => {
   const { iframeRef, isReady } = useDappscoutIframe();
 
-  const [ iframeKey, setIframeKey ] = useState(0);
-  const [ isFrameLoading, setIsFrameLoading ] = useState(isPending);
+  const [iframeKey, setIframeKey] = useState(0);
+  const [isFrameLoading, setIsFrameLoading] = useState(isPending);
   const { colorMode } = useColorMode();
 
   useEffect(() => {
     setIframeKey((key) => key + 1);
-  }, [ address ]);
+  }, [address]);
 
   const handleIframeLoad = useCallback(() => {
     setIsFrameLoading(false);
@@ -70,32 +71,27 @@ const MarketplaceAppContent = ({ address, data, isPending, appUrl }: Props) => {
 
       iframeRef?.current?.contentWindow?.postMessage(message, data.url);
     }
-  }, [ isFrameLoading, data, colorMode, iframeRef ]);
+  }, [isFrameLoading, data, colorMode, iframeRef]);
 
   return (
-    <Center
-      flexGrow={ 1 }
-      mx={{ base: -4, lg: -6 }}
-    >
-      { (isFrameLoading) && (
-        <ContentLoader/>
-      ) }
+    <Center flexGrow={1} mx={{ base: -4, lg: -6 }}>
+      {isFrameLoading && <ContentLoader />}
 
-      { (data && isReady) && (
+      {data && isReady && (
         <Box
-          key={ iframeKey }
-          allow={ IFRAME_ALLOW_ATTRIBUTE }
-          ref={ iframeRef }
-          sandbox={ IFRAME_SANDBOX_ATTRIBUTE }
+          key={iframeKey}
+          allow={IFRAME_ALLOW_ATTRIBUTE}
+          ref={iframeRef}
+          sandbox={IFRAME_SANDBOX_ATTRIBUTE}
           as="iframe"
           h="100%"
           w="100%"
-          display={ isFrameLoading ? 'none' : 'block' }
-          src={ appUrl }
-          title={ data.title }
-          onLoad={ handleIframeLoad }
+          display={isFrameLoading ? 'none' : 'block'}
+          src={appUrl}
+          title={data.title}
+          onLoad={handleIframeLoad}
         />
-      ) }
+      )}
     </Center>
   );
 };
@@ -111,12 +107,14 @@ const MarketplaceApp = () => {
   const { data: securityReports, isLoading: isSecurityReportsLoading } = useSecurityReports();
 
   const query = useQuery<unknown, ResourceError<unknown>, MarketplaceAppOverview>({
-    queryKey: [ 'marketplace-dapps', id ],
-    queryFn: async() => {
+    queryKey: ['marketplace-dapps', id],
+    queryFn: async () => {
       if (!feature.isEnabled) {
         return null;
       } else if ('configUrl' in feature) {
-        const result = await fetch<Array<MarketplaceAppOverview>, unknown>(feature.configUrl, undefined, { resource: 'marketplace-dapps' });
+        const result = await fetch<Array<MarketplaceAppOverview>, unknown>(feature.configUrl, undefined, {
+          resource: 'marketplace-dapps',
+        });
         if (!Array.isArray(result)) {
           throw result;
         }
@@ -152,36 +150,33 @@ const MarketplaceApp = () => {
     } catch (err) {}
 
     return data.url;
-  }, [ data?.url, router ]);
+  }, [data?.url, router]);
 
   useEffect(() => {
     if (data) {
-      metadata.update(
-        { pathname: '/apps/[id]', query: { id: data.id } },
-        { app_name: data.title },
-      );
+      metadata.update({ pathname: '/apps/[id]', query: { id: data.id } }, { app_name: data.title });
       setIsAutoConnectDisabled(!data.internalWallet);
     }
-  }, [ data, setIsAutoConnectDisabled ]);
+  }, [data, setIsAutoConnectDisabled]);
 
   throwOnResourceLoadError(query);
 
   return (
     <Flex flexDirection="column" h="100%">
       <MarketplaceAppTopBar
-        data={ data }
-        isLoading={ isPending || isSecurityReportsLoading }
-        securityReport={ securityReports?.[id] }
+        data={data}
+        isLoading={isPending || isSecurityReportsLoading}
+        securityReport={securityReports?.[id]}
       />
       <DappscoutIframeProvider
-        address={ address }
-        appUrl={ appUrl }
-        rpcUrl={ config.chain.rpcUrl }
-        sendTransaction={ sendTransaction }
-        signMessage={ signMessage }
-        signTypedData={ signTypedData }
+        address={address}
+        appUrl={appUrl}
+        rpcUrl={config.chain.rpcUrl}
+        sendTransaction={sendTransaction}
+        signMessage={signMessage}
+        signTypedData={signTypedData}
       >
-        <MarketplaceAppContent address={ address } data={ data } isPending={ isPending } appUrl={ appUrl }/>
+        <MarketplaceAppContent address={address} data={data} isPending={isPending} appUrl={appUrl} />
       </DappscoutIframeProvider>
     </Flex>
   );
