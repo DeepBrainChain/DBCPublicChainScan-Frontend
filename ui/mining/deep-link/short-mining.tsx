@@ -35,9 +35,7 @@ const FixedComponent = () => {
           </Box>
           <Text mb={2}>
             {t('deeplink-download-instruction')}{' '}
-            <LinkExternal href="https://deepbrainchain.github.io/DBC-Wiki/install-update-dbc-node/install-update-dbc/dbc-bare-metal-node.html">
-              https://deepbrainchain.github.io/DBC-Wiki/install-update-dbc-node/install-update-dbc/dbc-bare-metal-node.html
-            </LinkExternal>
+            <LinkExternal href="https://www.deeplink.cloud/software">https://www.deeplink.cloud/software</LinkExternal>
           </Text>
         </div>
         <div className="flex gap-4 flex-wrap md:flex-nowrap">

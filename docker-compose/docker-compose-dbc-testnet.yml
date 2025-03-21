@@ -161,6 +161,7 @@ services:
       NEXT_PUBLIC_AD_BANNER_PROVIDER: 'none'
       NEXT_PUBLIC_AD_TEXT_PROVIDER: 'none'
       NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY: ''
+      NEXT_PUBLIC_API_URL: https://testnet.dbcscan.io/mymachine
 
   # stats-db-init:
   #   extends:

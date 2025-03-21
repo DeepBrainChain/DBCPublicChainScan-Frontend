@@ -50,54 +50,54 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file:
-      -  ./envs/common-blockscout.env
+      - ./envs/common-blockscout.env
     environment:
-        ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:18545/
-        #ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:18545/
-        DATABASE_URL: postgresql://postgres:passwd@host.docker.internal:5432/blockscout
-        ACCOUNT_REDIS_URL: redis://redis-db:6379
-        COIN: DBC
-        COIN_NAME: DeepBrainChain
-        CHAIN_ID: 19880818
-        SECRET_KEY_BASE: 
-        ACCOUNT_POOL_SIZE: 20
-        FIRST_BLOCK: 3500000
-        TRACE_FIRST_BLOCK: 3500000
-        INDEXER_EMPTY_BLOCKS_SANITIZER_BATCH_SIZE: 10
-        INDEXER_CATCHUP_BLOCKS_BATCH_SIZE: 10
-        INDEXER_CATCHUP_BLOCKS_CONCURRENCY: 1
-        INDEXER_CATCHUP_BLOCK_INTERVAL: 30s
-        INDEXER_BLOCK_REWARD_BATCH_SIZE: 10
-        INDEXER_BLOCK_REWARD_CONCURRENCY: 1
-        INDEXER_RECEIPTS_BATCH_SIZE: 10
-        INDEXER_RECEIPTS_CONCURRENCY: 1
-        INDEXER_COIN_BALANCES_BATCH_SIZE: 10
-        INDEXER_COIN_BALANCES_CONCURRENCY: 1
-        INDEXER_TOKEN_CONCURRENCY: 1
-        INDEXER_TOKEN_BALANCES_BATCH_SIZE: 10
-        INDEXER_TOKEN_BALANCES_CONCURRENCY: 1
-        INDEXER_CATCHUP_MISSING_RANGES_BATCH_SIZE: 10
-        MIN_MISSING_BLOCK_NUMBER_BATCH_SIZE: 10
+      ETHEREUM_JSONRPC_HTTP_URL: http://host.docker.internal:18545/
+      #ETHEREUM_JSONRPC_TRACE_URL: http://host.docker.internal:18545/
+      DATABASE_URL: postgresql://postgres:passwd@host.docker.internal:5432/blockscout
+      ACCOUNT_REDIS_URL: redis://redis-db:6379
+      COIN: DBC
+      COIN_NAME: DeepBrainChain
+      CHAIN_ID: 19880818
+      SECRET_KEY_BASE:
+      ACCOUNT_POOL_SIZE: 20
+      FIRST_BLOCK: 3500000
+      TRACE_FIRST_BLOCK: 3500000
+      INDEXER_EMPTY_BLOCKS_SANITIZER_BATCH_SIZE: 10
+      INDEXER_CATCHUP_BLOCKS_BATCH_SIZE: 10
+      INDEXER_CATCHUP_BLOCKS_CONCURRENCY: 1
+      INDEXER_CATCHUP_BLOCK_INTERVAL: 30s
+      INDEXER_BLOCK_REWARD_BATCH_SIZE: 10
+      INDEXER_BLOCK_REWARD_CONCURRENCY: 1
+      INDEXER_RECEIPTS_BATCH_SIZE: 10
+      INDEXER_RECEIPTS_CONCURRENCY: 1
+      INDEXER_COIN_BALANCES_BATCH_SIZE: 10
+      INDEXER_COIN_BALANCES_CONCURRENCY: 1
+      INDEXER_TOKEN_CONCURRENCY: 1
+      INDEXER_TOKEN_BALANCES_BATCH_SIZE: 10
+      INDEXER_TOKEN_BALANCES_CONCURRENCY: 1
+      INDEXER_CATCHUP_MISSING_RANGES_BATCH_SIZE: 10
+      MIN_MISSING_BLOCK_NUMBER_BATCH_SIZE: 10
 
-        TOKEN_ID_MIGRATION_BATCH_SIZE: 1
-        TOKEN_ID_MIGRATION_CONCURRENCY: 1
-        TOKEN_INSTANCE_OWNER_MIGRATION_BATCH_SIZE: 1
-        TOKEN_INSTANCE_OWNER_MIGRATION_CONCURRENCY: 1
-        DENORMALIZATION_MIGRATION_BATCH_SIZE: 1
-        DENORMALIZATION_MIGRATION_CONCURRENCY: 1
+      TOKEN_ID_MIGRATION_BATCH_SIZE: 1
+      TOKEN_ID_MIGRATION_CONCURRENCY: 1
+      TOKEN_INSTANCE_OWNER_MIGRATION_BATCH_SIZE: 1
+      TOKEN_INSTANCE_OWNER_MIGRATION_CONCURRENCY: 1
+      DENORMALIZATION_MIGRATION_BATCH_SIZE: 1
+      DENORMALIZATION_MIGRATION_CONCURRENCY: 1
 
-        INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER: false
-        INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER: true
+      INDEXER_DISABLE_PENDING_TRANSACTIONS_FETCHER: false
+      INDEXER_DISABLE_INTERNAL_TRANSACTIONS_FETCHER: true
 
-        RE_CAPTCHA_CLIENT_KEY:
-        RE_CAPTCHA_SECRET_KEY:
+      RE_CAPTCHA_CLIENT_KEY:
+      RE_CAPTCHA_SECRET_KEY:
 
-        DISABLE_EXCHANGE_RATES: false
-        EXCHANGE_RATES_COINGECKO_PLATFORM_ID: deepbrain-chain
-        EXCHANGE_RATES_COINGECKO_COIN_ID: deepbrain-chain
-        #EXCHANGE_RATES_COINGECKO_API_KEY:
-        TOKEN_EXCHANGE_RATE_INTERVAL: 2m
-        EXCHANGE_RATES_MARKET_CAP_SOURCE: coin_gecko
+      DISABLE_EXCHANGE_RATES: false
+      EXCHANGE_RATES_COINGECKO_PLATFORM_ID: deepbrain-chain
+      EXCHANGE_RATES_COINGECKO_COIN_ID: deepbrain-chain
+      #EXCHANGE_RATES_COINGECKO_API_KEY:
+      TOKEN_EXCHANGE_RATE_INTERVAL: 2m
+      EXCHANGE_RATES_MARKET_CAP_SOURCE: coin_gecko
     volumes:
       - logs:/app/logs/
 
@@ -123,7 +123,7 @@ services:
     restart: always
     container_name: 'frontend'
     env_file:
-      -  ./envs/common-frontend.env
+      - ./envs/common-frontend.env
     environment:
       NEXT_PUBLIC_NETWORK_NAME: DeepBrainChain Mainnet
       NEXT_PUBLIC_NETWORK_SHORT_NAME: DeepBrainChain
@@ -161,7 +161,7 @@ services:
       NEXT_PUBLIC_AD_BANNER_PROVIDER: none
       NEXT_PUBLIC_AD_TEXT_PROVIDER: none
       NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY:
-
+      NEXT_PUBLIC_API_URL: https://www.dbcscan.io/mymachine
 
   # stats-db-init:
   #   extends:
@@ -187,7 +187,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     env_file:
-      -  ./envs/common-stats.env
+      - ./envs/common-stats.env
     environment:
       STATS__DB_URL: postgresql://postgres:passwd@host.docker.internal:5432/stats
       STATS__BLOCKSCOUT_DB_URL: postgresql://postgres:passwd@host.docker.internal:5432/blockscout
@@ -208,7 +208,7 @@ services:
     extra_hosts:
       - 'host.docker.internal:host-gateway'
     volumes:
-      - "./nginx.default.conf.template:/etc/nginx/templates/default.conf.template"
+      - './nginx.default.conf.template:/etc/nginx/templates/default.conf.template'
     environment:
       BACK_PROXY_PASS: ${BACK_PROXY_PASS:-http://backend:4000}
       FRONT_PROXY_PASS: ${FRONT_PROXY_PASS:-http://frontend:3000}
@@ -221,5 +221,5 @@ services:
         published: 8081
 
 volumes:
-  ? redis-data
-  ? logs
+  redis-data:
+  logs:

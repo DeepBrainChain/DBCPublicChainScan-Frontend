@@ -6,9 +6,12 @@ import { useTranslation } from 'next-i18next';
 import CpuStakeDbcBtn from './modules/cpu-stake-dbc-btn';
 import CpuStakeNftBtn from './modules/cup-stake-nft-node-btn';
 import CpuStakeDlcBtn from './modules/cup-stake-dlc-btn';
+import { useRouter } from 'next/router';
 
 const FixedComponent = () => {
   const { t, i18n } = useTranslation('common');
+  const link = process.env.NEXT_PUBLIC_API_URL || 'https://testnet.dbcscan.io/mymachine'; // 默认值可选
+  const router = useRouter();
 
   return (
     <div>
@@ -30,10 +33,19 @@ const FixedComponent = () => {
           >
             1
           </Box>
+
           <Text mb={2}>
             {t('deeplink-installation-instruction')}:
-            <LinkExternal href="https://deepbrainchain.github.io/DBC-Wiki/install-update-dbc-node/install-update-dbc/dbc-bare-metal-node.html">
-              https://deepbrainchain.github.io/DBC-Wiki/install-update-dbc-node/install-update-dbc/dbc-bare-metal-node.html
+            <LinkExternal
+              href={
+                i18n.language === 'zh'
+                  ? 'https://www.deeplink.cloud/blogInfo?id=67dc095f362d9795b3698494'
+                  : 'https://www.deeplink.cloud/blogInfo?id=67dc0a9b362d9795b3698e51'
+              }
+            >
+              {i18n.language === 'zh'
+                ? 'https://www.deeplink.cloud/blogInfo?id=67dc095f362d9795b3698494'
+                : 'https://www.deeplink.cloud/blogInfo?id=67dc0a9b362d9795b3698e51'}
             </LinkExternal>
           </Text>
         </div>
@@ -59,7 +71,7 @@ const FixedComponent = () => {
             <div className="flex items-center gap-6 flex-wrap">
               <CpuStakeDlcBtn />
               <Text>
-                {t('staking-rewards-rule')}:
+                {t('staking-rewards-rule')}
                 <LinkExternal href=" https://www.deeplink.cloud/bandWidth">
                   https://www.deeplink.cloud/bandWidth
                 </LinkExternal>
@@ -84,8 +96,8 @@ const FixedComponent = () => {
           <Text mb={2}>
             <Text>
               {t('deeplink-network-machine-info')}:
-              <LinkExternal className="ml-6" href=" https://www.deeplink.cloud/bandWidth">
-                xxxxxx
+              <LinkExternal className="ml-6" href={link}>
+                {link}
               </LinkExternal>
             </Text>
           </Text>
