@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Box,
   Text,
@@ -19,23 +19,23 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import dbcAbi from './abi/dbcAbi.json';
-import stakeAbi from './abi/stakeAbi.json';
 import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
 import { parseEther } from 'viem';
+import { useContractActions } from '../hooks/stake-before';
 
 function cpuStakeDbcBtn() {
   const { t } = useTranslation('common');
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [pledgedDbcCount, setPledgedDbcCount] = React.useState('');
-  const [dockerId, setDockerId] = React.useState('');
+  const [machineId, setMachineId] = React.useState('');
   const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
   const { address, isConnected } = useAccount();
   const toast = useToast();
   const config = useConfig();
   const [loading, setLoading] = useState(false);
   const stake = useWriteContract();
+  const { register, unregister } = useContractActions(machineId);
 
   // 开始质押dbc
   const startStakeDBC = async () => {
@@ -60,13 +60,17 @@ function cpuStakeDbcBtn() {
       isClosable: false,
     });
     try {
+      const res: any = await register();
+      if (res.code !== 0) {
+        throw new Error(res.message || '注册接口失败');
+      }
       // 质押
       const stakeHash = await stake.writeContractAsync({
         address: DBC_CONTRACT_ADDRESS,
         abi: dbcAbi,
-        functionName: 'stakeDbc',
-        args: [dockerId, parseEther(pledgedDbcCount)],
-        value: parseEther(pledgedDbcCount),
+        functionName: 'stakeDbcForShortTerm',
+        args: [machineId],
+        value: parseEther('1000'),
       });
 
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
@@ -110,7 +114,7 @@ function cpuStakeDbcBtn() {
           <ModalCloseButton />
           <ModalBody pb={6}>
             <div className="flex flex-col gap-4">
-              <FormControl mb={4} size="sm">
+              {/* <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('gpu-count')}</FormLabel>
                 <Input
                   value={pledgedDbcCount}
@@ -119,13 +123,13 @@ function cpuStakeDbcBtn() {
                   size="sm"
                 />
                 <FormHelperText fontSize="xs">{t('gpu-stake-requirement')}</FormHelperText>
-              </FormControl>
+              </FormControl> */}
 
               <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('machine-id')}</FormLabel>
                 <Input
-                  value={dockerId}
-                  onChange={(e) => setDockerId(e.target.value)}
+                  value={machineId}
+                  onChange={(e: any) => setMachineId(e.target.value)}
                   placeholder={t('input-machine-id')}
                   size="sm"
                 />

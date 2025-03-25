@@ -66,7 +66,7 @@ function cpuStakeDlcBtn() {
       const res: any = await register();
       console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
       if (res.code !== 0) {
-        throw new Error('注册接口失败');
+        throw new Error(res.message || '注册接口失败');
       }
       // 授权
       const approvalHash = await dlcApproval.writeContractAsync({

@@ -14,7 +14,7 @@ const FixedComponent = () => {
   const router = useRouter();
 
   return (
-    <div>
+    <>
       <Box mb={4}>
         <Text color="gray.600">{t('cpu-mining-requirements')}</Text>
       </Box>
@@ -103,7 +103,7 @@ const FixedComponent = () => {
           </Text>
         </div>
       </Flex>
-    </div>
+    </>
   );
 };
 

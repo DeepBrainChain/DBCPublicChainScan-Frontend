@@ -4,8 +4,12 @@ import type { MouseEvent } from 'react';
 import React, { useEffect } from 'react';
 import stakingAbi from '../../lib/hooks/useDeepLink/stakingAbi.json';
 import { useReadContract } from 'wagmi';
-import { formatUnits } from 'viem'; // 使用 viem 的格式化工具
 import { useContractAddress } from '../../lib/hooks/useContractAddress';
+import DailyMiningReward from './MarketplaceAppCardInMining-modules/DailyMiningReward';
+import GPUCount from './MarketplaceAppCardInMining-modules/GPUCount';
+import DailyMiningRewardGpt from './MarketplaceAppCardInMining-modules/DailyMiningRewardGpt';
+import GPUCountGpt from './MarketplaceAppCardInMining-modules/GPUCountGpt';
+import { useInterval } from '@reactuses/core';
 
 interface Props {
   id: string;
@@ -42,37 +46,42 @@ const MarketplaceAppCard = ({
     query: { id },
   };
 
-  const STAKING_CONTRACT_ADDRESS_SHORT = useContractAddress('STAKING_CONTRACT_ADDRESS_SHORT');
+  // 总的loading
+  const [loading, setLoading] = React.useState(true);
 
-  // 读取 dailyRewardAmount
-
-  const { data: dailyRewardAmount, isLoading: rewardLoading } = useReadContract({
-    address: STAKING_CONTRACT_ADDRESS_SHORT,
-    abi: stakingAbi,
-    functionName: 'dailyRewardAmount',
+  const [dlcData, setDlcData] = React.useState({
+    price: 0,
+    change: 0,
   });
+  // 获取dlc的价格
+  const getDlcPrice = async () => {
+    setLoading(true);
+    const response = await fetch('https://dbchaininfo.congtu.cloud/query/dlc_info?language=CN', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
 
-  // 格式化 dailyRewardAmount（确保是 bigint 类型）
-  const formattedReward =
-    dailyRewardAmount && typeof dailyRewardAmount === 'bigint'
-      ? Number(formatUnits(dailyRewardAmount, 18)).toFixed(2) // 从 wei 转换为 ETH，保留 2 位小数
-      : '0.00';
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
 
-  const { data: totalStakingGpuCount, isLoading: gpuLoading } = useReadContract({
-    address: STAKING_CONTRACT_ADDRESS_SHORT,
-    abi: stakingAbi,
-    functionName: 'totalStakingGpuCount',
-  });
-  // 格式化 totalStakingGpuCount
-  const formattedGpuCount =
-    totalStakingGpuCount !== undefined && typeof totalStakingGpuCount === 'bigint'
-      ? Number(totalStakingGpuCount).toString()
-      : '0.00';
-
-  useEffect(() => {
-    console.log('deeplink每日总的奖励数量', formattedReward, formattedGpuCount);
-  }, [formattedReward, formattedGpuCount]);
-
+    const data: any = await response.json();
+    setDlcData({
+      price: data.content.dlc_price,
+      change: data.content.percent_change_24h,
+    });
+    setLoading(false);
+  };
+  // 每 10 秒刷新一次数据
+  useInterval(
+    () => {
+      getDlcPrice();
+    },
+    60000,
+    { immediate: true }
+  ); // 10 秒（如果你想要 1 秒，改为 1000）
   return (
     <NextLink href={href} passHref legacyBehavior>
       <Link
@@ -94,12 +103,12 @@ const MarketplaceAppCard = ({
       >
         <Flex direction="column" gap={4}>
           <Flex justify="space-between" align="start">
-            <Skeleton isLoaded={!isLoading} w="80px" h="80px" borderRadius="lg" flexShrink={0}>
+            <Skeleton isLoaded={!loading} w="80px" h="80px" borderRadius="lg" flexShrink={0}>
               <Image src={logo} alt={`${title} logo`} borderRadius="lg" w="80px" h="80px" objectFit="cover" />
             </Skeleton>
 
             <Flex direction="column" gap={1}>
-              <Skeleton isLoaded={!isLoading}>
+              <Skeleton isLoaded={!loading}>
                 <Box
                   border="1px"
                   borderColor={useColorModeValue('gray.200', 'gray.600')}
@@ -108,31 +117,33 @@ const MarketplaceAppCard = ({
                   py={1}
                 >
                   <Text fontSize="md" fontWeight="medium">
-                    ${tokenInfo?.symbol}:{tokenInfo?.price}
+                    ${tokenInfo?.symbol}: {title === 'DecentralGPT' ? 0 : dlcData.price}
                   </Text>
                 </Box>
               </Skeleton>
-              <Skeleton isLoaded={!isLoading}>
+              <Skeleton isLoaded={!loading}>
                 <Text color="green.500" fontWeight="medium" fontSize="sm">
-                  {tokenInfo?.priceChange}
+                  {title === 'DecentralGPT' ? `${0}%` : `${dlcData.change}%`}
                 </Text>
               </Skeleton>
             </Flex>
           </Flex>
 
-          <Skeleton isLoaded={!isLoading}>
+          <Skeleton isLoaded={!loading}>
             <Text fontSize="xl" fontWeight="bold">
               {title}
             </Text>
           </Skeleton>
 
-          <Skeleton isLoaded={!isLoading}>
+          <Skeleton isLoaded={!loading}>
             <Flex direction="column" gap={2} bg={useColorModeValue('gray.50', 'gray.700')} p={3} borderRadius="md">
               <Text fontSize="sm" fontWeight="medium">
-                Daily Mining Reward: <Skeleton isLoaded={!rewardLoading}>{formattedReward}</Skeleton>
+                Daily Mining Reward:
+                {title === 'DecentralGPT' ? <DailyMiningRewardGpt /> : <DailyMiningReward />}
               </Text>
               <Text fontSize="sm" fontWeight="medium">
-                GPU Count: <Skeleton isLoaded={!gpuLoading}>{formattedGpuCount}</Skeleton>
+                GPU Count:
+                {title === 'DecentralGPT' ? <GPUCountGpt /> : <GPUCount />}
               </Text>
             </Flex>
           </Skeleton>

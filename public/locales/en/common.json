@@ -135,5 +135,7 @@
   "position": "Position",
   "fee": "Fee",
   "Add": "Add",
-  "view-all-transactions": "View All Transactions"
+  "view-all-transactions": "View All Transactions",
+  "container_id": "Container ID",
+  "enter_container_id": "Enter Container ID"
 }

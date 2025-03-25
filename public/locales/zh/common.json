@@ -133,5 +133,7 @@
   "position": "交易位置",
   "fee": "费用",
   "Add": "加入",
-  "view-all-transactions": "查看所有交易"
+  "view-all-transactions": "查看所有交易",
+  "container_id": "容器 ID",
+  "enter_container_id": "请输入容器 ID"
 }

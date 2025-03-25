@@ -36,7 +36,7 @@ function cpuStakeNftBtn() {
   const [nftNodeCount, setNftNodeCount] = useState('');
   const [loading, setLoading] = useState(false);
   const [machineId, setMachineId] = useState('');
-  const [rentId, setRentId] = useState('');
+  // const [rentId, setRentId] = useState('');
   const nftApproval = useWriteContract();
   const stake = useWriteContract();
   const { register, unregister } = useContractActions(machineId);
@@ -76,7 +76,7 @@ function cpuStakeNftBtn() {
       const res: any = await register();
       console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
       if (res.code !== 0) {
-        throw new Error('注册接口失败');
+        throw new Error(res.message || '注册接口失败');
       }
       // 授权
       const approvalHash = await nftApproval.writeContractAsync({
@@ -99,8 +99,7 @@ function cpuStakeNftBtn() {
       console.log(
         machineId,
         newNftData[0].map((id: any) => id.toString()),
-        newNftData[1].map((balance: any) => balance.toString()),
-        rentId
+        newNftData[1].map((balance: any) => balance.toString())
       );
       // 质押
       const stakeHash = await stake.writeContractAsync({
@@ -165,7 +164,7 @@ function cpuStakeNftBtn() {
                 />
                 <FormHelperText fontSize="xs">{t('nft-stake-requirement')}</FormHelperText>
               </FormControl>
-              <FormControl mb={4} size="sm">
+              {/* <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('rent-id')}：</FormLabel>
                 <Input
                   value={rentId}
@@ -173,7 +172,7 @@ function cpuStakeNftBtn() {
                   placeholder={t('input-rent-id')}
                   size="sm"
                 />
-              </FormControl>
+              </FormControl> */}
               <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('machine-id')}</FormLabel>
                 <Input
