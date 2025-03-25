@@ -143,4 +143,3 @@ export default function MiningAppDetail() {
     </Container>
   );
 }
-export { marketplace as getServerSideProps } from 'nextjs/getServerSideProps';

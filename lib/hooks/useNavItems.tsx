@@ -286,5 +286,5 @@ export default function useNavItems(): ReturnType {
     };
 
     return { mainNavItems, accountNavItems, profileItem };
-  }, [pathname, t]);
+  }, [pathname, i18n.language]);
 }
