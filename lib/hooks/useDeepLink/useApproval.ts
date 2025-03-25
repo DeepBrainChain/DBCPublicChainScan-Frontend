@@ -93,6 +93,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
         nftTokenIdBalances: newNftData[1].map((balance: any) => balance.toString()), // 将 BigInt 转换为字符串
         rentId: machineId,
       };
+      console.log(machineData, '传递的参数');
 
       // 质押
       const res: any = await createMachine(machineData);
