@@ -46,7 +46,7 @@ const moduleExports = {
         loader: 'ignore-loader', // 使用 ignore-loader
       });
     }
-    console.log('222xx11266xxcx22xxx');
+    console.log('222xx11266xxcx22Xxxxxxxxx');
     return config;
   },
   rewrites,

@@ -135,5 +135,39 @@
   "Add": "加入",
   "view-all-transactions": "查看所有交易",
   "container_id": "容器 ID",
-  "enter_container_id": "请输入容器 ID"
+  "enter_container_id": "请输入容器 ID",
+
+  "block_chain": "区块链",
+  "block_tokens": "代币",
+  "block_dapps": "去中心化应用",
+  "block_gpu_race": "GPU竞赛",
+  "block_gpu_mining": "GPU挖矿",
+  "block_charts_stats": "图表与统计",
+  "block_api": "应用程序接口",
+  "block_other": "其他",
+  "block_verify_contract": "验证合约",
+  "block_gas_tracker": "燃气追踪器",
+
+  "block_top_accounts": "顶级账户",
+  "block_blocks": "区块",
+  "block_transactions": "交易",
+  "block_user_operations": "用户操作",
+  "block_verified_contracts": "已验证合约",
+  "block_name_services_lookup": "名称服务查询",
+  "block_top_validators": "顶级验证者",
+  "block_rest_api": "REST API",
+  "block_graphql": "GraphQL",
+  "block_rpc_api": "RPC API",
+  "block_eth_rpc_api": "Eth RPC API",
+
+  "token_item": "代币",
+  "token_price": "价格",
+  "token_onchain_market_cap": "链上市值",
+  "token_holders": "持有者",
+
+  "token_name_or_symbol": "代币名称或符号",
+  "token_filter": "筛选",
+
+  "token_type": "类型",
+  "token_reset": "重置"
 }

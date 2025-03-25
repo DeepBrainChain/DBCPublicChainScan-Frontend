@@ -80,7 +80,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
 
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
       const { data: newNftData } = await refetch();
-
+      console.log(newNftData, 'newNftDatanewNftData');
       if (approvalReceipt.status !== 'success') {
         throw new Error('授权交易失败');
       }
@@ -126,7 +126,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
         status: 'error',
         description: error.message || '操作失败',
         isClosable: true,
-        duration: 5000,
+        duration: null,
       });
     } finally {
       setLoading(false);

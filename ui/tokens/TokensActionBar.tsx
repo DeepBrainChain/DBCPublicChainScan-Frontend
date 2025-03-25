@@ -9,6 +9,7 @@ import FilterInput from 'ui/shared/filters/FilterInput';
 import Pagination from 'ui/shared/pagination/Pagination';
 import Sort from 'ui/shared/sort/Sort';
 import { SORT_OPTIONS } from 'ui/tokens/utils';
+import { useTranslation } from 'next-i18next';
 
 interface Props {
   pagination: PaginationParams;
@@ -21,34 +22,36 @@ interface Props {
 }
 
 const TokensActionBar = ({ sort, onSortChange, searchTerm, onSearchChange, pagination, filter, inTabsSlot }: Props) => {
+  const { t, i18n } = useTranslation('common');
+
   const searchInput = (
     <FilterInput
       w={{ base: '100%', lg: '360px' }}
       size="xs"
-      onChange={ onSearchChange }
-      placeholder="Token name or symbol"
-      initialValue={ searchTerm }
+      onChange={onSearchChange}
+      placeholder={t('token_name_or_symbol')}
+      initialValue={searchTerm}
     />
   );
 
   return (
     <>
-      <HStack spacing={ 3 } mb={ 6 } display={{ base: 'flex', lg: 'none' }}>
-        { filter }
-        <Sort options={ SORT_OPTIONS } setSort={ onSortChange } sort={ sort }/>
-        { searchInput }
+      <HStack spacing={3} mb={6} display={{ base: 'flex', lg: 'none' }}>
+        {filter}
+        <Sort options={SORT_OPTIONS} setSort={onSortChange} sort={sort} />
+        {searchInput}
       </HStack>
       <ActionBar
-        mt={ inTabsSlot ? 0 : -6 }
-        py={ inTabsSlot ? 0 : undefined }
-        justifyContent={ inTabsSlot ? 'space-between' : undefined }
+        mt={inTabsSlot ? 0 : -6}
+        py={inTabsSlot ? 0 : undefined}
+        justifyContent={inTabsSlot ? 'space-between' : undefined}
         display={{ base: pagination.isVisible ? 'flex' : 'none', lg: 'flex' }}
       >
-        <HStack spacing={ 3 } display={{ base: 'none', lg: 'flex' }}>
-          { filter }
-          { searchInput }
+        <HStack spacing={3} display={{ base: 'none', lg: 'flex' }}>
+          {filter}
+          {searchInput}
         </HStack>
-        <Pagination { ...pagination } ml={ inTabsSlot ? 8 : 'auto' }/>
+        <Pagination {...pagination} ml={inTabsSlot ? 8 : 'auto'} />
       </ActionBar>
     </>
   );

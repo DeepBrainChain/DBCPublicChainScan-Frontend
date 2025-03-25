@@ -137,5 +137,39 @@
   "Add": "Add",
   "view-all-transactions": "View All Transactions",
   "container_id": "Container ID",
-  "enter_container_id": "Enter Container ID"
+  "enter_container_id": "Enter Container ID",
+
+  "block_chain": "Blockchain",
+  "block_tokens": "Tokens",
+  "block_dapps": "DApps",
+  "block_gpu_race": "GPU Race",
+  "block_gpu_mining": "GPU Mining",
+  "block_charts_stats": "Charts & stats",
+  "block_api": "API",
+  "block_other": "Other",
+  "block_verify_contract": "Verify contract",
+  "block_gas_tracker": "Gas tracker",
+
+  "block_top_accounts": "Top accounts",
+  "block_blocks": "Blocks",
+  "block_transactions": "Transactions",
+  "block_user_operations": "User operations",
+  "block_verified_contracts": "Verified contracts",
+  "block_name_services_lookup": "Name services lookup",
+  "block_top_validators": "Top validators",
+  "block_rest_api": "REST API",
+  "block_graphql": "GraphQL",
+  "block_rpc_api": "RPC API",
+  "block_eth_rpc_api": "Eth RPC API",
+
+  "token_item": "Token",
+  "token_price": "Price",
+  "token_onchain_market_cap": "On-chain market cap",
+  "token_holders": "Holders",
+
+  "token_name_or_symbol": "Token name or symbol",
+  "token_filter": "Filter",
+
+  "token_type": "Type",
+  "token_reset": "Reset"
 }

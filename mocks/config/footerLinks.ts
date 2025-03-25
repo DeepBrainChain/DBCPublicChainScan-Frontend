@@ -70,7 +70,6 @@ export const FOOTER_LINKS: Array<CustomLinksGroup> = [
         text: 'Become validator',
         url: '',
       },
-
     ],
   },
   {

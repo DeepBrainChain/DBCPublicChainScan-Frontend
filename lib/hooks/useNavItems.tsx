@@ -6,6 +6,7 @@ import type { NavItemInternal, NavItem, NavGroupItem } from 'types/client/naviga
 import config from 'configs/app';
 import { rightLineArrow } from 'lib/html-entities';
 import UserAvatar from 'ui/shared/UserAvatar';
+import { useTranslation } from 'next-i18next';
 
 interface ReturnType {
   mainNavItems: Array<NavItem | NavGroupItem>;
@@ -24,33 +25,34 @@ export function isInternalItem(item: NavItem): item is NavItemInternal {
 export default function useNavItems(): ReturnType {
   const router = useRouter();
   const pathname = router.pathname;
+  const { t, i18n } = useTranslation('common');
 
   return React.useMemo(() => {
     let blockchainNavItems: Array<NavItem> | Array<Array<NavItem>> = [];
 
     const topAccounts: NavItem | null = !config.UI.views.address.hiddenViews?.top_accounts
       ? {
-          text: 'Top accounts',
+          text: t('block_top_accounts'),
           nextRoute: { pathname: '/accounts' as const },
           icon: 'top-accounts',
           isActive: pathname === '/accounts',
         }
       : null;
     const blocks: NavItem | null = {
-      text: 'Blocks',
+      text: t('block_blocks'),
       nextRoute: { pathname: '/blocks' as const },
       icon: 'block',
       isActive: pathname === '/blocks' || pathname === '/block/[height_or_hash]',
     };
     const txs: NavItem | null = {
-      text: 'Transactions',
+      text: t('block_transactions'),
       nextRoute: { pathname: '/txs' as const },
       icon: 'transactions',
       isActive: pathname === '/txs' || pathname === '/tx/[hash]',
     };
     const userOps: NavItem | null = config.features.userOps.isEnabled
       ? {
-          text: 'User operations',
+          text: t('block_user_operations'),
           nextRoute: { pathname: '/ops' as const },
           icon: 'user_op',
           isActive: pathname === '/ops' || pathname === '/op/[hash]',
@@ -58,14 +60,14 @@ export default function useNavItems(): ReturnType {
       : null;
 
     const verifiedContracts: NavItem | null = {
-      text: 'Verified contracts',
+      text: t('block_verified_contracts'),
       nextRoute: { pathname: '/verified-contracts' as const },
       icon: 'verified',
       isActive: pathname === '/verified-contracts',
     };
     const ensLookup = config.features.nameService.isEnabled
       ? {
-          text: 'Name services lookup',
+          text: t('block_name_services_lookup'),
           nextRoute: { pathname: '/name-domains' as const },
           icon: 'ENS',
           isActive: pathname === '/name-domains' || pathname === '/name-domains/[name]',
@@ -73,7 +75,7 @@ export default function useNavItems(): ReturnType {
       : null;
     const validators = config.features.validators.isEnabled
       ? {
-          text: 'Top validators',
+          text: t('block_top_validators'),
           nextRoute: { pathname: '/validators' as const },
           icon: 'validator',
           isActive: pathname === '/validators',
@@ -143,7 +145,7 @@ export default function useNavItems(): ReturnType {
     const apiNavItems: Array<NavItem> = [
       config.features.restApiDocs.isEnabled
         ? {
-            text: 'REST API',
+            text: t('block_rest_api'),
             nextRoute: { pathname: '/api-docs' as const },
             icon: 'restAPI',
             isActive: pathname === '/api-docs',
@@ -151,19 +153,19 @@ export default function useNavItems(): ReturnType {
         : null,
       config.features.graphqlApiDocs.isEnabled
         ? {
-            text: 'GraphQL',
+            text: t('block_graphql'),
             nextRoute: { pathname: '/graphiql' as const },
             icon: 'graphQL',
             isActive: pathname === '/graphiql',
           }
         : null,
       !config.UI.sidebar.hiddenLinks?.rpc_api && {
-        text: 'RPC API',
+        text: t('block_rpc_api'),
         icon: 'RPC',
         url: 'https://docs.blockscout.com/for-users/api/rpc-endpoints',
       },
       !config.UI.sidebar.hiddenLinks?.eth_rpc_api && {
-        text: 'Eth RPC API',
+        text: t('block_eth_rpc_api'),
         icon: 'RPC',
         url: ' https://docs.blockscout.com/for-users/api/eth-rpc',
       },
@@ -171,20 +173,20 @@ export default function useNavItems(): ReturnType {
 
     const mainNavItems: ReturnType['mainNavItems'] = [
       {
-        text: 'Blockchain',
+        text: t('block_chain'),
         icon: 'globe-b',
         isActive: blockchainNavItems.flat().some((item) => isInternalItem(item) && item.isActive),
         subItems: blockchainNavItems,
       },
       {
-        text: 'Tokens',
+        text: t('block_tokens'),
         nextRoute: { pathname: '/tokens' as const },
         icon: 'token',
         isActive: pathname.startsWith('/token'),
       },
       config.features.marketplace.isEnabled
         ? {
-            text: 'DApps',
+            text: t('block_dapps'),
             nextRoute: { pathname: '/apps' as const },
             icon: 'apps',
             isActive: pathname.startsWith('/app'),
@@ -192,43 +194,43 @@ export default function useNavItems(): ReturnType {
         : null,
       config.features.marketplace.isEnabled
         ? {
-            text: 'GPU Race',
+            text: t('block_gpu_race'),
             nextRoute: { pathname: '/race' as const },
             icon: 'race',
             isActive: pathname.startsWith('/race'),
           }
         : null,
       {
-        text: 'GPU Mining',
+        text: t('block_gpu_mining'),
         nextRoute: { pathname: '/mining' as const },
         icon: 'mining',
         isActive: pathname.startsWith('/mining'),
       },
       config.features.stats.isEnabled
         ? {
-            text: 'Charts & stats',
+            text: t('block_charts_stats'),
             nextRoute: { pathname: '/stats' as const },
             icon: 'stats',
             isActive: pathname === '/stats',
           }
         : null,
       apiNavItems.length > 0 && {
-        text: 'API',
+        text: t('block_api'),
         icon: 'restAPI',
         isActive: apiNavItems.some((item) => isInternalItem(item) && item.isActive),
         subItems: apiNavItems,
       },
       {
-        text: 'Other',
+        text: t('block_other'),
         icon: 'gear',
         subItems: [
           {
-            text: 'Verify contract',
+            text: t('block_verify_contract'),
             nextRoute: { pathname: '/contract-verification' as const },
             isActive: pathname.startsWith('/contract-verification'),
           },
           config.features.gasTracker.isEnabled && {
-            text: 'Gas tracker',
+            text: t('block_gas_tracker'),
             nextRoute: { pathname: '/gas-tracker' as const },
             isActive: pathname.startsWith('/gas-tracker'),
           },
@@ -284,5 +286,5 @@ export default function useNavItems(): ReturnType {
     };
 
     return { mainNavItems, accountNavItems, profileItem };
-  }, [pathname]);
+  }, [pathname, t]);
 }

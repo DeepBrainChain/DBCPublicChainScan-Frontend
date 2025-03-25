@@ -1,11 +1,4 @@
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuOptionGroup,
-  MenuItemOption,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Menu, MenuButton, MenuList, MenuOptionGroup, MenuItemOption, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 
 import type { VerifiedContractsFilters } from 'types/api/contracts';
@@ -24,15 +17,10 @@ const VerifiedContractsFilter = ({ onChange, defaultValue, isActive }: Props) =>
   return (
     <Menu>
       <MenuButton>
-        <FilterButton
-          isActive={ isOpen || isActive }
-          appliedFiltersNum={ isActive ? 1 : 0 }
-          onClick={ onToggle }
-          as="div"
-        />
+        <FilterButton isActive={isOpen || isActive} appliedFiltersNum={isActive ? 1 : 0} onClick={onToggle} as="div" />
       </MenuButton>
       <MenuList zIndex="popover">
-        <MenuOptionGroup defaultValue={ defaultValue || 'all' } title="Filter" type="radio" onChange={ onChange }>
+        <MenuOptionGroup defaultValue={defaultValue || 'all'} title="Filter" type="radio" onChange={onChange}>
           <MenuItemOption value="all">All</MenuItemOption>
           <MenuItemOption value="solidity">Solidity</MenuItemOption>
           <MenuItemOption value="vyper">Vyper</MenuItemOption>
