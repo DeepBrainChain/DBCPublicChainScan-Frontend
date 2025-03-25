@@ -18,47 +18,37 @@ const NetworkMenuLink = ({ title, icon, isActive, isMobile, url, invertIconInDar
   const style = useColorModeValue({}, invertIconInDarkMode ? darkModeFilter : {});
 
   const iconEl = icon ? (
-    <Image w="30px" h="30px" src={ icon } alt={ `${ title } network icon` } style={ style }/>
+    <Image w="30px" h="30px" src={'/assets/configs/network_icon.png'} alt={`${title} network icon`} style={style} />
   ) : (
-    <IconSvg
-      name="networks/icon-placeholder"
-      boxSize="30px"
-      color={ colors.iconPlaceholder.default }
-    />
+    <IconSvg name="networks/icon-placeholder" boxSize="30px" color={colors.iconPlaceholder.default} />
   );
 
   return (
     <Box as="li" listStyleType="none">
       <Flex
         as="a"
-        href={ url }
-        px={ isMobile ? 3 : 4 }
-        py={ 2 }
+        href={url}
+        px={isMobile ? 3 : 4}
+        py={2}
         alignItems="center"
         cursor="pointer"
-        pointerEvents={ isActive ? 'none' : 'initial' }
+        pointerEvents={isActive ? 'none' : 'initial'}
         borderRadius="base"
-        color={ isActive ? colors.text.active : colors.text.default }
-        bgColor={ isActive ? colors.bg.active : colors.bg.default }
+        color={isActive ? colors.text.active : colors.text.default}
+        bgColor={isActive ? colors.bg.active : colors.bg.default}
         _hover={{ color: isActive ? colors.text.active : colors.text.hover }}
       >
-        { iconEl }
+        {iconEl}
         <Text
-          marginLeft={ 3 }
+          marginLeft={3}
           fontWeight="500"
           color="inherit"
-          fontSize={ isMobile ? 'sm' : 'md' }
-          lineHeight={ isMobile ? '20px' : '24px' }
+          fontSize={isMobile ? 'sm' : 'md'}
+          lineHeight={isMobile ? '20px' : '24px'}
         >
-          { title }
+          {title}
         </Text>
-        { isActive && (
-          <IconSvg
-            name="check"
-            boxSize="24px"
-            marginLeft="auto"
-          />
-        ) }
+        {isActive && <IconSvg name="check" boxSize="24px" marginLeft="auto" />}
       </Flex>
     </Box>
   );

@@ -11,22 +11,25 @@ interface Props {
   className?: string;
 }
 
-const NetworkMenuButton = ({ isMobile, isActive, onClick, className }: Props, ref: React.ForwardedRef<HTMLButtonElement>) => {
+const NetworkMenuButton = (
+  { isMobile, isActive, onClick, className }: Props,
+  ref: React.ForwardedRef<HTMLButtonElement>
+) => {
   const defaultIconColor = useColorModeValue('gray.600', 'gray.400');
   const bgColorMobile = useColorModeValue('blue.50', 'gray.800');
   const iconColorMobile = useColorModeValue('blue.700', 'blue.50');
 
   return (
     <Button
-      className={ className }
+      className={className}
       variant="unstyled"
       display="inline-flex"
       alignItems="center"
-      ref={ ref }
+      ref={ref}
       h="36px"
       borderRadius="base"
-      backgroundColor={ isActive ? bgColorMobile : 'none' }
-      onClick={ onClick }
+      backgroundColor={isActive ? bgColorMobile : 'none'}
+      onClick={onClick}
       aria-label="Network menu"
       aria-roledescription="menu"
     >
@@ -35,10 +38,10 @@ const NetworkMenuButton = ({ isMobile, isActive, onClick, className }: Props, re
         width="36px"
         height="36px"
         padding="10px"
-        color={ isActive ? iconColorMobile : defaultIconColor }
+        color={isActive ? iconColorMobile : defaultIconColor}
         _hover={{ color: isMobile ? undefined : 'link_hovered' }}
         cursor="pointer"
-        { ...getDefaultTransitionProps({ transitionProperty: 'margin' }) }
+        {...getDefaultTransitionProps({ transitionProperty: 'margin' })}
       />
     </Button>
   );
