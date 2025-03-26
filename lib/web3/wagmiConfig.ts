@@ -8,11 +8,10 @@ const feature = config.features.blockchainInteraction;
 import { getEnvValue } from '../../configs/app/utils';
 
 const wagmiConfig = (() => {
-  const rpcUrl = process.env.NEXT_PUBLIC_NETWORK_RPC_URL || 'https://rpc-testnet.dbcwallet.io';
-  console.log('RPC URLAAAAAAAAAAAAAAAAAAAAA:', rpcUrl);
-  console.log(getEnvValue('NEXT_PUBLIC_API_URLX'), 'ttttt');
-  console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL'), 'rpc');
-
+  console.log(currentChain, 'web3配置信息');
+  console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL'), 'rpc节点');
+  // const rpcUrl = process.env.NEXT_PUBLIC_NETWORK_RPC_URL || 'https://rpc-testnet.dbcwallet.io';
+  console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') || 'https://rpc.dbcwallet.io', '最终rpc节点');
   try {
     if (!feature.isEnabled) {
       throw new Error();
@@ -24,7 +23,7 @@ const wagmiConfig = (() => {
       chains,
       multiInjectedProviderDiscovery: true,
       transports: {
-        [currentChain.id]: http(rpcUrl),
+        [currentChain.id]: http(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') || 'https://rpc.dbcwallet.io'),
       },
       projectId: feature.walletConnect.projectId,
       metadata: {
