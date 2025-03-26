@@ -1,12 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
-import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 
 // const BACKEND_URL = 'http://47.128.74.45:3001';
+const BACKEND_URL = 'http://127.0.0.1:3001';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const BACKEND_URL = useContractAddress('NEST_CONTRACT_ADDRESS');
-
   const { path, ...queryParams } = req.query; // 分离路径和查询参数
   const basePath = Array.isArray(path) ? path.join('/') : path || '';
   const queryString = new URLSearchParams(queryParams as Record<string, string>).toString();
@@ -18,7 +16,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const fetchOptions: RequestInit = {
       method: req.method,
-      headers: { ...req.headers, host: '47.128.74.45' } as any,
+      headers: { ...req.headers, host: '127.0.0.1' } as any,
       signal: controller.signal,
     };
 
