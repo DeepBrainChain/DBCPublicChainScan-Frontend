@@ -9,7 +9,7 @@ const feature = config.features.blockchainInteraction;
 
 const wagmiConfig = (() => {
   const rpcUrl = process.env.NEXT_PUBLIC_NETWORK_RPC_URL || 'https://rpc-testnet.dbcwallet.io';
-  console.log('RPC URLAAAAAAAAAAAAAAAAAAAAA:001', rpcUrl);
+  console.log('RPC URLAAAAAAAAAAAAAAAAAAAAA:', rpcUrl);
   try {
     if (!feature.isEnabled) {
       throw new Error();
@@ -21,7 +21,7 @@ const wagmiConfig = (() => {
       chains,
       multiInjectedProviderDiscovery: true,
       transports: {
-        [currentChain.id]: http('https://rpc.dbcwallet.io'),
+        [currentChain.id]: http(rpcUrl),
       },
       projectId: feature.walletConnect.projectId,
       metadata: {
