@@ -55,6 +55,7 @@ export function app(): CspDev.DirectiveDescriptor {
       'https://rpc.dbcwallet.io', // 新增
       'https://health0.deepbrainchain.org',
       'https://health-test.deepbrainchain.org',
+      'https://secure.walletconnect.com',
       // APIs
       config.api.endpoint,
       config.api.socket,

@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
 
-// const BACKEND_URL = 'http://47.128.74.45:3001';
-const BACKEND_URL = 'http://3.0.25.131:3001';
+const BACKEND_URL = 'http://localhost:3001';
+// const BACKEND_URL = 'http://3.0.25.131:3001';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { path, ...queryParams } = req.query; // 分离路径和查询参数
@@ -16,7 +16,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const fetchOptions: RequestInit = {
       method: req.method,
-      headers: { ...req.headers, host: '3.0.25.131' } as any,
+      headers: { ...req.headers, host: 'localhost' } as any,
+      // headers: { ...req.headers, host: '3.0.25.131' } as any,
       signal: controller.signal,
     };
 
