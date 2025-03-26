@@ -15,6 +15,8 @@ const CONTRACT_ADDRESSES: any = {
     CPU_CONTRACT_ADDRESS_SIGNIN: 'https://health0.deepbrainchain.org',
     // gpt卡片数据
     GPT_CONTRACT_ADDRESS_CARD: '0xE7871f903AEb0379095bC830819A7Ef4E120cf16',
+    // nest代理地址
+    NEST_CONTRACT_ADDRESS: 'http://47.128.74.45:3001',
     // 添加更多合约地址...
   },
   'dbcscan.io': {
@@ -30,6 +32,8 @@ const CONTRACT_ADDRESSES: any = {
     CPU_CONTRACT_ADDRESS_SIGNIN: 'https://health0.deepbrainchain.org',
     // gpt卡片数据
     GPT_CONTRACT_ADDRESS_CARD: '0xE7871f903AEb0379095bC830819A7Ef4E120cf16',
+    // nest代理地址
+    NEST_CONTRACT_ADDRESS: 'http://47.128.74.45:3001',
     // 添加更多合约地址...
   },
   'testnet.dbcscan.io': {
@@ -45,6 +49,8 @@ const CONTRACT_ADDRESSES: any = {
     CPU_CONTRACT_ADDRESS_SIGNIN: 'https://health-test.deepbrainchain.org',
     // gpt卡片数据
     GPT_CONTRACT_ADDRESS_CARD: '0xC9EA0742E650110A1df5Af1ACe4A3963136cf4Ec',
+    // nest代理地址
+    NEST_CONTRACT_ADDRESS: 'http://3.0.25.131:3001',
 
     // 添加更多合约地址...
   },
@@ -61,6 +67,8 @@ const CONTRACT_ADDRESSES: any = {
     CPU_CONTRACT_ADDRESS_SIGNIN: 'https://health-test.deepbrainchain.org',
     // gpt卡片数据
     GPT_CONTRACT_ADDRESS_CARD: '0xC9EA0742E650110A1df5Af1ACe4A3963136cf4Ec',
+    // nest代理地址
+    NEST_CONTRACT_ADDRESS: 'http://3.0.25.131:3001',
 
     // 添加更多合约地址...
   },
