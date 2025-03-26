@@ -43,10 +43,10 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
   const [dlcNodeId, setdlcNodeId] = useState('');
   const [dlcNodeCount, setDlcNodeCount] = useState('');
   const dlcApproval = useWriteContract();
+  const dlcStake = useWriteContract();
 
   // 交易方法：添加 DLC 到质押
   // const { writeContractAsync } = useWriteContract();
-  const dlcStake = useWriteContract();
 
   // 开始质押NFT
   const startStakeNft = async () => {
@@ -159,15 +159,17 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     });
     try {
       // 授权
-      const approvalHash = await dlcApproval.writeContractAsync({
+      const hash = await dlcApproval.writeContractAsync({
         address: DLC_TOKEN_ADDRESS,
         abi: dlcAbi,
         functionName: 'approve',
         args: [STAKING_CONTRACT_ADDRESS_LONG, parseEther(dlcNodeCount)],
       });
-      console.log(approvalHash, 'dlc授权hash');
+      console.log(hash, 'dlc授权hash');
+      const approvalReceipt = await waitForTransactionReceipt(config, { hash: hash });
 
-      const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
+      // const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
+      console.log(approvalReceipt, 'approvalReceiptapprovalReceiptapprovalReceiptapprovalReceipt');
       if (approvalReceipt.status !== 'success') {
         throw new Error('授权交易失败');
       }
