@@ -1,12 +1,13 @@
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useConfig, useReadContract } from 'wagmi';
 import nftAbi from './nftAbi.json';
-import erc20Abi from './dlcAbi.json';
+import dlcAbi from './dlcAbi.json';
 import stakingAbi from './stakingLongAbi.json';
 import { useToast } from '@chakra-ui/react';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useEffect, useState } from 'react';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { createMachine } from '../../../ui/mymachine/modules/api/index';
+import { parseEther } from 'viem';
 
 // machin ID: a8aeafb706433fc89c16817e8405705bd66f28b6d5cfc46c9da2faf7b204da78
 // private key: d85789ca443866f898a928bba3d863a5e3c66dc03b03a7d947e8dde99e19368e
@@ -160,25 +161,25 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       // 授权
       const approvalHash = await dlcApproval.writeContractAsync({
         address: DLC_TOKEN_ADDRESS,
-        abi: erc20Abi,
+        abi: dlcAbi,
         functionName: 'approve',
-        args: [STAKING_CONTRACT_ADDRESS_LONG, dlcNodeCount],
+        args: [STAKING_CONTRACT_ADDRESS_LONG, parseEther(dlcNodeCount)],
       });
+      console.log(approvalHash, 'dlc授权hash');
 
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
       if (approvalReceipt.status !== 'success') {
         throw new Error('授权交易失败');
       }
-
       // 质押
-
+      console.log(parseEther(dlcNodeCount), '////////', dlcNodeId);
       const stakeHash = await dlcStake.writeContractAsync({
         address: STAKING_CONTRACT_ADDRESS_LONG,
         abi: stakingAbi,
         functionName: 'addDLCToStake',
-        args: [dlcNodeId, dlcNodeCount], // 使用传入的 machineId 和 amount
+        args: [dlcNodeId, parseEther(dlcNodeCount)], // 使用传入的 machineId 和 amount
       });
-
+      console.log(stakeHash, 'dlc交易hash');
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
         throw new Error('质押交易失败');
@@ -199,7 +200,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
         status: 'error',
         description: error.message || '操作失败',
         isClosable: true,
-        duration: 5000,
+        duration: null,
       });
     } finally {
       setDlcBtnLoading(false);

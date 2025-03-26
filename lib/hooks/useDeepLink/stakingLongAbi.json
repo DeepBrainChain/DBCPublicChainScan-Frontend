@@ -21,13 +21,7 @@
     "type": "error"
   },
   {
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "machineId",
-        "type": "string"
-      }
-    ],
+    "inputs": [],
     "name": "CPURateLessThan3500",
     "type": "error"
   },
@@ -267,6 +261,11 @@
   },
   {
     "inputs": [],
+    "name": "StakingNotEnd",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "TimestampLessThanCurrent",
     "type": "error"
   },
@@ -396,6 +395,12 @@
         "internalType": "string",
         "name": "machineId",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "nextCanRentTime",
+        "type": "uint256"
       }
     ],
     "name": "EndRentMachine",
@@ -412,6 +417,31 @@
       }
     ],
     "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "MoveToReserveAmount",
     "type": "event"
   },
   {
@@ -462,6 +492,31 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "rentFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "RenewRent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "machineOwner",
@@ -472,6 +527,12 @@
         "internalType": "string",
         "name": "machineId",
         "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "rentFee",
+        "type": "uint256"
       }
     ],
     "name": "RentMachine",
@@ -559,6 +620,18 @@
         "indexed": false,
         "internalType": "uint256",
         "name": "calcPoint",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "gpuType",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "rentEndTime",
         "type": "uint256"
       }
     ],
@@ -1380,6 +1453,44 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "gpuTypeSet",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "gpuTypes",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "",
         "type": "address"
@@ -1795,6 +1906,24 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rentFee",
+        "type": "uint256"
+      }
+    ],
+    "name": "renewRentMachine",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "renounceOwnership",
     "outputs": [],
@@ -1820,6 +1949,11 @@
         "internalType": "string",
         "name": "machineId",
         "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rentFee",
+        "type": "uint256"
       }
     ],
     "name": "rentMachine",
@@ -1960,6 +2094,19 @@
       }
     ],
     "name": "setDLCClientWallets",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string[]",
+        "name": "_gpuTypes",
+        "type": "string[]"
+      }
+    ],
+    "name": "setGpuTypes",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -2163,6 +2310,25 @@
         "internalType": "uint256",
         "name": "releasedRewardAmount",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "stakedMachineIds",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
       }
     ],
     "stateMutability": "view",
