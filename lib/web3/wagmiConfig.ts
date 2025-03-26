@@ -9,7 +9,7 @@ const feature = config.features.blockchainInteraction;
 
 const wagmiConfig = (() => {
   const rpcUrl = process.env.NEXT_PUBLIC_NETWORK_RPC_URL || 'https://rpc-testnet.dbcwallet.io';
-  console.log('RPC URLAAAAAAAAAAAAAAAAAAAAA:', rpcUrl);
+  console.log('RPC URLAAAAAAAAAAAAAAAAAAAAA:001', rpcUrl);
   try {
     if (!feature.isEnabled) {
       throw new Error();
