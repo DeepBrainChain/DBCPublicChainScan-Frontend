@@ -5,11 +5,14 @@ import type { CreateConfigParameters } from 'wagmi';
 import config from 'configs/app';
 import currentChain from 'lib/web3/currentChain';
 const feature = config.features.blockchainInteraction;
-// import { getEnvValue } from '../../configs/app/utils';
+import { getEnvValue } from '../../configs/app/utils';
 
 const wagmiConfig = (() => {
   const rpcUrl = process.env.NEXT_PUBLIC_NETWORK_RPC_URL || 'https://rpc-testnet.dbcwallet.io';
   console.log('RPC URLAAAAAAAAAAAAAAAAAAAAA:', rpcUrl);
+  console.log(getEnvValue('NEXT_PUBLIC_API_URLX'), 'ttttt');
+  console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL'), 'rpc');
+
   try {
     if (!feature.isEnabled) {
       throw new Error();
