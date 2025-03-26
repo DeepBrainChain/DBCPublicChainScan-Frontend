@@ -31,6 +31,14 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     },
   }) as any;
 
+  // 读取授权额度
+  // const { refetch: refetch2 } = useReadContract({
+  //   address: DLC_TOKEN_ADDRESS,
+  //   abi: nftAbi,
+  //   functionName: 'allowance',
+  //   args: [address, STAKING_CONTRACT_ADDRESS_LONG],
+  // }) as any;
+
   // NFT 授权
   const [nftLoading, setLoading] = useState(false);
   const [machineId, setMachineId] = useState('');
@@ -158,6 +166,10 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       isClosable: false,
     });
     try {
+      // 先判断是否需要授权
+      // const { data } = await refetch2();
+      // console.log(data, 'xxxxxxxxxx');
+      // return false;
       // 授权
       const hash = await dlcApproval.writeContractAsync({
         address: DLC_TOKEN_ADDRESS,
@@ -168,8 +180,6 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       console.log(hash, 'dlc授权hash');
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: hash });
 
-      // const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
-      console.log(approvalReceipt, 'approvalReceiptapprovalReceiptapprovalReceiptapprovalReceipt');
       if (approvalReceipt.status !== 'success') {
         throw new Error('授权交易失败');
       }
@@ -195,6 +205,9 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
         duration: 5000,
         isClosable: true,
       });
+      if (onPledgeModalCloseDLC) {
+        onPledgeModalCloseDLC();
+      }
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
