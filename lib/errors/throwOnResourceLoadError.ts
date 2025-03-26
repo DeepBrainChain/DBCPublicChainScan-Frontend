@@ -19,6 +19,6 @@ export default function throwOnResourceLoadError({ isError, error, resource }: P
   if (isError) {
     console.error('Resource load failed:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', error, resource);
 
-    throw Error(RESOURCE_LOAD_ERROR_MESSAGE, { cause: { ...error, resource } as unknown as Error });
+    // throw Error(RESOURCE_LOAD_ERROR_MESSAGE, { cause: { ...error, resource } as unknown as Error });
   }
 }
