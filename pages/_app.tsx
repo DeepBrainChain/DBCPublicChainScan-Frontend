@@ -23,6 +23,10 @@ import Web3ModalProvider from 'ui/shared/Web3ModalProvider';
 import { appWithTranslation } from 'next-i18next';
 import '../style/index.css';
 import 'lib/setLocale';
+
+import { WagmiProvider } from 'wagmi'; // 替换 WagmiConfig 为 WagmiProvider
+import wagmiConfig from '../lib/web3/wagmiConfig'; // 导入你的 wagmiConfig
+
 // import 'focus-visible/dist/focus-visible';
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -51,25 +55,27 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, []);
 
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
-
+  console.log(wagmiConfig, 'wagmiConfigwagmiConfigwagmiConfigwagmiConfig');
   return (
     <ChakraProvider cookies={pageProps.cookies}>
       <AppErrorBoundary {...ERROR_SCREEN_STYLES} onError={handleError}>
-        <Web3ModalProvider>
-          <AppContextProvider pageProps={pageProps}>
-            <QueryClientProvider client={queryClient}>
-              <GrowthBookProvider growthbook={growthBook}>
-                <ScrollDirectionProvider>
-                  <SocketProvider url={`${config.api.socket}${config.api.basePath}/socket/v2`}>
-                    <MarketplaceContextProvider>{getLayout(<Component {...pageProps} />)}</MarketplaceContextProvider>
-                  </SocketProvider>
-                </ScrollDirectionProvider>
-              </GrowthBookProvider>
-              <ReactQueryDevtools buttonPosition="bottom-left" position="left" />
-              <GoogleAnalytics />
-            </QueryClientProvider>
-          </AppContextProvider>
-        </Web3ModalProvider>
+        <WagmiProvider config={wagmiConfig}>
+          <Web3ModalProvider>
+            <AppContextProvider pageProps={pageProps}>
+              <QueryClientProvider client={queryClient}>
+                <GrowthBookProvider growthbook={growthBook}>
+                  <ScrollDirectionProvider>
+                    <SocketProvider url={`${config.api.socket}${config.api.basePath}/socket/v2`}>
+                      <MarketplaceContextProvider>{getLayout(<Component {...pageProps} />)}</MarketplaceContextProvider>
+                    </SocketProvider>
+                  </ScrollDirectionProvider>
+                </GrowthBookProvider>
+                <ReactQueryDevtools buttonPosition="bottom-left" position="left" />
+                <GoogleAnalytics />
+              </QueryClientProvider>
+            </AppContextProvider>
+          </Web3ModalProvider>
+        </WagmiProvider>
       </AppErrorBoundary>
     </ChakraProvider>
   );

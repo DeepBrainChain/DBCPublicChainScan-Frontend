@@ -21,35 +21,34 @@ interface Props {
 }
 
 const Tokens = ({ query, onSortChange, sort, actionBar, description, hasActiveFilters }: Props) => {
-
   const { isError, isPlaceholderData, data, pagination } = query;
 
   if (isError) {
-    return <DataFetchAlert/>;
+    return <DataFetchAlert />;
   }
 
   const content = data?.items ? (
     <>
-      <Show below="lg" ssr={ false }>
-        { description }
-        { data.items.map((item, index) => (
+      <Show below="lg" ssr={false}>
+        {description}
+        {data.items.map((item, index) => (
           <TokensListItem
-            key={ item.address + (isPlaceholderData ? index : '') }
-            token={ item }
-            index={ index }
-            page={ pagination.page }
-            isLoading={ isPlaceholderData }
+            key={item.address + (isPlaceholderData ? index : '')}
+            token={item}
+            index={index}
+            page={pagination.page}
+            isLoading={isPlaceholderData}
           />
-        )) }
+        ))}
       </Show>
-      <Hide below="lg" ssr={ false }>
-        { description }
+      <Hide below="lg" ssr={false}>
+        {description}
         <TokensTable
-          items={ data.items }
-          page={ pagination.page }
-          isLoading={ isPlaceholderData }
-          setSorting={ onSortChange }
-          sorting={ sort }
+          items={data.items}
+          page={pagination.page}
+          isLoading={isPlaceholderData}
+          setSorting={onSortChange}
+          sorting={sort}
         />
       </Hide>
     </>
@@ -57,15 +56,15 @@ const Tokens = ({ query, onSortChange, sort, actionBar, description, hasActiveFi
 
   return (
     <DataListDisplay
-      isError={ isError }
-      items={ data?.items }
+      isError={isError}
+      items={data?.items}
       emptyText="There are no tokens."
       filterProps={{
-        emptyFilteredText: `Couldn${ apos }t find token that matches your filter query.`,
+        emptyFilteredText: `Couldn${apos}t find token that matches your filter query.`,
         hasActiveFilters,
       }}
-      content={ content }
-      actionBar={ query.pagination.isVisible || hasActiveFilters ? actionBar : null }
+      content={content}
+      actionBar={query.pagination.isVisible || hasActiveFilters ? actionBar : null}
     />
   );
 };

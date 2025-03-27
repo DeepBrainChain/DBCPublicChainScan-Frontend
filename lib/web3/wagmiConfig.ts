@@ -7,7 +7,7 @@ import currentChain from 'lib/web3/currentChain';
 const feature = config.features.blockchainInteraction;
 import { getEnvValue } from '../../configs/app/utils';
 
-const wagmiConfig = (() => {
+const wagmiConfig: any = (() => {
   console.log(currentChain, 'web3配置信息');
   console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL'), 'rpc节点');
   // const rpcUrl = process.env.NEXT_PUBLIC_NETWORK_RPC_URL || 'https://rpc-testnet.dbcwallet.io';
@@ -16,10 +16,9 @@ const wagmiConfig = (() => {
     if (!feature.isEnabled) {
       throw new Error();
     }
-    // https://rpc.dbcwallet.io
     const chains: CreateConfigParameters['chains'] = [currentChain];
 
-    const wagmiConfig = defaultWagmiConfig({
+    const wagmiConfig: any = defaultWagmiConfig({
       chains,
       multiInjectedProviderDiscovery: true,
       transports: {
@@ -33,7 +32,7 @@ const wagmiConfig = (() => {
         icons: [config.UI.sidebar.icon.default].filter(Boolean),
       },
       enableEmail: true,
-      ssr: true,
+      // ssr: true,
     });
 
     return wagmiConfig;
