@@ -3,7 +3,6 @@ const isProduction = process.env.NODE_ENV === 'production';
 // 开发环境baseUrl
 const baseUrl = isProduction ? '/nestapi/machine' : 'http://localhost:3001/machine';
 // const baseUrl = isProduction ? 'https://c00.reckonkvm.com/machine' : 'http://localhost:3001/machine';
-import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
 
 // 获取机器列表数据
 export async function fetchMachineData(address: any) {

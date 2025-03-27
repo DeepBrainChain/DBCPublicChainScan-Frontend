@@ -24,6 +24,7 @@ import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi'
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
 import { useContractActions } from '../hooks/stake-before';
+import { parseEther } from 'viem';
 
 function cpuStakeDlcBtn() {
   const { t } = useTranslation('common');
@@ -73,7 +74,7 @@ function cpuStakeDlcBtn() {
         address: CPU_CONTRACT_ADDRESS_DLC,
         abi: dlcAbi,
         functionName: 'approve',
-        args: [CPU_CONTRACT_ADDRESS_STAKING, true],
+        args: [CPU_CONTRACT_ADDRESS_STAKING, parseEther(amount)],
       });
 
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
@@ -86,7 +87,7 @@ function cpuStakeDlcBtn() {
         address: CPU_CONTRACT_ADDRESS_STAKING,
         abi: stakeAbi,
         functionName: 'addDLCToStake',
-        args: [machineId, amount],
+        args: [machineId, parseEther(amount)],
       });
 
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });

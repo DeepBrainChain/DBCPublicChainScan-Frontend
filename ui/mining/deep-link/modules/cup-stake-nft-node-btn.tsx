@@ -41,7 +41,7 @@ function cpuStakeNftBtn() {
   const stake = useWriteContract();
   const { register, unregister } = useContractActions(machineId);
 
-  const { data: nftData, refetch } = useReadContract({
+  const { refetch } = useReadContract({
     address: NFT_CONTRACT_ADDRESS,
     abi: nftAbi,
     functionName: 'getBalance',
