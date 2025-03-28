@@ -73,17 +73,17 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
     });
     console.log(id, '机器id');
     try {
-      const stakeEndTimestamp = await readContract(config, {
-        address: CPU_CONTRACT_ADDRESS_STAKING, // 合约地址
-        abi: stakingAbi, // 合约 ABI
-        functionName: 'getStakeEndTimestamp', // 函数名
-        args: [id], // 参数：machineId
-      });
+      // const stakeEndTimestamp = await readContract(config, {
+      //   address: CPU_CONTRACT_ADDRESS_STAKING, // 合约地址
+      //   abi: stakingAbi, // 合约 ABI
+      //   functionName: 'getStakeEndTimestamp', // 函数名
+      //   args: [id], // 参数：machineId
+      // });
 
-      // result 是 bigint 类型，转换为 number
-      if (Number(stakeEndTimestamp) >= Math.floor(Date.now() / 1000)) {
-        throw new Error('质押还未到期，不能解除质押！');
-      }
+      // // result 是 bigint 类型，转换为 number
+      // if (Number(stakeEndTimestamp) >= Math.floor(Date.now() / 1000)) {
+      //   throw new Error('质押还未到期，不能解除质押！');
+      // }
       //  开始调用注销接口
       const res: any = await unregister();
       console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
