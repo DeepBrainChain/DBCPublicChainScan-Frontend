@@ -15,7 +15,7 @@ import React from 'react';
 import { useWriteContract, useAccount, useConfig } from 'wagmi';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';
-import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
+import stakingAbi from '../abi/stakeaib.json';
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 
