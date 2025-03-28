@@ -7,10 +7,11 @@ import CpuStakeDbcBtn from './modules/cpu-stake-dbc-btn';
 import CpuStakeNftBtn from './modules/cup-stake-nft-node-btn';
 import CpuStakeDlcBtn from './modules/cup-stake-dlc-btn';
 import { useRouter } from 'next/router';
+import { getEnvValue } from '../../../configs/app/utils';
 
 const FixedComponent = () => {
   const { t, i18n } = useTranslation('common');
-  const link = process.env.NEXT_PUBLIC_API_URL || 'https://testnet.dbcscan.io/mymachine'; // 默认值可选
+  const link = getEnvValue('NEXT_PUBLIC_API_URL') || 'https://testnet.dbcscan.io/gpumachine'; // 默认值可选
   const router = useRouter();
 
   return (

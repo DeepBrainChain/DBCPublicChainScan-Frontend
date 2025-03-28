@@ -169,5 +169,20 @@
   "token_filter": "筛选",
 
   "token_type": "类型",
-  "token_reset": "重置"
+  "token_reset": "重置",
+
+  "machine_ID": "机器ID",
+  "machine_Stake": "质押",
+  "machine_Reg": "地区",
+  "machine_HDD": "硬盘",
+  "machine_BW": "带宽",
+  "machine_Mem": "内存",
+  "machine_CPU": "CPU核数",
+  "machine_Proj": "项目",
+  "machine_TotRwd": "总奖励",
+  "machine_ClmRwd": "已领取",
+  "machine_LckRwd": "锁仓奖励",
+  "machine_Act": "操作",
+  "machine_Unstake": "解除质押",
+  "machine_Withdraw": "领取收益"
 }

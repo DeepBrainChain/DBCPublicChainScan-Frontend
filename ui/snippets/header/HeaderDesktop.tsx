@@ -20,8 +20,8 @@ const HeaderDesktop = ({ renderSearchBar, isMarketplaceAppPage }: Props) => {
   const searchBar = renderSearchBar ? renderSearchBar() : <SearchBar />;
   const router = useRouter();
   const routerH = () => {
-    if (router.pathname !== '/mymachine') {
-      router.push('/mymachine');
+    if (router.pathname !== '/gpumachine') {
+      router.push('/gpumachine');
     }
   };
   const { t, i18n } = useTranslation('common');

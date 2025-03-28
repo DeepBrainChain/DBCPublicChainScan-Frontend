@@ -1,0 +1,166 @@
+import {
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton,
+  Button,
+  useDisclosure,
+  Skeleton,
+} from '@chakra-ui/react';
+import { useTimeoutFn } from '@reactuses/core';
+import React, { useState } from 'react';
+import { useApproval } from '../../../lib/hooks/useDeepLink/useApproval';
+import { useWriteContract, useAccount, useReadContract, useConfig } from 'wagmi';
+import { waitForTransactionReceipt } from 'wagmi/actions';
+import { useToast } from '@chakra-ui/react';
+import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
+import { usePolling } from './hooks/usePolling';
+import { usStake } from './api/index';
+import { useTranslation } from 'next-i18next';
+import { useContractAddress } from '../../../lib/hooks/useContractAddress';
+import { useContractActions } from '../../../ui/mining/deep-link/hooks/stake-before';
+import { readContract } from '@wagmi/core'; // 注意导入路径
+
+interface UnstakeBtnProps {
+  id: string;
+  forceRerender: any;
+}
+
+function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef(null);
+  const config = useConfig();
+  const toast = useToast();
+  const [isPending] = useTimeoutFn(() => {}, 2000, { immediate: true });
+
+  // 是否可以解除质押
+  const { t } = useTranslation('common');
+  const CPU_CONTRACT_ADDRESS_STAKING = useContractAddress('CPU_CONTRACT_ADDRESS_STAKING');
+  const { isConnected } = useAccount();
+  const { unregister } = useContractActions(id);
+  // 按钮数据
+  const [btnData, setBtnData] = React.useState({
+    isLoading: false,
+    loadingText: '',
+  });
+
+  // 解除质押合约实例
+  const unstake = useWriteContract();
+
+  const unstakeH = async () => {
+    if (!isConnected) {
+      toast({
+        position: 'top',
+        title: '提示',
+        description: '请先连接你的钱包',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+    setBtnData({ isLoading: true, loadingText: 'Sending...' });
+    const toastId = toast({
+      position: 'top',
+      title: '解除质押中',
+      description: '正在处理您的解除质押请求，请稍候...',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
+    console.log(id, '机器id');
+    try {
+      const stakeEndTimestamp = await readContract(config, {
+        address: CPU_CONTRACT_ADDRESS_STAKING, // 合约地址
+        abi: stakingAbi, // 合约 ABI
+        functionName: 'getStakeEndTimestamp', // 函数名
+        args: [id], // 参数：machineId
+      });
+
+      // result 是 bigint 类型，转换为 number
+      if (Number(stakeEndTimestamp) >= Math.floor(Date.now() / 1000)) {
+        throw new Error('质押还未到期，不能解除质押！');
+      }
+      //  开始调用注销接口
+      const res: any = await unregister();
+      console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
+      if (res.code !== 0) {
+        throw new Error(res.message || '注销接口失败');
+      }
+      // 开始解除质押
+      const unstakeHash = await unstake.writeContractAsync({
+        address: CPU_CONTRACT_ADDRESS_STAKING,
+        abi: stakingAbi,
+        functionName: 'unStake',
+        args: [id],
+      });
+      const stakeReceipt = await waitForTransactionReceipt(config, { hash: unstakeHash });
+      if (stakeReceipt.status !== 'success') {
+        throw new Error('解除质押交易失败');
+      }
+
+      toast.update(toastId, {
+        position: 'top',
+        title: '成功',
+        status: 'success',
+        description: '解除质押成功！',
+        duration: 5000,
+        isClosable: true,
+      });
+      forceRerender();
+      onClose();
+    } catch (error: any) {
+      toast.update(toastId, {
+        position: 'top',
+        title: '失败',
+        status: 'error',
+        description: error.message || '操作失败',
+        isClosable: true,
+        duration: 5000,
+      });
+    } finally {
+      setBtnData({ isLoading: false, loadingText: '' });
+    }
+  };
+
+  return (
+    <>
+      <Skeleton isLoaded={!isPending}>
+        <Button size="sm" variant="outline" onClick={onOpen}>
+          {t('machine_Unstake')}
+        </Button>
+      </Skeleton>
+
+      <AlertDialog
+        motionPreset="slideInBottom"
+        leastDestructiveRef={cancelRef}
+        onClose={onClose}
+        isOpen={isOpen}
+        isCentered
+      >
+        <AlertDialogOverlay />
+
+        <AlertDialogContent className="!max-w-[500px]">
+          <AlertDialogHeader>Confirmation</AlertDialogHeader>
+          <AlertDialogCloseButton />
+          <AlertDialogBody>Are you sure you want to unstake?</AlertDialogBody>
+          <AlertDialogFooter>
+            <div className="flex items-center gap-6">
+              <Button colorScheme="blackAlpha" ref={cancelRef} onClick={onClose}>
+                Cancel
+              </Button>
+              <Button isLoading={btnData.isLoading} loadingText={btnData.loadingText} onClick={unstakeH}>
+                Confirm
+              </Button>
+            </div>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+}
+
+export default UnstakeBtn;

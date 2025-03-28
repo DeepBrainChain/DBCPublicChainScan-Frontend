@@ -24,6 +24,7 @@ import { waitForTransactionReceipt } from 'wagmi/actions';
 import nftAbi from '../../../../lib/hooks/useDeepLink/nftAbi.json';
 import stakeAbi from './abi/stakeAbi.json';
 import { useContractActions } from '../hooks/stake-before';
+import { createMachineGpu } from '../../../gpumachine/api/index';
 
 function cpuStakeNftBtn() {
   const { t } = useTranslation('common');
@@ -118,16 +119,23 @@ function cpuStakeNftBtn() {
       if (stakeReceipt.status !== 'success') {
         throw new Error('质押交易失败');
       }
-
-      toast.update(toastId, {
-        position: 'top',
-        title: '成功',
-        status: 'success',
-        description: '质押成功！',
-        duration: 5000,
-        isClosable: true,
+      const resx: any = await createMachineGpu({
+        machineId: machineId,
+        walletAddress: address,
       });
-      onClose();
+      if (resx.code === 1000) {
+        toast.update(toastId, {
+          position: 'top',
+          title: '成功',
+          status: 'success',
+          description: '质押成功！',
+          duration: 5000,
+          isClosable: true,
+        });
+        onClose();
+      } else {
+        throw new Error(res.msg);
+      }
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',

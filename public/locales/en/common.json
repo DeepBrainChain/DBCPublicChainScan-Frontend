@@ -171,5 +171,19 @@
   "token_filter": "Filter",
 
   "token_type": "Type",
-  "token_reset": "Reset"
+  "token_reset": "Reset",
+  "machine_ID": "ID",
+  "machine_Stake": "Stake",
+  "machine_Reg": "Reg",
+  "machine_HDD": "HDD",
+  "machine_BW": "BW",
+  "machine_Mem": "Mem",
+  "machine_CPU": "CPU",
+  "machine_Proj": "Proj",
+  "machine_TotRwd": "Tot Rwd",
+  "machine_ClmRwd": "Clm Rwd",
+  "machine_LckRwd": "Lck Rwd",
+  "machine_Act": "Act",
+  "machine_Unstake": "Unstake",
+  "machine_Withdraw": "Withdraw"
 }
