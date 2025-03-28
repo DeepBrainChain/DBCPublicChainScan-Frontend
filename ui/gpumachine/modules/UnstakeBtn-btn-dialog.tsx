@@ -18,7 +18,7 @@ import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
 import { usePolling } from './hooks/usePolling';
-import { usStake } from './api/index';
+import { deleteMachineGpu } from '../api/index';
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { useContractActions } from '../../../ui/mining/deep-link/hooks/stake-before';
@@ -73,17 +73,6 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
     });
     console.log(id, '机器id');
     try {
-      // const stakeEndTimestamp = await readContract(config, {
-      //   address: CPU_CONTRACT_ADDRESS_STAKING, // 合约地址
-      //   abi: stakingAbi, // 合约 ABI
-      //   functionName: 'getStakeEndTimestamp', // 函数名
-      //   args: [id], // 参数：machineId
-      // });
-
-      // // result 是 bigint 类型，转换为 number
-      // if (Number(stakeEndTimestamp) >= Math.floor(Date.now() / 1000)) {
-      //   throw new Error('质押还未到期，不能解除质押！');
-      // }
       //  开始调用注销接口
       const res: any = await unregister();
       console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
@@ -100,6 +89,12 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: unstakeHash });
       if (stakeReceipt.status !== 'success') {
         throw new Error('解除质押交易失败');
+      }
+      const resDelete: any = await deleteMachineGpu(id);
+      console.log(resDelete);
+
+      if (resDelete.code !== 1000) {
+        throw new Error(resDelete.msg);
       }
 
       toast.update(toastId, {

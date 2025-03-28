@@ -49,3 +49,26 @@ export async function createMachineGpu(req: any) {
     return error;
   }
 }
+
+// 根据机器ID删除机器
+
+export async function deleteMachineGpu(id: string) {
+  const url = `${baseUrl}/machine/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data; // 返回创建结果
+    } else {
+      return response;
+    }
+  } catch (error) {
+    return error;
+  }
+}
