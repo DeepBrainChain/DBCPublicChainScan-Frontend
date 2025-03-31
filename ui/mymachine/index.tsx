@@ -30,6 +30,7 @@ import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
 import { useAccount } from 'wagmi';
 import { FaCoins } from 'react-icons/fa'; // 使用 FaCoins 图标表示代币奖励
 import { getEnvValue } from '../../configs/app/utils';
+import { useTranslation } from 'next-i18next';
 
 function Index() {
   const isMobile = useIsMobile();
@@ -37,6 +38,7 @@ function Index() {
   const [loading, setLoading] = useState(true); // 加载状态
   const [error, setError] = useState(null); // 错误状态
   const { address, isConnected } = useAccount();
+  const { t } = useTranslation('common');
 
   // 重新渲染
   const [key, setKey] = useState(0);
@@ -57,7 +59,7 @@ function Index() {
             totalCalcPoint
           }
           stakeHolders(where: {
-            holder: "0x68df58a7e2479fe172ce2788513618399805b70d"
+            holder: "${address}"
           }) {
             holder
             totalClaimedRewardAmount
@@ -100,16 +102,16 @@ function Index() {
 
   // thead 数据
   const thead = [
-    { t: 'Machine ID', pcW: '500px', mobileW: '70px' },
-    { t: 'Staking', pcW: '70px', mobileW: '60px' },
+    { t: t('withdrawDialog_machineId'), pcW: '400px', mobileW: '70px' },
+    { t: t('withdrawDialog_isStaking'), pcW: '100px', mobileW: '60px' },
     // { t: 'GPU Type', pcW: '80px', mobileW: '70px' },
     // { t: 'GPU Num', pcW: '80px', mobileW: '80px' },
     // { t: 'Mem', pcW: '60px', mobileW: '50px' },
     // { t: 'Project', pcW: '80px', mobileW: '60px' },
-    { t: 'Total Reward', pcW: '100px', mobileW: '100px' },
-    { t: 'Claimed', pcW: '85px', mobileW: '65px' },
-    { t: 'Locked', pcW: '100px', mobileW: '65px' },
-    { t: 'Actions' },
+    { t: t('withdrawDialog_totalRewards'), pcW: '140px', mobileW: '100px' },
+    { t: t('withdrawDialog_claimedRewards'), pcW: '140px', mobileW: '65px' },
+    { t: t('withdrawDialog_lockedRewards'), pcW: '140px', mobileW: '65px' },
+    { t: t('withdrawDialog_action') },
   ];
 
   // 从 machineData 映射到表格数据
@@ -117,7 +119,7 @@ function Index() {
     machineData.length > 0
       ? machineData.map((item: any) => {
           return {
-            machineId: item.machineId,
+            machineId: item.machineId, //机器ID
             v0: item.isStaking, // 是否在质押
             // v1: item.gpuType || 'N/A', // GPU 类型
             // v2: 1, // GPU 数量
@@ -126,7 +128,7 @@ function Index() {
             v5: item.totalReservedAmount, // 总奖励数量
             v6: item.totalClaimedRewardAmount, // 已领取奖励数量
             v7: item.totalReleasedRewardAmount, // 锁仓奖励数量
-            v11: [RestakeBtn, UnstakeBtn, WithdrawBtn], // 操作按钮
+            v11: [UnstakeBtn, WithdrawBtn], // 操作按钮
           };
         })
       : [];
@@ -155,7 +157,7 @@ function Index() {
     <Card variant="subtle">
       <CardHeader>
         <div className="flex flex-col w-full gap-4">
-          <Heading size="md">Machine List</Heading>
+          <Heading size="md">{t('machine_List')}</Heading>
           <MymachineSearchTop />
         </div>
       </CardHeader>

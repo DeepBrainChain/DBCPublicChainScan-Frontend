@@ -18,7 +18,7 @@
   "Fee": "费用",
   "cpu-mining": "CPU带宽挖矿",
   "cpu-mining-requirements": "说明：CPU带宽挖矿需要CPU服务器托管在专业的数据中心或者租用厂商的CPU服务器，并且保持365天电和网络不能中断，否则会被惩罚DLC Token",
-  "deeplink-installation-instruction": "首先需要在CPU机器中安装DeepLink相关程序，参考文档：",
+  "deeplink-installation-instruction": "首先需要在CPU机器中安装DeepLink相关程序，参考文档",
   "deeplink-network": "将CPU机器加入到DeepLink网络中",
   "staking-rewards-rule": "质押越多收益越大，此步骤也可以跳过，不质押DLC，参考规则",
   "deeplink-network-machine-info": "查看已加入到DeepLink网络中的机器信息",
@@ -184,5 +184,14 @@
   "machine_LckRwd": "锁仓奖励",
   "machine_Act": "操作",
   "machine_Unstake": "解除质押",
-  "machine_Withdraw": "领取收益"
+  "machine_Withdraw": "领取收益",
+  "machine_List": "机器列表",
+
+  "withdrawDialog_machineId": "机器ID",
+  "withdrawDialog_isStaking": "是否在质押",
+  "withdrawDialog_totalRewards": "总奖励数量",
+  "withdrawDialog_claimedRewards": "已领取奖励数量",
+  "withdrawDialog_lockedRewards": "锁仓奖励数量",
+  "withdrawDialog_action": "操作",
+  "withdrawDialog_searchKeywords": "请输入搜索关键词"
 }

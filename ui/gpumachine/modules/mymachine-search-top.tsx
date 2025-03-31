@@ -16,9 +16,11 @@ import {
 import { useTimeoutFn } from '@reactuses/core';
 import React from 'react';
 import { BsFilter } from 'react-icons/bs';
+import { useTranslation } from 'next-i18next';
 
 const mymachineSearchTop = () => {
   const [isPending, start] = useTimeoutFn(() => {}, 2000, { immediate: true });
+  const { t } = useTranslation('common');
 
   return (
     <Skeleton isLoaded={!isPending}>
@@ -41,7 +43,7 @@ const mymachineSearchTop = () => {
                 </PopoverContent>
               </Popover>
             </InputLeftAddon>
-            <Input type="tel" placeholder="Please enter keywords for search!" />
+            <Input type="tel" placeholder={t('withdrawDialog_searchKeywords')} />
           </InputGroup>
         </div>
 

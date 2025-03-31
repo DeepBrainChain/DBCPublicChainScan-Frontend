@@ -12,13 +12,14 @@ import {
 } from '@chakra-ui/react';
 import { useTimeoutFn } from '@reactuses/core';
 import React from 'react';
-import { useWriteContract } from 'wagmi';
-import { waitForTransactionReceipt } from 'wagmi/actions';
+import { useWriteContract, useAccount, useReadContract } from 'wagmi';
+import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useConfig } from 'wagmi';
 import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
-
-const STAKING_CONTRACT_ADDRESS = '0x7FDC6ed8387f3184De77E0cF6D6f3B361F906C21';
+import { useContractAddress } from '../../../lib/hooks/useContractAddress';
+import { useTranslation } from 'next-i18next';
+import { formatEther } from 'viem';
 
 function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -26,95 +27,117 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
   const config = useConfig();
   const toast = useToast();
   const cancelRef = React.useRef(null);
-  const claim = useWriteContract();
+  const { address, isConnected } = useAccount();
+  const STAKING_CONTRACT_ADDRESS_LONG = useContractAddress('STAKING_CONTRACT_ADDRESS_LONG');
+  const { t } = useTranslation('common');
 
   const [btnData, setBtnData] = React.useState({
     isLoading: false,
     loadingText: '',
   });
 
+  // 待领取奖励质押合约实例
+  const claim = useWriteContract();
+
   const getClaim = async () => {
+    if (!isConnected) {
+      toast({
+        position: 'top',
+        title: '提示',
+        description: '请先连接你的钱包',
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+      return;
+    }
+    setBtnData({ isLoading: true, loadingText: 'Sending...' });
+    const toastId = toast({
+      position: 'top',
+      title: '领取收益中',
+      description: '正在处理您的领取收益请求，请稍候...',
+      status: 'loading',
+      duration: null,
+      isClosable: false,
+    });
+    console.log(id, '机器id');
     try {
-      console.log('id是', id);
-      // setBtnData({ isLoading: true, loadingText: 'Sending...' });
+      // 开始领取收益
+      const claimHash = await claim.writeContractAsync({
+        address: STAKING_CONTRACT_ADDRESS_LONG,
+        abi: stakingAbi,
+        functionName: 'claim',
+        args: [id],
+      });
+      const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash });
+      if (stakeReceipt.status !== 'success') {
+        throw new Error('领取收益交易失败');
+      }
 
-      // // 使用 Promise 链合并交易发送和确认
-      // const transactionPromise = claim
-      //   .writeContractAsync({
-      //     address: STAKING_CONTRACT_ADDRESS,
-      //     abi: stakingAbi,
-      //     functionName: 'claim',
-      //     args: [id],
-      //   })
-      //   .then((txHash) =>
-      //     waitForTransactionReceipt(config, { hash: txHash }).then((receipt) => {
-      //       return {
-      //         txHash,
-      //         receipt,
-      //       };
-      //     })
-      //   );
-
-      // // 使用 toast.promise 管理整个流程
-      // await toast.promise(transactionPromise, {
-      //   loading: {
-      //     title: 'In Progress',
-      //     description: 'Please confirm the transaction in your wallet',
-      //     position: 'top',
-      //     duration: null, // 确保加载状态持续到 Promise 完成
-      //   },
-      //   success: ({ txHash, receipt }) => {
-      //     setBtnData({ isLoading: false, loadingText: '' });
-      //     if (receipt.status === 'success') {
-      //       forceRerender();
-      //       onClose();
-      //       return {
-      //         title: 'Transaction Confirmed',
-      //         description: 'DLC staking completed successfully!',
-      //         status: 'success',
-      //         position: 'top',
-      //         duration: 2000,
-      //         isClosable: true,
-      //       };
-      //     } else {
-      //       setBtnData({ isLoading: false, loadingText: '' });
-
-      //       return {
-      //         title: 'Transaction Failed',
-      //         description: 'Transaction failed!',
-      //         status: 'error',
-      //         position: 'top',
-      //         duration: 2000,
-      //         isClosable: true,
-      //       };
-      //     }
-      //   },
-      //   error: (err) => {
-      //     setBtnData({ isLoading: false, loadingText: '' });
-      //     return {
-      //       title: 'Transaction Failed',
-      //       description: err.message || 'Please check wallet settings or network',
-      //       status: 'error',
-      //       position: 'top',
-      //       duration: 2000,
-      //       isClosable: true,
-      //     };
-      //   },
-      // });
-    } catch (err: any) {
-      console.error('领取奖励出错:', err);
+      toast.update(toastId, {
+        position: 'top',
+        title: '成功',
+        status: 'success',
+        description: '领取收益成功！',
+        duration: 5000,
+        isClosable: true,
+      });
+      forceRerender();
+      onClose();
+    } catch (error: any) {
+      toast.update(toastId, {
+        position: 'top',
+        title: '失败',
+        status: 'error',
+        description: error.message || '操作失败',
+        isClosable: true,
+        duration: 5000,
+      });
+    } finally {
+      setBtnData({ isLoading: false, loadingText: '' });
     }
   };
 
-  const handleConfirmClick = async () => {
-    await getClaim();
+  // 定义读取函数
+  async function getRewardInfoH(address: string) {
+    try {
+      const balance = await readContract(config, {
+        address: STAKING_CONTRACT_ADDRESS_LONG,
+        abi: stakingAbi,
+        functionName: 'getRewardInfo',
+        args: [address],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+
+  // btnloading
+  const [btn, setBtn] = React.useState({
+    loading: false,
+    data: '0',
+  });
+  const onOpenH = async () => {
+    setBtn({
+      loading: true,
+      data: '0',
+    });
+    const res: any = await getRewardInfoH(id);
+    setBtn({
+      loading: false,
+      data: formatEther(res[1]),
+    });
+    console.log(res, 'FFFFFFFFFFFFFFFFf');
+    onOpen();
   };
 
   return (
     <>
       <Skeleton isLoaded={!isPending}>
-        <Button size="sm" variant="outline" onClick={onOpen}>
-          Withdraw
+        <Button isLoading={btn.loading} size="sm" variant="outline" onClick={onOpenH}>
+          {t('machine_Withdraw')}
         </Button>
       </Skeleton>
 
@@ -129,13 +152,21 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
         <AlertDialogContent className="!max-w-[500px]">
           <AlertDialogHeader>Confirmation</AlertDialogHeader>
           <AlertDialogCloseButton />
-          <AlertDialogBody>Are you sure you want to withdraw the earnings?</AlertDialogBody>
+          <AlertDialogBody>
+            <div className="space-y-4 flex flex-col gap-4">
+              <p>Are you sure you want to withdraw the earnings?</p>
+              <div className=" rounded-lg">
+                <p className="text-sm ">Pending Rewards</p>
+                <p className="text-2xl font-bold text-green-600">{Number(btn.data).toFixed(2) || '0.00'}</p>
+              </div>
+            </div>
+          </AlertDialogBody>
           <AlertDialogFooter>
             <div className="flex items-center gap-6">
               <Button colorScheme="blackAlpha" ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button isLoading={btnData.isLoading} loadingText={btnData.loadingText} onClick={handleConfirmClick}>
+              <Button isLoading={btnData.isLoading} loadingText={btnData.loadingText} onClick={getClaim}>
                 Confirm
               </Button>
             </div>

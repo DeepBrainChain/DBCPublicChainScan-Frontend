@@ -100,7 +100,7 @@ function Index() {
     <Card variant="subtle">
       <CardHeader>
         <div className="flex flex-col w-full gap-4">
-          <Heading size="md">Machine List</Heading>
+          <Heading size="md">{t('machine_List')}</Heading>
           <MymachineSearchTop />
         </div>
       </CardHeader>

@@ -33,7 +33,7 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
   const { address, isConnected } = useAccount();
   const CPU_CONTRACT_ADDRESS_STAKING = useContractAddress('CPU_CONTRACT_ADDRESS_STAKING');
 
-  // 解除质押合约实例
+  // 待领取奖励质押合约实例
   const claim = useWriteContract();
 
   const getClaim = async () => {

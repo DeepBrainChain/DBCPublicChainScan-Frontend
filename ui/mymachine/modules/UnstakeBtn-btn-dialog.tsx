@@ -20,6 +20,7 @@ import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
 import { usePolling } from './hooks/usePolling';
 import { usStake } from './api/index';
+import { useTranslation } from 'next-i18next';
 
 const STAKING_CONTRACT_ADDRESS = '0x7FDC6ed8387f3184De77E0cF6D6f3B361F906C21';
 
@@ -37,6 +38,7 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
   const [isPending, start] = useTimeoutFn(() => {}, 2000, { immediate: true });
   // 是否可以解除质押
   const [canUnstake, setCanUnstake] = React.useState(false);
+  const { t } = useTranslation('common');
 
   // 按钮数据
   const [btnData, setBtnData] = React.useState({
@@ -78,7 +80,7 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
     <>
       <Skeleton isLoaded={!isPending}>
         <Button size="sm" variant="outline" onClick={onOpen}>
-          Unstake
+          {t('machine_Unstake')}
         </Button>
       </Skeleton>
 

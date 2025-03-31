@@ -185,5 +185,14 @@
   "machine_LckRwd": "Lck Rwd",
   "machine_Act": "Act",
   "machine_Unstake": "Unstake",
-  "machine_Withdraw": "Withdraw"
+  "machine_Withdraw": "Withdraw",
+  "machine_List": "Machine List",
+
+  "withdrawDialog_machineId": "Machine ID",
+  "withdrawDialog_isStaking": "Is Staking",
+  "withdrawDialog_totalRewards": "Total Rewards",
+  "withdrawDialog_claimedRewards": "Claimed Rewards",
+  "withdrawDialog_lockedRewards": "Locked Rewards",
+  "withdrawDialog_action": "Action",
+  "withdrawDialog_searchKeywords": "Please enter keywords for search"
 }
