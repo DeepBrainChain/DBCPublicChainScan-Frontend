@@ -36,71 +36,71 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
   const getClaim = async () => {
     try {
       console.log('id是', id);
-      setBtnData({ isLoading: true, loadingText: 'Sending...' });
+      // setBtnData({ isLoading: true, loadingText: 'Sending...' });
 
-      // 使用 Promise 链合并交易发送和确认
-      const transactionPromise = claim
-        .writeContractAsync({
-          address: STAKING_CONTRACT_ADDRESS,
-          abi: stakingAbi,
-          functionName: 'claim',
-          args: [id],
-        })
-        .then((txHash) =>
-          waitForTransactionReceipt(config, { hash: txHash }).then((receipt) => {
-            return {
-              txHash,
-              receipt,
-            };
-          })
-        );
+      // // 使用 Promise 链合并交易发送和确认
+      // const transactionPromise = claim
+      //   .writeContractAsync({
+      //     address: STAKING_CONTRACT_ADDRESS,
+      //     abi: stakingAbi,
+      //     functionName: 'claim',
+      //     args: [id],
+      //   })
+      //   .then((txHash) =>
+      //     waitForTransactionReceipt(config, { hash: txHash }).then((receipt) => {
+      //       return {
+      //         txHash,
+      //         receipt,
+      //       };
+      //     })
+      //   );
 
-      // 使用 toast.promise 管理整个流程
-      await toast.promise(transactionPromise, {
-        loading: {
-          title: 'In Progress',
-          description: 'Please confirm the transaction in your wallet',
-          position: 'top',
-          duration: null, // 确保加载状态持续到 Promise 完成
-        },
-        success: ({ txHash, receipt }) => {
-          setBtnData({ isLoading: false, loadingText: '' });
-          if (receipt.status === 'success') {
-            forceRerender();
-            onClose();
-            return {
-              title: 'Transaction Confirmed',
-              description: 'DLC staking completed successfully!',
-              status: 'success',
-              position: 'top',
-              duration: 2000,
-              isClosable: true,
-            };
-          } else {
-            setBtnData({ isLoading: false, loadingText: '' });
+      // // 使用 toast.promise 管理整个流程
+      // await toast.promise(transactionPromise, {
+      //   loading: {
+      //     title: 'In Progress',
+      //     description: 'Please confirm the transaction in your wallet',
+      //     position: 'top',
+      //     duration: null, // 确保加载状态持续到 Promise 完成
+      //   },
+      //   success: ({ txHash, receipt }) => {
+      //     setBtnData({ isLoading: false, loadingText: '' });
+      //     if (receipt.status === 'success') {
+      //       forceRerender();
+      //       onClose();
+      //       return {
+      //         title: 'Transaction Confirmed',
+      //         description: 'DLC staking completed successfully!',
+      //         status: 'success',
+      //         position: 'top',
+      //         duration: 2000,
+      //         isClosable: true,
+      //       };
+      //     } else {
+      //       setBtnData({ isLoading: false, loadingText: '' });
 
-            return {
-              title: 'Transaction Failed',
-              description: 'Transaction failed!',
-              status: 'error',
-              position: 'top',
-              duration: 2000,
-              isClosable: true,
-            };
-          }
-        },
-        error: (err) => {
-          setBtnData({ isLoading: false, loadingText: '' });
-          return {
-            title: 'Transaction Failed',
-            description: err.message || 'Please check wallet settings or network',
-            status: 'error',
-            position: 'top',
-            duration: 2000,
-            isClosable: true,
-          };
-        },
-      });
+      //       return {
+      //         title: 'Transaction Failed',
+      //         description: 'Transaction failed!',
+      //         status: 'error',
+      //         position: 'top',
+      //         duration: 2000,
+      //         isClosable: true,
+      //       };
+      //     }
+      //   },
+      //   error: (err) => {
+      //     setBtnData({ isLoading: false, loadingText: '' });
+      //     return {
+      //       title: 'Transaction Failed',
+      //       description: err.message || 'Please check wallet settings or network',
+      //       status: 'error',
+      //       position: 'top',
+      //       duration: 2000,
+      //       isClosable: true,
+      //     };
+      //   },
+      // });
     } catch (err: any) {
       console.error('领取奖励出错:', err);
     }

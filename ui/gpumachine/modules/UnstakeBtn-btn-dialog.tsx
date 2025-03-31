@@ -22,6 +22,7 @@ import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { useContractActions } from '../../../ui/mining/deep-link/hooks/stake-before';
 import { readContract } from '@wagmi/core'; // 注意导入路径
+import dbcAbi from '../../../ui/mining/deep-link/modules/abi/dbcAbi.json';
 
 interface UnstakeBtnProps {
   id: string;
@@ -34,6 +35,7 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
   const config = useConfig();
   const toast = useToast();
   const [isPending] = useTimeoutFn(() => {}, 2000, { immediate: true });
+  const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
 
   // 是否可以解除质押
   const { t } = useTranslation('common');
@@ -46,9 +48,10 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
     loadingText: '',
   });
 
-  // 解除质押合约实例
+  // 解除质押合约实例nft
   const unstake = useWriteContract();
-
+  // 解除质押合约实例
+  const unstakeDbc = useWriteContract();
   const unstakeH = async () => {
     if (!isConnected) {
       toast({
@@ -87,8 +90,21 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
       });
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: unstakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error('解除质押交易失败');
+        throw new Error('解除质押NFT交易失败');
       }
+
+      // 开始解除dbc
+      const unstakeDbcHash = await unstake.writeContractAsync({
+        address: DBC_CONTRACT_ADDRESS,
+        abi: dbcAbi,
+        functionName: 'unstakeDbc',
+        args: [id],
+      });
+      const stakeReceipt2 = await waitForTransactionReceipt(config, { hash: unstakeDbcHash });
+      if (stakeReceipt2.status !== 'success') {
+        throw new Error('解除质押DBC交易失败');
+      }
+
       const resDelete: any = await deleteMachineGpu(id);
       console.log(resDelete);
 

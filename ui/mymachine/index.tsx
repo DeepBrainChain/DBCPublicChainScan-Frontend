@@ -57,7 +57,7 @@ function Index() {
             totalCalcPoint
           }
           stakeHolders(where: {
-            holder: "${address}"
+            holder: "0x68df58a7e2479fe172ce2788513618399805b70d"
           }) {
             holder
             totalClaimedRewardAmount
