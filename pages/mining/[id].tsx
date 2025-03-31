@@ -93,6 +93,18 @@ export default function MiningAppDetail() {
     }
   }, [id, gpuMiningData]);
 
+  // 添加 tab 状态
+  const [activeTab, setActiveTab] = useState(0);
+  const handleTabChange = (index: number) => {
+    setActiveTab(index);
+    const tabNames =
+      router.query.id === 'DeepLink' ? ['long-mining', 'short-mining', 'cpu-mining'] : ['long-mining', 'free-mining'];
+
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('tab', tabNames[index]);
+    window.history.replaceState({}, document.title, currentUrl.toString());
+  };
+
   return (
     <Container maxW="container.xl" py={4}>
       <Flex direction="column" gap={4}>
@@ -118,18 +130,18 @@ export default function MiningAppDetail() {
         </Flex>
 
         <Box>
-          <Tabs>
+          <Tabs index={activeTab} onChange={handleTabChange}>
             <TabList>
               <Tab>{t('long-mining')} </Tab>
-              <Tab> {asPath === '/mining/DeepLink' ? t('short-mining') : t('free-mining')}</Tab>
-              {asPath === '/mining/DeepLink' && <Tab>{t('cpu-mining')} </Tab>}
+              <Tab> {router.query.id === 'DeepLink' ? t('short-mining') : t('free-mining')}</Tab>
+              {router.query.id === 'DeepLink' && <Tab>{t('cpu-mining')} </Tab>}
             </TabList>
 
             <TabPanels>
-              <TabPanel>{asPath === '/mining/DeepLink' ? <DeepLinkLongMining /> : <GptLongMining />}</TabPanel>
+              <TabPanel>{router.query.id === 'DeepLink' ? <DeepLinkLongMining /> : <GptLongMining />}</TabPanel>
 
               <TabPanel>
-                <Text>{asPath === '/mining/DeepLink' ? <DeepLinkShortMining /> : <GptShortMining />}</Text>
+                <Text>{router.query.id === 'DeepLink' ? <DeepLinkShortMining /> : <GptShortMining />}</Text>
               </TabPanel>
               <TabPanel>
                 <Text>

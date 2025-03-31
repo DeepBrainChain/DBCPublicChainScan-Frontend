@@ -40,7 +40,7 @@ function cpuStakeNftBtn() {
   // const [rentId, setRentId] = useState('');
   const nftApproval = useWriteContract();
   const stake = useWriteContract();
-  const { register, unregister } = useContractActions(machineId);
+  const { register } = useContractActions(machineId);
 
   const { refetch } = useReadContract({
     address: NFT_CONTRACT_ADDRESS,

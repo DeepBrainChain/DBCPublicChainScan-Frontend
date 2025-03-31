@@ -1,6 +1,6 @@
 import { HStack, Box, Tooltip, Button } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import config from 'configs/app';
 import NetworkLogo from 'ui/snippets/networkMenu/NetworkLogo';
@@ -19,13 +19,21 @@ type Props = {
 const HeaderDesktop = ({ renderSearchBar, isMarketplaceAppPage }: Props) => {
   const searchBar = renderSearchBar ? renderSearchBar() : <SearchBar />;
   const router = useRouter();
+  const { query } = router;
   const routerH = () => {
-    if (router.pathname !== '/gpumachine') {
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentTab = urlParams.get('tab'); // 从 URL 获取当前 tab
+    console.log(currentTab, 'Current tab from URL');
+
+    if (currentTab === 'cpu-mining') {
+      // 跳转到带宽挖矿机器列表
       router.push('/gpumachine');
+    } else {
+      // 跳转到长租机器列表
+      router.push('/mymachine');
     }
   };
   const { t, i18n } = useTranslation('common');
-
   return (
     <HStack
       as="header"
@@ -41,13 +49,16 @@ const HeaderDesktop = ({ renderSearchBar, isMarketplaceAppPage }: Props) => {
           <NetworkLogo isCollapsed />
         </Box>
       )}
+
       <Box width="100%">{searchBar}</Box>
       <Box display="flex" alignItems="center" gap={3}>
-        <Tooltip label={t('my_machine')} className="hidden md:block">
-          <Button fontSize="sm" colorScheme="blue" onClick={routerH}>
-            {t('my_machine')}
-          </Button>
-        </Tooltip>
+        {router.query.id === 'DeepLink' ? (
+          <Tooltip label={t('my_machine')} className="hidden md:block">
+            <Button fontSize="sm" colorScheme="blue" onClick={routerH}>
+              {t('my_machine')}
+            </Button>
+          </Tooltip>
+        ) : undefined}
         {config.features.account.isEnabled && <ProfileMenuDesktop />}
         {config.features.blockchainInteraction.isEnabled && <WalletMenuDesktop />}
       </Box>
