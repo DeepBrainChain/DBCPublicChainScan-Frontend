@@ -70,7 +70,7 @@
   "short-rental-requirements": "Note: For the short-term rental mode, the machines can be placed anywhere. However, the network upstream bandwidth of a single GPU machine needs to be at least 10 Mb. The machines participating in short-term rental mining must be installed with the Windows system. For detailed rules, check:",
   "deeplink-download-instruction": "First, download the DeepLink PC-side software on a Windows computer with a GPU. The download link is:",
   "create-wallet": "Create a wallet",
-  "click-on-cloud-computer": "Click on \"Cloud Computer\"",
+  "click-on-cloud-computer": "Click on \"Cloud GPU\"",
   "my-computer": "My Computer",
   "add-machine": "Add Machine",
 
