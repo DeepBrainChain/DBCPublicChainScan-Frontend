@@ -13,11 +13,12 @@ import {
 import { useTimeoutFn } from '@reactuses/core';
 import React from 'react';
 import { useWriteContract, useAccount, useConfig } from 'wagmi';
-import { waitForTransactionReceipt } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../abi/stakeaib.json';
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
+import { formatEther } from 'viem';
 
 function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -94,11 +95,42 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
       setBtnData({ isLoading: false, loadingText: '' });
     }
   };
-
+  const [btn, setBtn] = React.useState({
+    loading: false,
+    data: '0',
+  });
+  // 定义读取函数
+  async function getRewardInfoH(address: string) {
+    try {
+      const balance = await readContract(config, {
+        address: CPU_CONTRACT_ADDRESS_STAKING,
+        abi: stakingAbi,
+        functionName: 'getRewardInfo',
+        args: [address],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+  const onOpenH = async () => {
+    setBtn({
+      loading: true,
+      data: '0',
+    });
+    const res: any = await getRewardInfoH(id);
+    setBtn({
+      loading: false,
+      data: formatEther(res[1]),
+    });
+    console.log(res, 'FFFFFFFFFFFFFFFFf');
+    onOpen();
+  };
   return (
     <>
       <Skeleton isLoaded={!isPending}>
-        <Button size="sm" variant="outline" onClick={onOpen}>
+        <Button isLoading={btn.loading} size="sm" variant="outline" onClick={onOpenH}>
           {t('machine_Withdraw')}
         </Button>
       </Skeleton>
@@ -114,7 +146,15 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
         <AlertDialogContent className="!max-w-[500px]">
           <AlertDialogHeader>Confirmation</AlertDialogHeader>
           <AlertDialogCloseButton />
-          <AlertDialogBody>Are you sure you want to withdraw the earnings?</AlertDialogBody>
+          <AlertDialogBody>
+            <div className="space-y-4 flex flex-col gap-4">
+              <p>Are you sure you want to withdraw the earnings?</p>
+              <div className=" rounded-lg">
+                <p className="text-sm ">Pending Rewards</p>
+                <p className="text-2xl font-bold text-green-600">{Number(btn.data).toFixed(2) || '0.00'}</p>
+              </div>
+            </div>
+          </AlertDialogBody>
           <AlertDialogFooter>
             <div className="flex items-center gap-6">
               <Button colorScheme="blackAlpha" ref={cancelRef} onClick={onClose}>
