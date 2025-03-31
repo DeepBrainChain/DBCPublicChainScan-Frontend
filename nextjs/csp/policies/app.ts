@@ -56,6 +56,9 @@ export function app(): CspDev.DirectiveDescriptor {
       'https://health0.deepbrainchain.org',
       'https://health-test.deepbrainchain.org',
       'https://secure.walletconnect.com',
+
+      'https://dbcswap.io',
+      'https://www.dbcswap.io',
       // APIs
       config.api.endpoint,
       config.api.socket,

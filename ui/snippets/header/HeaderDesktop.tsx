@@ -21,11 +21,9 @@ const HeaderDesktop = ({ renderSearchBar, isMarketplaceAppPage }: Props) => {
   const router = useRouter();
   const { query } = router;
   const routerH = () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentTab = urlParams.get('tab'); // 从 URL 获取当前 tab
-    console.log(currentTab, 'Current tab from URL');
+    console.log(query.tab, 'Current tab from URL');
 
-    if (currentTab === 'cpu-mining') {
+    if (query.tab === 'cpu-mining') {
       // 跳转到带宽挖矿机器列表
       router.push('/gpumachine');
     } else {

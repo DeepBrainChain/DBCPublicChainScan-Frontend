@@ -100,9 +100,7 @@ export default function MiningAppDetail() {
     const tabNames =
       router.query.id === 'DeepLink' ? ['long-mining', 'short-mining', 'cpu-mining'] : ['long-mining', 'free-mining'];
 
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.set('tab', tabNames[index]);
-    window.history.replaceState({}, document.title, currentUrl.toString());
+    router.push({ pathname: router.pathname, query: { ...router.query, tab: tabNames[index] || 'long-mining' } });
   };
 
   return (

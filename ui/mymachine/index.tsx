@@ -29,6 +29,7 @@ import { IoCopy, IoCheckmark, IoCashOutline, IoLockClosedOutline } from 'react-i
 import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
 import { useAccount } from 'wagmi';
 import { FaCoins } from 'react-icons/fa'; // 使用 FaCoins 图标表示代币奖励
+import { getEnvValue } from '../../configs/app/utils';
 
 function Index() {
   const isMobile = useIsMobile();
@@ -39,35 +40,72 @@ function Index() {
 
   // 重新渲染
   const [key, setKey] = useState(0);
-  const fetchMachineDataH = async () => {
+
+  // fetchGraphQLData.ts
+  const fetchGraphQLData = async () => {
     setLoading(true);
-    try {
-      const res: any = await fetchMachineData(address);
-      if (res.code === 1000) {
-        console.log(res.data, '拿到数据了');
-        setMachineData(res.data); // 设置数据
-      } else {
-        throw new Error('Invalid response code');
-      }
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    const endpoint = getEnvValue('NEXT_PUBLIC_API_URLX') || 'https://dbcswap.io/subgraph/name/long-staking-state';
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+        query {
+          stateSummaries(first: 1) {
+            totalCalcPoint
+          }
+          stakeHolders(where: {
+            holder: "${address}"
+          }) {
+            holder
+            totalClaimedRewardAmount
+            totalReleasedRewardAmount
+            machineInfos {
+              machineId
+              totalCalcPoint
+              fullTotalCalcPoint
+              isStaking
+              stakeEndTime
+              totalReservedAmount
+              totalClaimedRewardAmount
+              totalReleasedRewardAmount
+            }
+          }
+        }
+      `,
+      }),
+    });
+    setLoading(false);
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const res: any = await response.json();
+    if (res.errors) {
+      throw new Error(res.errors.map((e: any) => e.message).join(', '));
+    }
+    if (res.data.stakeHolders.length !== 0) {
+      console.log(res.data.stakeHolders[0].machineInfos, res);
+      setMachineData(res.data.stakeHolders[0].machineInfos); // 设置数据
+    } else {
+      setMachineData([]); // 设置数据
     }
   };
-
   useEffect(() => {
-    fetchMachineDataH();
+    fetchGraphQLData();
   }, [key]);
 
   // thead 数据
   const thead = [
-    { t: 'Machine ID', pcW: '200px', mobileW: '70px' },
+    { t: 'Machine ID', pcW: '500px', mobileW: '70px' },
     { t: 'Staking', pcW: '70px', mobileW: '60px' },
-    { t: 'GPU Type', pcW: '80px', mobileW: '70px' },
-    { t: 'GPU Num', pcW: '80px', mobileW: '80px' },
-    { t: 'Mem', pcW: '60px', mobileW: '50px' },
-    { t: 'Project', pcW: '80px', mobileW: '60px' },
+    // { t: 'GPU Type', pcW: '80px', mobileW: '70px' },
+    // { t: 'GPU Num', pcW: '80px', mobileW: '80px' },
+    // { t: 'Mem', pcW: '60px', mobileW: '50px' },
+    // { t: 'Project', pcW: '80px', mobileW: '60px' },
     { t: 'Total Reward', pcW: '100px', mobileW: '100px' },
     { t: 'Claimed', pcW: '85px', mobileW: '65px' },
     { t: 'Locked', pcW: '100px', mobileW: '65px' },
@@ -77,24 +115,23 @@ function Index() {
   // 从 machineData 映射到表格数据
   const tableBodyData =
     machineData.length > 0
-      ? machineData.map((item: any) => ({
-          machineId: item.machineId,
-          v0: item.machineInfo.isStaking, // 是否在质押
-          v1: item.machineInfo.gpuType || 'N/A', // GPU 类型
-          v2: 1, // GPU 数量
-          v3: `${item.machineInfo.mem}G`, // 内存大小
-          v4: item.machineInfo.projectName, // 项目名字
-          v5: item.machineInfo.totalRewardAmount, // 总奖励数量
-          v6: item.machineInfo.claimedRewardAmount, // 已领取奖励数量
-          v7: item.machineInfo.lockedRewardAmount, // 锁仓奖励数量
-          v11: [RestakeBtn, UnstakeBtn, WithdrawBtn], // 操作按钮
-        }))
+      ? machineData.map((item: any) => {
+          return {
+            machineId: item.machineId,
+            v0: item.isStaking, // 是否在质押
+            // v1: item.gpuType || 'N/A', // GPU 类型
+            // v2: 1, // GPU 数量
+            // v3: `${item.mem}G`, // 内存大小
+            // v4: item.projectName, // 项目名字
+            v5: item.totalReservedAmount, // 总奖励数量
+            v6: item.totalClaimedRewardAmount, // 已领取奖励数量
+            v7: item.totalReleasedRewardAmount, // 锁仓奖励数量
+            v11: [RestakeBtn, UnstakeBtn, WithdrawBtn], // 操作按钮
+          };
+        })
       : [];
 
-  // 复制组件
-  const [isPending, start] = useTimeoutFn(() => {}, 2000, { immediate: true });
-  const CopyButton = ({ text }) => {
-    console.log(text, 'text');
+  const CopyButton = ({ text }: { text: string }) => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
@@ -129,7 +166,7 @@ function Index() {
               <Tr>
                 {thead.map((item, index) => (
                   <Th width={isMobile ? item.mobileW : item.pcW} key={index}>
-                    <Skeleton isLoaded={!isPending}>{item.t}</Skeleton>
+                    <Skeleton isLoaded={!loading}>{item.t}</Skeleton>
                   </Th>
                 ))}
               </Tr>
@@ -158,7 +195,7 @@ function Index() {
                   <Tr key={index}>
                     <Td>
                       <Tooltip label={`Machine ID: ${item.machineId}`}>
-                        <Skeleton isLoaded={!isPending}>
+                        <Skeleton isLoaded={!loading}>
                           <div className="flex items-center gap-x-2">
                             <Text className="cursor-pointer truncate">{item.machineId}</Text>
                             <CopyButton text={item.machineId} />
@@ -167,7 +204,7 @@ function Index() {
                       </Tooltip>
                     </Td>
                     <Td>
-                      <Skeleton isLoaded={!isPending}>
+                      <Skeleton isLoaded={!loading}>
                         <div className="flex items-center space-x-2">
                           {item.v0 ? (
                             <>
@@ -183,7 +220,7 @@ function Index() {
                         </div>
                       </Skeleton>
                     </Td>
-                    <Td>
+                    {/* <Td>
                       <Skeleton isLoaded={!isPending}>
                         <Tooltip label={`GPU type: ${item.v1}`}>
                           <Text className="truncate">{item.v1}</Text>
@@ -210,7 +247,7 @@ function Index() {
                           <Text className="truncate">{item.v4}</Text>
                         </Skeleton>
                       </Tooltip>
-                    </Td>
+                    </Td> */}
                     <Td>
                       <Tooltip
                         label={`Total reward amount: ${item.v5}`}
@@ -220,7 +257,7 @@ function Index() {
                         color="white"
                         borderRadius="md"
                       >
-                        <Skeleton isLoaded={!isPending}>
+                        <Skeleton isLoaded={!loading}>
                           <HStack spacing={2}>
                             <FaCoins className="text-[#FFD700]" />
                             <Text className="truncate max-w-[50px]" fontWeight="medium">
@@ -231,8 +268,8 @@ function Index() {
                       </Tooltip>
                     </Td>
                     <Td>
-                      <Tooltip label={`Claimed Rewards: ${item.v6.toString()}`}>
-                        <Skeleton isLoaded={!isPending}>
+                      <Tooltip label={`Claimed Rewards: ${item.v6}`}>
+                        <Skeleton isLoaded={!loading}>
                           <div className="flex items-center space-x-2 text-blue-600 font-semibold">
                             <IoCashOutline size={20} className="text-green-500" />
                             <Text className="truncate max-w-[50px]">{item.v6}</Text>
@@ -241,8 +278,8 @@ function Index() {
                       </Tooltip>
                     </Td>
                     <Td>
-                      <Tooltip label={`Locked Rewards: ${item.v7.toString()}`}>
-                        <Skeleton isLoaded={!isPending}>
+                      <Tooltip label={`Locked Rewards: ${item.v7}`}>
+                        <Skeleton isLoaded={!loading}>
                           <div className="flex items-center space-x-2 text-blue-600 font-semibold">
                             <IoLockClosedOutline size={20} className="text-gray-500" />
                             <Text className="truncate max-w-[50px]">{item.v7}</Text>

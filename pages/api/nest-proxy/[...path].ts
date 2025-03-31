@@ -1,7 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
+import { getEnvValue } from '../../../configs/app/utils';
 
-const BACKEND_URL = 'http://47.128.74.45:3001';
+const BACKEND_URL = getEnvValue('NEXT_PUBLIC_API_BACKEND_URL') || 'http://47.128.74.45:3001';
 // const BACKEND_URL = 'http://3.0.25.131:3001';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -16,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const fetchOptions: RequestInit = {
       method: req.method,
-      headers: { ...req.headers, host: '47.128.74.45' } as any,
+      headers: { ...req.headers, host: getEnvValue('NEXT_PUBLIC_API_BACKEND_URL2') || '47.128.74.45' } as any,
       // headers: { ...req.headers, host: '3.0.25.131' } as any,
       signal: controller.signal,
     };

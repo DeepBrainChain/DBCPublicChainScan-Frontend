@@ -162,7 +162,9 @@ services:
       NEXT_PUBLIC_AD_TEXT_PROVIDER: 'none'
       NEXT_PUBLIC_RE_CAPTCHA_APP_SITE_KEY: ''
       NEXT_PUBLIC_API_URL: https://testnet.dbcscan.io/gpumachine
-      NEXT_PUBLIC_API_URLX: 测试环境变量
+      NEXT_PUBLIC_API_URLX: https://dbcswap.io/subgraph/name/long-staking-state/graphql
+      NEXT_PUBLIC_API_BACKEND_URL: http://3.0.25.131:3001
+      NEXT_PUBLIC_API_BACKEND_URL2: 3.0.25.131
 
   # stats-db-init:
   #   extends:
