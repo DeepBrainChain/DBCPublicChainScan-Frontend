@@ -190,7 +190,7 @@
 
   "withdrawDialog_machineId": "Machine ID",
   "withdrawDialog_isStaking": "Is Staking",
-  "withdrawDialog_totalRewards": "Total Rewards",
+  "withdrawDialog_totalRewards": "Staked Amount",
   "withdrawDialog_claimedRewards": "Claimed Rewards",
   "withdrawDialog_lockedRewards": "Locked Rewards",
   "withdrawDialog_action": "Action",
@@ -223,5 +223,12 @@
   "cpunft_operation_failed": "Operation failed",
 
   "dlcstake_stake_success": "DLC staked successfully!",
-  "not_staked_yet": "This machine has not yet staked an NFT, please stake an NFT first!"
+  "not_staked_yet": "This machine has not yet staked an NFT, please stake an NFT first!",
+  "stakeEndTime": "Stake End Time",
+
+  "withdraw_confirmation": "Confirmation",
+  "withdraw_areYouSure": "Are you sure you want to withdraw the earnings?",
+  "withdraw_pendingRewards": "Pending Rewards",
+  "withdraw_cancel": "Cancel",
+  "withdraw_confirm": "Confirm"
 }

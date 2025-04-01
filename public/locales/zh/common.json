@@ -189,7 +189,7 @@
 
   "withdrawDialog_machineId": "机器ID",
   "withdrawDialog_isStaking": "是否在质押",
-  "withdrawDialog_totalRewards": "总奖励数量",
+  "withdrawDialog_totalRewards": "已质押的数量",
   "withdrawDialog_claimedRewards": "已领取奖励数量",
   "withdrawDialog_lockedRewards": "锁仓奖励数量",
   "withdrawDialog_action": "操作",
@@ -223,5 +223,12 @@
 
   "dlcstake_stake_success": "DLC质押成功！",
 
-  "not_staked_yet": "此机器还没有质押过NFT，请先进行NFT质押！"
+  "not_staked_yet": "此机器还没有质押过NFT，请先进行NFT质押！",
+  "stakeEndTime": "质押结束时间",
+
+  "withdraw_confirmation": "确认",
+  "withdraw_areYouSure": "您确定要提取收益吗？",
+  "withdraw_pendingRewards": "待领取奖励",
+  "withdraw_cancel": "取消",
+  "withdraw_confirm": "确认"
 }

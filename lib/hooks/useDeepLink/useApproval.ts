@@ -78,9 +78,6 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
   const dlcApproval = useWriteContract();
   const dlcStake = useWriteContract();
 
-  // 交易方法：添加 DLC 到质押
-  // const { writeContractAsync } = useWriteContract();
-
   // 开始质押NFT
   const startStakeNft = async () => {
     if (!isConnected) {

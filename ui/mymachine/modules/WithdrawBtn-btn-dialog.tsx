@@ -150,13 +150,13 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
       >
         <AlertDialogOverlay />
         <AlertDialogContent className="!max-w-[500px]">
-          <AlertDialogHeader>Confirmation</AlertDialogHeader>
+          <AlertDialogHeader>{t('withdraw_confirmation')}</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
             <div className="space-y-4 flex flex-col gap-4">
-              <p>Are you sure you want to withdraw the earnings?</p>
+              <div>{t('withdraw_areYouSure')}</div>
               <div className=" rounded-lg">
-                <p className="text-sm ">Pending Rewards</p>
+                <p className="text-sm ">{t('withdraw_pendingRewards')}</p>
                 <p className="text-2xl font-bold text-green-600">{Number(btn.data).toFixed(2) || '0.00'}</p>
               </div>
             </div>
@@ -164,10 +164,10 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
           <AlertDialogFooter>
             <div className="flex items-center gap-6">
               <Button colorScheme="blackAlpha" ref={cancelRef} onClick={onClose}>
-                Cancel
+                {t('withdraw_cancel')}
               </Button>
               <Button isLoading={btnData.isLoading} loadingText={btnData.loadingText} onClick={getClaim}>
-                Confirm
+                {t('withdraw_confirm')}
               </Button>
             </div>
           </AlertDialogFooter>
