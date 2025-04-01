@@ -21,7 +21,7 @@ import { useTranslation } from 'next-i18next';
 import dlcAbi from '../../../../lib/hooks/useDeepLink/dlcAbi.json';
 import stakeAbi from './abi/stakeAbi.json';
 import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi';
-import { waitForTransactionReceipt } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
 import { useContractActions } from '../hooks/stake-before';
 import { parseEther } from 'viem';
@@ -41,13 +41,29 @@ function cpuStakeDlcBtn() {
   const [amount, setaMount] = useState('');
   const { register, unregister } = useContractActions(machineId);
 
+  // 定义读取函数
+  async function getRewardInfoH() {
+    try {
+      const balance = await readContract(config, {
+        address: CPU_CONTRACT_ADDRESS_STAKING,
+        abi: stakeAbi,
+        functionName: 'isStaking',
+        args: [machineId],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+
   // 开始质押dlc
   const startStakeDLC = async () => {
     if (!isConnected) {
       toast({
         position: 'top',
-        title: '提示',
-        description: '请先连接你的钱包',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
         status: 'warning',
         duration: 5000,
         isClosable: true,
@@ -57,17 +73,22 @@ function cpuStakeDlcBtn() {
     setLoading(true);
     const toastId = toast({
       position: 'top',
-      title: '质押中',
-      description: '正在处理您的质押请求，请稍候...',
+      title: t('staking'),
+      description: t('cpudbc_processing'),
       status: 'loading',
       duration: null,
       isClosable: false,
     });
     try {
+      // 先判断是否已经质押过了
+      const resBefore: any = await getRewardInfoH();
+      if (!resBefore) {
+        throw new Error(t('not_staked_yet'));
+      }
       const res: any = await register();
       console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
       if (res.code !== 0) {
-        throw new Error(res.message || '注册接口失败');
+        throw new Error(res.message || t('cpudbc_register_interface_failed'));
       }
       // 授权
       const approvalHash = await dlcApproval.writeContractAsync({
@@ -79,7 +100,7 @@ function cpuStakeDlcBtn() {
 
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
       if (approvalReceipt.status !== 'success') {
-        throw new Error('授权交易失败');
+        throw new Error(t('cpunft_authorization_failed'));
       }
 
       // 质押
@@ -92,14 +113,14 @@ function cpuStakeDlcBtn() {
 
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error('质押交易失败');
+        throw new Error(t('cpudbc_transaction_failed'));
       }
 
       toast.update(toastId, {
         position: 'top',
-        title: '成功',
+        title: t('success'),
         status: 'success',
-        description: 'DLC质押成功！',
+        description: t('dlcstake_stake_success'),
         duration: 5000,
         isClosable: true,
       });
@@ -108,9 +129,9 @@ function cpuStakeDlcBtn() {
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
-        title: '失败',
+        title: t('failed'),
         status: 'error',
-        description: error.message || '操作失败',
+        description: error.message || t('operation_failed'),
         isClosable: true,
         duration: 5000,
       });
@@ -120,7 +141,7 @@ function cpuStakeDlcBtn() {
   };
 
   return (
-    <div>
+    <>
       <Button onClick={onOpen} colorScheme="blue" variant="outline" w="fit-content">
         {t('stake-dlc')}
       </Button>
@@ -145,7 +166,7 @@ function cpuStakeDlcBtn() {
                 <FormLabel fontSize="sm">{t('machine-id')}</FormLabel>
                 <Input
                   value={machineId}
-                  onChange={(e) => setMachineId(e.target.value)}
+                  onChange={(e: any) => setMachineId(e.target.value)}
                   placeholder={t('input-machine-id')}
                   size="sm"
                 />
@@ -158,7 +179,7 @@ function cpuStakeDlcBtn() {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }
 

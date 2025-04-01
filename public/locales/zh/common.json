@@ -67,7 +67,7 @@
   "short-rental-requirements": "说明：对于短期租赁模式，机器可以放置在任何地方。但是，单台GPU机器的网络上行带宽需要至少10 Mb。参与短期租赁挖矿的机器必须安装Windows系统。详细规则请查看：",
   "deeplink-download-instruction": "首先，在带有GPU的Windows电脑上下载DeepLink PC端软件。下载链接为：",
   "create-wallet": "创建钱包",
-  "click-on-cloud-computer": "点击“云电脑”",
+  "click-on-cloud-computer": "点击“云GPU”",
   "my-computer": "出租我的电脑",
   "add-machine": "添加机器",
 
@@ -193,5 +193,35 @@
   "withdrawDialog_claimedRewards": "已领取奖励数量",
   "withdrawDialog_lockedRewards": "锁仓奖励数量",
   "withdrawDialog_action": "操作",
-  "withdrawDialog_searchKeywords": "请输入搜索关键词"
+  "withdrawDialog_searchKeywords": "请输入搜索关键词",
+
+  "hint": "提示",
+  "cpudbc_connect_wallet": "请先连接你的钱包",
+  "staking": "质押中",
+  "cpudbc_processing": "正在处理您的质押请求，请稍候...",
+  "cpudbc_already_staked": "已经质押过DBC了，请不要重复质押!",
+  "cpudbc_register_interface_failed": "注册接口失败",
+  "cpudbc_transaction_failed": "质押交易失败",
+  "success": "成功",
+  "cpudbc_stake_success": "DBC质押成功！",
+  "failed": "失败",
+  "operation_failed": "操作失败",
+
+  "cpunft_hint": "提示",
+  "cpunft_connect_wallet": "请先连接你的钱包",
+  "cpunft_staking": "质押中",
+  "cpunft_processing": "正在处理您的质押请求，请稍候...",
+  "cpunft_already_staked": "已经质押过NFT了，请不要重复质押!",
+  "cpunft_register_interface_failed": "注册接口失败",
+  "cpunft_authorization_failed": "授权交易失败",
+  "cpunft_data_format_error": "NFT 数据格式错误",
+  "cpunft_transaction_failed": "质押交易失败",
+  "cpunft_success": "成功",
+  "cpunft_stake_success": "质押成功！",
+  "cpunft_failed": "失败",
+  "cpunft_operation_failed": "操作失败",
+
+  "dlcstake_stake_success": "DLC质押成功！",
+
+  "not_staked_yet": "此机器还没有质押过NFT，请先进行NFT质押！"
 }

@@ -20,7 +20,7 @@ import {
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
 import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi';
-import { waitForTransactionReceipt } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import nftAbi from '../../../../lib/hooks/useDeepLink/nftAbi.json';
 import stakeAbi from './abi/stakeAbi.json';
 import { useContractActions } from '../hooks/stake-before';
@@ -52,12 +52,28 @@ function cpuStakeNftBtn() {
     },
   }) as any;
 
+  // 定义读取函数
+  async function getRewardInfoH() {
+    try {
+      const balance = await readContract(config, {
+        address: CPU_CONTRACT_ADDRESS_STAKING,
+        abi: stakeAbi,
+        functionName: 'isStaking',
+        args: [machineId],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+
   const startStakeNft = async () => {
     if (!isConnected) {
       toast({
         position: 'top',
-        title: '提示',
-        description: '请先连接你的钱包',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
         status: 'warning',
         duration: 5000,
         isClosable: true,
@@ -67,17 +83,23 @@ function cpuStakeNftBtn() {
     setLoading(true);
     const toastId = toast({
       position: 'top',
-      title: '质押中',
-      description: '正在处理您的质押请求，请稍候...',
+      title: t('staking'),
+      description: t('cpudbc_processing'),
       status: 'loading',
       duration: null,
       isClosable: false,
     });
     try {
+      // 先判断是否之前已经质押过了
+      const resNft = await getRewardInfoH();
+      console.log(resNft);
+      if (resNft) {
+        throw new Error(t('cpunft_already_staked'));
+      }
       const res: any = await register();
       console.log(res, 'HHHHHHHHHHHHHHHHHHHHHHH');
       if (res.code !== 0) {
-        throw new Error(res.message || '注册接口失败');
+        throw new Error(res.message || t('cpunft_register_interface_failed'));
       }
       // 授权
       const approvalHash = await nftApproval.writeContractAsync({
@@ -89,13 +111,13 @@ function cpuStakeNftBtn() {
 
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: approvalHash });
       if (approvalReceipt.status !== 'success') {
-        throw new Error('授权交易失败');
+        throw new Error(t('cpunft_authorization_failed'));
       }
 
       // 获取最新的 NFT 数据
       const { data: newNftData } = await refetch();
       if (!Array.isArray(newNftData[0]) || !Array.isArray(newNftData[1])) {
-        throw new Error('NFT 数据格式错误');
+        throw new Error(t('cpunft_data_format_error'));
       }
       console.log(
         machineId,
@@ -117,7 +139,7 @@ function cpuStakeNftBtn() {
 
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error('质押交易失败');
+        throw new Error(t('cpunft_transaction_failed'));
       }
       const resx: any = await createMachineGpu({
         machineId: machineId,
@@ -126,9 +148,9 @@ function cpuStakeNftBtn() {
       if (resx.code === 1000) {
         toast.update(toastId, {
           position: 'top',
-          title: '成功',
+          title: t('cpunft_success'),
           status: 'success',
-          description: '质押成功！',
+          description: t('cpunft_stake_success'),
           duration: 5000,
           isClosable: true,
         });
@@ -139,9 +161,9 @@ function cpuStakeNftBtn() {
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
-        title: '失败',
+        title: t('cpunft_failed'),
         status: 'error',
-        description: error.message || '操作失败',
+        description: error.message || t('cpunft_operation_failed'),
         isClosable: true,
         duration: 5000,
       });
@@ -151,7 +173,7 @@ function cpuStakeNftBtn() {
   };
 
   return (
-    <div>
+    <>
       <Button onClick={onOpen} colorScheme="blue" variant="outline" w="fit-content">
         {t('stake-nft-node')}
       </Button>
@@ -198,7 +220,7 @@ function cpuStakeNftBtn() {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }
 

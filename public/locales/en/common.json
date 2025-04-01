@@ -194,5 +194,34 @@
   "withdrawDialog_claimedRewards": "Claimed Rewards",
   "withdrawDialog_lockedRewards": "Locked Rewards",
   "withdrawDialog_action": "Action",
-  "withdrawDialog_searchKeywords": "Please enter keywords for search"
+  "withdrawDialog_searchKeywords": "Please enter keywords for search",
+
+  "hint": "Hint",
+  "cpudbc_connect_wallet": "Please connect your wallet first",
+  "staking": "Staking",
+  "cpudbc_processing": "Processing your staking request, please wait...",
+  "cpudbc_already_staked": "DBC has already been staked, please do not stake again!",
+  "cpudbc_register_interface_failed": "Registration interface failed",
+  "cpudbc_transaction_failed": "Staking transaction failed",
+  "success": "Success",
+  "cpudbc_stake_success": "DBC staked successfully!",
+  "failed": "Failed",
+  "operation_failed": "Operation failed",
+
+  "cpunft_hint": "Hint",
+  "cpunft_connect_wallet": "Please connect your wallet first",
+  "cpunft_staking": "Staking",
+  "cpunft_processing": "Processing your staking request, please wait...",
+  "cpunft_already_staked": "NFT has already been staked, please do not stake again!",
+  "cpunft_register_interface_failed": "Registration interface failed",
+  "cpunft_authorization_failed": "Authorization transaction failed",
+  "cpunft_data_format_error": "NFT data format error",
+  "cpunft_transaction_failed": "Staking transaction failed",
+  "cpunft_success": "Success",
+  "cpunft_stake_success": "Staking successful!",
+  "cpunft_failed": "Failed",
+  "cpunft_operation_failed": "Operation failed",
+
+  "dlcstake_stake_success": "DLC staked successfully!",
+  "not_staked_yet": "This machine has not yet staked an NFT, please stake an NFT first!"
 }

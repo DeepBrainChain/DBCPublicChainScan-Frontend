@@ -3,11 +3,12 @@ import nftAbi from './nftAbi.json';
 import dlcAbi from './dlcAbi.json';
 import stakingAbi from './stakingLongAbi.json';
 import { useToast } from '@chakra-ui/react';
-import { waitForTransactionReceipt } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useEffect, useState } from 'react';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { createMachine } from '../../../ui/mymachine/modules/api/index';
 import { parseEther } from 'viem';
+import { useTranslation } from 'next-i18next';
 
 // machin ID: a8aeafb706433fc89c16817e8405705bd66f28b6d5cfc46c9da2faf7b204da78
 // private key: d85789ca443866f898a928bba3d863a5e3c66dc03b03a7d947e8dde99e19368e
@@ -19,6 +20,8 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
   const NFT_CONTRACT_ADDRESS = useContractAddress('NFT_CONTRACT_ADDRESS');
   const DLC_TOKEN_ADDRESS = useContractAddress('DLC_TOKEN_ADDRESS');
   const STAKING_CONTRACT_ADDRESS_LONG = useContractAddress('STAKING_CONTRACT_ADDRESS_LONG');
+  const { t } = useTranslation('common');
+
   // 读取 NFT 余额 (getBalance)
   const [nftNodeCount, setNftNodeCount] = useState('');
   const { refetch } = useReadContract({
@@ -31,14 +34,36 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     },
   }) as any;
 
-  // 读取授权额度
-  // const { refetch: refetch2 } = useReadContract({
-  //   address: DLC_TOKEN_ADDRESS,
-  //   abi: nftAbi,
-  //   functionName: 'allowance',
-  //   args: [address, STAKING_CONTRACT_ADDRESS_LONG],
-  // }) as any;
-
+  // 定义读取函数nft
+  async function getRewardInfoH() {
+    try {
+      const balance = await readContract(config, {
+        address: STAKING_CONTRACT_ADDRESS_LONG,
+        abi: stakingAbi,
+        functionName: 'isStaking',
+        args: [machineId],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+  // 定义读取函数dlc
+  async function getRewardInfoH2() {
+    try {
+      const balance = await readContract(config, {
+        address: STAKING_CONTRACT_ADDRESS_LONG,
+        abi: stakingAbi,
+        functionName: 'isStaking',
+        args: [dlcNodeId],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
   // NFT 授权
   const [nftLoading, setLoading] = useState(false);
   const [machineId, setMachineId] = useState('');
@@ -61,8 +86,8 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     if (!isConnected) {
       toast({
         position: 'top',
-        title: '提示',
-        description: '请先连接你的钱包',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
         status: 'warning',
         duration: 5000,
         isClosable: true,
@@ -72,13 +97,18 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     setLoading(true);
     const toastId = toast({
       position: 'top',
-      title: '质押中',
-      description: '正在处理您的质押请求，请稍候...',
+      title: t('staking'),
+      description: t('cpudbc_processing'),
       status: 'loading',
       duration: null,
       isClosable: false,
     });
     try {
+      // 先判断是否已经质押过了
+      const resBefore: any = await getRewardInfoH();
+      if (resBefore) {
+        throw new Error(t('cpunft_already_staked'));
+      }
       // 授权
       const approvalHash = await nftApproval.writeContractAsync({
         address: NFT_CONTRACT_ADDRESS,
@@ -91,7 +121,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       const { data: newNftData } = await refetch();
       console.log(newNftData, 'newNftDatanewNftData');
       if (approvalReceipt.status !== 'success') {
-        throw new Error('授权交易失败');
+        throw new Error(t('cpunft_authorization_failed'));
       }
 
       // 在组件中定义创建机器的函数
@@ -107,11 +137,12 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       // 质押
       const res: any = await createMachine(machineData);
       if (res.code === 1000) {
-        toast({
+        toast.update(toastId, {
           position: 'top',
-          title: '成功',
+          title: t('cpunft_success'),
           status: 'success',
-          description: '成功质押了',
+          description: t('cpunft_stake_success'),
+          duration: 5000,
           isClosable: true,
         });
         if (onPledgeModalClose) {
@@ -120,21 +151,12 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       } else {
         throw new Error(res.msg);
       }
-
-      toast.update(toastId, {
-        position: 'top',
-        title: '成功',
-        status: 'success',
-        description: '质押成功！',
-        duration: 5000,
-        isClosable: true,
-      });
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
-        title: '失败',
+        title: t('cpunft_failed'),
         status: 'error',
-        description: error.message || '操作失败',
+        description: error.message || t('cpunft_operation_failed'),
         isClosable: true,
         duration: null,
       });
@@ -148,8 +170,8 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     if (!isConnected) {
       toast({
         position: 'top',
-        title: '提示',
-        description: '请先连接你的钱包',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
         status: 'warning',
         duration: 5000,
         isClosable: true,
@@ -159,17 +181,18 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     setDlcBtnLoading(true);
     const toastId = toast({
       position: 'top',
-      title: '质押中',
-      description: '正在处理您的质押请求，请稍候...',
+      title: t('staking'),
+      description: t('cpudbc_processing'),
       status: 'loading',
       duration: null,
       isClosable: false,
     });
     try {
-      // 先判断是否需要授权
-      // const { data } = await refetch2();
-      // console.log(data, 'xxxxxxxxxx');
-      // return false;
+      // 先判断是否已经质押过了
+      const resBefore: any = await getRewardInfoH2();
+      if (!resBefore) {
+        throw new Error(t('not_staked_yet'));
+      }
       // 授权
       const hash = await dlcApproval.writeContractAsync({
         address: DLC_TOKEN_ADDRESS,
@@ -177,11 +200,10 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
         functionName: 'approve',
         args: [STAKING_CONTRACT_ADDRESS_LONG, parseEther(dlcNodeCount)],
       });
-      console.log(hash, 'dlc授权hash');
       const approvalReceipt = await waitForTransactionReceipt(config, { hash: hash });
 
       if (approvalReceipt.status !== 'success') {
-        throw new Error('授权交易失败');
+        throw new Error(t('cpunft_authorization_failed'));
       }
       // 质押
       console.log(parseEther(dlcNodeCount), '////////', dlcNodeId);
@@ -191,17 +213,16 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
         functionName: 'addDLCToStake',
         args: [dlcNodeId, parseEther(dlcNodeCount)], // 使用传入的 machineId 和 amount
       });
-      console.log(stakeHash, 'dlc交易hash');
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error('质押交易失败');
+        throw new Error(t('cpunft_transaction_failed'));
       }
 
       toast.update(toastId, {
         position: 'top',
-        title: '成功',
+        title: t('cpunft_success'),
         status: 'success',
-        description: '质押成功！',
+        description: t('cpunft_stake_success'),
         duration: 5000,
         isClosable: true,
       });
@@ -211,11 +232,11 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
-        title: '失败',
+        title: t('cpunft_failed'),
         status: 'error',
-        description: error.message || '操作失败',
+        description: error.message || t('cpunft_operation_failed'),
         isClosable: true,
-        duration: null,
+        duration: 6000,
       });
     } finally {
       setDlcBtnLoading(false);

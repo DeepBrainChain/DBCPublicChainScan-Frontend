@@ -20,9 +20,9 @@ import {
 import { useTranslation } from 'next-i18next';
 import dbcAbi from './abi/dbcAbi.json';
 import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi';
-import { waitForTransactionReceipt } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
-import { parseEther } from 'viem';
+import { parseEther, formatEther } from 'viem';
 import { useContractActions } from '../hooks/stake-before';
 
 function cpuStakeDbcBtn() {
@@ -37,13 +37,29 @@ function cpuStakeDbcBtn() {
   const stake = useWriteContract();
   const { register, unregister } = useContractActions(machineId);
 
+  // 定义读取函数
+  async function getRewardInfoH() {
+    try {
+      const balance = await readContract(config, {
+        address: DBC_CONTRACT_ADDRESS,
+        abi: dbcAbi,
+        functionName: 'amountDbcStaked',
+        args: [machineId],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+
   // 开始质押dbc
   const startStakeDBC = async () => {
     if (!isConnected) {
       toast({
         position: 'top',
-        title: '提示',
-        description: '请先连接你的钱包',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
         status: 'warning',
         duration: 5000,
         isClosable: true,
@@ -53,16 +69,24 @@ function cpuStakeDbcBtn() {
     setLoading(true);
     const toastId = toast({
       position: 'top',
-      title: '质押中',
-      description: '正在处理您的质押请求，请稍候...',
+      title: t('staking'),
+      description: t('cpudbc_processing'),
       status: 'loading',
       duration: null,
       isClosable: false,
     });
+
     try {
+      // 先判断是否已经质押过了
+      const resBefore: any = await getRewardInfoH();
+      console.log(resBefore);
+      console.log(formatEther(resBefore), 'resBeforeresBeforeresBefore');
+      if (formatEther(resBefore) !== '0') {
+        throw new Error(t('cpudbc_already_staked'));
+      }
       const res: any = await register();
       if (res.code !== 0) {
-        throw new Error(res.message || '注册接口失败');
+        throw new Error(res.message || t('cpudbc_register_interface_failed'));
       }
       // 质押
       const stakeHash = await stake.writeContractAsync({
@@ -75,14 +99,14 @@ function cpuStakeDbcBtn() {
 
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error('质押交易失败');
+        throw new Error(t('cpudbc_transaction_failed'));
       }
 
       toast.update(toastId, {
         position: 'top',
-        title: '成功',
+        title: t('success'),
         status: 'success',
-        description: 'DBC质押成功！',
+        description: t('cpudbc_stake_success'),
         duration: 5000,
         isClosable: true,
       });
@@ -90,9 +114,9 @@ function cpuStakeDbcBtn() {
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
-        title: '失败',
+        title: t('failed'),
         status: 'error',
-        description: error.message || '操作失败',
+        description: error.message || t('operation_failed'),
         isClosable: true,
         duration: 5000,
       });
@@ -102,7 +126,7 @@ function cpuStakeDbcBtn() {
   };
 
   return (
-    <div>
+    <>
       <Button onClick={onOpen} colorScheme="blue" variant="outline" w="fit-content">
         {t('stake-dbc')}
       </Button>
@@ -142,7 +166,7 @@ function cpuStakeDbcBtn() {
           </ModalBody>
         </ModalContent>
       </Modal>
-    </div>
+    </>
   );
 }
 

@@ -11,7 +11,7 @@ import { getEnvValue } from '../../../configs/app/utils';
 
 const FixedComponent = () => {
   const { t, i18n } = useTranslation('common');
-  const link = getEnvValue('NEXT_PUBLIC_API_URL') || 'https://testnet.dbcscan.io/gpumachine'; // 默认值可选
+  const link = getEnvValue('NEXT_PUBLIC_API_URL') || 'https://dbcscan.io/gpumachine'; // 默认值可选
   const router = useRouter();
 
   return (
