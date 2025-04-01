@@ -3,12 +3,12 @@ import type { Feature } from './types';
 import chain from '../chain';
 import { getEnvValue } from '../utils';
 
-const walletConnectProjectId = getEnvValue('NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID');
+const walletConnectProjectId =
+  getEnvValue('NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID') || '6d6a227f7cc614e482316b8a51b348d6';
 
 const title = 'Blockchain interaction (writing to contract, etc.)';
 
 const config: Feature<{ walletConnect: { projectId: string } }> = (() => {
-
   if (
     // all chain parameters are required for wagmi provider
     // @wagmi/chains/dist/index.d.ts
