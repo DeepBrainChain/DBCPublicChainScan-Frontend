@@ -147,6 +147,9 @@ export function app(): CspDev.DirectiveDescriptor {
       'https://secure-mobile.walletconnect.org',
       'https://*.dbcscan.io',
       'https://test.dbcscan.io',
+      'https://dbcscan.io',
+      'https://www.dbcscan.io',
+      'https://secure.walletconnect.com',
     ],
 
     ...(() => {

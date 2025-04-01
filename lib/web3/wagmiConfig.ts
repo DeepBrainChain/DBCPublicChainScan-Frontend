@@ -10,7 +10,6 @@ import { getEnvValue } from '../../configs/app/utils';
 const wagmiConfig: any = (() => {
   console.log(currentChain, 'web3配置信息');
   console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL'), 'rpc节点');
-  // const rpcUrl = process.env.NEXT_PUBLIC_NETWORK_RPC_URL || 'https://rpc-testnet.dbcwallet.io';
   console.log(getEnvValue('NEXT_PUBLIC_NETWORK_RPC_URL') || 'https://rpc.dbcwallet.io', '最终rpc节点');
   try {
     if (!feature.isEnabled) {
@@ -32,6 +31,7 @@ const wagmiConfig: any = (() => {
         icons: [config.UI.sidebar.icon.default].filter(Boolean),
       },
       enableEmail: true,
+
       // ssr: true,
     });
 
