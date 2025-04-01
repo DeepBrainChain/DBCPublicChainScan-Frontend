@@ -150,6 +150,7 @@ export function app(): CspDev.DirectiveDescriptor {
       'https://dbcscan.io',
       'https://www.dbcscan.io',
       'https://secure.walletconnect.com',
+      'https://testnet.dbcscan.io',
     ],
 
     ...(() => {
