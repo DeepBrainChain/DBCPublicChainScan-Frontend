@@ -1,39 +1,39 @@
 [
   {
-    "title": "DeepBrainChain",
+    "title": "grok3_DeepBrainChain",
     "links": [
       {
-        "text": "Home",
+        "text": "grok3_Home",
         "url": "https://www.deepbrainchain.org"
       }
     ]
   },
   {
-    "title": "Developers",
+    "title": "grok3_Developers",
     "links": [
       {
-        "text": "Wiki",
+        "text": "grok3_Wiki",
         "url": "https://deepbrainchain.github.io/DBC-Wiki/"
       },
       {
-        "text": "GitHub",
+        "text": "grok3_GitHub",
         "url": "https://github.com/DeepBrainChain"
       }
     ]
   },
   {
-    "title": "Community",
+    "title": "grok3_Community",
     "links": [
       {
-        "text": "Twitter",
+        "text": "grok3_Twitter",
         "url": "https://twitter.com/DeepBrainChain"
       },
       {
-        "text": "Telegram",
+        "text": "grok3_Telegram",
         "url": "https://t.me/deepbrainchainglobal"
       },
       {
-        "text": "Reddit",
+        "text": "grok3_Reddit",
         "url": "https://www.reddit.com/r/DBC_Council"
       }
     ]

@@ -12,7 +12,7 @@ import BlocksTabSlot from 'ui/blocks/BlocksTabSlot';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import useQueryWithPages from 'ui/shared/pagination/useQueryWithPages';
 import RoutedTabs from 'ui/shared/Tabs/RoutedTabs';
-
+import { useTranslation } from 'next-i18next';
 const TAB_LIST_PROPS = {
   marginBottom: 0,
   py: 5,
@@ -23,16 +23,19 @@ const BlocksPageContent = () => {
   const router = useRouter();
   const isMobile = useIsMobile();
   const tab = getQueryParamString(router.query.tab);
+  const { t } = useTranslation('common');
 
   const blocksQuery = useQueryWithPages({
     resourceName: 'blocks',
     filters: { type: 'block' },
     options: {
       enabled: tab === 'blocks' || !tab,
-      placeholderData: generateListStub<'blocks'>(BLOCK, 50, { next_page_params: {
-        block_number: 8988686,
-        items_count: 50,
-      } }),
+      placeholderData: generateListStub<'blocks'>(BLOCK, 50, {
+        next_page_params: {
+          block_number: 8988686,
+          items_count: 50,
+        },
+      }),
     },
   });
   const reorgsQuery = useQueryWithPages({
@@ -40,10 +43,12 @@ const BlocksPageContent = () => {
     filters: { type: 'reorg' },
     options: {
       enabled: tab === 'reorgs',
-      placeholderData: generateListStub<'blocks'>(BLOCK, 50, { next_page_params: {
-        block_number: 8988686,
-        items_count: 50,
-      } }),
+      placeholderData: generateListStub<'blocks'>(BLOCK, 50, {
+        next_page_params: {
+          block_number: 8988686,
+          items_count: 50,
+        },
+      }),
     },
   });
   const unclesQuery = useQueryWithPages({
@@ -51,10 +56,12 @@ const BlocksPageContent = () => {
     filters: { type: 'uncle' },
     options: {
       enabled: tab === 'uncles',
-      placeholderData: generateListStub<'blocks'>(BLOCK, 50, { next_page_params: {
-        block_number: 8988686,
-        items_count: 50,
-      } }),
+      placeholderData: generateListStub<'blocks'>(BLOCK, 50, {
+        next_page_params: {
+          block_number: 8988686,
+          items_count: 50,
+        },
+      }),
     },
   });
 
@@ -69,19 +76,19 @@ const BlocksPageContent = () => {
   })();
 
   const tabs: Array<RoutedTab> = [
-    { id: 'blocks', title: 'All', component: <BlocksContent type="block" query={ blocksQuery }/> },
-    { id: 'reorgs', title: 'Forked', component: <BlocksContent type="reorg" query={ reorgsQuery }/> },
-    { id: 'uncles', title: 'Uncles', component: <BlocksContent type="uncle" query={ unclesQuery }/> },
+    { id: 'blocks', title: t('deep_all'), component: <BlocksContent type="block" query={blocksQuery} /> },
+    { id: 'reorgs', title: t('deep_forked'), component: <BlocksContent type="reorg" query={reorgsQuery} /> },
+    { id: 'uncles', title: t('deep_uncles'), component: <BlocksContent type="uncle" query={unclesQuery} /> },
   ];
 
   return (
     <>
-      <PageTitle title="Blocks" withTextAd/>
+      <PageTitle title={t('deep2_blocks')} withTextAd />
       <RoutedTabs
-        tabs={ tabs }
-        tabListProps={ isMobile ? undefined : TAB_LIST_PROPS }
-        rightSlot={ <BlocksTabSlot pagination={ pagination }/> }
-        stickyEnabled={ !isMobile }
+        tabs={tabs}
+        tabListProps={isMobile ? undefined : TAB_LIST_PROPS}
+        rightSlot={<BlocksTabSlot pagination={pagination} />}
+        stickyEnabled={!isMobile}
       />
     </>
   );

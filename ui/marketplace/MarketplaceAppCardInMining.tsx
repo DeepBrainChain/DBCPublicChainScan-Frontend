@@ -10,6 +10,7 @@ import GPUCount from './MarketplaceAppCardInMining-modules/GPUCount';
 import DailyMiningRewardGpt from './MarketplaceAppCardInMining-modules/DailyMiningRewardGpt';
 import GPUCountGpt from './MarketplaceAppCardInMining-modules/GPUCountGpt';
 import { useInterval } from '@reactuses/core';
+import { useTranslation } from 'next-i18next';
 
 interface Props {
   id: string;
@@ -45,7 +46,7 @@ const MarketplaceAppCard = ({
     pathname: '/mining/[id]' as const,
     query: { id },
   };
-
+  const { t } = useTranslation('common');
   // 总的loading
   const [loading, setLoading] = React.useState(true);
 
@@ -138,12 +139,11 @@ const MarketplaceAppCard = ({
           <Skeleton isLoaded={!loading}>
             <Flex direction="column" gap={2} bg={useColorModeValue('gray.50', 'gray.700')} p={3} borderRadius="md">
               <Text fontSize="sm" fontWeight="medium">
-                Daily Mining Reward:
+                {t('deep_daily_mining_reward')}：
                 {title === 'DecentralGPT' ? <DailyMiningRewardGpt /> : <DailyMiningReward />}
               </Text>
-              <Text fontSize="sm" fontWeight="medium">
-                GPU Count:
-                {title === 'DecentralGPT' ? <GPUCountGpt /> : <GPUCount />}
+              <Text fontSize="sm" fontWeight="medium" className="flex items-center flex-wrap">
+                {t('deep_gpu_count')}：{title === 'DecentralGPT' ? <GPUCountGpt /> : <GPUCount />}
               </Text>
             </Flex>
           </Skeleton>

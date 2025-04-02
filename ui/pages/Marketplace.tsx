@@ -21,7 +21,7 @@ import LinkExternal from 'ui/shared/LinkExternal';
 import PageTitle from 'ui/shared/Page/PageTitle';
 import RadioButtonGroup from 'ui/shared/radioButtonGroup/RadioButtonGroup';
 import TabsWithScroll from 'ui/shared/Tabs/TabsWithScroll';
-
+import { useTranslation } from 'next-i18next';
 import useMarketplace from '../marketplace/useMarketplace';
 const feature = config.features.marketplace;
 
@@ -44,6 +44,8 @@ if (feature.isEnabled) {
 }
 
 const Marketplace = () => {
+  const { t } = useTranslation('common');
+
   const {
     isPlaceholderData,
     isError,
@@ -140,7 +142,7 @@ const Marketplace = () => {
   return (
     <>
       <PageTitle
-        title="DApps"
+        title={t('deep_dapps')}
         contentAfter={
           isMobile && links.length > 1 ? (
             <Menu>
@@ -223,7 +225,7 @@ const Marketplace = () => {
         <FilterInput
           initialValue={filterQuery}
           onChange={onSearchInputChange}
-          placeholder="Find app by name or keyword..."
+          placeholder={t('deep_find_app_by_name_or_keyword')}
           isLoading={isPlaceholderData}
           size={feature.securityReportsUrl ? 'xs' : 'sm'}
           flex="1"

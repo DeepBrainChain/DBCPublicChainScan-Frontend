@@ -230,5 +230,105 @@
   "withdraw_areYouSure": "Are you sure you want to withdraw the earnings?",
   "withdraw_pendingRewards": "Pending Rewards",
   "withdraw_cancel": "Cancel",
-  "withdraw_confirm": "Confirm"
+  "withdraw_confirm": "Confirm",
+
+  "grok3_blocks_indexed": "Blocks Indexed",
+  "grok3_indexing_notice": "We're indexing this chain right now. Some of the counts may be inaccurate.",
+
+  "grok3_DeepBrainChain": "DeepBrainChain",
+  "grok3_Home": "Home",
+  "grok3_Developers": "Developers",
+  "grok3_Wiki": "Wiki",
+  "grok3_GitHub": "GitHub",
+  "grok3_Community": "Community",
+  "grok3_Twitter": "Twitter",
+  "grok3_Telegram": "Telegram",
+  "grok3_Reddit": "Reddit",
+
+  "deep_network_utilization": "Network utilization",
+  "deep_last_50_blocks": "last 50 blocks",
+  "deep_load": "load",
+  "deep_no_blocks": "There are no blocks.",
+  "deep_all": "All",
+  "deep_forked": "Forked",
+  "deep_uncles": "Uncles",
+
+  "deep_size_bytes": "Size, bytes",
+  "deep_txn": "Txn",
+  "deep_gas_used": "Gas used",
+  "deep_reward": "Reward",
+  "deep_burnt_fees": "Burnt fees",
+
+  "deep_token_transfer": "token transfer",
+  "deep_deposit": "deposit",
+  "deep_block": "block",
+  "deep_transaction": "transaction",
+  "deep_scanning_new": "scanning new",
+  "deep2_blocks": "Blocks",
+  "deep_Top_accounts": "Top accounts",
+
+  "deep_rank": "Rank",
+  "deep_address": "Address",
+  "deep_public_tag": "Public tag",
+  "deep_percentage": "Percentage",
+  "deep_txn_count": "Txn count",
+  "deep_no_verified_contracts": "There are no verified contracts.",
+
+  "deep_total_contracts": "Total contracts",
+  "deep_verified_contracts": "Verified contracts",
+  "deep_search_by_contract_name_or_address": "Search by contract name or address",
+
+  "deep_contract": "Contract",
+  "deep_balance": "Balance",
+  "deep_txs": "Txs",
+  "deep_compiler_version": "Compiler / version",
+  "deep_settings": "Settings",
+  "deep_verified": "Verified",
+  "deep_license": "License",
+  "deep_find_app_by_name_or_keyword": "Find app by name or keyword...",
+
+  "deep_AI + DePIN + Cloud Gaming + GPU": "AI + DePIN + Cloud Gaming + GPU",
+  "deep_DeepLink_description": "DeepLink is a decentralized cloud gaming protocol driven by AI and blockchain technology. The ultimate combination of narratives, bringing Artificial Intelligence, Gaming, GPUs, Real World Asset Tokenization, and Decentralized Physical Infrastructure Networks together into ONE project. DEEPLINK offers ultra-low latency gaming rendering technology that supports a wide array of applications, such as cloud esports, cloud internet cafes, cloud-based 3A games, blockchain integrated gaming and cloud VR/AR/XR, among others. The Deeplink protocol, enhanced by AI technology, can improve the rendering resolution and clarity of games.",
+
+  "deep_AI + DePIN + GPU + AGI": "AI + DePIN + GPU + AGI",
+  "deep_DecentralGPT_description": "DecentralGPT supports a variety of open-source large language models. It is committed to building a safe, privacy-protective, democratic, transparent, open-source, and universally accessible AGI.",
+
+  "deep_AI + DePIN + GPU + Image": "AI + DePIN + GPU + Image",
+  "deep_SuperImage_description": "SuperImage has multiple latent text-to-image diffusion models of generating photo-realistic images given any text input, cultivates autonomous freedom to produce incredible imagery, empowers billions of people to create stunning art within seconds.",
+
+  "deep_GPU Cloud": "GPU Cloud",
+  "deep_dot": ".",
+  "deep_HibaoCloud_description": ".",
+  "deep_Hycons_description": ".",
+
+  "deep_Luanchpad": "Luanchpad",
+  "deep_Node launchpad": "Node launchpad",
+  "deep_DRCPad_description": "DRCPad - the first primary market for trading AI nodes. It is a fundraising, promotion, and marketing platform for new projects based on the Deepbrain AI market. DBC and USDT are two mainnet tokens of DRCPad",
+
+  "deep_Wallet": "Wallet",
+  "deep_DeepBrainChain_description": "DeepBrain Chain 2.0 is an AI public chain. AI developers can develop decentralized AI products based on DBC.",
+
+  "deep_more_info": "More info",
+
+  "deep_overview": "Overview",
+
+  "deep_submit_app": "Submit app",
+  "deep_suggest_ideas": "Suggest ideas",
+
+  "deep_dapps": "DApps",
+
+  "deep_gpu_race": "GPU Race",
+
+  "deep_DeAI": "DeAI",
+  "deep_AI + DePIN + GPU + AGIxxxx": "AI + DePIN + GPU + AGIxxxx",
+  "deep_DecentralGPT_Andromeda_description": "DecentralGPT Andromeda Project",
+
+  "deep_AI + DePIN + GPU": "AI + DePIN + GPU",
+  "deep_DeepLink_Orion_description": "DeepLink Orion Project",
+
+  "deep_DeepBrainChain_GalaxyRace_description": "DeepBrain Chain Galaxy Race Project",
+  "deep_gpu_mining": "GPU Mining",
+
+  "deep_daily_mining_reward": "Daily Mining Reward",
+  "deep_gpu_count": "GPU Count"
 }

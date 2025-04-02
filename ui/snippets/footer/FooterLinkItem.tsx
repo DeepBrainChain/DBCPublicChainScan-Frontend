@@ -10,21 +10,23 @@ type Props = {
   text: string;
   url: string;
   isLoading?: boolean;
-}
+};
+import { useTranslation } from 'next-i18next';
 
 const FooterLinkItem = ({ icon, iconSize, text, url, isLoading }: Props) => {
   if (isLoading) {
-    return <Skeleton my="3px">{ text }</Skeleton>;
+    return <Skeleton my="3px">{text}</Skeleton>;
   }
+  const { t } = useTranslation('common');
 
   return (
-    <Link href={ url } display="flex" alignItems="center" h="30px" variant="secondary" target="_blank" fontSize="xs">
-      { icon && (
-        <Center minW={ 6 } mr={ 2 }>
-          <IconSvg boxSize={ iconSize || 5 } name={ icon }/>
+    <Link href={url} display="flex" alignItems="center" h="30px" variant="secondary" target="_blank" fontSize="xs">
+      {icon && (
+        <Center minW={6} mr={2}>
+          <IconSvg boxSize={iconSize || 5} name={icon} />
         </Center>
-      ) }
-      { text }
+      )}
+      {t(text)}
     </Link>
   );
 };

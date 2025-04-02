@@ -230,5 +230,106 @@
   "withdraw_areYouSure": "您确定要提取收益吗？",
   "withdraw_pendingRewards": "待领取奖励",
   "withdraw_cancel": "取消",
-  "withdraw_confirm": "确认"
+  "withdraw_confirm": "确认",
+
+  "grok3_blocks_indexed": "区块已索引",
+  "grok3_indexing_notice": "我们正在索引这条链。部分计数可能不准确。",
+
+  "grok3_DeepBrainChain": "深脑链",
+  "grok3_Home": "首页",
+  "grok3_Developers": "开发者",
+  "grok3_Wiki": "维基",
+  "grok3_GitHub": "GitHub",
+  "grok3_Community": "社区",
+  "grok3_Twitter": "推特",
+  "grok3_Telegram": "电报",
+  "grok3_Reddit": "Reddit",
+
+  "deep_network_utilization": "网络利用率",
+  "deep_last_50_blocks": "最近50个区块",
+  "deep_load": "负载",
+  "deep_no_blocks": "没有区块",
+  "deep_all": "全部",
+  "deep_forked": "分叉",
+  "deep_uncles": "叔块",
+  "deep_size_bytes": "大小（字节）",
+  "deep_txn": "交易",
+  "deep_gas_used": "燃气使用量",
+  "deep_reward": "奖励",
+  "deep_burnt_fees": "销毁费用",
+
+  "deep_token_transfer": "代币转账",
+  "deep_deposit": "存款",
+  "deep_block": "区块",
+  "deep_transaction": "交易",
+  "deep_scanning_new": "扫描新数据",
+  "deep2_blocks": "区块",
+  "deep_Top_accounts": "顶级账户",
+
+  "deep_rank": "排名",
+  "deep_address": "地址",
+  "deep_public_tag": "公共标签",
+  "deep_percentage": "百分比",
+  "deep_txn_count": "交易计数",
+
+  "deep_no_verified_contracts": "没有已验证的合约。",
+
+  "deep_total_contracts": "合约总数",
+  "deep_verified_contracts": "已验证合约",
+
+  "deep_search_by_contract_name_or_address": "按合约名称或地址搜索",
+
+  "deep_contract": "合约",
+  "deep_balance": "余额",
+  "deep_txs": "交易",
+  "deep_compiler_version": "编译器/版本",
+  "deep_settings": "设置",
+  "deep_verified": "已验证",
+  "deep_license": "许可证",
+
+  "deep_find_app_by_name_or_keyword": "按名称或关键字查找应用...",
+
+  "deep_AI + DePIN + Cloud Gaming + GPU": "AI + 去中心化物理基础设施 + 云游戏 + GPU",
+  "deep_DeepLink_description": "深链是一个由AI和区块链技术驱动的去中心化云游戏协议。它将人工智能、游戏、GPU、现实世界资产代币化和去中心化物理基础设施网络融合到一个项目中，堪称叙事的终极组合。DEEPLINK提供超低延迟的游戏渲染技术，支持多种应用，如云电竞、云网吧、基于云的3A游戏、区块链集成游戏以及云VR/AR/XR等。深链协议通过AI技术增强，可以提升游戏的渲染分辨率和清晰度。",
+
+  "deep_AI + DePIN + GPU + AGI": "AI + 去中心化物理基础设施 + GPU + 通用人工智能",
+  "deep_DecentralGPT_description": "去中心化GPT支持多种开源大型语言模型。它致力于构建一个安全、隐私保护、民主、透明、开源且全球可访问的通用人工智能（AGI）。",
+
+  "deep_AI + DePIN + GPU + Image": "AI + 去中心化物理基础设施 + GPU + 图像",
+  "deep_SuperImage_description": "超级图像拥有多个潜在的文本到图像扩散模型，可以根据任何文本输入生成逼真的照片级图像，培养自主自由创作惊艳图像的能力，使数十亿人能够在几秒钟内创造出令人惊叹的艺术作品。",
+
+  "deep_GPU Cloud": "GPU云",
+  "deep_dot": ".",
+  "deep_HibaoCloud_description": ".",
+  "deep_Hycons_description": ".",
+
+  "deep_Luanchpad": "发射台",
+  "deep_Node launchpad": "节点发射台",
+  "deep_DRCPad_description": "DRCPad - 首个AI节点交易的初级市场。它是一个基于Deepbrain AI市场的筹资、推广和营销平台。DBC和USDT是DRCPad的两种主网代币。",
+
+  "deep_Wallet": "钱包",
+  "deep_DeepBrainChain_description": "深脑链2.0是一个AI公共链。AI开发者可以基于DBC开发去中心化的AI产品。",
+
+  "deep_more_info": "更多信息",
+
+  "deep_overview": "概览",
+
+  "deep_submit_app": "提交应用",
+  "deep_suggest_ideas": "建议想法",
+  "deep_dapps": "去中心化应用",
+
+  "deep_gpu_race": "GPU竞赛",
+
+  "deep_DeAI": "去中心化AI",
+  "deep_AI + DePIN + GPU + AGIxxxx": "AI + 去中心化物理基础设施 + GPU + AGIxxxx",
+  "deep_DecentralGPT_Andromeda_description": "去中心化GPT仙女座项目",
+
+  "deep_AI + DePIN + GPU": "AI + 去中心化物理基础设施 + GPU",
+  "deep_DeepLink_Orion_description": "深链猎户座项目",
+
+  "deep_DeepBrainChain_GalaxyRace_description": "深脑链银河竞赛项目",
+  "deep_gpu_mining": "GPU挖矿",
+
+  "deep_daily_mining_reward": "每日挖矿奖励",
+  "deep_gpu_count": "GPU数量"
 }

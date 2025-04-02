@@ -12,11 +12,13 @@ import * as cookies from 'lib/cookies';
 import { nbsp, ndash } from 'lib/html-entities';
 import useSocketChannel from 'lib/socket/useSocketChannel';
 import useSocketMessage from 'lib/socket/useSocketMessage';
+import { useTranslation } from 'next-i18next';
 
 const IndexingBlocksAlert = () => {
   const appProps = useAppContext();
   const cookiesString = appProps.cookies;
-  const [ hasAlertCookie ] = React.useState(cookies.get(cookies.NAMES.INDEXING_ALERT, cookiesString) === 'true');
+  const [hasAlertCookie] = React.useState(cookies.get(cookies.NAMES.INDEXING_ALERT, cookiesString) === 'true');
+  const { t } = useTranslation('common');
 
   const { data, isError, isPending } = useApiQuery('homepage_indexing_status', {
     queryOptions: {
@@ -28,20 +30,22 @@ const IndexingBlocksAlert = () => {
     if (!isPending && !isError) {
       cookies.set(cookies.NAMES.INDEXING_ALERT, data.finished_indexing_blocks ? 'false' : 'true');
     }
-  }, [ data, isError, isPending ]);
+  }, [data, isError, isPending]);
 
   const queryClient = useQueryClient();
 
-  const handleBlocksIndexStatus: SocketMessage.BlocksIndexStatus['handler'] = React.useCallback((payload) => {
-    queryClient.setQueryData(getResourceKey('homepage_indexing_status'), (prevData: IndexingStatus | undefined) => {
+  const handleBlocksIndexStatus: SocketMessage.BlocksIndexStatus['handler'] = React.useCallback(
+    (payload) => {
+      queryClient.setQueryData(getResourceKey('homepage_indexing_status'), (prevData: IndexingStatus | undefined) => {
+        const newData = prevData ? { ...prevData } : ({} as IndexingStatus);
+        newData.finished_indexing_blocks = payload.finished;
+        newData.indexed_blocks_ratio = payload.ratio;
 
-      const newData = prevData ? { ...prevData } : {} as IndexingStatus;
-      newData.finished_indexing_blocks = payload.finished;
-      newData.indexed_blocks_ratio = payload.ratio;
-
-      return newData;
-    });
-  }, [ queryClient ]);
+        return newData;
+      });
+    },
+    [queryClient]
+  );
 
   const blockIndexingChannel = useSocketChannel({
     topic: 'blocks:indexing',
@@ -63,7 +67,7 @@ const IndexingBlocksAlert = () => {
   }
 
   if (isPending) {
-    return hasAlertCookie ? <Skeleton h={{ base: '96px', lg: '48px' }} w="100%"/> : null;
+    return hasAlertCookie ? <Skeleton h={{ base: '96px', lg: '48px' }} w="100%" /> : null;
   }
 
   if (data.finished_indexing_blocks !== false) {
@@ -71,11 +75,14 @@ const IndexingBlocksAlert = () => {
   }
 
   return (
-    <Alert status="info" colorScheme="gray" py={ 3 } borderRadius="md">
-      <AlertIcon display={{ base: 'none', lg: 'flex' }}/>
+    <Alert status="info" colorScheme="gray" py={3} borderRadius="md">
+      <AlertIcon display={{ base: 'none', lg: 'flex' }} />
       <AlertTitle>
-        { `${ data.indexed_blocks_ratio && `${ Math.floor(Number(data.indexed_blocks_ratio) * 100) }% Blocks Indexed${ nbsp }${ ndash } ` }
-          We're indexing this chain right now. Some of the counts may be inaccurate.` }
+        {`${
+          data.indexed_blocks_ratio &&
+          `${Math.floor(Number(data.indexed_blocks_ratio) * 100)}% ${t('grok3_blocks_indexed')}${nbsp}${ndash} `
+        }
+          ${t('grok3_indexing_notice')}`}
       </AlertTitle>
     </Alert>
   );
