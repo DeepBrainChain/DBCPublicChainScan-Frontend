@@ -1,10 +1,4 @@
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-} from '@chakra-ui/react';
+import { Table, Thead, Tbody, Tr, Th } from '@chakra-ui/react';
 import React from 'react';
 
 import type { PublicTags, PublicTag } from 'types/api/account';
@@ -30,15 +24,15 @@ const PublicTagTable = ({ data, isLoading, onEditClick, onDeleteClick }: Props) 
         </Tr>
       </Thead>
       <Tbody>
-        { data?.map((item, index) => (
+        {data?.map((item, index) => (
           <PublicTagTableItem
-            key={ item.id + (isLoading ? String(index) : '') }
-            item={ item }
-            isLoading={ isLoading }
-            onDeleteClick={ onDeleteClick }
-            onEditClick={ onEditClick }
+            key={item.id + (isLoading ? String(index) : '')}
+            item={item}
+            isLoading={isLoading}
+            onDeleteClick={onDeleteClick}
+            onEditClick={onEditClick}
           />
-        )) }
+        ))}
       </Tbody>
     </Table>
   );

@@ -23,7 +23,7 @@ type Props = {
   onFilterInputChange: (q: string) => void;
   isLoading: boolean;
   initialFilterValue: string;
-}
+};
 
 const StatsFilters = ({
   sections,
@@ -35,14 +35,17 @@ const StatsFilters = ({
   isLoading,
   initialFilterValue,
 }: Props) => {
-  const sectionsList = [ {
-    id: 'all',
-    title: 'All',
-  }, ... (sections || []) ];
+  const sectionsList = [
+    {
+      id: 'all',
+      title: 'All',
+    },
+    ...(sections || []),
+  ];
 
   return (
     <Grid
-      gap={ 2 }
+      gap={2}
       templateAreas={{
         base: `"section interval"
                 "input input"`,
@@ -50,42 +53,29 @@ const StatsFilters = ({
       }}
       gridTemplateColumns={{ base: 'repeat(2, minmax(0, 1fr))', lg: 'auto auto 1fr' }}
     >
-      <GridItem
-        w={{ base: '100%', lg: 'auto' }}
-        area="section"
-      >
-        { isLoading ? <Skeleton w={{ base: '100%', lg: '76px' }} h="40px" borderRadius="base"/> : (
-          <StatsDropdownMenu
-            items={ sectionsList }
-            selectedId={ currentSection }
-            onSelect={ onSectionChange }
-          />
-        ) }
+      <GridItem w={{ base: '100%', lg: 'auto' }} area="section">
+        {isLoading ? (
+          <Skeleton w={{ base: '100%', lg: '76px' }} h="40px" borderRadius="base" />
+        ) : (
+          <StatsDropdownMenu items={sectionsList} selectedId={currentSection} onSelect={onSectionChange} />
+        )}
       </GridItem>
 
-      <GridItem
-        w={{ base: '100%', lg: 'auto' }}
-        area="interval"
-      >
-        { isLoading ? <Skeleton w={{ base: '100%', lg: '118px' }} h="40px" borderRadius="base"/> : (
-          <StatsDropdownMenu
-            items={ intervalList }
-            selectedId={ interval }
-            onSelect={ onIntervalChange }
-          />
-        ) }
+      <GridItem w={{ base: '100%', lg: 'auto' }} area="interval">
+        {isLoading ? (
+          <Skeleton w={{ base: '100%', lg: '118px' }} h="40px" borderRadius="base" />
+        ) : (
+          <StatsDropdownMenu items={intervalList} selectedId={interval} onSelect={onIntervalChange} />
+        )}
       </GridItem>
 
-      <GridItem
-        w="100%"
-        area="input"
-      >
+      <GridItem w="100%" area="input">
         <FilterInput
-          key={ initialFilterValue }
-          isLoading={ isLoading }
-          onChange={ onFilterInputChange }
+          key={initialFilterValue}
+          isLoading={isLoading}
+          onChange={onFilterInputChange}
           placeholder="Find chart, metric..."
-          initialValue={ initialFilterValue }
+          initialValue={initialFilterValue}
         />
       </GridItem>
     </Grid>

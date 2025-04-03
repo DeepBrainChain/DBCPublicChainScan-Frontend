@@ -331,5 +331,60 @@
   "deep_gpu_mining": "GPU挖矿",
 
   "deep_daily_mining_reward": "每日挖矿奖励",
-  "deep_gpu_count": "GPU数量"
+  "deep_gpu_count": "GPU数量",
+
+  "deep_find_chart_metric": "查找图表和指标...",
+
+  "deep_verify_publish_contract": "验证并发布合约",
+  "deep_contract_address_to_verify": "待验证的合约地址",
+  "deep_loading_data_please_wait": "正在加载数据，请稍候...",
+
+  "deep_contract_license_best_practices": "为了遵循最佳实践，鼓励所有合约源代码持有者、发布者和作者为其提供的已验证合约源代码指定相应的许可证。",
+
+  "deep_smart_contract_address": "智能合约 / 地址 (0x...)",
+  "deep_invalid_format": "格式无效",
+  "deep_contract_license": "合约许可证",
+
+  "deep_currently_blockscout_supports_1": "当前，Blockscout支持",
+  "deep_contract_verification_methods": "合约验证方法",
+  "deep_currently_blockscout_supports_2": "当前，Blockscout支持",
+  "deep_methods": "方法",
+
+  "deep_verification_method_compiler_type": "验证方法（编译器类型）",
+  "deep_verification_through": "通过以下方式验证",
+  "deep_sourcify": "Sourcify",
+  "deep_verification_using": "使用以下方式验证",
+  "deep_standard_input_json": "标准输入JSON",
+  "deep_file": "文件",
+  "deep_verification_of_vyper_contract": "Vyper合约验证",
+  "deep_verification_of_multi_part_vyper_files": "多部分Vyper文件验证",
+  "deep_verification_of_vyper_contract_using": "使用以下方式验证Vyper合约",
+  "deep_standard_input_json_2": "标准输入JSON",
+  "deep_file_2": "文件",
+  "deep_verification_through_flattened_source_code": "通过扁平化源代码验证",
+  "deep_verification_of_multi_part_solidity_files": "多部分Solidity文件验证",
+  "deep_gas_tracker": "燃气跟踪器",
+
+  "deep_gas_price_history": "燃气价格历史",
+  "deep_charts": "图表",
+  "deep_stats": "统计",
+  "deep_last_updated": "最后更新",
+
+  "deep_long_term_rental_note": "注意：对于长期租赁模式，GPU服务器需托管在专业数据中心，且电源和网络需全年365天无中断运行，否则DBC代币将受到处罚。",
+  "deep_rent_own_machine_until_andromeda_end_1": "首先，在DBC网络中租赁您自己的机器，直到当前阶段的仙女座GPU竞赛结束。",
+  "deep_rent_own_machine_until_andromeda_end_2": "在DBC网络中租赁您自己的机器，租赁期限应持续到当前阶段的仙女座GPU竞赛结束。",
+  "deep_login_to_rented_gpu_vm": "登录到租赁的GPU虚拟机",
+  "deep_install_dbc_worker_node": "在虚拟机中安装DBC工作节点",
+  "deep_download_ai_container_image": "下载AI容器镜像",
+  "deep_start_decentralgpt_ai_model_container": "启动DecentralGPT的某个AI模型容器，获取容器ID",
+  "deep_view_decentralgpt_network_machine_info": "查看已加入DecentralGPT网络的机器信息",
+  "deep_installation_documentation": "安装文档",
+  "deep_download_address": "下载地址",
+
+  "deep2_free_mode_note": "注意：自由模式下的机器可以放置在任何地方。然而，单台GPU机器的网络上行带宽需至少为5Mbps。详细规则请查看：https://and.decentralgpt.org/rule",
+  "deep2_install_dbc_worker_node_first": "首先，安装DBC工作节点。安装文档",
+  "deep2_obtain_machine_id_and_private_key": "并获取机器ID和私钥",
+  "deep2_download_ai_container_image": "下载AI容器镜像。下载地址",
+  "deep2_start_decentralgpt_ai_model_container": "启动DecentralGPT的某个AI模型容器，获取容器ID。启动命令",
+  "deep2_view_decentralgpt_network_machine_info": "查看已加入DecentralGPT网络的机器信息"
 }

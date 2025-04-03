@@ -330,5 +330,59 @@
   "deep_gpu_mining": "GPU Mining",
 
   "deep_daily_mining_reward": "Daily Mining Reward",
-  "deep_gpu_count": "GPU Count"
+  "deep_gpu_count": "GPU Count",
+
+  "deep_find_chart_metric": "Find chart, metric...",
+
+  "deep_verify_publish_contract": "Verify & publish contract",
+  "deep_contract_address_to_verify": "Contract address to verify",
+  "deep_loading_data_please_wait": "Loading data, please wait...",
+  "deep_contract_license_best_practices": "For best practices, all contract source code holders, publishers and authors are encouraged to also specify the accompanying license for their verified contract source code provided.",
+
+  "deep_smart_contract_address": "Smart contract / Address (0x...)",
+  "deep_invalid_format": "Invalid format",
+  "deep_contract_license": "Contract license",
+
+  "deep_currently_blockscout_supports_1": "Currently, Blockscout supports",
+  "deep_contract_verification_methods": "contract verification methods",
+  "deep_currently_blockscout_supports_2": "Currently, Blockscout supports",
+  "deep_methods": "methods",
+
+  "deep_verification_method_compiler_type": "Verification method (compiler type)",
+  "deep_verification_through": "Verification through",
+  "deep_sourcify": "Sourcify",
+  "deep_verification_using": "Verification using",
+  "deep_standard_input_json": "Standard input JSON",
+  "deep_file": "file",
+  "deep_verification_of_vyper_contract": "Verification of Vyper contract",
+  "deep_verification_of_multi_part_vyper_files": "Verification of multi-part Vyper files",
+  "deep_verification_of_vyper_contract_using": "Verification of Vyper contract using",
+  "deep_standard_input_json_2": "Standard input JSON",
+  "deep_file_2": "file",
+  "deep_verification_through_flattened_source_code": "Verification through flattened source code",
+  "deep_verification_of_multi_part_solidity_files": "Verification of multi-part Solidity files",
+  "deep_gas_tracker": "Gas tracker",
+
+  "deep_gas_price_history": "Gas price history",
+  "deep_charts": "Charts",
+  "deep_stats": "stats",
+  "deep_last_updated": "Last updated",
+
+  "deep_long_term_rental_note": "Note: For the long-term rental mode, the GPU server needs to be hosted in a professional data center, and the power and network should be maintained without interruption for 365 days. Otherwise, DBC Tokens will be penalized.",
+  "deep_rent_own_machine_until_andromeda_end_1": "First, Rent your own machine in the DBC network until the end of the current stage of the Andromeda GPU competition.",
+  "deep_rent_own_machine_until_andromeda_end_2": "Rent your own machine in the DBC network, and the rental period should last until the end of the current stage of the Andromeda GPU competition.",
+  "deep_login_to_rented_gpu_vm": "Log in to the rented GPU virtual machine",
+  "deep_install_dbc_worker_node": "Install the DBC Worker node in the virtual machine",
+  "deep_download_ai_container_image": "Download the AI container image",
+  "deep_start_decentralgpt_ai_model_container": "Start a certain AI model container of DecentralGPT, obtain the container ID",
+  "deep_view_decentralgpt_network_machine_info": "View the information of machines that have joined the DecentralGPT network",
+  "deep_installation_documentation": "Installation documentation",
+  "deep_download_address": "Download address",
+
+  "deep2_free_mode_note": "Note: Machines in the free mode can be placed anywhere. However, the network upstream bandwidth of a single GPU machine needs to be at least 5Mbps. For detailed rules, please check: https://and.decentralgpt.org/rule",
+  "deep2_install_dbc_worker_node_first": "First, install the DBC Worker node. Installation documentation",
+  "deep2_obtain_machine_id_and_private_key": "and obtain the machine ID and private key",
+  "deep2_download_ai_container_image": "Download the AI container image. Download address",
+  "deep2_start_decentralgpt_ai_model_container": "Start a certain AI model container of DecentralGPT, obtain the container ID. Startup command",
+  "deep2_view_decentralgpt_network_machine_info": "View the information of machines that have joined the DecentralGPT network"
 }

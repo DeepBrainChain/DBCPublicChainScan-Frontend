@@ -10,6 +10,7 @@ import GasTrackerNetworkUtilization from 'ui/gasTracker/GasTrackerNetworkUtiliza
 import GasTrackerPrices from 'ui/gasTracker/GasTrackerPrices';
 import GasInfoUpdateTimer from 'ui/shared/gas/GasInfoUpdateTimer';
 import PageTitle from 'ui/shared/Page/PageTitle';
+import { useTranslation } from 'next-i18next';
 
 const GasTracker = () => {
   const { data, isPlaceholderData, isError, error, dataUpdatedAt } = useApiQuery('stats', {
@@ -18,6 +19,7 @@ const GasTracker = () => {
       refetchOnMount: false,
     },
   });
+  const { t } = useTranslation('common');
 
   if (isError) {
     throw new Error(undefined, { cause: error });
@@ -41,7 +43,7 @@ const GasTracker = () => {
       )}
       {data?.gas_price_updated_at && (
         <Skeleton isLoaded={!isLoading} whiteSpace="pre" display="flex" alignItems="center">
-          <span>Last updated </span>
+          <span>{t('deep_last_updated')} </span>
           <chakra.span color="text_secondary">
             {dayjs(data.gas_price_updated_at).format('DD MMM, HH:mm:ss')}
           </chakra.span>
@@ -67,7 +69,7 @@ const GasTracker = () => {
 
   return (
     <>
-      <PageTitle title="Gas tracker" secondRow={titleSecondRow} withTextAd />
+      <PageTitle title={t('deep_gas_tracker')} secondRow={titleSecondRow} withTextAd />
       {data?.gas_prices && <GasTrackerPrices prices={data.gas_prices} isLoading={isLoading} />}
       <Box mt={12}>
         <GasTrackerChart />

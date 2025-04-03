@@ -1,6 +1,7 @@
 import { Box, Text, chakra } from '@chakra-ui/react';
 import { keyframes } from '@chakra-ui/system';
 import React from 'react';
+import { useTranslation } from 'next-i18next';
 
 const runnerAnimation = keyframes`
     0% { left: 0%; transform: translateX(-1%); }
@@ -13,8 +14,10 @@ interface Props {
 }
 
 const ContentLoader = ({ className, text }: Props) => {
+  const { t } = useTranslation();
+
   return (
-    <Box display="inline-block" className={ className }>
+    <Box display="inline-block" className={className}>
       <Box
         width="100%"
         height="6px"
@@ -24,15 +27,15 @@ const ContentLoader = ({ className, text }: Props) => {
           position: 'absolute',
           width: '60px',
           height: '6px',
-          animation: `${ runnerAnimation } 700ms ease-in-out infinite alternate`,
+          animation: `${runnerAnimation} 700ms ease-in-out infinite alternate`,
           left: '100%',
           top: 0,
           backgroundColor: 'blue.300',
           borderRadius: 'full',
         }}
       />
-      <Text mt={ 6 } variant="secondary">
-        { text || 'Loading data, please wait...' }
+      <Text mt={6} variant="secondary">
+        {text || t('deep_loading_data_please_wait')}
       </Text>
     </Box>
   );
