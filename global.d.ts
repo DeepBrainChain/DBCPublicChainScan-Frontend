@@ -26,11 +26,10 @@ declare global {
       NODE_ENV: 'development' | 'production';
     }
   }
-}
-// jsx.d.ts
-declare namespace JSX {
-  interface IntrinsicElements {
-    [elemName: string]: any; // 允许任意 HTML 标签及其属性
+  namespace JSX {
+    interface IntrinsicElements {
+      [elemName: string]: any; // 简单声明，允许所有 HTML 元素
+    }
   }
 }
 

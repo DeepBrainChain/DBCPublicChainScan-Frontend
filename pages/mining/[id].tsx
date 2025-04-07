@@ -64,6 +64,17 @@ export default function MiningAppDetail() {
   const { gpuMiningData } = useMarketplaceApps('', 'all');
   const { t, i18n } = useTranslation('common');
 
+  // 添加 tab 状态
+  const [activeTab, setActiveTab] = useState(0);
+
+  const handleTabChange = (index: number = 0) => {
+    console.log(index);
+    setActiveTab(index);
+    const tabNames =
+      router.query.id === 'DeepLink' ? ['long-mining', 'short-mining', 'cpu-mining'] : ['long-mining', 'free-mining'];
+
+    router.push({ pathname: router.pathname, query: { ...router.query, tab: tabNames[index] || 'long-mining' } });
+  };
   useEffect(() => {
     if (id && gpuMiningData) {
       const matchedApp = gpuMiningData.find((app) => app.id === id || app.title === id);
@@ -92,16 +103,6 @@ export default function MiningAppDetail() {
       setIsLoading(false);
     }
   }, [id, gpuMiningData]);
-
-  // 添加 tab 状态
-  const [activeTab, setActiveTab] = useState(0);
-  const handleTabChange = (index: number) => {
-    setActiveTab(index);
-    const tabNames =
-      router.query.id === 'DeepLink' ? ['long-mining', 'short-mining', 'cpu-mining'] : ['long-mining', 'free-mining'];
-
-    router.push({ pathname: router.pathname, query: { ...router.query, tab: tabNames[index] || 'long-mining' } });
-  };
 
   return (
     <Container maxW="container.xl" py={4}>

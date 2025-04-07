@@ -18,7 +18,7 @@
   "Fee": "Fee",
   "cpu-mining": "CPU Bandwidth Mining",
   "cpu-mining-requirements": "Note: CPU bandwidth mining requires CPU servers to be hosted in professional data centers or leased from vendors, with electricity and network connectivity maintained uninterrupted for 365 days. Otherwise, penalties in DLC Tokens will be incurred",
-  "deeplink-installation-instruction": "First, you need to install the DeepLink-related programs on the CPU machine. Refer to the documentation:",
+  "deeplink-installation-instruction": "First, you need to install the DeepLink-related programs on the CPU machine. Refer to the documentation",
 
   "deeplink-network": "Add the CPU machine to the DeepLink network",
 
@@ -384,5 +384,19 @@
   "deep2_obtain_machine_id_and_private_key": "and obtain the machine ID and private key",
   "deep2_download_ai_container_image": "Download the AI container image. Download address",
   "deep2_start_decentralgpt_ai_model_container": "Start a certain AI model container of DecentralGPT, obtain the container ID. Startup command",
-  "deep2_view_decentralgpt_network_machine_info": "View the information of machines that have joined the DecentralGPT network"
+  "deep2_view_decentralgpt_network_machine_info": "View the information of machines that have joined the DecentralGPT network",
+  "deep_region_not_supported_hint": "Hint: The region where the machine is located is not supported. Please switch to a machine in another region.",
+  "deep_unstake_dbc": "Unstake DBC",
+
+  "deep_unstaking_in_progress": "Unstaking in progress",
+  "deep_processing_unstake_request": "Processing your unstake request, please wait...",
+  "deep_unstake_dbc_transaction_failed": "Unstake DBC transaction failed",
+  "deep_unstake_dbc_success": "Unstake DBC successful!",
+
+  "deepx_confirmation": "Confirmation",
+  "deepx_are_you_sure_unstake": "Are you sure you want to unstake?",
+  "deepx_are_you_sure_unstake2": "Are you sure you want to unstake DBC?",
+  "deepx_cancel": "Cancel",
+  "deepx_confirm": "Confirm",
+  "deep_region_not_in_mining_reward_range": "The region where this machine is located is not within the mining reward range!"
 }

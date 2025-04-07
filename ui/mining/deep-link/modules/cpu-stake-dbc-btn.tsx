@@ -19,6 +19,7 @@ import {
 } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import dbcAbi from './abi/dbcAbi.json';
+import stakeDbcBefore from './abi/stakeDbcBefore.json';
 import { useAccount, useWriteContract, useConfig, useReadContract } from 'wagmi';
 import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useContractAddress } from '../../../../lib/hooks/useContractAddress';
@@ -30,6 +31,7 @@ function cpuStakeDbcBtn() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [machineId, setMachineId] = React.useState('');
   const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
+  const DBC_CONTRACT_ADDRESS2 = useContractAddress('DBC_CONTRACT_ADDRESS2');
   const { address, isConnected } = useAccount();
   const toast = useToast();
   const config = useConfig();
@@ -52,6 +54,80 @@ function cpuStakeDbcBtn() {
       throw error;
     }
   }
+
+  // 定义读取函数
+  async function getRewardInfoH2() {
+    try {
+      const balance = await readContract(config, {
+        address: DBC_CONTRACT_ADDRESS2,
+        abi: stakeDbcBefore,
+        functionName: 'machineBandWidthInfos',
+        args: [machineId],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+
+  // 定义地区 Map
+  const regionMap = new Map([
+    ['North China', true],
+    ['Northeast China', true],
+    ['East China', true],
+    ['Central China', true],
+    ['South China', true],
+    ['Southwest China', true],
+    ['Northwest China', true],
+    ['Taiwan, China', true],
+    ['Hong Kong, China', true],
+    ['Indonesia', true],
+    ['Pakistan', true],
+    ['Bangladesh', true],
+    ['Japan', true],
+    ['Philippines', true],
+    ['Vietnam', true],
+    ['Turkey', true],
+    ['Thailand', true],
+    ['South Korea', true],
+    ['Malaysia', true],
+    ['Saudi Arabia', true],
+    ['United Arab Emirates', true],
+    ['Uttar Pradesh', true],
+    ['Maharashtra', true],
+    ['Bihar', true],
+    ['California', true],
+    ['Mexico', true],
+    ['Texas', true],
+    ['Canada', true],
+    ['Florida', true],
+    ['Brazil', true],
+    ['New York', true],
+    ['Colombia', true],
+    ['Pennsylvania', true],
+    ['Argentina', true],
+    ['Illinois', true],
+    ['Ohio', true],
+    ['Georgia', true],
+    ['Michigan', true],
+    ['North Carolina', true],
+    ['Other Regions of the USA', true],
+    ['Moscow', true],
+    ['Saint Petersburg', true],
+    ['Other parts of Russia', true],
+    ['Germany', true],
+    ['United Kingdom', true],
+    ['France', true],
+    ['Italy', true],
+    ['Spain', true],
+    ['Netherlands', true],
+    ['Switzerland', true],
+    ['Nigeria', true],
+    ['Australia', true],
+    ['Egypt', true],
+    ['South Africa', true],
+  ]);
 
   // 开始质押dbc
   const startStakeDBC = async () => {
@@ -77,6 +153,15 @@ function cpuStakeDbcBtn() {
     });
 
     try {
+      // 先判断他的地域
+      const resBefore0: any = await getRewardInfoH2();
+
+      console.log(resBefore0, 'resBefore0resBefore0resBefore0');
+      const isHaveRegion = regionMap.has(resBefore0[4]);
+      if (!isHaveRegion) {
+        throw new Error(t('deep_region_not_in_mining_reward_range'));
+      }
+      console.log(isHaveRegion, 'isHaveRegionisHaveRegionisHaveRegion');
       // 先判断是否已经质押过了
       const resBefore: any = await getRewardInfoH();
       console.log(resBefore);

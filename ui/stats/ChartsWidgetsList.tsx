@@ -20,10 +20,17 @@ type Props = {
   isPlaceholderData: boolean;
   charts?: Array<StatsChartsSection>;
   interval: StatsIntervalIds;
-}
+};
 
-const ChartsWidgetsList = ({ filterQuery, isError, isPlaceholderData, charts, interval, initialFilterQuery }: Props) => {
-  const [ isSomeChartLoadingError, setIsSomeChartLoadingError ] = useState(false);
+const ChartsWidgetsList = ({
+  filterQuery,
+  isError,
+  isPlaceholderData,
+  charts,
+  interval,
+  initialFilterQuery,
+}: Props) => {
+  const [isSomeChartLoadingError, setIsSomeChartLoadingError] = useState(false);
   const isAnyChartDisplayed = charts?.some((section) => section.charts.length > 0);
   const isEmptyChartList = Boolean(filterQuery) && !isAnyChartDisplayed;
   const sectionRef = React.useRef<HTMLUListElement | null>(null);
@@ -34,7 +41,7 @@ const ChartsWidgetsList = ({ filterQuery, isError, isPlaceholderData, charts, in
     if (shouldScrollToSection) {
       sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
     }
-  }, [ shouldScrollToSection ]);
+  }, [shouldScrollToSection]);
 
   const homeStatsQuery = useApiQuery('stats', {
     queryOptions: {
@@ -42,65 +49,69 @@ const ChartsWidgetsList = ({ filterQuery, isError, isPlaceholderData, charts, in
     },
   });
 
-  const handleChartLoadingError = useCallback(
-    () => setIsSomeChartLoadingError(true),
-    [ setIsSomeChartLoadingError ]);
+  const handleChartLoadingError = useCallback(() => setIsSomeChartLoadingError(true), [setIsSomeChartLoadingError]);
 
   if (isError) {
-    return <ChartsLoadingErrorAlert/>;
+    return <ChartsLoadingErrorAlert />;
   }
 
   if (isEmptyChartList) {
-    return <EmptySearchResult text={ `Couldn${ apos }t find a chart that matches your filter query.` }/>;
+    return <EmptySearchResult text={`Couldn${apos}t find a chart that matches your filter query.`} />;
   }
 
   return (
     <Box>
-      { isSomeChartLoadingError && (
-        <ChartsLoadingErrorAlert/>
-      ) }
+      {isSomeChartLoadingError && <ChartsLoadingErrorAlert />}
 
-      <List ref={ sectionRef }>
-        {
-          charts?.map((section) => (
-            <ListItem
-              key={ section.id }
-              mb={ 8 }
-              _last={{
-                marginBottom: 0,
-              }}
+      <List ref={sectionRef}>
+        {charts?.map((section) => (
+          <ListItem
+            key={section.id}
+            mb={8}
+            _last={{
+              marginBottom: 0,
+            }}
+          >
+            <Skeleton
+              isLoaded={!isPlaceholderData}
+              mb={4}
+              display="inline-flex"
+              alignItems="center"
+              columnGap={2}
+              id={section.id}
             >
-              <Skeleton isLoaded={ !isPlaceholderData } mb={ 4 } display="inline-flex" alignItems="center" columnGap={ 2 } id={ section.id }>
-                <Heading size="md" id={ section.id }>
-                  { section.title }
-                </Heading>
-                { section.id === 'gas' && homeStatsQuery.data && homeStatsQuery.data.gas_prices && (
-                  <GasInfoTooltip data={ homeStatsQuery.data } dataUpdatedAt={ homeStatsQuery.dataUpdatedAt }>
-                    <IconSvg name="info" boxSize={ 5 } display="block" cursor="pointer" _hover={{ color: 'link_hovered' }}/>
-                  </GasInfoTooltip>
-                ) }
-              </Skeleton>
-
-              <Grid
-                templateColumns={{ lg: 'repeat(2, minmax(0, 1fr))' }}
-                gap={ 4 }
-              >
-                { section.charts.map((chart) => (
-                  <ChartWidgetContainer
-                    key={ chart.id }
-                    id={ chart.id }
-                    title={ chart.title }
-                    description={ chart.description }
-                    interval={ interval }
-                    units={ chart.units || undefined }
-                    isPlaceholderData={ isPlaceholderData }
-                    onLoadingError={ handleChartLoadingError }
+              <Heading size="md" id={section.id}>
+                {section.title}
+              </Heading>
+              {section.id === 'gas' && homeStatsQuery.data && homeStatsQuery.data.gas_prices && (
+                <GasInfoTooltip data={homeStatsQuery.data} dataUpdatedAt={homeStatsQuery.dataUpdatedAt}>
+                  <IconSvg
+                    name="info"
+                    boxSize={5}
+                    display="block"
+                    cursor="pointer"
+                    _hover={{ color: 'link_hovered' }}
                   />
-                )) }
-              </Grid>
-            </ListItem>
-          ))
-        }
+                </GasInfoTooltip>
+              )}
+            </Skeleton>
+
+            <Grid templateColumns={{ lg: 'repeat(2, minmax(0, 1fr))' }} gap={4}>
+              {section.charts.map((chart) => (
+                <ChartWidgetContainer
+                  key={chart.id}
+                  id={chart.id}
+                  title={chart.title}
+                  description={chart.description}
+                  interval={interval}
+                  units={chart.units || undefined}
+                  isPlaceholderData={isPlaceholderData}
+                  onLoadingError={handleChartLoadingError}
+                />
+              ))}
+            </Grid>
+          </ListItem>
+        ))}
       </List>
     </Box>
   );

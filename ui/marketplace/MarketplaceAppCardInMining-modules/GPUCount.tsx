@@ -9,7 +9,6 @@ import { useInterval } from '@reactuses/core';
 function GPUCount() {
   const STAKING_CONTRACT_ADDRESS_SHORT = useContractAddress('STAKING_CONTRACT_ADDRESS_SHORT');
   const STAKING_CONTRACT_ADDRESS_LONG = useContractAddress('STAKING_CONTRACT_ADDRESS_LONG');
-  // 读取 dailyRewardAmount
 
   const {
     data: totalStakingGpuCount_short,
@@ -32,24 +31,21 @@ function GPUCount() {
     functionName: 'totalStakingGpuCount',
   });
 
-  // 总gpu
-  const [totalCount, setTotalCount] = React.useState<any>(0);
+  const [totalCount, setTotalCount] = React.useState(0);
+
   useEffect(() => {
-    console.log(Number(totalStakingGpuCount_short) === 0, totalStakingGpuCount_long, 'AAAAAAAAAAAAAAAAAAA', error);
+    const shortCount = totalStakingGpuCount_short ? Number(totalStakingGpuCount_short) : 0;
+    const longCount = totalStakingGpuCount_long ? Number(totalStakingGpuCount_long) : 0;
+    setTotalCount(shortCount + longCount);
+  }, [totalStakingGpuCount_short, totalStakingGpuCount_long]);
 
-    if (Number(totalStakingGpuCount_short) === 0 && Number(totalStakingGpuCount_long) === 0) {
-      setTotalCount(0);
-    } else {
-      setTotalCount(Number(totalStakingGpuCount_short) + Number(totalStakingGpuCount_long));
-    }
-  }, [rewardLoading_short, rewardLoading_long, totalStakingGpuCount_short, totalStakingGpuCount_long]);
-
-  // 每 10 秒刷新一次数据
   useInterval(() => {
     refetch_short();
     refetch_long();
-  }, 60000); // 10 秒（如果你想要 1 秒，改为 1000）
-  return <Skeleton isLoaded={true}>{totalCount}</Skeleton>;
+  }, 60000);
+
+  const isLoading = rewardLoading_short || rewardLoading_long;
+  return <Skeleton isLoaded={!isLoading}>{totalCount}</Skeleton>;
 }
 
 export default GPUCount;

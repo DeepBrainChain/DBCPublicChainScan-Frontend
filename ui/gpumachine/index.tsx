@@ -21,6 +21,7 @@ import React, { useEffect, useState } from 'react';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import MymachineSearchTop from './modules/mymachine-search-top';
 import UnstakeBtn from './modules/UnstakeBtn-btn-dialog';
+import UnstakeDbc from './modules/UnstakeDbc';
 import WithdrawBtn from './modules/WithdrawBtn-btn-dialog';
 import { fetchMachineDataGpu } from './api/index';
 import { IoCopy, IoCheckmark, IoCashOutline, IoLockClosedOutline } from 'react-icons/io5';
@@ -65,15 +66,15 @@ function Index() {
   const thead = [
     { t: t('machine_ID'), pcW: '100px', mobileW: '70px' }, // 机器ID
     { t: t('machine_Stake'), pcW: '60px', mobileW: '70px' }, // 是否在质押
-    { t: t('machine_Reg'), pcW: '65px', mobileW: '60px' }, // 地区
-    { t: t('machine_HDD'), pcW: '65px', mobileW: '70px' }, // 硬盘
-    { t: t('machine_BW'), pcW: '65px', mobileW: '80px' }, // 带宽
-    { t: t('machine_Mem'), pcW: '65px', mobileW: '50px' }, // 内存
+    { t: t('machine_Reg'), pcW: '60px', mobileW: '60px' }, // 地区
+    { t: t('machine_HDD'), pcW: '60px', mobileW: '70px' }, // 硬盘
+    { t: t('machine_BW'), pcW: '60px', mobileW: '80px' }, // 带宽
+    { t: t('machine_Mem'), pcW: '60px', mobileW: '50px' }, // 内存
     { t: t('machine_CPU'), pcW: '80px', mobileW: '60px' }, // CPU核数
-    { t: t('machine_Proj'), pcW: '100px', mobileW: '100px' }, // 项目
-    { t: t('machine_TotRwd'), pcW: '110px', mobileW: '65px' }, // 总奖励
-    { t: t('machine_ClmRwd'), pcW: '110px', mobileW: '65px' }, // 已领取奖励
-    { t: t('machine_LckRwd'), pcW: '110px', mobileW: '65px' }, // 锁仓奖励
+    { t: t('machine_Proj'), pcW: '80px', mobileW: '100px' }, // 项目
+    { t: t('machine_TotRwd'), pcW: '80px', mobileW: '65px' }, // 总奖励
+    { t: t('machine_ClmRwd'), pcW: '80px', mobileW: '65px' }, // 已领取奖励
+    { t: t('machine_LckRwd'), pcW: '80px', mobileW: '65px' }, // 锁仓奖励
     { t: t('machine_Act'), pcW: '', mobileW: '' }, // 操作
   ];
 
@@ -240,6 +241,7 @@ function Index() {
                     <Td>
                       <div className="flex items-center gap-x-3">
                         <UnstakeBtn forceRerender={() => setKey((key) => key + 1)} id={item.machineId || ''} />
+                        <UnstakeDbc forceRerender={() => setKey((key) => key + 1)} id={item.machineId || ''} />
                         <WithdrawBtn forceRerender={() => setKey((key) => key + 1)} id={item.machineId || ''} />
                       </div>
                     </Td>

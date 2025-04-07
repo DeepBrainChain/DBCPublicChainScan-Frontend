@@ -386,5 +386,19 @@
   "deep2_obtain_machine_id_and_private_key": "并获取机器ID和私钥",
   "deep2_download_ai_container_image": "下载AI容器镜像。下载地址",
   "deep2_start_decentralgpt_ai_model_container": "启动DecentralGPT的某个AI模型容器，获取容器ID。启动命令",
-  "deep2_view_decentralgpt_network_machine_info": "查看已加入DecentralGPT网络的机器信息"
+  "deep2_view_decentralgpt_network_machine_info": "查看已加入DecentralGPT网络的机器信息",
+  "deep_region_not_supported_hint": "提示：不支持机器所在区域，请换到其他区域的机器",
+  "deep_unstake_dbc": "解除质押DBC",
+
+  "deep_unstaking_in_progress": "解除质押中",
+  "deep_processing_unstake_request": "正在处理您的解除质押请求，请稍候...",
+  "deep_unstake_dbc_transaction_failed": "解除质押DBC交易失败",
+  "deep_unstake_dbc_success": "解除质押DBC成功！",
+
+  "deepx_confirmation": "确认",
+  "deepx_are_you_sure_unstake": "您确定要解除质押吗？",
+  "deepx_are_you_sure_unstake2": "您确定要解除质押DBC吗？",
+  "deepx_cancel": "取消",
+  "deepx_confirm": "确认",
+  "deep_region_not_in_mining_reward_range": "此机器所在区域不在挖矿奖励范围内!"
 }

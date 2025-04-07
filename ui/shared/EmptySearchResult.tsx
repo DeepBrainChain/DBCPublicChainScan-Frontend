@@ -12,26 +12,15 @@ interface Props {
 
 const EmptySearchResult = ({ text }: Props) => {
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      mt="50px"
-    >
-      <Icon
-        as={ emptySearchResultIcon }
-        w={{ base: '160px', sm: '240px' }}
-        h="auto"
-        mb={{ base: 4, sm: 6 }}
-      />
+    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" mt="50px">
+      <Icon as={emptySearchResultIcon} w={{ base: '160px', sm: '240px' }} h="auto" mb={{ base: 4, sm: 6 }} />
 
-      <Heading as="h4" size="sm" mb={ 2 }>
+      <Heading as="h4" size="sm" mb={2}>
         No results
       </Heading>
 
       <Text fontSize={{ base: 'sm', sm: 'md' }} align="center">
-        { text }
+        {text}
       </Text>
     </Box>
   );

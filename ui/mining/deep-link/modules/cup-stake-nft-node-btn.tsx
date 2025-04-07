@@ -180,7 +180,12 @@ function cpuStakeNftBtn() {
       <Modal isOpen={isOpen} onClose={onClose} size="sm">
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader fontSize="lg">{t('stake-nft-node')}</ModalHeader>
+          <ModalHeader fontSize="lg">
+            <div className="flex flex-col">
+              <span> {t('stake-nft-node')}</span>
+              <span className="text-[11px] leading-3 ">( {t('deep_region_not_supported_hint')} )</span>
+            </div>
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <div className="flex flex-col gap-4">
@@ -194,15 +199,7 @@ function cpuStakeNftBtn() {
                 />
                 <FormHelperText fontSize="xs">{t('nft-stake-requirement')}</FormHelperText>
               </FormControl>
-              {/* <FormControl mb={4} size="sm">
-                <FormLabel fontSize="sm">{t('rent-id')}：</FormLabel>
-                <Input
-                  value={rentId}
-                  onChange={(e) => setRentId(e.target.value)}
-                  placeholder={t('input-rent-id')}
-                  size="sm"
-                />
-              </FormControl> */}
+
               <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('machine-id')}</FormLabel>
                 <Input

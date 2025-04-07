@@ -56,8 +56,8 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
     if (!isConnected) {
       toast({
         position: 'top',
-        title: '提示',
-        description: '请先连接你的钱包',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
         status: 'warning',
         duration: 5000,
         isClosable: true,
@@ -67,8 +67,8 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
     setBtnData({ isLoading: true, loadingText: 'Sending...' });
     const toastId = toast({
       position: 'top',
-      title: '解除质押中',
-      description: '正在处理您的解除质押请求，请稍候...',
+      title: t('deep_unstaking_in_progress'),
+      description: t('deep_processing_unstake_request'),
       status: 'loading',
       duration: null,
       isClosable: false,
@@ -90,11 +90,11 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
       });
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: unstakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error('解除质押NFT交易失败');
+        throw new Error(t('deep_unstake_dbc_transaction_failed'));
       }
 
       // 开始解除dbc
-      const unstakeDbcHash = await unstake.writeContractAsync({
+      const unstakeDbcHash = await unstakeDbc.writeContractAsync({
         address: DBC_CONTRACT_ADDRESS,
         abi: dbcAbi,
         functionName: 'unstakeDbc',
@@ -102,7 +102,7 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
       });
       const stakeReceipt2 = await waitForTransactionReceipt(config, { hash: unstakeDbcHash });
       if (stakeReceipt2.status !== 'success') {
-        throw new Error('解除质押DBC交易失败');
+        throw new Error(t('deep_unstake_dbc_transaction_failed'));
       }
 
       const resDelete: any = await deleteMachineGpu(id);
@@ -114,9 +114,9 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
 
       toast.update(toastId, {
         position: 'top',
-        title: '成功',
+        title: t('success'),
         status: 'success',
-        description: '解除质押成功！',
+        description: t('deep_unstake_dbc_success'),
         duration: 5000,
         isClosable: true,
       });
@@ -125,9 +125,9 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
-        title: '失败',
+        title: t('cpunft_failed'),
         status: 'error',
-        description: error.message || '操作失败',
+        description: error.message || t('cpunft_operation_failed'),
         isClosable: true,
         duration: 5000,
       });
@@ -154,16 +154,16 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
         <AlertDialogOverlay />
 
         <AlertDialogContent className="!max-w-[500px]">
-          <AlertDialogHeader>Confirmation</AlertDialogHeader>
+          <AlertDialogHeader>{t('deepx_confirmation')}</AlertDialogHeader>
           <AlertDialogCloseButton />
-          <AlertDialogBody>Are you sure you want to unstake?</AlertDialogBody>
+          <AlertDialogBody>{t('deepx_are_you_sure_unstake')}</AlertDialogBody>
           <AlertDialogFooter>
             <div className="flex items-center gap-6">
               <Button colorScheme="blackAlpha" ref={cancelRef} onClick={onClose}>
-                Cancel
+                {t('deepx_cancel')}
               </Button>
               <Button isLoading={btnData.isLoading} loadingText={btnData.loadingText} onClick={unstakeH}>
-                Confirm
+                {t('deepx_confirm')}
               </Button>
             </div>
           </AlertDialogFooter>
