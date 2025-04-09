@@ -164,7 +164,7 @@ function cpuStakeDbcBtn() {
       console.log(resBefore0, 'resBefore0resBefore0resBefore0', resBefore0[4]);
       const isHaveRegion = regionMap.has(resBefore0[4]);
       if (!isHaveRegion) {
-        throw new Error(t('deep_region_not_in_mining_reward_range'));
+        throw new Error(`${t('deep_region_not_in_mining_reward_range')}地域数据：${resBefore0}--${isHaveRegion}`);
       }
       console.log(isHaveRegion, '是否在地区内');
       // 判断是否已经质押过了
