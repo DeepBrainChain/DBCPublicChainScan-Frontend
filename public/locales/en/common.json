@@ -398,5 +398,6 @@
   "deepx_are_you_sure_unstake2": "Are you sure you want to unstake DBC?",
   "deepx_cancel": "Cancel",
   "deepx_confirm": "Confirm",
-  "deep_region_not_in_mining_reward_range": "The region where this machine is located is not within the mining reward range!"
+  "deep_region_not_in_mining_reward_range": "The region where this machine is located is not within the mining reward range!",
+  "deep_or_click_here_to_view": "Or click here to view"
 }

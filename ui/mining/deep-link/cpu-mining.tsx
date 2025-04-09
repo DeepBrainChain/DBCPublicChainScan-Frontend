@@ -97,7 +97,7 @@ const FixedComponent = () => {
           <Text mb={2}>
             <Text>
               {t('deeplink-network-machine-info')}:
-              <LinkExternal className="ml-6" href={link}>
+              <LinkExternal onClick={() => router.push(`/gpumachine`)} className="ml-6">
                 {link}
               </LinkExternal>
             </Text>

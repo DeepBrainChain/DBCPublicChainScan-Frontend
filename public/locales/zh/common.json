@@ -400,5 +400,6 @@
   "deepx_are_you_sure_unstake2": "您确定要解除质押DBC吗？",
   "deepx_cancel": "取消",
   "deepx_confirm": "确认",
-  "deep_region_not_in_mining_reward_range": "此机器所在区域不在挖矿奖励范围内!"
+  "deep_region_not_in_mining_reward_range": "此机器所在区域不在挖矿奖励范围内!",
+  "deep_or_click_here_to_view": "或点击这里查看"
 }

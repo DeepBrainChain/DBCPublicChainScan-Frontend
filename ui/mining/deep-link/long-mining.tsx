@@ -20,6 +20,8 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import LinkExternal from '../../shared/LinkExternal';
 import { useApproval } from '../../../lib/hooks/useDeepLink/useApproval';
+import { useRouter } from 'next/router';
+import { getEnvValue } from '../../../configs/app/utils';
 
 const FixedComponent = () => {
   const { isOpen: isPledgeModalOpen, onOpen: onPledgeModalOpen, onClose: onPledgeModalClose } = useDisclosure();
@@ -53,6 +55,7 @@ const FixedComponent = () => {
   const handlePledgeSubmit = () => {
     startStakeNft();
   };
+  const router = useRouter();
 
   return (
     <div>
@@ -148,6 +151,10 @@ const FixedComponent = () => {
                 {t('view-deeplink-machine-info')}:
                 <LinkExternal href="https://orion.deeplink.cloud/device">
                   https://orion.deeplink.cloud/device
+                </LinkExternal>
+                <LinkExternal onClick={() => router.push(`/mymachine`)}>
+                  {t('deep_or_click_here_to_view')}：
+                  {`https://${getEnvValue('NEXT_PUBLIC_API_HOST') || 'www.dbcscan.io'}/mymachine`}
                 </LinkExternal>
               </Text>
             </Flex>

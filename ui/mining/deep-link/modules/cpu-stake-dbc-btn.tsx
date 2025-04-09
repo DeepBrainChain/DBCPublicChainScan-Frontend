@@ -58,6 +58,7 @@ function cpuStakeDbcBtn() {
   // 定义读取函数
   async function getRewardInfoH2() {
     try {
+      console.log(machineId, '先判断他的地域的machineId');
       const balance = await readContract(config, {
         address: DBC_CONTRACT_ADDRESS2,
         abi: stakeDbcBefore,
@@ -153,26 +154,27 @@ function cpuStakeDbcBtn() {
     });
 
     try {
-      // 先判断他的地域
+      // 先注册
+      const res: any = await register();
+      if (res.code !== 0) {
+        throw new Error(res.message || t('cpudbc_register_interface_failed'));
+      }
+      // 判断他的地域
       const resBefore0: any = await getRewardInfoH2();
-
-      console.log(resBefore0, 'resBefore0resBefore0resBefore0');
+      console.log(resBefore0, 'resBefore0resBefore0resBefore0', resBefore0[4]);
       const isHaveRegion = regionMap.has(resBefore0[4]);
       if (!isHaveRegion) {
         throw new Error(t('deep_region_not_in_mining_reward_range'));
       }
-      console.log(isHaveRegion, 'isHaveRegionisHaveRegionisHaveRegion');
-      // 先判断是否已经质押过了
+      console.log(isHaveRegion, '是否在地区内');
+      // 判断是否已经质押过了
       const resBefore: any = await getRewardInfoH();
       console.log(resBefore);
       console.log(formatEther(resBefore), 'resBeforeresBeforeresBefore');
       if (formatEther(resBefore) !== '0') {
         throw new Error(t('cpudbc_already_staked'));
       }
-      const res: any = await register();
-      if (res.code !== 0) {
-        throw new Error(res.message || t('cpudbc_register_interface_failed'));
-      }
+
       // 质押
       const stakeHash = await stake.writeContractAsync({
         address: DBC_CONTRACT_ADDRESS,
@@ -223,17 +225,6 @@ function cpuStakeDbcBtn() {
           <ModalCloseButton />
           <ModalBody pb={6}>
             <div className="flex flex-col gap-4">
-              {/* <FormControl mb={4} size="sm">
-                <FormLabel fontSize="sm">{t('gpu-count')}</FormLabel>
-                <Input
-                  value={pledgedDbcCount}
-                  onChange={(e) => setPledgedDbcCount(e.target.value)}
-                  placeholder={t('input-gpu-count')}
-                  size="sm"
-                />
-                <FormHelperText fontSize="xs">{t('gpu-stake-requirement')}</FormHelperText>
-              </FormControl> */}
-
               <FormControl mb={4} size="sm">
                 <FormLabel fontSize="sm">{t('machine-id')}</FormLabel>
                 <Input

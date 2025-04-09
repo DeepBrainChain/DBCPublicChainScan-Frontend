@@ -138,6 +138,25 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "string",
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "BurnedInactiveSingleRegionRewards",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "stakeholder",
@@ -450,6 +469,12 @@
         "internalType": "uint256",
         "name": "calcPoint",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "region",
+        "type": "string"
       }
     ],
     "name": "Staked",
@@ -839,19 +864,6 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "getInactiveRegionRewards",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "address",
@@ -931,6 +943,11 @@
             "internalType": "uint256",
             "name": "lockedRewardAmount",
             "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "canClaimRewardAmount",
+            "type": "uint256"
           }
         ],
         "internalType": "struct BandWidthStaking.MachineInfoForDBCScan",
@@ -944,6 +961,44 @@
   {
     "inputs": [],
     "name": "getMaxNFTCountCanStake",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_region",
+        "type": "string"
+      }
+    ],
+    "name": "getRegionDailyRewardAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "region",
+        "type": "string"
+      }
+    ],
+    "name": "getRegionRewardsPerSeconds",
     "outputs": [
       {
         "internalType": "uint256",
@@ -1048,6 +1103,19 @@
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "inactiveRegionRewards",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -1415,12 +1483,83 @@
   },
   {
     "inputs": [],
+    "name": "paused",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "region",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "calcPoint",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nftCount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "reserveAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "preCalculateRewards",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "proxiableUUID",
     "outputs": [
       {
         "internalType": "bytes32",
         "name": "",
         "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "name": "region2RewardPerCalcPoint",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "accumulatedPerShare",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "lastUpdated",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -1619,6 +1758,19 @@
       }
     ],
     "name": "setNftToken",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "_paused",
+        "type": "bool"
+      }
+    ],
+    "name": "setPaused",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1894,19 +2046,6 @@
     "name": "upgradeToAndCall",
     "outputs": [],
     "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "version",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "pure",
     "type": "function"
   }
 ]
