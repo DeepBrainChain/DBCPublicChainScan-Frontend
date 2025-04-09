@@ -164,7 +164,10 @@ function cpuStakeDbcBtn() {
       console.log(resBefore0, 'resBefore0resBefore0resBefore0', resBefore0[4]);
       const isHaveRegion = regionMap.has(resBefore0[4]);
       if (!isHaveRegion) {
-        throw new Error(`${t('deep_region_not_in_mining_reward_range')}地域数据：${resBefore0}--${isHaveRegion}`);
+        throw new Error(
+          `${t('deep_region_not_in_mining_reward_range')}，\n\n地域数据：${resBefore0.toString()}\n
+          ${isHaveRegion}\n机器ID:${machineId}，\n地域是：${resBefore0[4]}`
+        );
       }
       console.log(isHaveRegion, '是否在地区内');
       // 判断是否已经质押过了
@@ -205,7 +208,7 @@ function cpuStakeDbcBtn() {
         status: 'error',
         description: error.message || t('operation_failed'),
         isClosable: true,
-        duration: 5000,
+        duration: null,
       });
     } finally {
       setLoading(false);
