@@ -1,4 +1,4 @@
-import { Box, Text, Flex, Button } from '@chakra-ui/react';
+import { Box, Text, Flex } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 
 import LinkExternal from '../../shared/LinkExternal';
@@ -8,7 +8,7 @@ import CpuStakeNftBtn from './modules/cup-stake-nft-node-btn';
 import CpuStakeDlcBtn from './modules/cup-stake-dlc-btn';
 import { useRouter } from 'next/router';
 import { getEnvValue } from '../../../configs/app/utils';
-
+import Register from './modules/register';
 const FixedComponent = () => {
   const { t, i18n } = useTranslation('common');
   const link = getEnvValue('NEXT_PUBLIC_API_URL') || 'https://dbcscan.io/gpumachine'; // 默认值可选
@@ -67,6 +67,7 @@ const FixedComponent = () => {
 
           <Flex direction="column" gap={4} wrap={'wrap'}>
             <Text mb={2}> {t('deeplink-network')}:</Text>
+            <Register />
             <CpuStakeDbcBtn />
             <CpuStakeNftBtn />
             <div className="flex items-center gap-6 flex-wrap">

@@ -155,10 +155,10 @@ function cpuStakeDbcBtn() {
 
     try {
       // 先注册
-      const res: any = await register();
-      if (res.code !== 0) {
-        throw new Error(res.message || t('cpudbc_register_interface_failed'));
-      }
+      // const res: any = await register();
+      // if (res.code !== 0) {
+      //   throw new Error(res.message || t('cpudbc_register_interface_failed'));
+      // }
       // 判断他的地域
       const resBefore0: any = await getRewardInfoH2();
       console.log(resBefore0, 'resBefore0resBefore0resBefore0', resBefore0[4]);

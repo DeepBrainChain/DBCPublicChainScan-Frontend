@@ -401,5 +401,12 @@
   "deepx_cancel": "取消",
   "deepx_confirm": "确认",
   "deep_region_not_in_mining_reward_range": "此机器所在区域不在挖矿奖励范围内!",
-  "deep_or_click_here_to_view": "或点击这里查看"
+  "deep_or_click_here_to_view": "或点击这里查看",
+  "register_in_progress": "注册中...",
+  "register_start": "开始注册",
+  "register_success": "注册成功",
+  "register_congrats_success": "恭喜您，注册成功！",
+  "register_important_notice": "重要提示",
+  "register_before_staking_notice": "在开始质押之前，请先运行带宽程序以确保其正常工作，然后点击按钮完成机器注册",
+  "register_machine": "注册机器"
 }

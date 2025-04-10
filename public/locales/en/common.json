@@ -399,5 +399,12 @@
   "deepx_cancel": "Cancel",
   "deepx_confirm": "Confirm",
   "deep_region_not_in_mining_reward_range": "The region where this machine is located is not within the mining reward range!",
-  "deep_or_click_here_to_view": "Or click here to view"
+  "deep_or_click_here_to_view": "Or click here to view",
+  "register_in_progress": "Registering...",
+  "register_start": "Start registration",
+  "register_success": "Registration successful",
+  "register_congrats_success": "Congratulations, registration successful!",
+  "register_important_notice": "Important notice",
+  "register_before_staking_notice": "Before starting staking, please run the bandwidth program to ensure it works properly, then click the button to complete machine registration",
+  "register_machine": "Register machine"
 }
