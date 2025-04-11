@@ -147,7 +147,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
           onPledgeModalClose();
         }
       } else {
-        throw new Error(`${res.msg}————————————————————args：${JSON.stringify(machineData)}`);
+        throw new Error(`args：${JSON.stringify(machineData)}——————${res.msg}`);
       }
     } catch (error: any) {
       console.log(error, 'error', error.message);
@@ -215,10 +215,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
         throw new Error(
-          `${t('cpunft_transaction_failed')}————————————————————args：${JSON.stringify([
-            dlcNodeId,
-            parseEther(dlcNodeCount),
-          ])}`
+          `args：${JSON.stringify([dlcNodeId, parseEther(dlcNodeCount)])}——————${t('cpunft_transaction_failed')}`
         );
       }
 
