@@ -62,7 +62,6 @@ const FixedComponent = () => {
       <Box mb={4}>
         <Text color="gray.600">{t('long-rental-requirements')}</Text>
       </Box>
-
       <Flex direction="column" gap={6}>
         <div className="flex gap-4 flex-wrap md:flex-nowrap">
           <Box
@@ -205,9 +204,7 @@ const FixedComponent = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
-
       {/* DLC */}
-
       <Modal isOpen={isPledgeModalOpenDLC} onClose={onPledgeModalCloseDLC} size="sm">
         <ModalOverlay />
         <ModalContent>

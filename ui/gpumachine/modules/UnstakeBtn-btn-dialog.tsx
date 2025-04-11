@@ -12,7 +12,6 @@ import {
 } from '@chakra-ui/react';
 import { useTimeoutFn } from '@reactuses/core';
 import React, { useState } from 'react';
-import { useApproval } from '../../../lib/hooks/useDeepLink/useApproval';
 import { useWriteContract, useAccount, useReadContract, useConfig } from 'wagmi';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';

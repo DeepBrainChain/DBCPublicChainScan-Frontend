@@ -12,17 +12,12 @@ import {
 } from '@chakra-ui/react';
 import { useTimeoutFn } from '@reactuses/core';
 import React, { useState } from 'react';
-import { useApproval } from '../../../lib/hooks/useDeepLink/useApproval';
 import { useWriteContract, useAccount, useReadContract, useConfig } from 'wagmi';
 import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';
-import stakingAbi from '../abi/stakeaib.json';
-import { deleteMachineGpu } from '../api/index';
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { useContractActions } from '../../../ui/mining/deep-link/hooks/stake-before';
-import { readContract } from '@wagmi/core'; // 注意导入路径
-import dbcAbi from '../../../ui/mining/deep-link/modules/abi/dbcAbi.json';
 
 interface UnstakeBtnProps {
   id: string;

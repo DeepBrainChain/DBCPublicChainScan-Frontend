@@ -150,8 +150,10 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
             <div className="space-y-4 flex flex-col gap-4">
               <p>{t('withdraw_areYouSure')}</p>
               <div className=" rounded-lg">
-                <p className="text-sm ">{t('withdraw_pendingRewards')}</p>
-                <p className="text-2xl font-bold text-green-600">{Number(btn.data).toFixed(2) || '0.00'}</p>
+                <div className="flex items-center">
+                  <span className="text-sm "> {t('withdraw_pendingRewards')}：</span>
+                  <span className="text-2xl font-bold text-green-600">{Number(btn.data).toFixed(2) || '0.00'}DLC</span>
+                </div>
               </div>
             </div>
           </AlertDialogBody>

@@ -12,17 +12,12 @@ import {
 } from '@chakra-ui/react';
 import { useTimeoutFn } from '@reactuses/core';
 import React, { useEffect } from 'react';
-import { useApproval } from '../../../lib/hooks/useDeepLink/useApproval';
 import { useWriteContract } from 'wagmi';
-import { waitForTransactionReceipt } from 'wagmi/actions';
 import { useConfig } from 'wagmi';
 import { useToast } from '@chakra-ui/react';
-import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
-import { usePolling } from './hooks/usePolling';
+
 import { usStake } from './api/index';
 import { useTranslation } from 'next-i18next';
-
-const STAKING_CONTRACT_ADDRESS = '0x7FDC6ed8387f3184De77E0cF6D6f3B361F906C21';
 
 interface UnstakeBtnProps {
   id: string;

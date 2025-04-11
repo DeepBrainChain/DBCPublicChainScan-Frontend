@@ -64,17 +64,17 @@ function Index() {
 
   // thead 数据
   const thead = [
-    { t: t('machine_ID'), pcW: '80px', mobileW: '70px' }, // 机器ID
-    { t: t('machine_Stake'), pcW: '60px', mobileW: '70px' }, // 是否在质押
-    { t: t('machine_Reg'), pcW: '60px', mobileW: '60px' }, // 地区
+    { t: t('machine_ID'), pcW: '120px', mobileW: '70px' }, // 机器ID
+    { t: t('machine_Stake'), pcW: '80px', mobileW: '70px' }, // 是否在质押
+    { t: t('machine_Reg'), pcW: '80px', mobileW: '60px' }, // 地区
     { t: t('machine_HDD'), pcW: '60px', mobileW: '70px' }, // 硬盘
     { t: t('machine_BW'), pcW: '60px', mobileW: '80px' }, // 带宽
     { t: t('machine_Mem'), pcW: '60px', mobileW: '50px' }, // 内存
     { t: t('machine_CPU'), pcW: '80px', mobileW: '60px' }, // CPU核数
-    { t: t('machine_Proj'), pcW: '80px', mobileW: '100px' }, // 项目
-    { t: t('machine_TotRwd'), pcW: '80px', mobileW: '65px' }, // 总奖励
-    { t: t('machine_ClmRwd'), pcW: '80px', mobileW: '65px' }, // 已领取奖励
-    { t: t('machine_LckRwd'), pcW: '80px', mobileW: '65px' }, // 锁仓奖励
+    // { t: t('machine_Proj'), pcW: '80px', mobileW: '100px' }, // 项目
+    { t: t('machine_TotRwd'), pcW: '90px', mobileW: '65px' }, // 总奖励
+    { t: t('machine_ClmRwd'), pcW: '90px', mobileW: '65px' }, // 已领取奖励
+    { t: t('machine_LckRwd'), pcW: '90px', mobileW: '65px' }, // 锁仓奖励
     { t: t('machine_Act'), pcW: '', mobileW: '' }, // 操作
   ];
 
@@ -201,13 +201,13 @@ function Index() {
                         </Tooltip>
                       </Skeleton>
                     </Td>
-                    <Td>
+                    {/* <Td>
                       <Tooltip label={`Project name: ${item.projectName || 'N/A'}`}>
                         <Skeleton isLoaded={!loading}>
                           <Text className="truncate">{item.projectName || 'N/A'}</Text>
                         </Skeleton>
                       </Tooltip>
-                    </Td>
+                    </Td> */}
                     <Td>
                       <Tooltip label={`Total Rewards: ${item.totalRewardAmount ?? '0.0'}`}>
                         <Skeleton isLoaded={!loading}>
