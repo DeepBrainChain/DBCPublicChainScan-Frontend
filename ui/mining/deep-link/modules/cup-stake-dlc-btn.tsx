@@ -113,7 +113,12 @@ function cpuStakeDlcBtn() {
 
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error(t('cpudbc_transaction_failed'));
+        throw new Error(
+          `${t('cpudbc_transaction_failed')}————————————————————args：${JSON.stringify([
+            machineId,
+            parseEther(amount),
+          ])}`
+        );
       }
 
       toast.update(toastId, {

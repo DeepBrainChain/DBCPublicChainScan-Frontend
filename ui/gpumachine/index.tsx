@@ -64,7 +64,7 @@ function Index() {
 
   // thead 数据
   const thead = [
-    { t: t('machine_ID'), pcW: '100px', mobileW: '70px' }, // 机器ID
+    { t: t('machine_ID'), pcW: '80px', mobileW: '70px' }, // 机器ID
     { t: t('machine_Stake'), pcW: '60px', mobileW: '70px' }, // 是否在质押
     { t: t('machine_Reg'), pcW: '60px', mobileW: '60px' }, // 地区
     { t: t('machine_HDD'), pcW: '60px', mobileW: '70px' }, // 硬盘

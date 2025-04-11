@@ -139,7 +139,14 @@ function cpuStakeNftBtn() {
 
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error(t('cpunft_transaction_failed'));
+        throw new Error(
+          `${t('cpunft_transaction_failed')}————————————————————args：${JSON.stringify([
+            address,
+            machineId,
+            newNftData[0].map((id: any) => id.toString()),
+            newNftData[1].map((balance: any) => balance.toString()),
+          ])}`
+        );
       }
       const resx: any = await createMachineGpu({
         machineId: machineId,

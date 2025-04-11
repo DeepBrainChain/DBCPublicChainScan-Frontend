@@ -106,6 +106,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       if (resBefore) {
         throw new Error(t('cpunft_already_staked'));
       }
+      console.log(resBefore, 'resBefore');
       // 授权
       const approvalHash = await nftApproval.writeContractAsync({
         address: NFT_CONTRACT_ADDRESS,
@@ -129,7 +130,7 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
         nftTokenIdBalances: newNftData[1].map((balance: any) => balance.toString()), // 将 BigInt 转换为字符串
         rentId: machineId,
       };
-      console.log(machineData, '传递的参数');
+      console.log(machineData, 'args');
 
       // 质押
       const res: any = await createMachine(machineData);
@@ -146,9 +147,10 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
           onPledgeModalClose();
         }
       } else {
-        throw new Error(res.msg);
+        throw new Error(`${res.msg}————————————————————args：${JSON.stringify(machineData)}`);
       }
     } catch (error: any) {
+      console.log(error, 'error', error.message);
       toast.update(toastId, {
         position: 'top',
         title: t('cpunft_failed'),
@@ -212,7 +214,12 @@ export function useApproval(onPledgeModalClose?: () => void, onPledgeModalCloseD
       });
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: stakeHash });
       if (stakeReceipt.status !== 'success') {
-        throw new Error(t('cpunft_transaction_failed'));
+        throw new Error(
+          `${t('cpunft_transaction_failed')}————————————————————args：${JSON.stringify([
+            dlcNodeId,
+            parseEther(dlcNodeCount),
+          ])}`
+        );
       }
 
       toast.update(toastId, {
