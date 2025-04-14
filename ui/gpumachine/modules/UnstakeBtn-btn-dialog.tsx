@@ -33,7 +33,6 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
   const cancelRef = React.useRef(null);
   const config = useConfig();
   const toast = useToast();
-  const [isPending] = useTimeoutFn(() => {}, 2000, { immediate: true });
   const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
 
   // 是否可以解除质押
@@ -80,7 +79,7 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
       if (res.code !== 0) {
         throw new Error(res.message || '注销接口失败');
       }
-      // 开始解除质押
+      // 开始解除质押nft
       const unstakeHash = await unstake.writeContractAsync({
         address: CPU_CONTRACT_ADDRESS_STAKING,
         abi: stakingAbi,
@@ -104,12 +103,12 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
         throw new Error(t('deep_unstake_dbc_transaction_failed'));
       }
 
-      const resDelete: any = await deleteMachineGpu(id);
-      console.log(resDelete);
+      // const resDelete: any = await deleteMachineGpu(id);
+      // console.log(resDelete);
 
-      if (resDelete.code !== 1000) {
-        throw new Error(resDelete.msg);
-      }
+      // if (resDelete.code !== 1000) {
+      //   throw new Error(resDelete.msg);
+      // }
 
       toast.update(toastId, {
         position: 'top',
@@ -137,11 +136,9 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
 
   return (
     <>
-      <Skeleton isLoaded={!isPending}>
-        <Button size="sm" variant="outline" onClick={onOpen}>
-          {t('machine_Unstake')}
-        </Button>
-      </Skeleton>
+      <Button size="sm" variant="outline" onClick={onOpen}>
+        {t('machine_Unstake')}
+      </Button>
 
       <AlertDialog
         motionPreset="slideInBottom"

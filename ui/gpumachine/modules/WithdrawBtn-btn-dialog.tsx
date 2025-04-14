@@ -22,7 +22,7 @@ import { formatEther } from 'viem';
 
 function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isPending] = useTimeoutFn(() => {}, 2000, { immediate: true });
+
   const config = useConfig();
   const toast = useToast();
   const cancelRef = React.useRef(null);
@@ -129,11 +129,9 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
   };
   return (
     <>
-      <Skeleton isLoaded={!isPending}>
-        <Button isLoading={btn.loading} size="sm" variant="outline" onClick={onOpenH}>
-          {t('machine_Withdraw')}
-        </Button>
-      </Skeleton>
+      <Button isLoading={btn.loading} size="sm" variant="outline" onClick={onOpenH}>
+        {t('machine_Withdraw')}
+      </Button>
 
       <AlertDialog
         motionPreset="slideInBottom"

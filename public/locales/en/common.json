@@ -406,5 +406,21 @@
   "register_congrats_success": "Congratulations, registration successful!",
   "register_important_notice": "Important notice",
   "register_before_staking_notice": "Before starting staking, please run the bandwidth program to ensure it works properly, then click the button to complete machine registration",
-  "register_machine": "Register machine"
+  "register_machine": "Register machine",
+
+  "deep_is_online": "Online",
+  "deep_initial_computing_power": "Init",
+  "deep_nft_computing_power": "NFT",
+  "deep_total_computing_power": "Power",
+  "deep_total_amount": "Total",
+  "deep_claimed_amount": "Claimed",
+  "deep_released_amount": "Released",
+
+  "deep_total_machine_base_power": "Total machine base computing power (excluding boosts from staking NFTs/rentals, etc.)",
+  "deep_total_machine_power_with_nft": "Total machine computing power (including boosts from staking NFTs)",
+  "deep_total_machine_power_with_nft_rental": "Total machine computing power (including boosts from staking NFTs/rentals, etc.)",
+  "deep_total_staked_amount": "Total staked amount",
+  "deep_total_claimed_reward_amount": "Total claimed reward amount",
+  "deep_total_released_reward_amount": "Total released reward amount",
+  "deep_locked_reward": "Locked reward"
 }

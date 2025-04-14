@@ -18,6 +18,7 @@ import { useToast } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { useContractActions } from '../../../ui/mining/deep-link/hooks/stake-before';
+import dbcAbi from '../../../ui/mining/deep-link/modules/abi/dbcAbi.json';
 
 interface UnstakeBtnProps {
   id: string;
@@ -29,7 +30,6 @@ function UnstakeDbc({ id, forceRerender }: UnstakeBtnProps) {
   const cancelRef = React.useRef(null);
   const config = useConfig();
   const toast = useToast();
-  const [isPending] = useTimeoutFn(() => {}, 2000, { immediate: true });
   const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
 
   // 是否可以解除质押
@@ -113,11 +113,9 @@ function UnstakeDbc({ id, forceRerender }: UnstakeBtnProps) {
 
   return (
     <>
-      <Skeleton isLoaded={!isPending}>
-        <Button size="sm" variant="outline" onClick={onOpen}>
-          {t('deep_unstake_dbc')}
-        </Button>
-      </Skeleton>
+      <Button size="sm" variant="outline" onClick={onOpen}>
+        {t('deep_unstake_dbc')}
+      </Button>
 
       <AlertDialog
         motionPreset="slideInBottom"

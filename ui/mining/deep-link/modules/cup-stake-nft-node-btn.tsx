@@ -148,23 +148,32 @@ function cpuStakeNftBtn() {
           ])}——————${t('cpunft_transaction_failed')}`
         );
       }
-      const resx: any = await createMachineGpu({
-        machineId: machineId,
-        walletAddress: address,
+      toast.update(toastId, {
+        position: 'top',
+        title: t('cpunft_success'),
+        status: 'success',
+        description: t('cpunft_stake_success'),
+        duration: 5000,
+        isClosable: true,
       });
-      if (resx.code === 1000) {
-        toast.update(toastId, {
-          position: 'top',
-          title: t('cpunft_success'),
-          status: 'success',
-          description: t('cpunft_stake_success'),
-          duration: 5000,
-          isClosable: true,
-        });
-        onClose();
-      } else {
-        throw new Error(res.msg);
-      }
+      onClose();
+      // const resx: any = await createMachineGpu({
+      //   machineId: machineId,
+      //   walletAddress: address,
+      // });
+      // if (resx.code === 1000) {
+      //   toast.update(toastId, {
+      //     position: 'top',
+      //     title: t('cpunft_success'),
+      //     status: 'success',
+      //     description: t('cpunft_stake_success'),
+      //     duration: 5000,
+      //     isClosable: true,
+      //   });
+      //   onClose();
+      // } else {
+      //   throw new Error(res.msg);
+      // }
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',

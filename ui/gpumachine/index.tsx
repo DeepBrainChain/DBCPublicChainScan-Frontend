@@ -13,9 +13,7 @@ import {
   CardHeader,
   Heading,
   Skeleton,
-  Button,
-  Link,
-  HStack,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useIsMobile from 'lib/hooks/useIsMobile';
@@ -23,12 +21,12 @@ import MymachineSearchTop from './modules/mymachine-search-top';
 import UnstakeBtn from './modules/UnstakeBtn-btn-dialog';
 import UnstakeDbc from './modules/UnstakeDbc';
 import WithdrawBtn from './modules/WithdrawBtn-btn-dialog';
-import { fetchMachineDataGpu } from './api/index';
-import { IoCopy, IoCheckmark, IoCashOutline, IoLockClosedOutline } from 'react-icons/io5';
+import { IoCopy, IoCheckmark, IoLockClosedOutline } from 'react-icons/io5';
 import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
 import { useAccount } from 'wagmi';
-import { FaCoins } from 'react-icons/fa';
+import { FaLock, FaCheckCircle, FaUnlock } from 'react-icons/fa';
 import { useTranslation } from 'next-i18next';
+import { formatEther } from 'viem';
 
 function Index() {
   const isMobile = useIsMobile();
@@ -39,42 +37,121 @@ function Index() {
   const { t } = useTranslation('common');
   // 重新渲染
   const [key, setKey] = useState(0);
-  const fetchMachineDataH = async () => {
-    setLoading(true);
+  const toast = useToast();
+
+  //  获取当前钱包下的列表数据
+  const fetchMachineInfoData = async (walletAddress: string) => {
     try {
-      const res: any = await fetchMachineDataGpu(address);
-      if (res.code === 1000) {
-        console.log(res.data, '拿到数据了');
-        setMachineData(res.data); // 设置数据
-      } else {
-        throw new Error('Invalid response code');
+      setLoading(true);
+      const endpoint = 'https://dbcswap.io/subgraph/name/bandwidth-staking-state';
+
+      const query = `
+        query($holderAddress: String!) {
+          machineInfos(where: { holder: $holderAddress }) {
+            id
+            holder
+            holderRef {
+              id
+              holder
+            }
+            machineId
+            totalCalcPoint
+            totalCalcPointWithNFT
+            fullTotalCalcPoint
+            totalReservedAmount
+            blockNumber
+            blockTimestamp
+            transactionHash
+            isStaking
+            online
+            registered
+            totalClaimedRewardAmount
+            totalReleasedRewardAmount
+          }
+        }
+      `;
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query,
+          variables: {
+            holderAddress: walletAddress.toLowerCase(), // Ensure address is lowercase
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    } catch (err: any) {
-      setError(err.message);
+
+      const res: any = await response.json();
+      console.log(res, 'KKK');
+      if (res.errors) {
+        setError(res.errors.map((e: any) => e.message).join(', '));
+      }
+
+      if (res.data.machineInfos.length > 0) {
+        let arr: any = [];
+        arr = res.data.machineInfos.map((item) => {
+          return {
+            machineId: item.machineId,
+            isStaking: item.isStaking,
+            online: item.online,
+            registered: item.registered,
+            totalCalcPoint: item.totalCalcPoint,
+            totalCalcPointWithNFT: item.totalCalcPointWithNFT,
+            fullTotalCalcPoint: item.fullTotalCalcPoint,
+            totalReservedAmount: formatEther(item.totalReservedAmount),
+            totalClaimedRewardAmount: formatEther(item.totalClaimedRewardAmount),
+            totalReleasedRewardAmount: formatEther(item.totalReleasedRewardAmount),
+            Locked: Number(item.totalClaimedRewardAmount) - Number(item.totalReleasedRewardAmount),
+          };
+        });
+        setMachineData(arr); // Return all matching MachineInfo records
+        console.log(machineData, 'machineDatamachineData');
+      } else {
+        setMachineData([]); // No machines found for this address
+      }
+    } catch (error) {
+      console.error('Error fetching GraphQL data:', error);
+      throw error;
     } finally {
       setLoading(false);
     }
   };
 
+  // 初始化数据
   useEffect(() => {
-    if (isConnected && address) {
-      fetchMachineDataH();
+    if (!isConnected) {
+      toast({
+        position: 'top',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      fetchMachineInfoData(address as any);
     }
-  }, [key, address, isConnected]);
+  }, [key]);
 
   // thead 数据
   const thead = [
-    { t: t('machine_ID'), pcW: '120px', mobileW: '70px' }, // 机器ID
-    { t: t('machine_Stake'), pcW: '80px', mobileW: '70px' }, // 是否在质押
-    { t: t('machine_Reg'), pcW: '80px', mobileW: '60px' }, // 地区
-    { t: t('machine_HDD'), pcW: '60px', mobileW: '70px' }, // 硬盘
-    { t: t('machine_BW'), pcW: '60px', mobileW: '80px' }, // 带宽
-    { t: t('machine_Mem'), pcW: '60px', mobileW: '50px' }, // 内存
-    { t: t('machine_CPU'), pcW: '80px', mobileW: '60px' }, // CPU核数
-    // { t: t('machine_Proj'), pcW: '80px', mobileW: '100px' }, // 项目
-    { t: t('machine_TotRwd'), pcW: '90px', mobileW: '65px' }, // 总奖励
-    { t: t('machine_ClmRwd'), pcW: '90px', mobileW: '65px' }, // 已领取奖励
-    { t: t('machine_LckRwd'), pcW: '90px', mobileW: '65px' }, // 锁仓奖励
+    { t: t('machine_ID'), pcW: '110px' }, // 机器ID
+    { t: t('machine_Stake'), pcW: '75px' }, // 是否在质押
+    { t: t('deep_is_online'), pcW: '75px' }, //是否在线
+    { t: t('deep_initial_computing_power'), pcW: '70px' }, //初始算力
+    { t: t('deep_nft_computing_power'), pcW: '70px' }, //NFT算力
+    { t: t('deep_total_computing_power'), pcW: '70px' }, //总算力
+    { t: t('deep_total_amount'), pcW: '90px' }, //总金额
+    { t: t('deep_claimed_amount'), pcW: '90px' }, //已领取金额
+    { t: t('deep_released_amount'), pcW: '90px' }, //已释放金额
+    { t: t('machine_LckRwd'), pcW: '90px' }, // 锁仓奖励
     { t: t('machine_Act'), pcW: '', mobileW: '' }, // 操作
   ];
 
@@ -97,6 +174,27 @@ function Index() {
     );
   };
 
+  // 加载中组件
+  const SkeletonTable = () => {
+    return (
+      <Tr className="!w-auto">
+        <Td colSpan={thead.length}>
+          <div className=" flex flex-col gap-3 !w-full">
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+          </div>
+        </Td>
+      </Tr>
+    );
+  };
+
   return (
     <Card variant="subtle">
       <CardHeader>
@@ -106,12 +204,12 @@ function Index() {
         </div>
       </CardHeader>
       <CardBody gap="2">
-        <TableContainer>
-          <Table size="sm">
+        <TableContainer className="!overflow-x-scroll">
+          <Table size="sm" className={isMobile ? '!w-auto' : ''}>
             <Thead>
               <Tr>
                 {thead.map((item, index) => (
-                  <Th width={isMobile ? item.mobileW : item.pcW} key={index}>
+                  <Th width={item.pcW} key={index}>
                     <Skeleton isLoaded={!loading}>{item.t}</Skeleton>
                   </Th>
                 ))}
@@ -119,11 +217,7 @@ function Index() {
             </Thead>
             <Tbody>
               {loading ? (
-                <Tr>
-                  <Td colSpan={thead.length}>
-                    <Skeleton height="20px" />
-                  </Td>
-                </Tr>
+                <SkeletonTable />
               ) : error ? (
                 <Tr>
                   <Td colSpan={thead.length}>Error: {error}</Td>
@@ -168,72 +262,84 @@ function Index() {
                     </Td>
                     <Td>
                       <Skeleton isLoaded={!loading}>
-                        <Tooltip label={`Region: ${item.region || 'N/A'}`}>
-                          <Text className="truncate">{item.region || 'N/A'}</Text>
+                        <div className="flex items-center space-x-2">
+                          {item.online === true ? (
+                            <>
+                              <IoCheckmarkCircle size={20} className="text-green-500" />
+                              <span className="text-green-600 font-medium">Yes</span>
+                            </>
+                          ) : (
+                            <>
+                              <IoCloseCircle size={20} className="text-red-500" />
+                              <span className="text-red-600 font-medium">No</span>
+                            </>
+                          )}
+                        </div>
+                      </Skeleton>
+                    </Td>
+
+                    <Td>
+                      <Skeleton isLoaded={!loading}>
+                        <Tooltip label={`${t('deep_total_machine_base_power')}: ${item.totalCalcPoint}`}>
+                          <Text color="blue.500">{item.totalCalcPoint}</Text>
                         </Tooltip>
                       </Skeleton>
                     </Td>
                     <Td>
                       <Skeleton isLoaded={!loading}>
-                        <Tooltip label={`HDD: ${item.hdd ?? '0'}`}>
-                          <Text color="blue.500">{item.hdd ?? '0'}</Text>
+                        <Tooltip label={`${t('deep_total_machine_power_with_nft')}: ${item.totalCalcPointWithNFT}`}>
+                          <Text color="blue.500">{item.totalCalcPointWithNFT}</Text>
                         </Tooltip>
                       </Skeleton>
                     </Td>
                     <Td>
                       <Skeleton isLoaded={!loading}>
-                        <Tooltip label={`Bandwidth: ${item.bandwidth ?? '0'}`}>
-                          <Text color="blue.500">{item.bandwidth ?? '0'}</Text>
+                        <Tooltip label={`${t('deep_total_machine_power_with_nft_rental')}: ${item.fullTotalCalcPoint}`}>
+                          <Text color="blue.500">{item.fullTotalCalcPoint}</Text>
                         </Tooltip>
                       </Skeleton>
                     </Td>
                     <Td>
-                      <Tooltip label={`Memory size: ${item.mem ? `${item.mem}G` : '0G'}`}>
+                      <Tooltip label={`${t('deep_total_staked_amount')}: ${item.totalReservedAmount} DLC`}>
                         <Skeleton isLoaded={!loading}>
-                          <Text color="blue.500">{item.mem ? `${item.mem}G` : '0G'}</Text>
+                          <div className="flex items-center space-x-2 text-blue-600 ">
+                            <FaLock size={16} className="text-[#FFD700] " />
+                            <Text color="blue.500" className="truncate">
+                              {item.totalReservedAmount}
+                            </Text>
+                          </div>
                         </Skeleton>
                       </Tooltip>
                     </Td>
+
                     <Td>
-                      <Skeleton isLoaded={!loading}>
-                        <Tooltip label={`CPU cores: ${item.cpuCors ?? '0'}`}>
-                          <Text color="blue.500">{item.cpuCors ?? '0'}</Text>
-                        </Tooltip>
-                      </Skeleton>
-                    </Td>
-                    {/* <Td>
-                      <Tooltip label={`Project name: ${item.projectName || 'N/A'}`}>
+                      <Tooltip label={`${t('deep_total_claimed_reward_amount')}: ${item.totalClaimedRewardAmount} DLC`}>
                         <Skeleton isLoaded={!loading}>
-                          <Text className="truncate">{item.projectName || 'N/A'}</Text>
-                        </Skeleton>
-                      </Tooltip>
-                    </Td> */}
-                    <Td>
-                      <Tooltip label={`Total Rewards: ${item.totalRewardAmount ?? '0.0'}`}>
-                        <Skeleton isLoaded={!loading}>
-                          <div className="flex items-center space-x-2 text-blue-600 font-semibold">
-                            <FaCoins className="text-[#FFD700]" />
-                            <Text className="truncate max-w-[50px]">{item.totalRewardAmount ?? '0.0'}</Text>
+                          <div className="flex items-center space-x-2 text-blue-600 ">
+                            <FaCheckCircle size={17} className="text-[#FFD700]" />
+                            <Text className="truncate ">{item.totalClaimedRewardAmount}</Text>
                           </div>
                         </Skeleton>
                       </Tooltip>
                     </Td>
                     <Td>
-                      <Tooltip label={`Claimed Rewards: ${item.claimedRewardAmount ?? '0.0'}`}>
+                      <Tooltip
+                        label={`${t('deep_total_released_reward_amount')}: ${item.totalReleasedRewardAmount} DLC`}
+                      >
                         <Skeleton isLoaded={!loading}>
-                          <div className="flex items-center space-x-2 text-blue-600 font-semibold">
-                            <IoCashOutline size={20} className="text-green-500" />
-                            <Text className="truncate max-w-[50px]">{item.claimedRewardAmount ?? '0.0'}</Text>
+                          <div className="flex items-center space-x-2 text-blue-600 ">
+                            <FaUnlock size={17} className="text-green-500" />
+                            <Text className="truncate ">{item.totalReleasedRewardAmount}</Text>
                           </div>
                         </Skeleton>
                       </Tooltip>
                     </Td>
                     <Td>
-                      <Tooltip label={`Locked Rewards: ${item.lockedRewardAmount ?? '0.0'}`}>
+                      <Tooltip label={`${t('deep_locked_reward')}: ${item.Locked} DLC`}>
                         <Skeleton isLoaded={!loading}>
-                          <div className="flex items-center space-x-2 text-blue-600 font-semibold">
-                            <IoLockClosedOutline size={20} className="text-gray-500" />
-                            <Text className="truncate max-w-[50px]">{item.lockedRewardAmount ?? '0.0'}</Text>
+                          <div className="flex items-center space-x-2 text-blue-600 ">
+                            <IoLockClosedOutline size={19} className="text-gray-500" />
+                            <Text className="truncate ">{item.Locked}</Text>
                           </div>
                         </Skeleton>
                       </Tooltip>

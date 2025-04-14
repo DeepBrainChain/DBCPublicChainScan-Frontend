@@ -59,6 +59,7 @@ export function app(): CspDev.DirectiveDescriptor {
 
       'https://dbcswap.io',
       'https://www.dbcswap.io',
+      'http://54.179.233.88:8032',
       // APIs
       config.api.endpoint,
       config.api.socket,
