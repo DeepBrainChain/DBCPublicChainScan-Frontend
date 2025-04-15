@@ -424,5 +424,29 @@
   "deep_total_staked_amount": "质押的总金额",
   "deep_total_claimed_reward_amount": "已领取的总奖励金额",
   "deep_total_released_reward_amount": "已释放的奖励金额",
-  "deep_locked_reward": "锁仓奖励"
+  "deep_locked_reward": "锁仓奖励",
+
+  "deep_adding_nft_in_progress": "追加NFT中",
+  "deep_processing_add_nft_request": "正在处理您的追加NFT请求，请稍候...",
+  "deep_insufficient_nft_balance": "您的钱包nft数量不足",
+  "deep_add_nft_transaction_failed": "追加NFT交易失败",
+  "deep_add_nft_success": "追加NFT成功！",
+
+  "deep_add_nft": "追加NFT",
+  "deep_nft_amount_to_add": "要追加的NFT数量",
+  "deep_enter_nft_amount_to_add": "请输入要追加的NFT数量",
+  "deep_cancel": "取消",
+  "deep_confirm_add": "追加",
+
+  "deep_view_details": "查看详情",
+  "deep_balance_details": "余额详情",
+  "deep_total_token_amount": "总额代币数量",
+  "deep_available_token_amount": "可用代币数量",
+  "deep_locked_token_amount": "已锁定代币数量",
+  "deep_next_estimated_unlock_time": "下一笔预计解锁时间",
+  "deep_estimated_unlock_time": "预计解锁时间",
+  "deep_after_unlock": "后解锁",
+
+  "deep_reward_address_optional": "接受奖励的地址（可选）",
+  "deep_enter_reward_address": "请输入接受奖励的地址"
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Skeleton } from '@chakra-ui/react';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import stakingAbiShort from '../../../lib/hooks/useDeepLink/stakingAbi.json';
-import stakingAbiLong from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
+import stakingLongAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
 import { useReadContract } from 'wagmi';
 import { useInterval } from '@reactuses/core';
 
@@ -27,7 +27,7 @@ function GPUCount() {
     refetch: refetch_long,
   } = useReadContract({
     address: STAKING_CONTRACT_ADDRESS_LONG,
-    abi: stakingAbiLong,
+    abi: stakingLongAbi,
     functionName: 'totalStakingGpuCount',
   });
 

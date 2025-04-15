@@ -1,0 +1,2826 @@
+[
+  {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "target",
+              "type": "address"
+          }
+      ],
+      "name": "AddressEmptyCode",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "AddressExists",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "CallerNotRentContract",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "name": "CanNotUpgrade",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "implementation",
+              "type": "address"
+          }
+      ],
+      "name": "ERC1967InvalidImplementation",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "ERC1967NonPayable",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "FailedInnerCall",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "GPUCountNotEqualOne",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "gpuType",
+              "type": "string"
+          }
+      ],
+      "name": "GPUTypeNotMatch",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "InvalidInitialization",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "tokenIdLength",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "balanceLength",
+              "type": "uint256"
+          }
+      ],
+      "name": "InvalidNFTLength",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "MachineIsStaking",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "MachineIsStakingInShortTerm",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "MachineNotRented",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "MachineNotStaked",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "MachineRentedByUser",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "mem",
+              "type": "uint256"
+          }
+      ],
+      "name": "MemorySizeLessThan16G",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "NFTCountGreaterThan20",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "NotInitializing",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "name": "NotMachineOwnerOrAdmin",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256",
+              "name": "slashAmount",
+              "type": "uint256"
+          }
+      ],
+      "name": "NotPaidSlashBeforeClaim",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "address",
+              "name": "currentAddress",
+              "type": "address"
+          }
+      ],
+      "name": "NotStakeHolder",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "owner",
+              "type": "address"
+          }
+      ],
+      "name": "OwnableInvalidOwner",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "account",
+              "type": "address"
+          }
+      ],
+      "name": "OwnableUnauthorizedAccount",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "ReentrancyGuardReentrantCall",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "RentTimeMustGreaterThan50Days",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "ShouldPaySlashBeforeStake",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+          }
+      ],
+      "name": "StakeAmountLessThanReserve",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "StakingHasEnded",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "StakingNotEnd",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "TimestampLessThanCurrent",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "UUPSUnauthorizedCallContext",
+      "type": "error"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "bytes32",
+              "name": "slot",
+              "type": "bytes32"
+          }
+      ],
+      "name": "UUPSUnsupportedProxiableUUID",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "ZeroAddress",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "ZeroCalcPoint",
+      "type": "error"
+  },
+  {
+      "inputs": [],
+      "name": "ZeroNFTTokenIds",
+      "type": "error"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256[]",
+              "name": "nftTokenIds",
+              "type": "uint256[]"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256[]",
+              "name": "nftTokenIdBalances",
+              "type": "uint256[]"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "newCalcPoint",
+              "type": "uint256"
+          }
+      ],
+      "name": "AddedNFTsToStake",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "stakeHours",
+              "type": "uint256"
+          }
+      ],
+      "name": "AddedStakeHours",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "totalRewardAmount",
+              "type": "uint256"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "moveToUserWalletAmount",
+              "type": "uint256"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "moveToReservedAmount",
+              "type": "uint256"
+          },
+          {
+              "indexed": false,
+              "internalType": "bool",
+              "name": "paidSlash",
+              "type": "bool"
+          }
+      ],
+      "name": "Claimed",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+          }
+      ],
+      "name": "DepositReward",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "machineOwner",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "nextCanRentTime",
+              "type": "uint256"
+          }
+      ],
+      "name": "EndRentMachine",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "uint64",
+              "name": "version",
+              "type": "uint64"
+          }
+      ],
+      "name": "Initialized",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+          }
+      ],
+      "name": "MoveToReserveAmount",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "previousOwner",
+              "type": "address"
+          },
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+          }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "address",
+              "name": "renter",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "slashAmount",
+              "type": "uint256"
+          }
+      ],
+      "name": "PaySlash",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "rentFee",
+              "type": "uint256"
+          }
+      ],
+      "name": "RenewRent",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "machineOwner",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "rentFee",
+              "type": "uint256"
+          }
+      ],
+      "name": "RentMachine",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "address",
+              "name": "renter",
+              "type": "address"
+          }
+      ],
+      "name": "ReportMachineFault",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+          }
+      ],
+      "name": "ReserveDLC",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "accumulatedPerShareBefore",
+              "type": "uint256"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "accumulatedPerShareAfter",
+              "type": "uint256"
+          }
+      ],
+      "name": "RewardsPerCalcPointUpdate",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "receiver",
+              "type": "address"
+          }
+      ],
+      "name": "SetRewardReceiver",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "originCalcPoint",
+              "type": "uint256"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "calcPoint",
+              "type": "uint256"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "gpuType",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "rentEndTime",
+              "type": "uint256"
+          }
+      ],
+      "name": "Staked",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "indexed": false,
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "paybackReserveAmount",
+              "type": "uint256"
+          }
+      ],
+      "name": "Unstaked",
+      "type": "event"
+  },
+  {
+      "anonymous": false,
+      "inputs": [
+          {
+              "indexed": true,
+              "internalType": "address",
+              "name": "implementation",
+              "type": "address"
+          }
+      ],
+      "name": "Upgraded",
+      "type": "event"
+  },
+  {
+      "inputs": [],
+      "name": "BASE_RESERVE_AMOUNT",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "LOCK_PERIOD",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "MAX_NFTS_PER_MACHINE",
+      "outputs": [
+          {
+              "internalType": "uint8",
+              "name": "",
+              "type": "uint8"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "PROJECT_NAME",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "REWARD_DURATION",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "SECONDS_PER_BLOCK",
+      "outputs": [
+          {
+              "internalType": "uint8",
+              "name": "",
+              "type": "uint8"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "UPGRADE_INTERFACE_VERSION",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "totalDistributedRewardAmount",
+              "type": "uint256"
+          }
+      ],
+      "name": "_getDailyRewardAmount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "calcPoint",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "reservedAmount",
+              "type": "uint256"
+          }
+      ],
+      "name": "_getMachineShares",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256",
+              "name": "amount",
+              "type": "uint256"
+          }
+      ],
+      "name": "addDLCToStake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "nftTokenIds",
+              "type": "uint256[]"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "nftTokenIdBalances",
+              "type": "uint256[]"
+          }
+      ],
+      "name": "addNFTsToStake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "_holder",
+              "type": "address"
+          },
+          {
+              "internalType": "string",
+              "name": "_machineId",
+              "type": "string"
+          }
+      ],
+      "name": "addRentedGPUCount",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "name": "address2MachineCount",
+      "outputs": [
+          {
+              "internalType": "uint8",
+              "name": "",
+              "type": "uint8"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "addressCountInStaking",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "calculateReleaseReward",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "releaseAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "lockedAmount",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "claim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "dailyRewardAmount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "name": "dlcClientWalletAddress",
+      "outputs": [
+          {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "endRentMachine",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          }
+      ],
+      "name": "getAllRewardInfo",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "availableRewardAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "canClaimAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "lockedAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "claimedAmount",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "getDailyRewardAmount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "getGlobalState",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "_holder",
+              "type": "address"
+          }
+      ],
+      "name": "getHolderMachineIds",
+      "outputs": [
+          {
+              "internalType": "string[]",
+              "name": "",
+              "type": "string[]"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          }
+      ],
+      "name": "getMachineIdsByStakeholder",
+      "outputs": [
+          {
+              "internalType": "string[]",
+              "name": "",
+              "type": "string[]"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getMachineInfo",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          },
+          {
+              "internalType": "uint256",
+              "name": "calcPoint",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "startAtTimestamp",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "endAtTimestamp",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "nextRenterCanRentAt",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "reservedAmount",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getMachineInfoForDBCScan",
+      "outputs": [
+          {
+              "components": [
+                  {
+                      "internalType": "bool",
+                      "name": "isStaking",
+                      "type": "bool"
+                  },
+                  {
+                      "internalType": "string",
+                      "name": "gpuType",
+                      "type": "string"
+                  },
+                  {
+                      "internalType": "uint8",
+                      "name": "gpuCount",
+                      "type": "uint8"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "mem",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "string",
+                      "name": "projectName",
+                      "type": "string"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalRewardAmount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "claimedRewardAmount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "lockedRewardAmount",
+                      "type": "uint256"
+                  }
+              ],
+              "internalType": "struct NFTStaking.MachineInfoForDBCScan",
+              "name": "",
+              "type": "tuple"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getMachineStakeInfo",
+      "outputs": [
+          {
+              "components": [
+                  {
+                      "internalType": "address",
+                      "name": "holder",
+                      "type": "address"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "startAtTimestamp",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "lastClaimAtTimestamp",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "endAtTimestamp",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "calcPoint",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "reservedAmount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256[]",
+                      "name": "nftTokenIds",
+                      "type": "uint256[]"
+                  },
+                  {
+                      "internalType": "uint256[]",
+                      "name": "tokenIdBalances",
+                      "type": "uint256[]"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "nftCount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "claimedAmount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "bool",
+                      "name": "isRentedByUser",
+                      "type": "bool"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "gpuCount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "nextRenterCanRentAt",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "rentId",
+                      "type": "uint256"
+                  }
+              ],
+              "internalType": "struct NFTStaking.StakeInfo",
+              "name": "",
+              "type": "tuple"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "startIndex",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "pageSize",
+              "type": "uint256"
+          }
+      ],
+      "name": "getMachinesInStaking",
+      "outputs": [
+          {
+              "internalType": "string[]",
+              "name": "",
+              "type": "string[]"
+          },
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getPendingSlashCount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "getRentedGPUCountInDlcNftStaking",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getReward",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getRewardInfo",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "newRewardAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "canClaimAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "lockedAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "claimedAmount",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getRewardReceiver",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getStakeEndTimestamp",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "getStakeHolder",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "getStateSummary",
+      "outputs": [
+          {
+              "components": [
+                  {
+                      "internalType": "uint256",
+                      "name": "totalCalcPoint",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalGPUCount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalCalcPointPoolCount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalRentedGPUCount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalBurnedRentFee",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalReservedAmount",
+                      "type": "uint256"
+                  }
+              ],
+              "internalType": "struct NFTStakingState.StateSummary",
+              "name": "",
+              "type": "tuple"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "offset",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "limit",
+              "type": "uint256"
+          }
+      ],
+      "name": "getTopStakeHolders",
+      "outputs": [
+          {
+              "components": [
+                  {
+                      "internalType": "address",
+                      "name": "holder",
+                      "type": "address"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalCalcPoint",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalGPUCount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "rentedGPUCount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalReservedAmount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "burnedRentFee",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "totalClaimedRewardAmount",
+                      "type": "uint256"
+                  },
+                  {
+                      "internalType": "uint256",
+                      "name": "releasedRewardAmount",
+                      "type": "uint256"
+                  }
+              ],
+              "internalType": "struct NFTStakingState.StakeHolder[]",
+              "name": "",
+              "type": "tuple[]"
+          },
+          {
+              "internalType": "uint256",
+              "name": "total",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "getTotalDlcNftStakingBurnedRentFee",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "getUpgradeAddress",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "name": "gpuTypeSet",
+      "outputs": [
+          {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "name": "gpuTypes",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          },
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "name": "holder2MachineIds",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "initRewardAmount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "_initialOwner",
+              "type": "address"
+          },
+          {
+              "internalType": "address",
+              "name": "_nftToken",
+              "type": "address"
+          },
+          {
+              "internalType": "address",
+              "name": "_rewardToken",
+              "type": "address"
+          },
+          {
+              "internalType": "address",
+              "name": "_rentContract",
+              "type": "address"
+          },
+          {
+              "internalType": "address",
+              "name": "_precompileContract",
+              "type": "address"
+          },
+          {
+              "internalType": "uint8",
+              "name": "phaseLevel",
+              "type": "uint8"
+          }
+      ],
+      "name": "initialize",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "isRented",
+      "outputs": [
+          {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "isStaking",
+      "outputs": [
+          {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256",
+              "name": "calcPoint",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "reserveAmount",
+              "type": "uint256"
+          }
+      ],
+      "name": "joinStaking",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "name": "machineId2LockedRewardDetail",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "totalAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "lockTime",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "unlockTime",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "claimedAmount",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "name": "machineId2RewardReceiver",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "name": "machineId2StakeInfos",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          },
+          {
+              "internalType": "uint256",
+              "name": "startAtTimestamp",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "lastClaimAtTimestamp",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "endAtTimestamp",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "calcPoint",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "reservedAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "nftCount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "claimedAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "bool",
+              "name": "isRentedByUser",
+              "type": "bool"
+          },
+          {
+              "internalType": "uint256",
+              "name": "gpuCount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "nextRenterCanRentAt",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "rentId",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "name": "machineId2StakeUnitRewards",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "accumulated",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "lastAccumulatedPerShare",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "name": "machineIds",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "nftToken",
+      "outputs": [
+          {
+              "internalType": "contract IERC1155",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          },
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "",
+              "type": "uint256[]"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "",
+              "type": "uint256[]"
+          },
+          {
+              "internalType": "bytes",
+              "name": "",
+              "type": "bytes"
+          }
+      ],
+      "name": "onERC1155BatchReceived",
+      "outputs": [
+          {
+              "internalType": "bytes4",
+              "name": "",
+              "type": "bytes4"
+          }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          },
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          },
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          },
+          {
+              "internalType": "bytes",
+              "name": "",
+              "type": "bytes"
+          }
+      ],
+      "name": "onERC1155Received",
+      "outputs": [
+          {
+              "internalType": "bytes4",
+              "name": "",
+              "type": "bytes4"
+          }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "calcPoint",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "nftCount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "reserveAmount",
+              "type": "uint256"
+          }
+      ],
+      "name": "preCalculateRewards",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "precompileContract",
+      "outputs": [
+          {
+              "internalType": "contract IPrecompileContract",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "proxiableUUID",
+      "outputs": [
+          {
+              "internalType": "bytes32",
+              "name": "",
+              "type": "bytes32"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256",
+              "name": "rentFee",
+              "type": "uint256"
+          }
+      ],
+      "name": "renewRentMachine",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rentContract",
+      "outputs": [
+          {
+              "internalType": "contract IRentContract",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256",
+              "name": "rentFee",
+              "type": "uint256"
+          }
+      ],
+      "name": "rentMachine",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "address",
+              "name": "renter",
+              "type": "address"
+          }
+      ],
+      "name": "reportMachineFault",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rewardEnd",
+      "outputs": [
+          {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rewardPerShareAtRewardStart",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rewardStartAtBlockNumber",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rewardStartAtTimestamp",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rewardStartGPUThreshold",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rewardToken",
+      "outputs": [
+          {
+              "internalType": "contract IRewardToken",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "rewardsPerCalcPoint",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "accumulatedPerShare",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "lastUpdated",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "_holder",
+              "type": "address"
+          },
+          {
+              "internalType": "string",
+              "name": "_machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256",
+              "name": "fee",
+              "type": "uint256"
+          }
+      ],
+      "name": "setBurnedRentFee",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address[]",
+              "name": "addrs",
+              "type": "address[]"
+          }
+      ],
+      "name": "setDLCClientWallets",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string[]",
+              "name": "_gpuTypes",
+              "type": "string[]"
+          }
+      ],
+      "name": "setGpuTypes",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+          }
+      ],
+      "name": "setNftToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "_precompileContract",
+              "type": "address"
+          }
+      ],
+      "name": "setPrecompileContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "_rentContract",
+              "type": "address"
+          }
+      ],
+      "name": "setRentContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
+          }
+      ],
+      "name": "setRewardStartAt",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "token",
+              "type": "address"
+          }
+      ],
+      "name": "setRewardToken",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "_shortStakeContract",
+              "type": "address"
+          }
+      ],
+      "name": "setShortStakeContract",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "_threshold",
+              "type": "uint256"
+          }
+      ],
+      "name": "setThreshold",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "addr",
+              "type": "address"
+          }
+      ],
+      "name": "setUpgradeAddress",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "shortStakeContractAddress",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "nftTokenIds",
+              "type": "uint256[]"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "nftTokenIdBalances",
+              "type": "uint256[]"
+          },
+          {
+              "internalType": "uint256",
+              "name": "rentId",
+              "type": "uint256"
+          },
+          {
+              "internalType": "address",
+              "name": "rewardReceiver",
+              "type": "address"
+          }
+      ],
+      "name": "stake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "stakeholder",
+              "type": "address"
+          },
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "nftTokenIds",
+              "type": "uint256[]"
+          },
+          {
+              "internalType": "uint256[]",
+              "name": "nftTokenIdBalances",
+              "type": "uint256[]"
+          },
+          {
+              "internalType": "uint256",
+              "name": "rentId",
+              "type": "uint256"
+          }
+      ],
+      "name": "stake1",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "",
+              "type": "address"
+          }
+      ],
+      "name": "stakeHolders",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          },
+          {
+              "internalType": "uint256",
+              "name": "totalCalcPoint",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "totalGPUCount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "rentedGPUCount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "totalReservedAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "burnedRentFee",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "totalClaimedRewardAmount",
+              "type": "uint256"
+          },
+          {
+              "internalType": "uint256",
+              "name": "releasedRewardAmount",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "name": "stakedMachineIds",
+      "outputs": [
+          {
+              "internalType": "string",
+              "name": "",
+              "type": "string"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "bytes4",
+              "name": "interfaceId",
+              "type": "bytes4"
+          }
+      ],
+      "name": "supportsInterface",
+      "outputs": [
+          {
+              "internalType": "bool",
+              "name": "",
+              "type": "bool"
+          }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "name": "topStakeHolders",
+      "outputs": [
+          {
+              "internalType": "address",
+              "name": "holder",
+              "type": "address"
+          },
+          {
+              "internalType": "uint256",
+              "name": "totalCalcPoint",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "totalAdjustUnit",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "totalCalcPoint",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "totalDistributedRewardAmount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "totalGpuCount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "totalReservedAmount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "totalStakingGpuCount",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "newOwner",
+              "type": "address"
+          }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "string",
+              "name": "machineId",
+              "type": "string"
+          }
+      ],
+      "name": "unStake",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+  },
+  {
+      "inputs": [
+          {
+              "internalType": "address",
+              "name": "newImplementation",
+              "type": "address"
+          },
+          {
+              "internalType": "bytes",
+              "name": "data",
+              "type": "bytes"
+          }
+      ],
+      "name": "upgradeToAndCall",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+  },
+  {
+      "inputs": [],
+      "name": "version",
+      "outputs": [
+          {
+              "internalType": "uint256",
+              "name": "",
+              "type": "uint256"
+          }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+  }
+]

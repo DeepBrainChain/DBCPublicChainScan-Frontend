@@ -422,5 +422,30 @@
   "deep_total_staked_amount": "Total staked amount",
   "deep_total_claimed_reward_amount": "Total claimed reward amount",
   "deep_total_released_reward_amount": "Total released reward amount",
-  "deep_locked_reward": "Locked reward"
+  "deep_locked_reward": "Locked reward",
+
+  "deep_adding_nft_in_progress": "Adding NFT in progress",
+  "deep_processing_add_nft_request": "Processing your add NFT request, please wait...",
+  "deep_insufficient_nft_balance": "Insufficient NFT balance in your wallet",
+  "deep_add_nft_transaction_failed": "Add NFT transaction failed",
+  "deep_add_nft_success": "Add NFT successful!",
+
+  "deep_add_nft": "Add NFT",
+  "deep_nft_amount_to_add": "NFT amount to add",
+  "deep_enter_nft_amount_to_add": "Please enter the NFT amount to add",
+  "deep_cancel": "Cancel",
+  "deep_confirm_add": "Add",
+
+  "deep_view_details": "View Details",
+  "deep_balance_details": "Balance Details",
+  "deep_total_token_amount": "Total Token Amount",
+  "deep_available_token_amount": "Available Token Amount",
+  "deep_locked_token_amount": "Locked Token Amount",
+  "deep_next_estimated_unlock_time": "Next Estimated Unlock Time",
+
+  "deep_estimated_unlock_time": "Estimated Unlock Time",
+  "deep_after_unlock": "After Unlock",
+
+  "deep_reward_address_optional": "Reward Address (Optional)",
+  "deep_enter_reward_address": "Please Enter Reward Address"
 }

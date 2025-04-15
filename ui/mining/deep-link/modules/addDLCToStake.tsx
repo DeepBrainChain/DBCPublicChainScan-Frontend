@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@chakra-ui/react';
 import { useAccount, useWriteContract, useWaitForTransactionReceipt, useConfig } from 'wagmi';
 import { waitForTransactionReceipt } from 'wagmi/actions';
-import stakingAbi from '../../../../lib/hooks/useDeepLink/stakingLongAbi.json'; // 确保路径正确
+import stakingLongAbi from '../../../../lib/hooks/useDeepLink/stakingLongAbi.json'; // 确保路径正确
 
 const STAKING_CONTRACT_ADDRESS = '0x7FDC6ed8387f3184De77E0cF6D6f3B361F906C21';
 
@@ -35,7 +35,7 @@ function AddDLCToStake({ h, machineId, amount }: AddDLCToStakeProps) {
       // Step 1: 发送交易调用 addDLCToStake
       const txHash = await writeContractAsync({
         address: STAKING_CONTRACT_ADDRESS,
-        abi: stakingAbi,
+        abi: stakingLongAbi,
         functionName: 'addDLCToStake',
         args: [machineId, amount], // 使用传入的 machineId 和 amount
       });

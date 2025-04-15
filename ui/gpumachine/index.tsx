@@ -105,10 +105,12 @@ function Index() {
             totalCalcPoint: item.totalCalcPoint,
             totalCalcPointWithNFT: item.totalCalcPointWithNFT,
             fullTotalCalcPoint: item.fullTotalCalcPoint,
-            totalReservedAmount: formatEther(item.totalReservedAmount),
-            totalClaimedRewardAmount: formatEther(item.totalClaimedRewardAmount),
-            totalReleasedRewardAmount: formatEther(item.totalReleasedRewardAmount),
-            Locked: Number(item.totalClaimedRewardAmount) - Number(item.totalReleasedRewardAmount),
+            totalReservedAmount: Number(formatEther(item.totalReservedAmount)).toFixed(5),
+            totalClaimedRewardAmount: Number(formatEther(item.totalClaimedRewardAmount)).toFixed(5),
+            totalReleasedRewardAmount: Number(formatEther(item.totalReleasedRewardAmount)).toFixed(5),
+            Locked: (
+              Number(formatEther(item.totalClaimedRewardAmount)) - Number(formatEther(item.totalReleasedRewardAmount))
+            ).toFixed(5),
           };
         });
         setMachineData(arr); // Return all matching MachineInfo records
@@ -142,17 +144,17 @@ function Index() {
 
   // thead 数据
   const thead = [
-    { t: t('machine_ID'), pcW: '110px' }, // 机器ID
+    { t: t('machine_ID'), pcW: '100px' }, // 机器ID
     { t: t('machine_Stake'), pcW: '75px' }, // 是否在质押
     { t: t('deep_is_online'), pcW: '75px' }, //是否在线
     { t: t('deep_initial_computing_power'), pcW: '70px' }, //初始算力
     { t: t('deep_nft_computing_power'), pcW: '70px' }, //NFT算力
     { t: t('deep_total_computing_power'), pcW: '70px' }, //总算力
-    { t: t('deep_total_amount'), pcW: '90px' }, //总金额
-    { t: t('deep_claimed_amount'), pcW: '90px' }, //已领取金额
-    { t: t('deep_released_amount'), pcW: '90px' }, //已释放金额
-    { t: t('machine_LckRwd'), pcW: '90px' }, // 锁仓奖励
-    { t: t('machine_Act'), pcW: '', mobileW: '' }, // 操作
+    { t: t('deep_total_amount'), pcW: '100px' }, //总金额
+    { t: t('deep_claimed_amount'), pcW: '100px' }, //已领取金额
+    { t: t('deep_released_amount'), pcW: '100px' }, //已释放金额
+    { t: t('machine_LckRwd'), pcW: '100px' }, // 锁仓奖励
+    { t: t('machine_Act'), pcW: '' }, // 操作
   ];
 
   // 复制按钮组件
@@ -316,7 +318,7 @@ function Index() {
                       <Tooltip label={`${t('deep_total_claimed_reward_amount')}: ${item.totalClaimedRewardAmount} DLC`}>
                         <Skeleton isLoaded={!loading}>
                           <div className="flex items-center space-x-2 text-blue-600 ">
-                            <FaCheckCircle size={17} className="text-[#FFD700]" />
+                            <FaCheckCircle size={22} className="text-[#FFD700]" />
                             <Text className="truncate ">{item.totalClaimedRewardAmount}</Text>
                           </div>
                         </Skeleton>
@@ -338,7 +340,7 @@ function Index() {
                       <Tooltip label={`${t('deep_locked_reward')}: ${item.Locked} DLC`}>
                         <Skeleton isLoaded={!loading}>
                           <div className="flex items-center space-x-2 text-blue-600 ">
-                            <IoLockClosedOutline size={19} className="text-gray-500" />
+                            <IoLockClosedOutline size={25} className="text-gray-500" />
                             <Text className="truncate ">{item.Locked}</Text>
                           </div>
                         </Skeleton>

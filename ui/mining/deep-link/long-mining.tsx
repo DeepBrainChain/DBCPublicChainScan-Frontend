@@ -49,6 +49,8 @@ const FixedComponent = () => {
     setNftNodeCount,
     startStakeNft,
     startStakeDLC,
+    rewardAddress,
+    setRewardAddress,
   } = useApproval(onPledgeModalClose, onPledgeModalCloseDLC);
 
   // nft按钮提交事件
@@ -193,6 +195,15 @@ const FixedComponent = () => {
                   value={rentalMachineIdOnChain}
                   onChange={(e) => setRentalMachineIdOnChain(e.target.value)}
                   placeholder={t('input-machine-id')}
+                  size="sm"
+                />
+              </FormControl>
+              <FormControl mb={4} size="sm">
+                <FormLabel fontSize="sm">{t('deep_reward_address_optional')}</FormLabel>
+                <Input
+                  value={rewardAddress}
+                  onChange={(e) => setRewardAddress(e.target.value)}
+                  placeholder={t('deep_enter_reward_address')}
                   size="sm"
                 />
               </FormControl>

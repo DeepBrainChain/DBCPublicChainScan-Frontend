@@ -16,14 +16,13 @@ import { useWriteContract, useAccount, useReadContract } from 'wagmi';
 import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useConfig } from 'wagmi';
 import { useToast } from '@chakra-ui/react';
-import stakingAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
+import stakingLongAbi from '../../../lib/hooks/useDeepLink/stakingLongAbi.json';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { useTranslation } from 'next-i18next';
 import { formatEther } from 'viem';
 
 function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [isPending] = useTimeoutFn(() => {}, 2000, { immediate: true });
   const config = useConfig();
   const toast = useToast();
   const cancelRef = React.useRef(null);
@@ -65,7 +64,7 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
       // 开始领取收益
       const claimHash = await claim.writeContractAsync({
         address: STAKING_CONTRACT_ADDRESS_LONG,
-        abi: stakingAbi,
+        abi: stakingLongAbi,
         functionName: 'claim',
         args: [id],
       });
@@ -103,7 +102,7 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
     try {
       const balance = await readContract(config, {
         address: STAKING_CONTRACT_ADDRESS_LONG,
-        abi: stakingAbi,
+        abi: stakingLongAbi,
         functionName: 'getRewardInfo',
         args: [address],
       });
@@ -135,11 +134,9 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
 
   return (
     <>
-      <Skeleton isLoaded={!isPending}>
-        <Button isLoading={btn.loading} size="sm" variant="outline" onClick={onOpenH}>
-          {t('machine_Withdraw')}
-        </Button>
-      </Skeleton>
+      <Button isLoading={btn.loading} size="sm" variant="outline" onClick={onOpenH}>
+        {t('machine_Withdraw')}
+      </Button>
 
       <AlertDialog
         motionPreset="slideInBottom"

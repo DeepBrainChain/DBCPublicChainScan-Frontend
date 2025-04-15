@@ -14,14 +14,15 @@ import {
   Heading,
   Skeleton,
   Button,
-  Link,
+  useToast,
   HStack,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import useIsMobile from 'lib/hooks/useIsMobile';
 import MymachineSearchTop from './modules/mymachine-search-top';
 import WithdrawBtn from './modules/WithdrawBtn-btn-dialog';
-import { IoCopy, IoCheckmark, IoCashOutline, IoLockClosedOutline } from 'react-icons/io5';
+import AddNft from './modules/AddNft-btn-dialog';
+import { IoCopy, IoCheckmark } from 'react-icons/io5';
 import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
 import { useAccount } from 'wagmi';
 import { getEnvValue } from '../../configs/app/utils';
@@ -35,6 +36,7 @@ function Index() {
   const [error, setError] = useState(null); // 错误状态
   const { address, isConnected } = useAccount();
   const { t } = useTranslation('common');
+  const toast = useToast();
 
   // 重新渲染
   const [key, setKey] = useState(0);
@@ -95,29 +97,41 @@ function Index() {
     }
 
     const res: any = await response.json();
-    if (res.errors) {
-      throw new Error(res.errors.map((e: any) => e.message).join(', '));
-    }
-    if (res.data.stakeHolders.length !== 0) {
+    console.log(res, 'resresresresres');
+    if (res.data?.stakeHolders.length !== 0) {
       console.log(res.data.stakeHolders[0].machineInfos, res);
       setMachineData(res.data.stakeHolders[0].machineInfos); // 设置数据
     } else {
       setMachineData([]); // 设置数据
     }
   };
+
+  // 初始化数据
   useEffect(() => {
-    fetchGraphQLData();
+    if (!isConnected) {
+      toast({
+        position: 'top',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      fetchGraphQLData();
+    }
   }, [key]);
 
   // thead 数据
   const thead = [
-    { t: t('withdrawDialog_machineId'), pcW: '340px', mobileW: '70px' },
-    { t: t('withdrawDialog_isStaking'), pcW: '100px', mobileW: '60px' },
-    { t: t('stakeEndTime'), pcW: '170px', mobileW: '70px' },
+    { t: t('withdrawDialog_machineId'), pcW: '300px' },
 
-    { t: t('withdrawDialog_totalRewards'), pcW: '140px', mobileW: '100px' },
-    { t: t('withdrawDialog_claimedRewards'), pcW: '140px', mobileW: '65px' },
-    { t: t('withdrawDialog_lockedRewards'), pcW: '140px', mobileW: '65px' },
+    { t: t('withdrawDialog_isStaking'), pcW: '100px' },
+    { t: t('stakeEndTime'), pcW: '170px' },
+
+    { t: t('withdrawDialog_totalRewards'), pcW: '125px' },
+    { t: t('withdrawDialog_claimedRewards'), pcW: '125px' },
+    { t: t('withdrawDialog_lockedRewards'), pcW: '125px' },
     { t: t('withdrawDialog_action') },
   ];
 
@@ -129,13 +143,10 @@ function Index() {
             machineId: item.machineId, //机器ID
             v0: item.isStaking, // 是否在质押
             v1: formatStakeEndTime(item.stakeEndTime), // 质押结束时间
-            // v2: 1, // GPU 数量
-            // v3: `${item.mem}G`, // 内存大小
-            // v4: item.projectName, // 项目名字
             v5: item.totalReservedAmount, // 总奖励数量
             v6: item.totalClaimedRewardAmount, // 已领取奖励数量
             v7: item.totalReleasedRewardAmount, // 锁仓奖励数量
-            v11: [WithdrawBtn], // 操作按钮
+            v11: [WithdrawBtn, AddNft], // 操作按钮
           };
         })
       : [];
@@ -169,12 +180,12 @@ function Index() {
         </div>
       </CardHeader>
       <CardBody gap="2">
-        <TableContainer>
-          <Table size="sm">
+        <TableContainer className="!overflow-x-scroll">
+          <Table size="sm" className={isMobile ? '!w-auto' : ''}>
             <Thead>
               <Tr>
                 {thead.map((item, index) => (
-                  <Th width={isMobile ? item.mobileW : item.pcW} key={index}>
+                  <Th width={item.pcW} key={index}>
                     <Skeleton isLoaded={!loading}>{item.t}</Skeleton>
                   </Th>
                 ))}
@@ -250,7 +261,7 @@ function Index() {
                         <Skeleton isLoaded={!loading}>
                           <HStack spacing={2}>
                             <FaPiggyBank size={19} className="text-[#FFD700]" />
-                            <Text className="truncate max-w-[50px]" fontWeight="medium">
+                            <Text className="truncate stakingLongAbi" fontWeight="medium">
                               {item.v5}
                             </Text>
                           </HStack>
@@ -262,7 +273,7 @@ function Index() {
                         <Skeleton isLoaded={!loading}>
                           <div className="flex items-center space-x-2 text-blue-600 font-semibold">
                             <FaHandHoldingUsd size={19} className="text-green-500" />
-                            <Text className="truncate max-w-[50px]">{item.v6}</Text>
+                            <Text className="truncate stakingLongAbi">{item.v6}</Text>
                           </div>
                         </Skeleton>
                       </Tooltip>
@@ -272,13 +283,13 @@ function Index() {
                         <Skeleton isLoaded={!loading}>
                           <div className="flex items-center space-x-2 text-blue-600 font-semibold">
                             <FaLock size={19} className="text-gray-500" />
-                            <Text className="truncate max-w-[50px]">{item.v7}</Text>
+                            <Text className="truncate stakingLongAbi">{item.v7}</Text>
                           </div>
                         </Skeleton>
                       </Tooltip>
                     </Td>
                     <Td>
-                      <div className="flex items-center gap-x-3">
+                      <div className="flex items-center gap-x-3 w-full">
                         {item.v11.map((ItemComponent, index3) => (
                           <ItemComponent
                             forceRerender={() => setKey((key) => key + 1)}

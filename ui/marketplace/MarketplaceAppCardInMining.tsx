@@ -2,9 +2,6 @@ import { Box, Flex, Image, Skeleton, useColorModeValue, chakra, Text, Link } fro
 import NextLink from 'next/link';
 import type { MouseEvent } from 'react';
 import React, { useEffect } from 'react';
-import stakingAbi from '../../lib/hooks/useDeepLink/stakingAbi.json';
-import { useReadContract } from 'wagmi';
-import { useContractAddress } from '../../lib/hooks/useContractAddress';
 import DailyMiningReward from './MarketplaceAppCardInMining-modules/DailyMiningReward';
 import GPUCount from './MarketplaceAppCardInMining-modules/GPUCount';
 import DailyMiningRewardGpt from './MarketplaceAppCardInMining-modules/DailyMiningRewardGpt';
