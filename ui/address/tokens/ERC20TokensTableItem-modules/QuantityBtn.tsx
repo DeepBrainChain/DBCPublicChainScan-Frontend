@@ -19,6 +19,7 @@ import { readContract } from 'wagmi/actions';
 import { useWriteContract, useAccount, useConfig } from 'wagmi';
 import { formatEther } from 'viem';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 // 0x6f8F70C74FE7d7a61C8EAC0f35A4Ba39a51E1BEe
 // 定义动画组件
@@ -33,6 +34,7 @@ function QuantityBtn() {
   const { address, isConnected } = useAccount();
   const toast = useToast();
   const { t } = useTranslation('common');
+  const router = useRouter();
 
   // 模拟的余额数据
   const [balanceData, setBalanceData] = useState({
@@ -128,19 +130,10 @@ function QuantityBtn() {
   // 初始化
   React.useEffect(() => {
     if (isOpen) {
-      if (!isConnected) {
-        toast({
-          position: 'top',
-          title: t('hint'),
-          description: t('cpudbc_connect_wallet'),
-          status: 'warning',
-          duration: 5000,
-          isClosable: true,
-        });
-      } else {
-        // 仅在弹窗打开时调用
-        getRewardInfoH(address as string);
-      }
+      const { hash } = router.query; // 获取动态参数 id
+      console.log(hash, 'hashhashhashhash');
+      // 仅在弹窗打开时调用
+      getRewardInfoH(hash as string);
     }
   }, [isOpen]); // 依赖 isOpen，当弹窗状态变化时重新执行
 
