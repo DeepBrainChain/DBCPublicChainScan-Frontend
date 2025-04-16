@@ -447,5 +447,7 @@
   "deep_after_unlock": "After Unlock",
 
   "deep_reward_address_optional": "Reward Address (Optional)",
-  "deep_enter_reward_address": "Please Enter Reward Address"
+  "deep_enter_reward_address": "Please Enter Reward Address",
+
+  "deep_region": "Region"
 }

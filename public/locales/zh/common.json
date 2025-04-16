@@ -448,5 +448,7 @@
   "deep_after_unlock": "后解锁",
 
   "deep_reward_address_optional": "接受奖励的地址（可选）",
-  "deep_enter_reward_address": "请输入接受奖励的地址"
+  "deep_enter_reward_address": "请输入接受奖励的地址",
+
+  "deep_region": "地域"
 }

@@ -130,7 +130,7 @@ function QuantityBtn() {
   // 初始化
   React.useEffect(() => {
     if (isOpen) {
-      const { hash } = router.query; // 获取动态参数 id
+      const { hash } = router.query; // 获取动态参数 hash
       console.log(hash, 'hashhashhashhash');
       // 仅在弹窗打开时调用
       getRewardInfoH(hash as string);
