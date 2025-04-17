@@ -45,7 +45,11 @@ function GPUCount() {
   }, 60000);
 
   const isLoading = rewardLoading_short || rewardLoading_long;
-  return <Skeleton isLoaded={!isLoading}>{totalCount}</Skeleton>;
+  return (
+    <Skeleton className="w-full" isLoaded={!isLoading}>
+      {totalCount}
+    </Skeleton>
+  );
 }
 
 export default GPUCount;

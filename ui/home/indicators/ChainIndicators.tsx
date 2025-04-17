@@ -54,7 +54,6 @@ const ChainIndicators = () => {
       }
 
       const data: any = await response.json();
-      console.log(data, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
       setDbcInfo({
         price: data.content.dbc_price,
         change: data.content.percent_change_24h,

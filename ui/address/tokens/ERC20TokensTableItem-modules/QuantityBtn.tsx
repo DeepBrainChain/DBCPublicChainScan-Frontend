@@ -10,6 +10,8 @@ import {
   useDisclosure,
   Skeleton, // 新增 Skeleton 组件
   useToast, // 新增 SkeletonText 组件
+  Box,
+  Text,
 } from '@chakra-ui/react';
 import { FaCoins, FaLock, FaUnlock, FaClock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -176,6 +178,7 @@ function QuantityBtn() {
               </div>
             ) : (
               // 正常内容
+
               <div className="space-y-4">
                 {/* 总额数量 */}
                 <MotionDiv
@@ -184,13 +187,15 @@ function QuantityBtn() {
                   transition={{ delay: 0.1 }}
                   className="flex items-center gap-3"
                 >
-                  <FaCoins className="text-yellow-500 text-lg" />
-                  <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('deep_total_token_amount')}</p>
-                    <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
+                  <FaCoins style={{ color: '#D69E2E', fontSize: '18px' }} /> {/* yellow.500 */}
+                  <Box>
+                    <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.200' }}>
+                      {t('deep_total_token_amount')}
+                    </Text>
+                    <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
                       {balanceData.totalAmount} DBC
-                    </p>
-                  </div>
+                    </Text>
+                  </Box>
                 </MotionDiv>
 
                 {/* 可用代币数量 */}
@@ -200,13 +205,15 @@ function QuantityBtn() {
                   transition={{ delay: 0.2 }}
                   className="flex items-center gap-3"
                 >
-                  <FaUnlock className="text-green-500 text-lg" />
-                  <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('deep_available_token_amount')}</p>
-                    <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
+                  <FaUnlock style={{ color: '#38A169', fontSize: '18px' }} /> {/* green.500 */}
+                  <Box>
+                    <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.200' }}>
+                      {t('deep_available_token_amount')}
+                    </Text>
+                    <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
                       {balanceData.availableTokens} DBC
-                    </p>
-                  </div>
+                    </Text>
+                  </Box>
                 </MotionDiv>
 
                 {/* 已锁定代币数量 */}
@@ -216,13 +223,15 @@ function QuantityBtn() {
                   transition={{ delay: 0.3 }}
                   className="flex items-center gap-3"
                 >
-                  <FaLock className="text-red-500 text-lg" />
-                  <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('deep_locked_token_amount')}</p>
-                    <p className="text-lg font-medium text-gray-800 dark:text-gray-100">
+                  <FaLock style={{ color: '#E53E3E', fontSize: '18px' }} /> {/* red.500 */}
+                  <Box>
+                    <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.200' }}>
+                      {t('deep_locked_token_amount')}
+                    </Text>
+                    <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
                       {balanceData.lockedTokens} DBC
-                    </p>
-                  </div>
+                    </Text>
+                  </Box>
                 </MotionDiv>
 
                 {/* 预计解锁时间 */}
@@ -232,13 +241,15 @@ function QuantityBtn() {
                   transition={{ delay: 0.4 }}
                   className="flex items-center gap-3"
                 >
-                  <FaClock className="text-blue-500 text-lg" />
-                  <div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">{t('deep_next_estimated_unlock_time')}</p>
-                    <p className="text-base font-medium text-gray-800 dark:text-gray-100">
+                  <FaClock style={{ color: '#3182CE', fontSize: '18px' }} /> {/* blue.500 */}
+                  <Box>
+                    <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.200' }}>
+                      {t('deep_next_estimated_unlock_time')}
+                    </Text>
+                    <Text fontSize="md" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
                       {balanceData.estimatedUnlockTime}
-                    </p>
-                  </div>
+                    </Text>
+                  </Box>
                 </MotionDiv>
               </div>
             )}

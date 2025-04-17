@@ -43,7 +43,11 @@ function GPUCountGpt() {
     refetch();
   }, 60000); // 10 秒（如果你想要 1 秒，改为 1000）
 
-  return <Skeleton isLoaded={!isLoading}>{gpuCount}</Skeleton>;
+  return (
+    <Skeleton className="w-full" isLoaded={!isLoading}>
+      {gpuCount}
+    </Skeleton>
+  );
 }
 
 export default GPUCountGpt;

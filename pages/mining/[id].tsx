@@ -104,6 +104,10 @@ export default function MiningAppDetail() {
     }
   }, [id, gpuMiningData]);
 
+  useEffect(() => {
+    handleTabChange();
+  }, []);
+
   return (
     <Container maxW="container.xl" py={4}>
       <Flex direction="column" gap={4}>
