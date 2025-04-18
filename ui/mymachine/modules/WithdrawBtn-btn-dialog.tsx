@@ -68,7 +68,7 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
         functionName: 'claim',
         args: [id],
       });
-      const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash });
+      const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash, timeout: 120000 });
       if (stakeReceipt.status !== 'success') {
         throw new Error('领取收益交易失败');
       }

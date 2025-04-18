@@ -193,7 +193,7 @@ function QuantityBtn() {
                       {t('deep_total_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {balanceData.totalAmount} DBC
+                      {balanceData.totalAmount} DLC
                     </Text>
                   </Box>
                 </MotionDiv>
@@ -211,7 +211,7 @@ function QuantityBtn() {
                       {t('deep_available_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {balanceData.availableTokens} DBC
+                      {balanceData.availableTokens} DLC
                     </Text>
                   </Box>
                 </MotionDiv>
@@ -229,7 +229,7 @@ function QuantityBtn() {
                       {t('deep_locked_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {balanceData.lockedTokens} DBC
+                      {balanceData.lockedTokens} DLC
                     </Text>
                   </Box>
                 </MotionDiv>
