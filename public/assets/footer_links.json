@@ -1,41 +1,7 @@
-[
-  {
-    "title": "grok3_DeepBrainChain",
-    "links": [
-      {
-        "text": "grok3_Home",
-        "url": "https://www.deepbrainchain.org"
-      }
-    ]
-  },
-  {
-    "title": "grok3_Developers",
-    "links": [
-      {
-        "text": "grok3_Wiki",
-        "url": "https://deepbrainchain.github.io/DBC-Wiki/"
-      },
-      {
-        "text": "grok3_GitHub",
-        "url": "https://github.com/DeepBrainChain"
-      }
-    ]
-  },
-  {
-    "title": "grok3_Community",
-    "links": [
-      {
-        "text": "grok3_Twitter",
-        "url": "https://twitter.com/DeepBrainChain"
-      },
-      {
-        "text": "grok3_Telegram",
-        "url": "https://t.me/deepbrainchainglobal"
-      },
-      {
-        "text": "grok3_Reddit",
-        "url": "https://www.reddit.com/r/DBC_Council"
-      }
-    ]
-  }
-]
+<html>
+<head><title>403 Forbidden</title></head>
+<body>
+<center><h1>403 Forbidden</h1></center>
+<hr><center>nginx/1.18.0 (Ubuntu)</center>
+</body>
+</html>

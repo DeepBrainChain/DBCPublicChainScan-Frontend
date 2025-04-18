@@ -75,7 +75,7 @@ function Index() {
             holder
             totalClaimedRewardAmount
             totalReleasedRewardAmount
-            machineInfos {
+            machineInfos(first:1000) {
               machineId
               totalCalcPoint
               fullTotalCalcPoint
@@ -90,7 +90,6 @@ function Index() {
       `,
       }),
     });
-    setLoading(false);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -104,6 +103,7 @@ function Index() {
     } else {
       setMachineData([]); // 设置数据
     }
+    setLoading(false);
   };
 
   // 初始化数据

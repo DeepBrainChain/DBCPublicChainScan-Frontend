@@ -97,14 +97,14 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
     }
   };
 
-  // 定义读取函数
-  async function getRewardInfoH(address: string) {
+  // 定义读取函数(读取余额)
+  async function getRewardInfoH() {
     try {
       const balance = await readContract(config, {
         address: STAKING_CONTRACT_ADDRESS_LONG,
         abi: stakingLongAbi,
         functionName: 'getRewardInfo',
-        args: [address],
+        args: [id],
       });
       return balance;
     } catch (error) {
@@ -123,7 +123,7 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
       loading: true,
       data: '0',
     });
-    const res: any = await getRewardInfoH(id);
+    const res: any = await getRewardInfoH();
     setBtn({
       loading: false,
       data: formatEther(res[1]),
