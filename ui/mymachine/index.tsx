@@ -28,6 +28,7 @@ import { useAccount } from 'wagmi';
 import { getEnvValue } from '../../configs/app/utils';
 import { useTranslation } from 'next-i18next';
 import { FaPiggyBank, FaLock, FaHandHoldingUsd } from 'react-icons/fa';
+import { useDebounceFn } from '@reactuses/core';
 
 function Index() {
   const isMobile = useIsMobile();
@@ -55,8 +56,12 @@ function Index() {
   }
 
   //  获取当前钱包下的列表数据
-  const fetchGraphQLData = async () => {
+  const fetchGraphQLData = async (currentPage, pageSize, v = '') => {
     setLoading(true);
+    const machineIdFilter = v ? `, where: { machineId: "${v}" }` : '';
+
+    const skip = v ? 0 : (currentPage - 1) * pageSize; // 搜索时忽略 skip
+    const fetchSize = v ? 1000 : pageSize; // 搜索时获取更多数据
     const endpoint = getEnvValue('NEXT_PUBLIC_API_URLX') || 'https://dbcswap.io/subgraph/name/long-staking-state';
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -75,7 +80,7 @@ function Index() {
             holder
             totalClaimedRewardAmount
             totalReleasedRewardAmount
-            machineInfos(first:1000) {
+            machineInfos(first: ${fetchSize}, skip: ${skip}${machineIdFilter}) {
               machineId
               totalCalcPoint
               fullTotalCalcPoint
@@ -106,22 +111,6 @@ function Index() {
     setLoading(false);
   };
 
-  // 初始化数据
-  useEffect(() => {
-    if (!isConnected) {
-      toast({
-        position: 'top',
-        title: t('hint'),
-        description: t('cpudbc_connect_wallet'),
-        status: 'warning',
-        duration: 5000,
-        isClosable: true,
-      });
-    } else {
-      fetchGraphQLData();
-    }
-  }, [key]);
-
   // thead 数据
   const thead = [
     { t: t('withdrawDialog_machineId'), pcW: '300px' },
@@ -129,9 +118,9 @@ function Index() {
     { t: t('withdrawDialog_isStaking'), pcW: '100px' },
     { t: t('stakeEndTime'), pcW: '170px' },
 
-    { t: t('withdrawDialog_totalRewards'), pcW: '125px' },
-    { t: t('withdrawDialog_claimedRewards'), pcW: '125px' },
-    { t: t('withdrawDialog_lockedRewards'), pcW: '125px' },
+    { t: t('withdrawDialog_totalRewards'), pcW: '150px' },
+    { t: t('withdrawDialog_claimedRewards'), pcW: '150px' },
+    { t: t('withdrawDialog_lockedRewards'), pcW: '150px' },
     { t: t('withdrawDialog_action') },
   ];
 
@@ -151,6 +140,7 @@ function Index() {
         })
       : [];
 
+  // 复制组件
   const CopyButton = ({ text }: { text: string }) => {
     const [copied, setCopied] = useState(false);
 
@@ -171,15 +161,119 @@ function Index() {
     );
   };
 
+  // 分页
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0); // 总条数
+  const [pageSize, setPageSize] = useState(30); // 每页条数
+  //计算总页数
+  const fetchGraphQLData2 = async () => {
+    setLoading(true);
+
+    const endpoint = getEnvValue('NEXT_PUBLIC_API_URLX') || 'https://dbcswap.io/subgraph/name/long-staking-state';
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+        query {
+          stateSummaries(first: 1) {
+            totalCalcPoint
+          }
+          stakeHolders(where: {
+            holder: "${address}"
+          }) {
+            holder
+            totalClaimedRewardAmount
+            totalReleasedRewardAmount
+            machineInfos(first: 1000) {
+             machineId
+            }
+          }
+        }
+      `,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const res: any = await response.json();
+    console.log(res, 'resresresresres2222222222222');
+    if (res.data.stakeHolders.length !== 0) {
+      console.log(res.data.stakeHolders[0].machineInfos.length);
+      setTotalItems(res.data.stakeHolders[0].machineInfos.length); // 设置数据
+    }
+  };
+  // 初始化数据
+  useEffect(() => {
+    if (!isConnected) {
+      toast({
+        position: 'top',
+        title: t('hint'),
+        description: t('cpudbc_connect_wallet'),
+        status: 'warning',
+        duration: 5000,
+        isClosable: true,
+      });
+    } else {
+      fetchGraphQLData(currentPage, pageSize);
+      fetchGraphQLData2();
+    }
+  }, [key, isConnected]);
+
+  useEffect(() => {
+    if (isConnected) {
+      fetchGraphQLData(currentPage, pageSize);
+    }
+  }, [currentPage, pageSize, isConnected]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  // 加载中组件
+  const SkeletonTable = () => {
+    return (
+      <Tr className="!w-auto">
+        <Td colSpan={thead.length}>
+          <div className=" flex flex-col gap-3 !w-full">
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+            <Skeleton height="30px" className="!w-auto" />
+          </div>
+        </Td>
+      </Tr>
+    );
+  };
+  // 搜索数据
+  const { run } = useDebounceFn((v) => {
+    fetchGraphQLData(currentPage, pageSize, v);
+  }, 500);
+
   return (
-    <Card variant="subtle">
-      <CardHeader>
-        <div className="flex flex-col w-full gap-4">
+    <Card variant="subtle" gap={3}>
+      <CardHeader className="!p-0">
+        <div className="flex flex-col w-full gap-y-4">
           <Heading size="md">{t('machine_List')}</Heading>
-          <MymachineSearchTop />
+          <MymachineSearchTop
+            currentPage={currentPage}
+            totalItems={totalItems}
+            pageSize={pageSize}
+            onPageChange={handlePageChange}
+            searchH={(v) => {
+              run(v);
+            }}
+          />
         </div>
       </CardHeader>
-      <CardBody gap="2">
+      <CardBody className="!p-0">
         <TableContainer className="!overflow-x-scroll">
           <Table size="sm" className={isMobile ? '!w-auto' : ''}>
             <Thead>
@@ -193,11 +287,7 @@ function Index() {
             </Thead>
             <Tbody>
               {loading ? (
-                <Tr>
-                  <Td colSpan={thead.length}>
-                    <Skeleton height="20px" />
-                  </Td>
-                </Tr>
+                <SkeletonTable />
               ) : error ? (
                 <Tr>
                   <Td colSpan={thead.length}>Error: {error}</Td>

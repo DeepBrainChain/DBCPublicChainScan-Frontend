@@ -449,5 +449,10 @@
   "deep_reward_address_optional": "Reward Address (Optional)",
   "deep_enter_reward_address": "Please Enter Reward Address",
 
-  "deep_region": "Region"
+  "deep_region": "Region",
+
+  "deeplink": {
+    "totalItems": "Total {{count}} items",
+    "currentPage": "Page {{page}}"
+  }
 }

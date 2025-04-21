@@ -450,5 +450,10 @@
   "deep_reward_address_optional": "接受奖励的地址（可选）",
   "deep_enter_reward_address": "请输入接受奖励的地址",
 
-  "deep_region": "地域"
+  "deep_region": "地域",
+
+  "deeplink": {
+    "totalItems": "共 {{count}} 条",
+    "currentPage": "第 {{page}} 页"
+  }
 }
