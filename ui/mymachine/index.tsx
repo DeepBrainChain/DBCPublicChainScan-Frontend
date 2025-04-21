@@ -62,7 +62,7 @@ function Index() {
 
     const skip = v ? 0 : (currentPage - 1) * pageSize; // 搜索时忽略 skip
     const fetchSize = v ? 1000 : pageSize; // 搜索时获取更多数据
-    const endpoint = getEnvValue('NEXT_PUBLIC_API_URLX') || 'https://dbcswap.io/subgraph/name/long-staking-state';
+    const endpoint = 'https://dbcswap.io/subgraph/name/long-staking-state';
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
@@ -169,7 +169,7 @@ function Index() {
   const fetchGraphQLData2 = async () => {
     setLoading(true);
 
-    const endpoint = getEnvValue('NEXT_PUBLIC_API_URLX') || 'https://dbcswap.io/subgraph/name/long-staking-state';
+    const endpoint = 'https://dbcswap.io/subgraph/name/long-staking-state';
     const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
