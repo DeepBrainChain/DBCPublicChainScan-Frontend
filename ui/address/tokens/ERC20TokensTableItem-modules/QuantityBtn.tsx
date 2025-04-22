@@ -12,6 +12,9 @@ import {
   useToast, // 新增 SkeletonText 组件
   Box,
   Text,
+  VStack,
+  HStack,
+  Divider,
 } from '@chakra-ui/react';
 import { FaCoins, FaLock, FaUnlock, FaClock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -22,6 +25,7 @@ import { useWriteContract, useAccount, useConfig } from 'wagmi';
 import { formatEther } from 'viem';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import TokenUnlockDetails from './TokenUnlockDetails';
 
 // 0x6f8F70C74FE7d7a61C8EAC0f35A4Ba39a51E1BEe
 // 定义动画组件
@@ -43,7 +47,7 @@ function QuantityBtn() {
     totalAmount: 0.0, // 总额数量
     availableTokens: 0.0, // 可用代币数量
     lockedTokens: 0.0, // 已锁定代币数量
-    estimatedUnlockTime: '2025-07-20T14:30:00', // 预计解锁时间
+    estimatedUnlockTime: [], // 预计解锁时间
   } as any);
 
   function getNextUnlockTime(lockedData) {
@@ -90,6 +94,7 @@ function QuantityBtn() {
         args: [address],
       });
       const rs = await getRewardInfoH2(address);
+      console.log(rs, 'rsrsrsrsrs');
       setLoading(false);
 
       if (rs.length !== 0) {
@@ -99,7 +104,14 @@ function QuantityBtn() {
           totalAmount: Number(formatEther(balance[0])).toFixed(5), // 总额数量
           availableTokens: Number(formatEther(balance[1])).toFixed(5), // 可用代币数量
           lockedTokens: (Number(formatEther(balance[0])) - Number(formatEther(balance[1]))).toFixed(5), // 已锁定代币数量
-          estimatedUnlockTime: `${t('deep_estimated_unlock_time')}：${nextUnlockTime} ${t('deep_after_unlock')}`, // 预计解锁时间
+          estimatedUnlockTime: rs, // 预计解锁时间
+        });
+      } else {
+        setBalanceData({
+          totalAmount: Number(formatEther(balance[0])).toFixed(5), // 总额数量
+          availableTokens: Number(formatEther(balance[1])).toFixed(5), // 可用代币数量
+          lockedTokens: (Number(formatEther(balance[0])) - Number(formatEther(balance[1]))).toFixed(5), // 已锁定代币数量
+          estimatedUnlockTime: [], // 预计解锁时间
         });
       }
 
@@ -121,7 +133,6 @@ function QuantityBtn() {
         args: [address],
       });
 
-      console.log(balance, '2222222222');
       return balance;
     } catch (error) {
       console.error('读取合约失败:', error);
@@ -179,7 +190,7 @@ function QuantityBtn() {
             ) : (
               // 正常内容
 
-              <div className="space-y-4">
+              <div className="space-y-2">
                 {/* 总额数量 */}
                 <MotionDiv
                   initial={{ opacity: 0, x: -10 }}
@@ -235,13 +246,13 @@ function QuantityBtn() {
                 </MotionDiv>
 
                 {/* 预计解锁时间 */}
-                <MotionDiv
+                {/* <MotionDiv
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
                   className="flex items-center gap-3"
                 >
-                  <FaClock style={{ color: '#3182CE', fontSize: '18px' }} /> {/* blue.500 */}
+                  <FaClock style={{ color: '#3182CE', fontSize: '18px' }} /> 
                   <Box>
                     <Text fontSize="sm" color="gray.600" _dark={{ color: 'gray.200' }}>
                       {t('deep_next_estimated_unlock_time')}
@@ -250,7 +261,8 @@ function QuantityBtn() {
                       {balanceData.estimatedUnlockTime}
                     </Text>
                   </Box>
-                </MotionDiv>
+                </MotionDiv> */}
+                <TokenUnlockDetails unlockRounds={balanceData.estimatedUnlockTime} />
               </div>
             )}
           </AlertDialogBody>
