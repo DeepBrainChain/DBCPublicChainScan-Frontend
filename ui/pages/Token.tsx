@@ -34,6 +34,7 @@ import TokenInventory from 'ui/token/TokenInventory';
 import TokenPageTitle from 'ui/token/TokenPageTitle';
 import TokenTransfer from 'ui/token/TokenTransfer/TokenTransfer';
 import useTokenQuery from 'ui/token/useTokenQuery';
+import { useTranslation } from 'next-i18next';
 
 export type TokenTabs = 'token_transfers' | 'holders' | 'inventory';
 
@@ -44,10 +45,11 @@ const TABS_RIGHT_SLOT_PROPS = {
 };
 
 const TokenPageContent = () => {
-  const [ isQueryEnabled, setIsQueryEnabled ] = React.useState(false);
-  const [ totalSupplySocket, setTotalSupplySocket ] = React.useState<number>();
+  const [isQueryEnabled, setIsQueryEnabled] = React.useState(false);
+  const [totalSupplySocket, setTotalSupplySocket] = React.useState<number>();
   const router = useRouter();
   const isMobile = useIsMobile();
+  const { t } = useTranslation('common');
 
   const scrollRef = React.useRef<HTMLDivElement>(null);
 
@@ -69,30 +71,39 @@ const TokenPageContent = () => {
 
   React.useEffect(() => {
     if (tokenQuery.data && totalSupplySocket) {
-      queryClient.setQueryData(getResourceKey('token', { pathParams: { hash: hashString } }), (prevData: TokenInfo | undefined) => {
-        if (prevData) {
-          return { ...prevData, total_supply: totalSupplySocket.toString() };
+      queryClient.setQueryData(
+        getResourceKey('token', { pathParams: { hash: hashString } }),
+        (prevData: TokenInfo | undefined) => {
+          if (prevData) {
+            return { ...prevData, total_supply: totalSupplySocket.toString() };
+          }
         }
-      });
+      );
     }
-  }, [ tokenQuery.data, totalSupplySocket, hashString, queryClient ]);
+  }, [tokenQuery.data, totalSupplySocket, hashString, queryClient]);
 
-  const handleTotalSupplyMessage: SocketMessage.TokenTotalSupply['handler'] = React.useCallback((payload) => {
-    const prevData = queryClient.getQueryData(getResourceKey('token', { pathParams: { hash: hashString } }));
-    if (!prevData) {
-      setTotalSupplySocket(payload.total_supply);
-    }
-    queryClient.setQueryData(getResourceKey('token', { pathParams: { hash: hashString } }), (prevData: TokenInfo | undefined) => {
-      if (prevData) {
-        return { ...prevData, total_supply: payload.total_supply.toString() };
+  const handleTotalSupplyMessage: SocketMessage.TokenTotalSupply['handler'] = React.useCallback(
+    (payload) => {
+      const prevData = queryClient.getQueryData(getResourceKey('token', { pathParams: { hash: hashString } }));
+      if (!prevData) {
+        setTotalSupplySocket(payload.total_supply);
       }
-    });
-  }, [ queryClient, hashString ]);
+      queryClient.setQueryData(
+        getResourceKey('token', { pathParams: { hash: hashString } }),
+        (prevData: TokenInfo | undefined) => {
+          if (prevData) {
+            return { ...prevData, total_supply: payload.total_supply.toString() };
+          }
+        }
+      );
+    },
+    [queryClient, hashString]
+  );
 
   const enableQuery = React.useCallback(() => setIsQueryEnabled(true), []);
 
   const channel = useSocketChannel({
-    topic: `tokens:${ hashString?.toLowerCase() }`,
+    topic: `tokens:${hashString?.toLowerCase()}`,
     isDisabled: !hashString,
     onJoin: enableQuery,
     onSocketError: enableQuery,
@@ -107,9 +118,10 @@ const TokenPageContent = () => {
     if (tokenQuery.data && !tokenQuery.isPlaceholderData && !config.meta.seo.enhancedDataEnabled) {
       metadata.update({ pathname: '/token/[hash]', query: { hash: tokenQuery.data.address } }, tokenQuery.data);
     }
-  }, [ tokenQuery.data, tokenQuery.isPlaceholderData ]);
+  }, [tokenQuery.data, tokenQuery.isPlaceholderData]);
 
-  const hasData = (tokenQuery.data && !tokenQuery.isPlaceholderData) && (addressQuery.data && !addressQuery.isPlaceholderData);
+  const hasData =
+    tokenQuery.data && !tokenQuery.isPlaceholderData && addressQuery.data && !addressQuery.isPlaceholderData;
   const hasInventoryTab = tokenQuery.data?.type && NFT_TOKEN_TYPE_IDS.includes(tokenQuery.data.type);
 
   const transfersQuery = useQueryWithPages({
@@ -117,14 +129,7 @@ const TokenPageContent = () => {
     pathParams: { hash: hashString },
     scrollRef,
     options: {
-      enabled: Boolean(
-        hasData &&
-        hashString &&
-        (
-          (!hasInventoryTab && !tab) ||
-          tab === 'token_transfers'
-        ),
-      ),
+      enabled: Boolean(hasData && hashString && ((!hasInventoryTab && !tab) || tab === 'token_transfers')),
       placeholderData: tokenStubs.getTokenTransfersStub(tokenQuery.data?.type),
     },
   });
@@ -135,15 +140,10 @@ const TokenPageContent = () => {
     filters: ownerFilter ? { holder_address_hash: ownerFilter } : {},
     scrollRef,
     options: {
-      enabled: Boolean(
-        hasData &&
-        hashString &&
-        (
-          (hasInventoryTab && !tab) ||
-          tab === 'inventory'
-        ),
-      ),
-      placeholderData: generateListStub<'token_inventory'>(tokenStubs.TOKEN_INSTANCE, 50, { next_page_params: { unique_token: 1 } }),
+      enabled: Boolean(hasData && hashString && ((hasInventoryTab && !tab) || tab === 'inventory')),
+      placeholderData: generateListStub<'token_inventory'>(tokenStubs.TOKEN_INSTANCE, 50, {
+        next_page_params: { unique_token: 1 },
+      }),
     },
   });
 
@@ -161,38 +161,51 @@ const TokenPageContent = () => {
   const contractTabs = useContractTabs(addressQuery.data, addressQuery.isPlaceholderData);
 
   const tabs: Array<RoutedTab> = [
-    hasInventoryTab ? {
-      id: 'inventory',
-      title: 'Inventory',
-      component: <TokenInventory inventoryQuery={ inventoryQuery } tokenQuery={ tokenQuery } ownerFilter={ ownerFilter } shouldRender={ !isLoading }/>,
-    } : undefined,
+    hasInventoryTab
+      ? {
+          id: 'inventory',
+          title: t('DGC.deep_inventory'),
+          component: (
+            <TokenInventory
+              inventoryQuery={inventoryQuery}
+              tokenQuery={tokenQuery}
+              ownerFilter={ownerFilter}
+              shouldRender={!isLoading}
+            />
+          ),
+        }
+      : undefined,
     {
       id: 'token_transfers',
-      title: 'Token transfers',
-      component: <TokenTransfer transfersQuery={ transfersQuery } token={ tokenQuery.data } shouldRender={ !isLoading }/>,
+      title: t('DGC.deep_token_transfers'),
+      component: <TokenTransfer transfersQuery={transfersQuery} token={tokenQuery.data} shouldRender={!isLoading} />,
     },
     {
       id: 'holders',
-      title: 'Holders',
-      component: <TokenHolders token={ tokenQuery.data } holdersQuery={ holdersQuery } shouldRender={ !isLoading }/>,
+      title: t('DGC.deep_holders'),
+      component: <TokenHolders token={tokenQuery.data} holdersQuery={holdersQuery} shouldRender={!isLoading} />,
     },
-    addressQuery.data?.is_contract ? {
-      id: 'contract',
-      title: () => {
-        if (addressQuery.data?.is_verified) {
-          return (
-            <>
-              <span>Contract</span>
-              <IconSvg name="status/success" boxSize="14px" color="green.500" ml={ 1 }/>
-            </>
-          );
-        }
+    addressQuery.data?.is_contract
+      ? {
+          id: 'contract',
+          title: () => {
+            if (addressQuery.data?.is_verified) {
+              return (
+                <>
+                  <span>Contract</span>
+                  <IconSvg name="status/success" boxSize="14px" color="green.500" ml={1} />
+                </>
+              );
+            }
 
-        return 'Contract';
-      },
-      component: <AddressContract tabs={ contractTabs.tabs } isLoading={ contractTabs.isLoading } shouldRender={ !isLoading }/>,
-      subTabs: contractTabs.tabs.map(tab => tab.id),
-    } : undefined,
+            return 'Contract';
+          },
+          component: (
+            <AddressContract tabs={contractTabs.tabs} isLoading={contractTabs.isLoading} shouldRender={!isLoading} />
+          ),
+          subTabs: contractTabs.tabs.map((tab) => tab.id),
+        }
+      : undefined,
   ].filter(Boolean);
 
   let pagination: PaginationParams | undefined;
@@ -211,18 +224,21 @@ const TokenPageContent = () => {
     pagination = inventoryQuery.pagination;
   }
 
-  const tabListProps = React.useCallback(({ isSticky, activeTabIndex }: { isSticky: boolean; activeTabIndex: number }) => {
-    if (isMobile) {
-      return { mt: 8 };
-    }
+  const tabListProps = React.useCallback(
+    ({ isSticky, activeTabIndex }: { isSticky: boolean; activeTabIndex: number }) => {
+      if (isMobile) {
+        return { mt: 8 };
+      }
 
-    return {
-      mt: 3,
-      py: 5,
-      marginBottom: 0,
-      boxShadow: activeTabIndex === 2 && isSticky ? 'action_bar' : 'none',
-    };
-  }, [ isMobile ]);
+      return {
+        mt: 3,
+        py: 5,
+        marginBottom: 0,
+        boxShadow: activeTabIndex === 2 && isSticky ? 'action_bar' : 'none',
+      };
+    },
+    [isMobile]
+  );
 
   const tabsRightSlot = React.useMemo(() => {
     if (isMobile) {
@@ -231,36 +247,32 @@ const TokenPageContent = () => {
 
     return (
       <>
-        { tab === 'holders' && (
-          <AddressCsvExportLink
-            address={ hashString }
-            params={{ type: 'holders' }}
-            isLoading={ pagination?.isLoading }
-          />
-        ) }
-        { pagination?.isVisible && <Pagination { ...pagination }/> }
+        {tab === 'holders' && (
+          <AddressCsvExportLink address={hashString} params={{ type: 'holders' }} isLoading={pagination?.isLoading} />
+        )}
+        {pagination?.isVisible && <Pagination {...pagination} />}
       </>
     );
-  }, [ hashString, isMobile, pagination, tab ]);
+  }, [hashString, isMobile, pagination, tab]);
 
   return (
     <>
-      <TextAd mb={ 6 }/>
+      <TextAd mb={6} />
 
-      <TokenPageTitle tokenQuery={ tokenQuery } addressQuery={ addressQuery } hash={ hashString }/>
+      <TokenPageTitle tokenQuery={tokenQuery} addressQuery={addressQuery} hash={hashString} />
 
-      <TokenDetails tokenQuery={ tokenQuery }/>
+      <TokenDetails tokenQuery={tokenQuery} />
 
-      { /* should stay before tabs to scroll up with pagination */ }
-      <Box ref={ scrollRef }></Box>
+      {/* should stay before tabs to scroll up with pagination */}
+      <Box ref={scrollRef}></Box>
 
       <RoutedTabs
-        tabs={ tabs }
-        tabListProps={ tabListProps }
-        rightSlot={ tabsRightSlot }
-        rightSlotProps={ TABS_RIGHT_SLOT_PROPS }
-        stickyEnabled={ !isMobile }
-        isLoading={ isLoading }
+        tabs={tabs}
+        tabListProps={tabListProps}
+        rightSlot={tabsRightSlot}
+        rightSlotProps={TABS_RIGHT_SLOT_PROPS}
+        stickyEnabled={!isMobile}
+        isLoading={isLoading}
       />
     </>
   );

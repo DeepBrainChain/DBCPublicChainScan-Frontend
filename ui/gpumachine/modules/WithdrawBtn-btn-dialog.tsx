@@ -20,7 +20,7 @@ import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { formatEther } from 'viem';
 
-function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) {
+function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; id: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const config = useConfig();
@@ -80,8 +80,8 @@ function WithdrawBtn({ id, forceRerender }: { id: string; forceRerender: any }) 
         duration: 5000,
         isClosable: true,
       });
-      forceRerender();
       onClose();
+      fetchMachineInfoData();
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',

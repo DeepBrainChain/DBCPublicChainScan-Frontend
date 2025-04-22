@@ -1,53 +1,37 @@
-import {
-  Card,
-  CardBody,
-  Table,
-  Thead,
-  Tbody,
-  Text,
-  Tr,
-  Th,
-  Td,
-  Tooltip,
-  TableContainer,
-  CardHeader,
-  Heading,
-  Skeleton,
-  useToast,
-} from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading, useToast } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
-import useIsMobile from 'lib/hooks/useIsMobile';
 import MymachineSearchTop from './modules/mymachine-search-top';
-import UnstakeBtn from './modules/UnstakeBtn-btn-dialog';
-import UnstakeDbc from './modules/UnstakeDbc';
-import WithdrawBtn from './modules/WithdrawBtn-btn-dialog';
-import { IoCopy, IoCheckmark, IoLockClosedOutline } from 'react-icons/io5';
-import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
-import { useAccount } from 'wagmi';
-import { FaLock, FaCheckCircle, FaUnlock, FaLockOpen, FaGift } from 'react-icons/fa';
 import { useTranslation } from 'next-i18next';
+import MymachineTable from './modules/MymachineTable';
+import { useDebounceFn } from '@reactuses/core';
 import { formatEther } from 'viem';
+import { useAccount } from 'wagmi';
 
 function Index() {
-  const isMobile = useIsMobile();
-  const [machineData, setMachineData] = useState<any[]>([]); // 存储请求数据
-  const [loading, setLoading] = useState(false); // 加载状态
-  const [error, setError] = useState<string | null>(null); // 错误状态
-  const { address, isConnected } = useAccount();
   const { t } = useTranslation('common');
-  // 重新渲染
-  const [key, setKey] = useState(0);
+  const [loading, setLoading] = useState(true); // 加载状态
+  const [error, setError] = useState<string | null>(null); // 错误状态
+  const [machineData, setMachineData] = useState<any[]>([]); // 存储请求数据
+  const { address, isConnected } = useAccount();
   const toast = useToast();
-
   //  获取当前钱包下的列表数据
-  const fetchMachineInfoData = async (walletAddress: string) => {
+  const fetchMachineInfoData = async (v = '') => {
     try {
       setLoading(true);
       const endpoint = 'https://dbcswap.io/subgraph/name/bandwidth-staking-state';
+      // 动态构建 where 条件
+      const whereClause = {
+        holder: '$holderAddress',
+        ...(v && { machineId: `"${v}"` }), // 当 v 不为空时添加 machineId 过滤
+      };
 
+      const skip = v ? 0 : (currentPage - 1) * pageSize; // 搜索时忽略 skip
+      const fetchSize = v ? 1000 : pageSize; // 搜索时获取更多数据
       const query = `
         query($holderAddress: String!) {
-          machineInfos(where: { holder: $holderAddress }) {
+          machineInfos(where: { ${Object.entries(whereClause)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(', ')} },first: ${fetchSize}, skip: ${skip}) {
             id
             holder
             holderRef {
@@ -80,7 +64,7 @@ function Index() {
         body: JSON.stringify({
           query,
           variables: {
-            holderAddress: walletAddress.toLowerCase(), // Ensure address is lowercase
+            holderAddress: address, // Ensure address is lowercase
           },
         }),
       });
@@ -128,6 +112,61 @@ function Index() {
     }
   };
 
+  // 分页
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItems, setTotalItems] = useState(0); // 总条数
+  const [pageSize, setPageSize] = useState(30); // 每页条数
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  // 搜索数据
+  const { run } = useDebounceFn((v) => {
+    fetchMachineInfoData(v);
+  }, 500);
+  // 获取总数
+  const fetchMachineInfoData2 = async (walletAddress: string) => {
+    try {
+      setLoading(true);
+      const endpoint = 'https://dbcswap.io/subgraph/name/bandwidth-staking-state';
+
+      const query = `
+        query($holderAddress: String!) {
+          machineInfos(where: { holder: $holderAddress }) {
+            id
+            holder
+            holderRef {
+              id
+              holder
+            }
+            machineId
+          }
+        }
+      `;
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          query,
+          variables: {
+            holderAddress: walletAddress.toLowerCase(), // Ensure address is lowercase
+          },
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const res: any = await response.json();
+      console.log(res, 'KKK222222');
+      setTotalItems(res.data.machineInfos.length);
+    } catch (error) {
+      console.error('Error fetching GraphQL data:', error);
+    }
+  };
+
   // 初始化数据
   useEffect(() => {
     if (!isConnected) {
@@ -140,215 +179,42 @@ function Index() {
         isClosable: true,
       });
     } else {
-      fetchMachineInfoData(address as string);
+      fetchMachineInfoData();
     }
-  }, [key, isConnected]);
+  }, [currentPage, pageSize, isConnected]);
 
-  // thead 数据
-  const thead = [
-    { t: t('machine_ID'), pcW: '100px' }, // 机器ID
-    { t: t('machine_Stake'), pcW: '75px' }, // 是否在质押
-    { t: t('deep_is_online'), pcW: '75px' }, //是否在线
-    { t: t('deep_region'), pcW: '80px' }, //是否在线
-    { t: t('deep_initial_computing_power'), pcW: '70px' }, //初始算力
-    { t: t('deep_nft_computing_power'), pcW: '70px' }, //NFT算力
-    { t: t('deep_total_computing_power'), pcW: '70px' }, //总算力
-    { t: t('deep_total_amount'), pcW: '120px' }, //总金额
-    { t: t('deep_claimed_amount'), pcW: '120px' }, //已领取金额
-    { t: t('deep_released_amount'), pcW: '120px' }, //已释放金额
-    { t: t('machine_LckRwd'), pcW: '120px' }, // 锁仓奖励
-    { t: t('machine_Act'), pcW: '' }, // 操作
-  ];
-
-  // 复制按钮组件
-  const CopyButton = ({ text }: { text: string }) => {
-    const [copied, setCopied] = useState(false);
-
-    const handleCopy = () => {
-      setCopied(true);
-      navigator.clipboard.writeText(text || '').catch((err) => {
-        console.error('复制失败:', err);
-      });
-      setTimeout(() => setCopied(false), 2000); // 2秒后恢复
-    };
-
-    return (
-      <span className="cursor-pointer" onClick={handleCopy}>
-        {copied ? <IoCheckmark size={18} className="text-green-600" /> : <IoCopy size={18} />}
-      </span>
-    );
-  };
-
-  // 加载中组件
-  const SkeletonTable = () => {
-    return (
-      <Tr className="!w-auto">
-        <Td colSpan={thead.length}>
-          <div className=" flex flex-col gap-3 !w-full">
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-            <Skeleton height="30px" className="!w-auto" />
-          </div>
-        </Td>
-      </Tr>
-    );
-  };
+  useEffect(() => {
+    if (isConnected) {
+      fetchMachineInfoData2(address as string);
+    }
+  }, [isConnected]);
 
   return (
     <Card variant="subtle">
-      <CardHeader>
-        <div className="flex flex-col w-full gap-4">
-          <Heading size="md">{t('machine_List')}</Heading>
-          <MymachineSearchTop />
-        </div>
-      </CardHeader>
-      <CardBody gap="2">
-        <TableContainer className="!overflow-x-scroll">
-          <Table size="sm" className={isMobile ? '!w-auto' : ''}>
-            <Thead>
-              <Tr>
-                {thead.map((item, index) => (
-                  <Th width={item.pcW} key={index}>
-                    <Skeleton isLoaded={!loading}>{item.t}</Skeleton>
-                  </Th>
-                ))}
-              </Tr>
-            </Thead>
-            <Tbody>
-              {loading ? (
-                <SkeletonTable />
-              ) : error ? (
-                <Tr>
-                  <Td colSpan={thead.length}>Error: {error}</Td>
-                </Tr>
-              ) : machineData.length === 0 ? (
-                <Tr>
-                  <Td colSpan={thead.length}>
-                    <Text textAlign="center" color="gray.500">
-                      No data available
-                    </Text>
-                  </Td>
-                </Tr>
-              ) : (
-                machineData.map((item, index) => (
-                  <Tr key={index}>
-                    <Td>
-                      <Tooltip label={`Machine ID: ${item.machineId || 'N/A'}`}>
-                        <div className="flex items-center gap-x-2">
-                          <Text className="cursor-pointer truncate max-w-[80px]">{item.machineId || 'N/A'}</Text>
-                          <CopyButton text={item.machineId || ''} />
-                        </div>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <div className="flex items-center space-x-2">
-                        {item.isStaking === true ? (
-                          <>
-                            <IoCheckmarkCircle size={20} className="text-green-500" />
-                            <span className="text-green-600 font-medium">Yes</span>
-                          </>
-                        ) : (
-                          <>
-                            <IoCloseCircle size={20} className="text-red-500" />
-                            <span className="text-red-600 font-medium">No</span>
-                          </>
-                        )}
-                      </div>
-                    </Td>
-                    <Td>
-                      <div className="flex items-center space-x-2">
-                        {item.online === true ? (
-                          <>
-                            <IoCheckmarkCircle size={20} className="text-green-500" />
-                            <span className="text-green-600 font-medium">Yes</span>
-                          </>
-                        ) : (
-                          <>
-                            <IoCloseCircle size={20} className="text-red-500" />
-                            <span className="text-red-600 font-medium">No</span>
-                          </>
-                        )}
-                      </div>
-                    </Td>
-                    <Td>
-                      <Tooltip label={`${t('deep_region')}: ${item.region}`}>
-                        <Text color="blue.500" className="!whitespace-normal">
-                          {item.region}
-                        </Text>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <Tooltip label={`${t('deep_total_machine_base_power')}: ${item.totalCalcPoint}`}>
-                        <Text color="blue.500">{item.totalCalcPoint}</Text>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <Tooltip label={`${t('deep_total_machine_power_with_nft')}: ${item.totalCalcPointWithNFT}`}>
-                        <Text color="blue.500">{item.totalCalcPointWithNFT}</Text>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <Tooltip label={`${t('deep_total_machine_power_with_nft_rental')}: ${item.fullTotalCalcPoint}`}>
-                        <Text color="blue.500">{item.fullTotalCalcPoint}</Text>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <Tooltip label={`${t('deep_total_staked_amount')}: ${item.totalReservedAmount} DLC`}>
-                        <div className="flex items-center space-x-2 text-blue-600 ">
-                          <FaLock size={16} className="text-[#FFD700] " />
-                          <Text color="blue.500" className="truncate ">
-                            {item.totalReservedAmount}
-                          </Text>
-                        </div>
-                      </Tooltip>
-                    </Td>
-
-                    <Td>
-                      <Tooltip label={`${t('deep_total_claimed_reward_amount')}: ${item.totalClaimedRewardAmount} DLC`}>
-                        <div className="flex items-center space-x-2 text-blue-600 ">
-                          <FaCheckCircle size={22} className="text-[#FFD700]" />
-                          <Text className="truncate ">{item.totalClaimedRewardAmount}</Text>
-                        </div>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <Tooltip
-                        label={`${t('deep_total_released_reward_amount')}: ${item.totalReleasedRewardAmount} DLC`}
-                      >
-                        <div className="flex items-center space-x-2 text-blue-600 ">
-                          <FaUnlock size={17} className="text-green-500" />
-                          <Text className="truncate ">{item.totalReleasedRewardAmount}</Text>
-                        </div>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <Tooltip label={`${t('deep_locked_reward')}: ${item.Locked} DLC`}>
-                        <div className="flex items-center space-x-2 text-blue-600 ">
-                          <IoLockClosedOutline size={25} className="text-gray-500" />
-                          <Text className="truncate ">{item.Locked}</Text>
-                        </div>
-                      </Tooltip>
-                    </Td>
-                    <Td>
-                      <div className="flex items-start gap-3 flex-col">
-                        <UnstakeDbc forceRerender={() => setKey((key) => key + 1)} id={item.machineId || ''} />
-                        <UnstakeBtn forceRerender={() => setKey((key) => key + 1)} id={item.machineId || ''} />
-                        <WithdrawBtn forceRerender={() => setKey((key) => key + 1)} id={item.machineId || ''} />
-                      </div>
-                    </Td>
-                  </Tr>
-                ))
-              )}
-            </Tbody>
-          </Table>
-        </TableContainer>
-      </CardBody>
+      <div className="flex flex-col gap-4">
+        <CardHeader className="!p-0">
+          <div className="flex flex-col w-full gap-4">
+            <Heading size="md">{t('machine_List')}</Heading>
+            <MymachineSearchTop
+              currentPage={currentPage}
+              totalItems={totalItems}
+              pageSize={pageSize}
+              onPageChange={handlePageChange}
+              searchH={(v) => {
+                run(v);
+              }}
+            />
+          </div>
+        </CardHeader>
+        <CardBody className="!p-0">
+          <MymachineTable
+            fetchMachineInfoData={fetchMachineInfoData}
+            machineData={machineData}
+            loading={loading}
+            error={error}
+          />
+        </CardBody>
+      </div>
     </Card>
   );
 }

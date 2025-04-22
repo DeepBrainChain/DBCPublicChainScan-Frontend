@@ -24,11 +24,11 @@ import { readContract } from '@wagmi/core'; // 注意导入路径
 import dbcAbi from '../../../ui/mining/deep-link/modules/abi/dbcAbi.json';
 
 interface UnstakeBtnProps {
+  fetchMachineInfoData: any;
   id: string;
-  forceRerender: any;
 }
 
-function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
+function UnstakeBtn({ fetchMachineInfoData, id }: UnstakeBtnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
   const config = useConfig();
@@ -38,7 +38,8 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
   // 是否可以解除质押
   const { t } = useTranslation('common');
   const CPU_CONTRACT_ADDRESS_STAKING = useContractAddress('CPU_CONTRACT_ADDRESS_STAKING');
-  const { isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
+
   const { unregister } = useContractActions(id);
   // 按钮数据
   const [btnData, setBtnData] = React.useState({
@@ -118,8 +119,8 @@ function UnstakeBtn({ id, forceRerender }: UnstakeBtnProps) {
         duration: 5000,
         isClosable: true,
       });
-      forceRerender();
       onClose();
+      fetchMachineInfoData();
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',

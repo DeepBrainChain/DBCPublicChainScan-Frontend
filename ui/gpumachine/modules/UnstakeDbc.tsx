@@ -21,20 +21,20 @@ import { useContractActions } from '../../../ui/mining/deep-link/hooks/stake-bef
 import dbcAbi from '../../../ui/mining/deep-link/modules/abi/dbcAbi.json';
 
 interface UnstakeBtnProps {
+  fetchMachineInfoData: any;
   id: string;
-  forceRerender: any;
 }
 
-function UnstakeDbc({ id, forceRerender }: UnstakeBtnProps) {
+function UnstakeDbc({ fetchMachineInfoData, id }: UnstakeBtnProps) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
   const config = useConfig();
   const toast = useToast();
   const DBC_CONTRACT_ADDRESS = useContractAddress('DBC_CONTRACT_ADDRESS');
+  const { address, isConnected } = useAccount();
 
   // 是否可以解除质押
   const { t } = useTranslation('common');
-  const { isConnected } = useAccount();
   const { unregister } = useContractActions(id);
   // 按钮数据
   const [btnData, setBtnData] = React.useState({
@@ -95,8 +95,8 @@ function UnstakeDbc({ id, forceRerender }: UnstakeBtnProps) {
         duration: 5000,
         isClosable: true,
       });
-      forceRerender();
       onClose();
+      fetchMachineInfoData();
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',

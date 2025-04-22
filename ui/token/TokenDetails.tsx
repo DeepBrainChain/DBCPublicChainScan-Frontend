@@ -21,6 +21,7 @@ import useAppActionData from 'ui/shared/AppActionButton/useAppActionData';
 import DetailsInfoItem from 'ui/shared/DetailsInfoItem';
 import DetailsSponsoredItem from 'ui/shared/DetailsSponsoredItem';
 import TruncatedValue from 'ui/shared/TruncatedValue';
+import { useTranslation } from 'next-i18next';
 
 import TokenNftMarketplaces from './TokenNftMarketplaces';
 
@@ -32,7 +33,7 @@ const TokenDetails = ({ tokenQuery }: Props) => {
   const router = useRouter();
   const isMounted = useIsMounted();
   const { value: isActionButtonExperiment } = useFeatureValue('action_button_exp', false);
-
+  const { t } = useTranslation('common');
   const hash = router.query.hash?.toString();
 
   const tokenCountersQuery = useApiQuery('token_counters', {
@@ -42,37 +43,37 @@ const TokenDetails = ({ tokenQuery }: Props) => {
 
   const appActionData = useAppActionData(hash, isActionButtonExperiment);
 
-  const changeUrlAndScroll = useCallback((tab: TokenTabs) => () => {
-    router.push(
-      { pathname: '/token/[hash]', query: { hash: hash || '', tab } },
-      undefined,
-      { shallow: true },
-    );
-    scroller.scrollTo('token-tabs', {
-      duration: 500,
-      smooth: true,
-    });
-  }, [ hash, router ]);
+  const changeUrlAndScroll = useCallback(
+    (tab: TokenTabs) => () => {
+      router.push({ pathname: '/token/[hash]', query: { hash: hash || '', tab } }, undefined, { shallow: true });
+      scroller.scrollTo('token-tabs', {
+        duration: 500,
+        smooth: true,
+      });
+    },
+    [hash, router]
+  );
 
-  const countersItem = useCallback((item: 'token_holders_count' | 'transfers_count') => {
-    const itemValue = tokenCountersQuery.data?.[item];
-    if (!itemValue) {
-      return 'N/A';
-    }
-    if (itemValue === '0') {
-      return itemValue;
-    }
+  const countersItem = useCallback(
+    (item: 'token_holders_count' | 'transfers_count') => {
+      const itemValue = tokenCountersQuery.data?.[item];
+      if (!itemValue) {
+        return 'N/A';
+      }
+      if (itemValue === '0') {
+        return itemValue;
+      }
 
-    const tab: TokenTabs = item === 'token_holders_count' ? 'holders' : 'token_transfers';
+      const tab: TokenTabs = item === 'token_holders_count' ? 'holders' : 'token_transfers';
 
-    return (
-      <Skeleton isLoaded={ !tokenCountersQuery.isPlaceholderData }>
-        <Link onClick={ changeUrlAndScroll(tab) }>
-          { Number(itemValue).toLocaleString() }
-        </Link>
-      </Skeleton>
-    );
-  }, [ tokenCountersQuery.data, tokenCountersQuery.isPlaceholderData, changeUrlAndScroll ]);
+      return (
+        <Skeleton isLoaded={!tokenCountersQuery.isPlaceholderData}>
+          <Link onClick={changeUrlAndScroll(tab)}>{Number(itemValue).toLocaleString()}</Link>
+        </Skeleton>
+      );
+    },
+    [tokenCountersQuery.data, tokenCountersQuery.isPlaceholderData, changeUrlAndScroll]
+  );
 
   throwOnResourceLoadError(tokenQuery);
 
@@ -92,7 +93,9 @@ const TokenDetails = ({ tokenQuery }: Props) => {
   let totalSupplyValue;
 
   if (decimals) {
-    const totalValue = totalSupply ? getCurrencyValue({ value: totalSupply, accuracy: 3, accuracyUsd: 2, exchangeRate, decimals }) : undefined;
+    const totalValue = totalSupply
+      ? getCurrencyValue({ value: totalSupply, accuracy: 3, accuracyUsd: 2, exchangeRate, decimals })
+      : undefined;
     totalSupplyValue = totalValue?.valueStr;
   } else {
     totalSupplyValue = Number(totalSupply).toLocaleString();
@@ -100,103 +103,98 @@ const TokenDetails = ({ tokenQuery }: Props) => {
 
   return (
     <Grid
-      columnGap={ 8 }
+      columnGap={8}
       rowGap={{ base: 1, lg: 3 }}
-      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'auto minmax(0, 1fr)' }} overflow="hidden"
+      templateColumns={{ base: 'minmax(0, 1fr)', lg: 'auto minmax(0, 1fr)' }}
+      overflow="hidden"
     >
-      { exchangeRate && (
+      {exchangeRate && (
         <DetailsInfoItem
-          title="Price"
-          hint="Price per token on the exchanges"
+          title={t('DGC.deep_price')}
+          hint={t('DGC.deep_price_per_token')}
           alignSelf="center"
-          isLoading={ tokenQuery.isPlaceholderData }
+          isLoading={tokenQuery.isPlaceholderData}
         >
-          <Skeleton isLoaded={ !tokenQuery.isPlaceholderData } display="inline-block">
-            <span>{ `$${ Number(exchangeRate).toLocaleString(undefined, { minimumSignificantDigits: 4 }) }` }</span>
+          <Skeleton isLoaded={!tokenQuery.isPlaceholderData} display="inline-block">
+            <span>{`$${Number(exchangeRate).toLocaleString(undefined, { minimumSignificantDigits: 4 })}`}</span>
           </Skeleton>
         </DetailsInfoItem>
-      ) }
-      { marketCap && (
+      )}
+      {marketCap && (
         <DetailsInfoItem
-          title="Fully diluted market cap"
-          hint="Total supply * Price"
+          title={t('DGC.deep_fully_diluted_market_cap')}
+          hint={t('DGC.deep_total_supply_times_price')}
           alignSelf="center"
-          isLoading={ tokenQuery.isPlaceholderData }
+          isLoading={tokenQuery.isPlaceholderData}
         >
-          <Skeleton isLoaded={ !tokenQuery.isPlaceholderData } display="inline-block">
-            <span>{ `$${ BigNumber(marketCap).toFormat() }` }</span>
+          <Skeleton isLoaded={!tokenQuery.isPlaceholderData} display="inline-block">
+            <span>{`$${BigNumber(marketCap).toFormat()}`}</span>
           </Skeleton>
         </DetailsInfoItem>
-      ) }
+      )}
       <DetailsInfoItem
-        title="Max total supply"
-        hint="The total amount of tokens issued"
+        title={t('DGC.deep_max_total_supply')}
+        hint={t('DGC.deep_total_issued_tokens')}
         alignSelf="center"
         wordBreak="break-word"
         whiteSpace="pre-wrap"
-        isLoading={ tokenQuery.isPlaceholderData }
+        isLoading={tokenQuery.isPlaceholderData}
       >
-        <Skeleton isLoaded={ !tokenQuery.isPlaceholderData } w="100%" display="flex">
-          <TruncatedValue value={ totalSupplyValue || '0' } maxW="80%" flexShrink={ 0 }/>
-          <Box flexShrink={ 0 }> </Box>
-          <TruncatedValue value={ symbol || '' }/>
+        <Skeleton isLoaded={!tokenQuery.isPlaceholderData} w="100%" display="flex">
+          <TruncatedValue value={totalSupplyValue || '0'} maxW="80%" flexShrink={0} />
+          <Box flexShrink={0}> </Box>
+          <TruncatedValue value={symbol || ''} />
         </Skeleton>
       </DetailsInfoItem>
       <DetailsInfoItem
-        title="Holders"
-        hint="Number of accounts holding the token"
+        title={t('DGC.deep_holders')}
+        hint={t('DGC.deep_holder_count')}
         alignSelf="center"
-        isLoading={ tokenQuery.isPlaceholderData }
+        isLoading={tokenQuery.isPlaceholderData}
       >
-        <Skeleton isLoaded={ !tokenCountersQuery.isPlaceholderData }>
-          { countersItem('token_holders_count') }
-        </Skeleton>
+        <Skeleton isLoaded={!tokenCountersQuery.isPlaceholderData}>{countersItem('token_holders_count')}</Skeleton>
       </DetailsInfoItem>
       <DetailsInfoItem
-        title="Transfers"
-        hint="Number of transfer for the token"
+        title={t('DGC.deep_transfers')}
+        hint={t('DGC.deep_transfer_count')}
         alignSelf="center"
-        isLoading={ tokenQuery.isPlaceholderData }
+        isLoading={tokenQuery.isPlaceholderData}
       >
-        <Skeleton isLoaded={ !tokenCountersQuery.isPlaceholderData }>
-          { countersItem('transfers_count') }
-        </Skeleton>
+        <Skeleton isLoaded={!tokenCountersQuery.isPlaceholderData}>{countersItem('transfers_count')}</Skeleton>
       </DetailsInfoItem>
-      { decimals && (
+      {decimals && (
         <DetailsInfoItem
-          title="Decimals"
-          hint="Number of digits that come after the decimal place when displaying token value"
+          title={t('DGC.deep_decimals')}
+          hint={t('DGC.deep_decimal_places')}
           alignSelf="center"
-          isLoading={ tokenQuery.isPlaceholderData }
+          isLoading={tokenQuery.isPlaceholderData}
         >
-          <Skeleton isLoaded={ !tokenQuery.isPlaceholderData } minW={ 6 }>
-            { decimals }
+          <Skeleton isLoaded={!tokenQuery.isPlaceholderData} minW={6}>
+            {decimals}
           </Skeleton>
         </DetailsInfoItem>
-      ) }
+      )}
 
-      { type !== 'DRC-20' && (
+      {type !== 'DRC-20' && (
         <TokenNftMarketplaces
-          hash={ hash }
-          isLoading={ tokenQuery.isPlaceholderData }
-          appActionData={ appActionData }
+          hash={hash}
+          isLoading={tokenQuery.isPlaceholderData}
+          appActionData={appActionData}
           source="NFT collection"
-          isActionButtonExperiment={ isActionButtonExperiment }
+          isActionButtonExperiment={isActionButtonExperiment}
         />
-      ) }
+      )}
 
-      { (type !== 'DRC-20' && config.UI.views.nft.marketplaces.length === 0 && appActionData && isActionButtonExperiment) && (
-        <DetailsInfoItem
-          title="Dapp"
-          hint="Link to the dapp"
-          alignSelf="center"
-          py={ 1 }
-        >
-          <AppActionButton data={ appActionData } height="30px" source="NFT collection"/>
-        </DetailsInfoItem>
-      ) }
+      {type !== 'DRC-20' &&
+        config.UI.views.nft.marketplaces.length === 0 &&
+        appActionData &&
+        isActionButtonExperiment && (
+          <DetailsInfoItem title={t('DGC.deep_dapp')} hint={t('DGC.deep_dapp_link')} alignSelf="center" py={1}>
+            <AppActionButton data={appActionData} height="30px" source="NFT collection" />
+          </DetailsInfoItem>
+        )}
 
-      <DetailsSponsoredItem isLoading={ tokenQuery.isPlaceholderData }/>
+      <DetailsSponsoredItem isLoading={tokenQuery.isPlaceholderData} />
     </Grid>
   );
 };

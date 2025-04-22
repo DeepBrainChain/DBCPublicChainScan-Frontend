@@ -10,6 +10,7 @@ import * as SocketNewItemsNotice from 'ui/shared/SocketNewItemsNotice';
 import { default as Thead } from 'ui/shared/TheadSticky';
 import TruncatedValue from 'ui/shared/TruncatedValue';
 import TokenTransferTableItem from 'ui/token/TokenTransfer/TokenTransferTableItem';
+import { useTranslation } from 'next-i18next';
 
 interface Props {
   data: Array<TokenTransfer>;
@@ -33,15 +34,16 @@ const TokenTransferTable = ({
   token,
 }: Props) => {
   const tokenType = data[0].token.type;
+  const { t } = useTranslation('common');
 
   return (
     <AddressHighlightProvider>
       <Table variant="simple" size="sm" minW="950px">
         <Thead top={top}>
           <Tr>
-            <Th width="280px">Txn hash</Th>
-            <Th width="200px">Method</Th>
-            <Th width={{ lg: '224px', xl: '380px' }}>From/To</Th>
+            <Th width="280px">{t('DGC.deep_txn_hash')}</Th>
+            <Th width="200px">{t('DGC.deep_method')}</Th>
+            <Th width={{ lg: '224px', xl: '380px' }}>{t('DGC.deep_from_to')}</Th>
             {NFT_TOKEN_TYPE_IDS.includes(tokenType) && (
               <Th width={tokenType === 'DRC-1155' || tokenType === 'DRC-404' ? '50%' : '100%'}>Token ID</Th>
             )}

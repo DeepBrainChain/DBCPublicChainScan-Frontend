@@ -455,5 +455,26 @@
   "deeplink": {
     "totalItems": "共 {{count}} 条",
     "currentPage": "第 {{page}} 页"
+  },
+  "DGC": {
+    "deep_price": "价格",
+    "deep_price_per_token": "交易所每代币价格",
+    "deep_fully_diluted_market_cap": "完全稀释市值",
+    "deep_total_supply_times_price": "总供应量 * 价格",
+    "deep_max_total_supply": "最大总供应量",
+    "deep_total_issued_tokens": "已发行代币总量",
+    "deep_holder_count": "持有代币的账户数量",
+    "deep_transfers": "转账",
+    "deep_transfer_count": "代币转账次数",
+    "deep_decimals": "小数位",
+    "deep_decimal_places": "显示代币价值时小数点后的位数",
+    "deep_dapp": "Dapp",
+    "deep_dapp_link": "Dapp链接",
+    "deep_inventory": "库存",
+    "deep_token_transfers": "代币转账",
+    "deep_holders": "持有者",
+    "deep_txn_hash": "交易哈希",
+    "deep_method": "方法",
+    "deep_from_to": "发送方/接收方"
   }
 }

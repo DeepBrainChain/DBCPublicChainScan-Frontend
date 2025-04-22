@@ -454,5 +454,28 @@
   "deeplink": {
     "totalItems": "Total {{count}} items",
     "currentPage": "Page {{page}}"
+  },
+  "DGC": {
+    "deep_price": "Price",
+    "deep_price_per_token": "Price per token on the exchanges",
+    "deep_fully_diluted_market_cap": "Fully diluted market cap",
+    "deep_total_supply_times_price": "Total supply * Price",
+    "deep_max_total_supply": "Max total supply",
+    "deep_total_issued_tokens": "Total amount of tokens issued",
+    "deep_holder_count": "Number of accounts holding the token",
+    "deep_transfers": "Transfers",
+    "deep_transfer_count": "Number of transfers for the token",
+    "deep_decimals": "Decimals",
+    "deep_decimal_places": "Number of digits after the decimal place in token value",
+    "deep_dapp": "Dapp",
+    "deep_dapp_link": "Link to the dapp",
+
+    "deep_inventory": "Inventory",
+    "deep_token_transfers": "Token transfers",
+    "deep_holders": "Holders",
+
+    "deep_txn_hash": "Txn hash",
+    "deep_method": "Method",
+    "deep_from_to": "From/To"
   }
 }

@@ -8,23 +8,24 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverBody,
-  PopoverFooter,
+  Button,
   PopoverArrow,
   PopoverCloseButton,
   Skeleton,
 } from '@chakra-ui/react';
 import { useTimeoutFn } from '@reactuses/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { BsFilter } from 'react-icons/bs';
 import { useTranslation } from 'next-i18next';
+import Pagination from '../../../ui/pagination';
 
-const mymachineSearchTop = () => {
-  const [isPending, start] = useTimeoutFn(() => {}, 2000, { immediate: true });
+const mymachineSearchTop = ({ currentPage, totalItems, pageSize, onPageChange, searchH }) => {
+  const [isPending] = useTimeoutFn(() => {}, 2000, { immediate: true });
   const { t } = useTranslation('common');
-
+  const handleChange = (event) => searchH(event.target.value);
   return (
     <Skeleton isLoaded={!isPending}>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center gap-4 flex-wrap justify-between">
         <div className="flex-1">
           <InputGroup size="sm">
             <InputLeftAddon>
@@ -43,27 +44,11 @@ const mymachineSearchTop = () => {
                 </PopoverContent>
               </Popover>
             </InputLeftAddon>
-            <Input type="tel" placeholder={t('withdrawDialog_searchKeywords')} />
+            <Input onChange={handleChange} type="tel" placeholder={t('withdrawDialog_searchKeywords')} />
           </InputGroup>
         </div>
 
-        {/* <div className="flex-1 flex justify-end">
-          <div className="flex items-center gap-x-3 ">
-            <Button variant="outline" size="sm">
-              Total Pages：666
-            </Button>
-            <Button size="sm">
-              <FaAngleLeft />
-            </Button>
-
-            <Button variant="ghost" size="sm">
-              1
-            </Button>
-            <Button size="sm">
-              <FaAngleRight />
-            </Button>
-          </div>
-        </div> */}
+        <Pagination currentPage={currentPage} totalItems={totalItems} pageSize={pageSize} onPageChange={onPageChange} />
       </div>
     </Skeleton>
   );
