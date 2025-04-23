@@ -1,6 +1,7 @@
 import { Text, Menu, MenuButton, MenuItem, MenuList, MenuButtonProps, Spinner } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { LANG_MAP } from '../../../lib/constants/lang';
 
 const langIcon = (
   <svg
@@ -20,29 +21,28 @@ const langIcon = (
   </svg>
 );
 
-const LANG_MAP = {
-  en: {
-    label: 'English',
-    icon: '🇺🇸',
-  },
-  zh: {
-    label: '中文',
-    icon: '🇨🇳',
-  },
-} as const;
-
 const LangSelect: React.FC<MenuButtonProps> = (props) => {
   const router = useRouter();
   const { pathname, asPath, query, locale } = router;
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLanguageChange = (newLocale: string) => {
+    console.log(newLocale, 'newLocale');
     setIsLoading(true); // 开始加载
     document.cookie = `NEXT_LOCALE=${newLocale}; max-age=31536000; path=/`;
-    router.push({ pathname, query }, asPath, { locale: newLocale }).then(() => {
+    router.push({ pathname, query }, asPath, { locale: newLocale as any }).then(() => {
       setIsLoading(false); // 加载完成
     });
   };
+
+  // useEffect(() => {
+  //   console.log(navigator.language, 'navigator.language');
+  //   if (navigator.language === 'zh-CN') {
+  //     handleLanguageChange('zh');
+  //   } else {
+  //     handleLanguageChange(navigator.language);
+  //   }
+  // }, []);
 
   return (
     <Menu autoSelect={false}>

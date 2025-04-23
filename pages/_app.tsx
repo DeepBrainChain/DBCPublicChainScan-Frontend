@@ -55,7 +55,6 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, []);
 
   const getLayout = Component.getLayout ?? ((page) => <Layout>{page}</Layout>);
-  console.log(wagmiConfig, 'wagmiConfigwagmiConfigwagmiConfigwagmiConfig');
   return (
     <ChakraProvider cookies={pageProps.cookies}>
       <AppErrorBoundary {...ERROR_SCREEN_STYLES} onError={handleError}>
