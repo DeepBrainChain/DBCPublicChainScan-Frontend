@@ -12,4 +12,5 @@ export const LANG_MAP: LanguageMap = {
   en: { label: 'English', icon: '🇺🇸' },
   zh: { label: '中文', icon: '🇨🇳' },
   ko: { label: '한국어', icon: '🇰🇷' },
+  ja: { label: '日本語', icon: '🇯🇵' },
 } as const;
