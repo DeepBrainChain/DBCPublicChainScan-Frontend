@@ -3,6 +3,7 @@ import { FaCoins, FaClock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { formatEther } from 'viem';
 import dayjs from 'dayjs';
+import { useTranslation } from 'next-i18next';
 
 // Motion 组件，用于动画效果
 const MotionBox = motion(Box);
@@ -10,6 +11,7 @@ const MotionBox = motion(Box);
 export default function TokenUnlockDetails({ unlockRounds }) {
   // 获取当前时间（秒级时间戳）
   const now = Math.floor(Date.now() / 1000);
+  const { t } = useTranslation('common');
 
   // 处理解锁数据
   const futureRounds = unlockRounds
@@ -42,10 +44,10 @@ export default function TokenUnlockDetails({ unlockRounds }) {
   const pendingUnlocks = futureRounds.slice(1);
 
   return (
-    <VStack align="start" spacing={2} p={2} bg="white" borderRadius="md" w="full">
+    <VStack align="start" spacing={2} p={2} borderRadius="md" w="full">
       {/* 标题：解锁计划 */}
-      <Text fontSize="md" fontWeight="medium" color="gray.800">
-        解锁计划
+      <Text fontSize="md" fontWeight="medium">
+        {t('deep_unlock_plan')}
       </Text>
 
       {/* 下一笔解锁 - 固定顶部显示 */}
@@ -56,23 +58,20 @@ export default function TokenUnlockDetails({ unlockRounds }) {
           transition={{ duration: 0.3 }} // 动画持续时间
           w="full"
           p={2}
-          bg="blue.50" // 背景色
           borderRadius="sm"
+          border="1px solid"
+          borderColor="blue.100"
         >
           <Text fontSize="sm" fontWeight="medium" color="blue.600">
-            下一笔解锁时间
+            {t('deep_next_unlock_time')}
           </Text>
           <HStack spacing={2}>
             {/* 代币图标和数量 */}
             <FaCoins style={{ color: '#D69E2E', fontSize: '14px' }} />
-            <Text fontSize="sm" color="gray.800">
-              {nextUnlock.amount.toFixed(5)} DLC
-            </Text>
+            <Text fontSize="sm">{nextUnlock.amount.toFixed(5)} DLC</Text>
             {/* 时间图标和格式化时间 */}
             <FaClock style={{ color: '#3182CE', fontSize: '14px' }} className={'ml-4'} />
-            <Text fontSize="sm" color="gray.800">
-              {dayjs(nextUnlock.unlockTime).format('YYYY/MM/DD HH:mm:ss')}
-            </Text>
+            <Text fontSize="sm">{dayjs(nextUnlock.unlockTime).format('YYYY/MM/DD HH:mm:ss')}</Text>
           </HStack>
         </MotionBox>
       )}
@@ -82,7 +81,6 @@ export default function TokenUnlockDetails({ unlockRounds }) {
         w="full"
         maxH="150px" // 最大高度，超出滚动
         overflowY="auto" // 垂直滚动
-        bg="gray.50" // 背景色
         borderRadius="sm"
         p={2}
         css={{
@@ -95,8 +93,8 @@ export default function TokenUnlockDetails({ unlockRounds }) {
         {/* 待解锁列表 */}
         {pendingUnlocks.length > 0 && (
           <VStack align="start" spacing={1} w="full">
-            <Text fontSize="sm" fontWeight="medium" color="gray.600">
-              待解锁
+            <Text fontSize="sm" fontWeight="medium">
+              {t('deep_pending_unlock')}
             </Text>
             {pendingUnlocks.map((round, index) => (
               <HStack key={index} w="full" spacing={2}>
@@ -104,16 +102,12 @@ export default function TokenUnlockDetails({ unlockRounds }) {
                   {/* 代币数量 */}
                   <div className={'flex items-center gap-1 flex-1'}>
                     <FaCoins style={{ color: '#D69E2E', fontSize: '14px' }} />
-                    <Text fontSize="sm" color="gray.700">
-                      {round.amount.toFixed(5)} DLC
-                    </Text>
+                    <Text fontSize="sm">{round.amount.toFixed(5)} DLC</Text>
                   </div>
                   {/* 解锁时间 */}
                   <div className={'flex items-center gap-1 flex-1'}>
                     <FaClock style={{ color: '#3182CE', fontSize: '14px' }} />
-                    <Text fontSize="sm" color="gray.700">
-                      {dayjs(round.unlockTime).format('YYYY/MM/DD HH:mm:ss')}
-                    </Text>
+                    <Text fontSize="sm">{dayjs(round.unlockTime).format('YYYY/MM/DD HH:mm:ss')}</Text>
                   </div>
                 </div>
               </HStack>
@@ -123,11 +117,7 @@ export default function TokenUnlockDetails({ unlockRounds }) {
       </Box>
 
       {/* 空状态：无未来解锁时显示 */}
-      {!nextUnlock && !pendingUnlocks.length && (
-        <Text fontSize="sm" color="gray.500">
-          暂无解锁计划
-        </Text>
-      )}
+      {!nextUnlock && !pendingUnlocks.length && <Text fontSize="sm">{t('deep_no_unlock_plan')}</Text>}
     </VStack>
   );
 }

@@ -476,5 +476,9 @@
     "deep_txn_hash": "トランザクションハッシュ",
     "deep_method": "メソッド",
     "deep_from_to": "送信者/受信者"
-  }
+  },
+  "deep_unlock_plan": "アンロックプラン",
+  "deep_next_unlock_time": "次回アンロック時間",
+  "deep_pending_unlock": "アンロック待ち",
+  "deep_no_unlock_plan": "アンロックプランなし"
 }

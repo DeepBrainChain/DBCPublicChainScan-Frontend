@@ -477,5 +477,9 @@
     "deep_txn_hash": "Txn hash",
     "deep_method": "Method",
     "deep_from_to": "From/To"
-  }
+  },
+  "deep_unlock_plan": "Unlock Plan",
+  "deep_next_unlock_time": "Next Unlock Time",
+  "deep_pending_unlock": "Pending Unlock",
+  "deep_no_unlock_plan": "No Unlock Plan"
 }

@@ -476,5 +476,9 @@
     "deep_txn_hash": "交易哈希",
     "deep_method": "方法",
     "deep_from_to": "发送方/接收方"
-  }
+  },
+  "deep_unlock_plan": "解锁计划",
+  "deep_next_unlock_time": "下一笔解锁时间",
+  "deep_pending_unlock": "待解锁",
+  "deep_no_unlock_plan": "暂无解锁计划"
 }
