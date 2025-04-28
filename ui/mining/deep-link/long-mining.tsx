@@ -25,8 +25,8 @@ import LongNftStake from './modules/long-stake/LongNftStake';
 import LongDlcStake from './modules/long-stake/LongDlcStake';
 
 const FixedComponent = () => {
-  const { t } = useTranslation('common');
-
+  const { t, i18n } = useTranslation('common');
+  console.log(i18n.language, 'tttttttttttttt');
   const router = useRouter();
 
   return (
@@ -53,8 +53,16 @@ const FixedComponent = () => {
             <Text mb={2}>{t('add-gpu-to-dbc-network')}</Text>
             <Text mb={2}>
               {t('reference-document')}:
-              <LinkExternal href="https://deepbrainchain.github.io/DBC-Wiki/onchain-guide/bonding-machine.html">
-                https://deepbrainchain.github.io/DBC-Wiki/onchain-guide/bonding-machine.html
+              <LinkExternal
+                href={
+                  i18n.language === 'zh'
+                    ? 'https://deepbrainchain.github.io/DBC-Wiki/dbc-aipublicchain/Deeplink-Long-term-rental-document_zh.html'
+                    : 'https://deepbrainchain.github.io/DBC-Wiki/en/dbc-aipublicchain/Deeplink-Long-term-rental-document_en.html'
+                }
+              >
+                {i18n.language === 'zh'
+                  ? 'https://deepbrainchain.github.io/DBC-Wiki/dbc-aipublicchain/Deeplink-Long-term-rental-document_zh.html'
+                  : 'https://deepbrainchain.github.io/DBC-Wiki/en/dbc-aipublicchain/Deeplink-Long-term-rental-document_en.html'}
               </LinkExternal>
             </Text>
           </Box>
