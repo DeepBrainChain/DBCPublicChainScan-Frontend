@@ -156,7 +156,7 @@ services:
       NEXT_PUBLIC_MARKETPLACE_CONFIG_URL: https://test.dbcscan.io/public/assets/configs/marketplace_mainnet_config.json
       NEXT_PUBLIC_MARKETPLACE_SUBMIT_FORM: https://github.com/DeepBrainChain/DBCPublicChainScan
       NEXT_PUBLIC_GPU_RACE_CONFIG_URL: /public/assets/configs/gpu_race_config.json
-      NEXT_PUBLIC_FOOTER_LINKS: /public/assets/configs/footer_links.json
+      NEXT_PUBLIC_FOOTER_LINKS: /public/assets/footer_links.json
       NEXT_PUBLIC_OTHER_LINKS: '[{"text": "Faucet","url": "https://faucet.dbcscan.io"}]'
       NEXT_PUBLIC_AD_BANNER_PROVIDER: 'none'
       NEXT_PUBLIC_AD_TEXT_PROVIDER: 'none'
