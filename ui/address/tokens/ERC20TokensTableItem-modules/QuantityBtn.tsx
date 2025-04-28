@@ -166,7 +166,7 @@ function QuantityBtn() {
         <AlertDialogOverlay className="bg-black/50" />
 
         <AlertDialogContent
-          className="bg-white dark:bg-gray-800 rounded-xl !max-w-[520px]"
+          className="bg-white dark:bg-gray-800 rounded-xl  !max-w-[375px] md:!max-w-[520px]"
           as={MotionDiv}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

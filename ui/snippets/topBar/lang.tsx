@@ -45,26 +45,28 @@ const LangSelect: React.FC<MenuButtonProps> = (props) => {
   // }, []);
 
   return (
-    <Menu autoSelect={false}>
-      <MenuButton p="12px" {...props} disabled={isLoading}>
-        {isLoading ? <Spinner size="sm" /> : langIcon}
-      </MenuButton>
-      <MenuList w="max-content" minW="120px">
-        {Object.entries(LANG_MAP).map(([key, lang]) => (
-          <MenuItem
-            key={key}
-            display="flex"
-            alignItems="center"
-            fontSize="sm"
-            onClick={() => handleLanguageChange(key)}
-            isDisabled={isLoading}
-          >
-            <Text mr="8px">{lang.icon}</Text>
-            <Text>{lang.label}</Text>
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>
+    <div className={'!z-[99999]'}>
+      <Menu autoSelect={false}>
+        <MenuButton p="12px" {...props} disabled={isLoading}>
+          {isLoading ? <Spinner size="sm" /> : langIcon}
+        </MenuButton>
+        <MenuList w="max-content" minW="120px">
+          {Object.entries(LANG_MAP).map(([key, lang]) => (
+            <MenuItem
+              key={key}
+              display="flex"
+              alignItems="center"
+              fontSize="sm"
+              onClick={() => handleLanguageChange(key)}
+              isDisabled={isLoading}
+            >
+              <Text mr="8px">{lang.icon}</Text>
+              <Text>{lang.label}</Text>
+            </MenuItem>
+          ))}
+        </MenuList>
+      </Menu>
+    </div>
   );
 };
 
