@@ -91,7 +91,9 @@ declare module "nextjs-routes" {
     | "zh"
     | "ko"
     | "ja"
-    | "ru";
+    | "ru"
+    | "vn"
+    | "es";
 
   /**
    * A typesafe utility function for generating paths in your application.
@@ -172,7 +174,9 @@ declare module "next/router" {
           "zh",
           "ko",
           "ja",
-          "ru"
+          "ru",
+          "vn",
+          "es"
         ];
         push(
           url: Route | StaticRoute | Query,
