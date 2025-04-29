@@ -1,5 +1,5 @@
 import { Tr, Td, Flex, Skeleton } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import type { AddressTokenBalance } from 'types/api/address';
 
@@ -19,7 +19,9 @@ const ERC20TokensTableItem = ({ token, value, isLoading }: Props) => {
     accuracy: 8,
     accuracyUsd: 2,
   });
-
+  useEffect(() => {
+    console.log(token, 'tokentokentoken');
+  }, [token]);
   return (
     <Tr
       sx={{
@@ -45,7 +47,7 @@ const ERC20TokensTableItem = ({ token, value, isLoading }: Props) => {
       <Td isNumeric verticalAlign="middle">
         <Skeleton isLoaded={!isLoading} display="inline">
           <div className="flex flex-col  items-end gap-2 flex-wrap">
-            <span>{tokenQuantity}</span> <QuantityBtn />
+            <span>{tokenQuantity}</span> {token.symbol === 'DLC' ? <QuantityBtn /> : null}
           </div>
         </Skeleton>
       </Td>
