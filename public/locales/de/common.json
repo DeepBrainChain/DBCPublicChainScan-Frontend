@@ -409,5 +409,15 @@
   "deep_unlock_plan": "Entsperrplan",
   "deep_next_unlock_time": "Nächste Entsperrzeit",
   "deep_pending_unlock": "Ausstehende Entsperrung",
-  "deep_no_unlock_plan": "Derzeit kein Entsperrplan"
+  "deep_no_unlock_plan": "Derzeit kein Entsperrplan",
+  "renewing": "Wird verlängert...",
+  "renew_in_progress": "Verlängerung läuft",
+  "renew_success": "Verlängerung erfolgreich",
+  "renew_operation_success": "Verlängerung erfolgreich abgeschlossen",
+  "renew": "Verlängern",
+  "machine_renew": "Maschinenverlängerung",
+  "renew_time": "Verlängerungszeit",
+  "enter_renew_time": "Bitte geben Sie die Verlängerungszeit für diese Maschine ein",
+  "renew_action": "Verlängern",
+  "hour": "Stunde"
 }

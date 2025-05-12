@@ -22,19 +22,15 @@
   "deeplink-network": "CPU 머신을 DeepLink 네트워크에 추가",
   "staking-rewards-rule": "스테이킹越多 수익越大, 이 단계는 스킵 가능하며 DLC를 스테이킹하지 않아도 됩니다. 규칙 참조",
   "deeplink-network-machine-info": "DeepLink 네트워크에 추가된 머신 정보 보기",
-
   "stake-dbc": "DBC 스테이킹",
   "gpu-count": "머신의 GPU 수량:",
   "input-gpu-count": "머신의 GPU 수량을 입력하세요",
   "gpu-stake-requirement": "각 GPU당 1000 DBC 스테이킹 필요",
-
   "submit": "제출",
-
   "stake-nft-node": "NFT 노드 스테이킹",
   "nft-stake-count": "스테이킹한 NFT 수량:",
   "input-nft-stake-count": "스테이킹할 NFT 수량을 입력하세요",
   "nft-stake-requirement": "최소 1개, 최대 20개 NFT 스테이킹 가능",
-
   "stake-dlc": "DLC 스테이킹",
   "dlc-stake-count": "스테이킹한 DLC 수량:",
   "input-dlc-stake-count": "스테이킹할 DLC 수량을 입력하세요",
@@ -50,14 +46,12 @@
   "add-rented-gpu-to-deeplink": "임대한 GPU 머신을 DeepLink 네트워크에 추가",
   "skip-dlc-pledge": "이 단계는 스킵 가능하며, DLC 스테이킹 없이 진행 가능. 규칙 참조",
   "view-deeplink-machine-info": "DeepLink 네트워크에 추가된 머신 정보 보기",
-
   "pledge-nft-nodes": "NFT 노드 스테이킹",
   "nft-nodes-pledge-count": "스테이킹한 NFT 노드 수량",
   "input-nft-nodes-count": "노드 수량을 입력하세요",
   "nft-pledge-requirement": "최소 1개, 최대 20개 NFT 스테이킹 가능",
   "rent-id": "임대 ID",
   "input-rent-id": "임대 ID를 입력하세요",
-
   "pledge-dlc": "DLC 스테이킹",
   "dlc-pledge-amount": "스테이킹한 DLC 수량",
   "input-dlc-pledge-amount": "스테이킹할 DLC 수량을 입력하세요",
@@ -70,7 +64,6 @@
   "click-on-cloud-computer": "“클라우드 GPU” 클릭",
   "my-computer": "내 컴퓨터 임대",
   "add-machine": "머신 추가",
-
   "latest-batch": "최신 배치",
   "total-blocks": "총 블록 수",
   "average-block-time": "평균 블록 생성 시간",
@@ -79,24 +72,19 @@
   "wallet-addresses": "지갑 주소 수",
   "gas-tracker": "가스 추적기",
   "btc-locked-in-2wp": "2WP에 락된 BTC",
-
   "last-update": "마지막 업데이트",
   "fast": "빠름",
   "normal": "보통",
   "slow": "느림",
   "gas-tracker-overview": "가스 추적기 개요",
-
   "daily-transactions": "일일 거래 수",
   "transactions-yesterday": "어제의 거래 수(0:00 - 23:59 UTC). 차트는 지난 30일 일일 거래 수를 보여줍니다.",
-
   "market-cap": "시가총액",
   "market-cap-hint": "암호화폐 유통 공급의 총 시장 가치로, 주식 시장의 자유 유동 시가총액과 유사합니다. 시가총액 = 현재 가격 × 유통 공급량.",
   "total-value-locked": "총 락업 가치",
   "total-value-locked-hint": "체인에 락업되거나 스테이킹된 디지털 자산의 총 가치.",
-
   "price": "가격",
   "token-daily-price-usd": "토큰 일일 가격(USD).",
-
   "latest-blocks": "최신 블록",
   "latest-transactions": "최신 거래",
   "network-utilization": "네트워크 이용률",
@@ -106,7 +94,6 @@
   "miner": "채굴자",
   "txn": "거래",
   "reward": "보상",
-
   "contract-call": "컨트랙트 호출",
   "blob-txn": "Blob 거래",
   "contract-creation": "컨트랙트 생성",
@@ -116,18 +103,15 @@
   "remasc": "REMASC",
   "bridge": "브릿지",
   "transaction": "거래",
-
   "additional-info": "추가 정보",
   "transaction-fee": "거래 수수료",
   "gas-limit-usage": "거래의 가스 제한 및 사용량",
   "others": "기타",
   "more-details": "자세히 보기",
   "gas-fees": "가스 수수료",
-
   "base": "기본",
   "max": "최대",
   "max-priority": "최대 우선순위",
-
   "txn-type": "거래 유형",
   "nonce": "거래 순번",
   "position": "거래 위치",
@@ -136,7 +120,6 @@
   "view-all-transactions": "모든 거래 보기",
   "container_id": "컨테이너 ID",
   "enter_container_id": "컨테이너 ID를 입력하세요",
-
   "block_chain": "블록체인",
   "block_tokens": "토큰",
   "block_dapps": "탈중앙화 앱",
@@ -147,7 +130,6 @@
   "block_other": "기타",
   "block_verify_contract": "컨트랙트 검증",
   "block_gas_tracker": "가스 추적기",
-
   "block_top_accounts": "최상위 계정",
   "block_blocks": "블록",
   "block_transactions": "거래",
@@ -159,18 +141,14 @@
   "block_graphql": "GraphQL",
   "block_rpc_api": "RPC API",
   "block_eth_rpc_api": "Eth RPC API",
-
   "token_item": "토큰",
   "token_price": "가격",
   "token_onchain_market_cap": "온체인 시가총액",
   "token_holders": "보유자",
-
   "token_name_or_symbol": "토큰 이름 또는 심볼",
   "token_filter": "필터",
-
   "token_type": "유형",
   "token_reset": "초기화",
-
   "machine_ID": "머신 ID",
   "machine_Stake": "스테이킹",
   "machine_Reg": "지역",
@@ -186,7 +164,6 @@
   "machine_Unstake": "스테이킹 해제",
   "machine_Withdraw": "수익 수령",
   "machine_List": "머신 목록",
-
   "withdrawDialog_machineId": "머신 ID",
   "withdrawDialog_isStaking": "스테이킹 여부",
   "withdrawDialog_totalRewards": "스테이킹된 수량",
@@ -194,7 +171,6 @@
   "withdrawDialog_lockedRewards": "락업 보상 수량",
   "withdrawDialog_action": "작업",
   "withdrawDialog_searchKeywords": "검색 키워드를 입력하세요",
-
   "hint": "알림",
   "cpudbc_connect_wallet": "먼저 지갑을 연결하세요",
   "staking": "스테이킹 중",
@@ -206,7 +182,6 @@
   "cpudbc_stake_success": "DBC 스테이킹 성공!",
   "failed": "실패",
   "operation_failed": "작업 실패",
-
   "cpunft_hint": "알림",
   "cpunft_connect_wallet": "먼저 지갑을 연결하세요",
   "cpunft_staking": "스테이킹 중",
@@ -220,22 +195,16 @@
   "cpunft_stake_success": "스테이킹 성공!",
   "cpunft_failed": "실패",
   "cpunft_operation_failed": "작업 실패",
-
   "dlcstake_stake_success": "DLC 스테이킹 성공!",
-
   "not_staked_yet": "이 머신은 아직 NFT를 스테이킹하지 않았습니다. 먼저 NFT 스테이킹을 진행하세요!",
   "stakeEndTime": "스테이킹 종료 시간",
-
   "withdraw_confirmation": "확인",
   "withdraw_areYouSure": "수익을 수령하시겠습니까?",
   "withdraw_pendingRewards": "수령 대기 보상",
   "withdraw_cancel": "취소",
   "withdraw_confirm": "확인",
-
   "grok3_blocks_indexed": "블록 인덱싱 완료",
-
   "grok3_indexing_notice": "우리는 이 체인을 인덱싱하고 있습니다. 일부 카운트가 정확하지 않을 수 있습니다.",
-
   "grok3_DeepBrainChain": "딥브레인체인",
   "grok3_Home": "홈",
   "grok3_Developers": "개발자",
@@ -245,7 +214,6 @@
   "grok3_Twitter": "트위터",
   "grok3_Telegram": "텔레그램",
   "grok3_Reddit": "Reddit",
-
   "deep_network_utilization": "네트워크 이용률",
   "deep_last_50_blocks": "최근 50개 블록",
   "deep_load": "부하",
@@ -258,7 +226,6 @@
   "deep_gas_used": "가스 사용량",
   "deep_reward": "보상",
   "deep_burnt_fees": "소각 수수료",
-
   "deep_token_transfer": "토큰 전송",
   "deep_deposit": "입금",
   "deep_block": "블록",
@@ -266,20 +233,15 @@
   "deep_scanning_new": "새 데이터 스캔 중",
   "deep2_blocks": "블록",
   "deep_Top_accounts": "최상위 계정",
-
   "deep_rank": "순위",
   "deep_address": "주소",
   "deep_public_tag": "공개 태그",
   "deep_percentage": "비율",
   "deep_txn_count": "거래 수",
-
   "deep_no_verified_contracts": "검증된 컨트랙트 없음.",
-
   "deep_total_contracts": "총 컨트랙트 수",
   "deep_verified_contracts": "검증된 컨트랙트",
-
   "deep_search_by_contract_name_or_address": "컨트랙트 이름 또는 주소로 검색",
-
   "deep_contract": "컨트랙트",
   "deep_balance": "잔액",
   "deep_txs": "거래",
@@ -287,70 +249,49 @@
   "deep_settings": "설정",
   "deep_verified": "검증됨",
   "deep_license": "라이선스",
-
   "deep_find_app_by_name_or_keyword": "이름 또는 키워드로 앱 검색...",
-
   "deep_AI + DePIN + Cloud Gaming + GPU": "AI + 탈중앙화 물리적 인프라 + 클라우드 게이밍 + GPU",
   "deep_DeepLink_description": "딥링크는 AI와 블록체인 기술로 구동되는 탈중앙화 클라우드 게이밍 프로토콜입니다. AI, 게임, GPU, 실물 자산 토큰화, 탈중앙화 물리적 인프라 네트워크를 하나의 프로젝트로 융합하여, 최고의 내러티브 조합을 자랑합니다. DEEPLINK는 초저지연 게임 렌더링 기술을 제공하며, 클라우드 e스포츠, 클라우드 인터넷 카페, 클라우드 기반 3A 게임, 블록체인 통합 게임, 클라우드 VR/AR/XR 등 다양한 애플리케이션을 지원합니다. 딥링크 프로토콜은 AI 기술을 통해 게임 렌더링 해상도와 선명도를 향상시킵니다.",
-
   "deep_AI + DePIN + GPU + AGI": "AI + 탈중앙화 물리적 인프라 + GPU + AGI",
   "deep_DecentralGPT_description": "탈중앙화 GPT는 다양한 오픈소스 대형 언어 모델을 지원합니다. 안전하고, 프라이버시를 보호하며, 민주적이고, 투명하며, 오픈소스이고, 전 세계적으로 접근 가능한 범용 인공지능(AGI) 구축을 목표로 합니다.",
-
   "deep_AI + DePIN + GPU + Image": "AI + 탈중앙화 물리적 인프라 + GPU + 이미지",
   "deep_SuperImage_description": "슈퍼 이미지에는 여러 텍스트-이미지 확산 모델이 포함되어 있으며, 텍스트 입력을 기반으로 사실적인 사진 수준의 이미지를 생성할 수 있습니다. 자유롭게 놀라운 이미지를 창작할 수 있는 능력을 키우며, 수십억 명이 몇 초 만에 멋진 예술 작품을 만들 수 있도록 지원합니다.",
-
   "deep_GPU Cloud": "GPU 클라우드",
   "deep_dot": ".",
   "deep_HibaoCloud_description": ".",
   "deep_Hycons_description": ".",
-
   "deep_Luanchpad": "론치패드",
   "deep_Node launchpad": "노드 론치패드",
   "deep_DRCPad_description": "DRCPad - 최초의 AI 노드 거래를 위한 1차 시장입니다. Deepbrain AI 시장을 기반으로 한 자금 조달, 홍보, 마케팅 플랫폼입니다. DBC와 USDT는 DRCPad의 두 가지 메인넷 토큰입니다.",
-
   "deep_Wallet": "지갑",
   "deep_DeepBrainChain_description": "딥브레인체인 2.0은 AI 공용 블록체인입니다. AI 개발자는 DBC를 기반으로 탈중앙화된 AI 제품을 개발할 수 있습니다.",
-
   "deep_more_info": "추가 정보",
-
   "deep_overview": "개요",
-
   "deep_submit_app": "앱 제출",
   "deep_suggest_ideas": "아이디어 제안",
   "deep_dapps": "탈중앙화 앱",
-
   "deep_gpu_race": "GPU 대회",
-
   "deep_DeAI": "탈중앙화 AI",
   "deep_AI + DePIN + GPU + AGIxxxx": "AI + 탈중앙화 물리적 인프라 + GPU + AGIxxxx",
   "deep_DecentralGPT_Andromeda_description": "탈중앙화 GPT 안드로메다 프로젝트",
-
   "deep_AI + DePIN + GPU": "AI + 탈중앙화 물리적 인프라 + GPU",
   "deep_DeepLink_Orion_description": "딥링크 오리온 프로젝트",
-
   "deep_DeepBrainChain_GalaxyRace_description": "딥브레인체인 갤럭시 레이스 프로젝트",
   "deep_gpu_mining": "GPU 채굴",
-
   "deep_daily_mining_reward": "일일 채굴 보상",
   "deep_gpu_count": "GPU 수량",
-
   "deep_find_chart_metric": "차트 및 지표 검색...",
-
   "deep_verify_publish_contract": "컨트랙트 검증 및 게시",
   "deep_contract_address_to_verify": "검증할 컨트랙트 주소",
   "deep_loading_data_please_wait": "데이터를 로드 중입니다. 잠시 기다리세요...",
-
   "deep_contract_license_best_practices": "최佳 사례를 따르기 위해 모든 컨트랙트 소스 코드 보유자, 게시자, 작성자는 검증된 컨트랙트 소스 코드에 적절한 라이선스를 지정하는 것이 권장됩니다.",
-
   "deep_smart_contract_address": "스마트 컨트랙트 / 주소 (0x...)",
   "deep_invalid_format": "잘못된 형식",
   "deep_contract_license": "컨트랙트 라이선스",
-
   "deep_currently_blockscout_supports_1": "현재 Blockscout는",
   "deep_contract_verification_methods": "컨트랙트 검증 방법",
   "deep_currently_blockscout_supports_2": "현재 Blockscout는",
   "deep_methods": "방법",
-
   "deep_verification_method_compiler_type": "검증 방법(컴파일러 유형)",
   "deep_verification_through": "다음으로 검증",
   "deep_sourcify": "Sourcify",
@@ -365,12 +306,10 @@
   "deep_verification_through_flattened_source_code": "평탄화된 소스 코드로 검증",
   "deep_verification_of_multi_part_solidity_files": "다중 Solidity 파일 검증",
   "deep_gas_tracker": "가스 추적기",
-
   "deep_gas_price_history": "가스 가격 기록",
   "deep_charts": "차트",
   "deep_stats": "통계",
   "deep_last_updated": "마지막 업데이트",
-
   "deep_long_term_rental_note": "주의: 장기 임대 모드에서는 GPU 서버가 전문 데이터센터에서 호스팅되어야 하며, 365일 전원 및 네트워크가 중단되지 않아야 합니다. 그렇지 않으면 DBC 토큰 페널티가 부과됩니다.",
   "deep_rent_own_machine_until_andromeda_end_1": "먼저, DBC 네트워크에서 자신의 머신을 임대하여 현재 안드로메다 GPU 대회 종료 시점까지 유지하세요.",
   "deep_rent_own_machine_until_andromeda_end_2": "DBC 네트워크에서 자신의 머신을 임대하며, 임대 기간은 현재 안드로메다 GPU 대회 종료 시점까지 이어져야 합니다.",
@@ -381,7 +320,6 @@
   "deep_view_decentralgpt_network_machine_info": "DecentralGPT 네트워크에 추가된 머신 정보 보기",
   "deep_installation_documentation": "설치 문서",
   "deep_download_address": "다운로드 주소",
-
   "deep2_free_mode_note": "주의: 자유 모드에서는 머신을 어디에나 배치할 수 있습니다. 하지만 GPU 머신당 최소 5Mbps의 상향 네트워크 대역폭이 필요합니다. 자세한 규칙은 다음을 참조하세요: https://and.decentralgpt.org/rule",
   "deep2_install_dbc_worker_node_first": "먼저 DBC 작업 노드를 설치하세요. 설치 문서",
   "deep2_obtain_machine_id_and_private_key": "그리고 머신 ID와 개인 키를 획득",
@@ -390,12 +328,10 @@
   "deep2_view_decentralgpt_network_machine_info": "DecentralGPT 네트워크에 추가된 머신 정보 보기",
   "deep_region_not_supported_hint": "알림: 머신의 지역이 지원되지 않습니다. 다른 지역의 머신으로 변경하세요",
   "deep_unstake_dbc": "DBC 스테이킹 해제",
-
   "deep_unstaking_in_progress": "스테이킹 해제 중",
   "deep_processing_unstake_request": "스테이킹 해제 요청을 처리 중입니다. 잠시 기다리세요...",
   "deep_unstake_dbc_transaction_failed": "DBC 스테이킹 해제 거래 실패",
   "deep_unstake_dbc_success": "DBC 스테이킹 해제 성공!",
-
   "deepx_confirmation": "확인",
   "deepx_are_you_sure_unstake": "스테이킹을 해제하시겠습니까?",
   "deepx_are_you_sure_unstake2": "DBC 스테이킹을 해제하시겠습니까?",
@@ -410,7 +346,6 @@
   "register_important_notice": "중요 알림",
   "register_before_staking_notice": "스테이킹을 시작하기 전에 대역폭 프로그램을 실행하여 정상 작동을 확인한 후 버튼을 클릭하여 머신 등록을 완료하세요",
   "register_machine": "머신 등록",
-
   "deep_is_online": "온라인 여부",
   "deep_initial_computing_power": "초기 계산력",
   "deep_nft_computing_power": "NFT 계산력",
@@ -418,7 +353,6 @@
   "deep_total_amount": "총 금액",
   "deep_claimed_amount": "수령한 금액",
   "deep_released_amount": "해제된 금액",
-
   "deep_total_machine_base_power": "총 머신 기본 계산력 (NFT 스테이킹/임대 등의 계산력 증폭 효과 제외)",
   "deep_total_machine_power_with_nft": "총 머신 계산력 (NFT 스테이킹의 계산력 증폭 효과 포함)",
   "deep_total_machine_power_with_nft_rental": "총 머신 계산력 (NFT 스테이킹/임대 등의 계산력 증폭 효과 포함)",
@@ -426,19 +360,16 @@
   "deep_total_claimed_reward_amount": "수령한 총 보상 금액",
   "deep_total_released_reward_amount": "해제된 보상 금액",
   "deep_locked_reward": "락업 보상",
-
   "deep_adding_nft_in_progress": "NFT 추가 중",
   "deep_processing_add_nft_request": "NFT 추가 요청을 처리 중입니다. 잠시 기다리세요...",
   "deep_insufficient_nft_balance": "지갑의 NFT 수량이 부족합니다",
   "deep_add_nft_transaction_failed": "NFT 추가 거래 실패",
   "deep_add_nft_success": "NFT 추가 성공!",
-
   "deep_add_nft": "NFT 추가",
   "deep_nft_amount_to_add": "추가할 NFT 수량",
   "deep_enter_nft_amount_to_add": "추가할 NFT 수량을 입력하세요",
   "deep_cancel": "취소",
   "deep_confirm_add": "추가",
-
   "deep_view_details": "자세히 보기",
   "deep_balance_details": "잔액 세부 정보",
   "deep_total_token_amount": "총 토큰 수량",
@@ -447,12 +378,9 @@
   "deep_next_estimated_unlock_time": "다음 예상 해제 시간",
   "deep_estimated_unlock_time": "예상 해제 시간",
   "deep_after_unlock": "후 해제",
-
   "deep_reward_address_optional": "보상 수령 주소(선택 사항)",
   "deep_enter_reward_address": "보상 수령 주소를 입력하세요",
-
   "deep_region": "지역",
-
   "deeplink": {
     "totalItems": "총 {{count}}개",
     "currentPage": "{{page}}페이지"
@@ -481,5 +409,15 @@
   "deep_unlock_plan": "잠금 해제 계획",
   "deep_next_unlock_time": "다음 잠금 해제 시간",
   "deep_pending_unlock": "잠금 해제 대기",
-  "deep_no_unlock_plan": "잠금 해제 계획 없음"
+  "deep_no_unlock_plan": "잠금 해제 계획 없음",
+  "renewing": "임대 연장 중...",
+  "renew_in_progress": "임대 연장 작업 진행 중",
+  "renew_success": "연장 성공",
+  "renew_operation_success": "연장 작업이 성공했습니다",
+  "renew": "연장",
+  "machine_renew": "장비 연장",
+  "renew_time": "연장할 시간",
+  "enter_renew_time": "해당 장비의 연장할 시간을 입력하세요",
+  "renew_action": "연장",
+  "hour": "시간"
 }

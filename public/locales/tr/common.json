@@ -409,5 +409,15 @@
   "deep_unlock_plan": "Kilit açma planı",
   "deep_next_unlock_time": "Sonraki kilit açma zamanı",
   "deep_pending_unlock": "Bekleyen kilit açma",
-  "deep_no_unlock_plan": "Şu anda kilit açma planı yok"
+  "deep_no_unlock_plan": "Şu anda kilit açma planı yok",
+  "renewing": "Yenileniyor...",
+  "renew_in_progress": "Yenileme işlemi devam ediyor",
+  "renew_success": "Yenileme başarılı",
+  "renew_operation_success": "Yenileme işlemi başarıyla tamamlandı",
+  "renew": "Yenile",
+  "machine_renew": "Makine Yenileme",
+  "renew_time": "Yenilenecek süre",
+  "enter_renew_time": "Lütfen bu makine için yenileme süresini girin",
+  "renew_action": "Yenile",
+  "hour": "Saat"
 }

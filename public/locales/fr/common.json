@@ -409,5 +409,15 @@
   "deep_unlock_plan": "Plan de déverrouillage",
   "deep_next_unlock_time": "Prochain temps de déverrouillage",
   "deep_pending_unlock": "Déverrouillage en attente",
-  "deep_no_unlock_plan": "Aucun plan de déverrouillage pour le moment"
+  "deep_no_unlock_plan": "Aucun plan de déverrouillage pour le moment",
+  "renewing": "Renouvellement...",
+  "renew_in_progress": "Renouvellement en cours",
+  "renew_success": "Renouvellement réussi",
+  "renew_operation_success": "Opération de renouvellement réussie",
+  "renew": "Renouveler",
+  "machine_renew": "Renouvellement de la machine",
+  "renew_time": "Heure de renouvellement",
+  "enter_renew_time": "Veuillez saisir l'heure de renouvellement pour cette machine",
+  "renew_action": "Renouveler",
+  "hour": "Heure"
 }

@@ -409,5 +409,15 @@
   "deep_unlock_plan": "Kế hoạch mở khóa",
   "deep_next_unlock_time": "Thời gian mở khóa tiếp theo",
   "deep_pending_unlock": "Đang chờ mở khóa",
-  "deep_no_unlock_plan": "Chưa có kế hoạch mở khóa"
+  "deep_no_unlock_plan": "Chưa có kế hoạch mở khóa",
+  "renewing": "Đang gia hạn...",
+  "renew_in_progress": "Đang thực hiện gia hạn",
+  "renew_success": "Gia hạn thành công",
+  "renew_operation_success": "Thao tác gia hạn thành công",
+  "renew": "Gia hạn",
+  "machine_renew": "Gia hạn máy",
+  "renew_time": "Thời gian cần gia hạn",
+  "enter_renew_time": "Vui lòng nhập thời gian gia hạn cho máy này",
+  "renew_action": "Gia hạn",
+  "hour": "Giờ"
 }

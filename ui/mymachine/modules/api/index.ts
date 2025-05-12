@@ -50,6 +50,29 @@ export async function createMachine(req: any) {
   }
 }
 
+// 续租机器
+export async function renewMachine(req: any) {
+  const url = `${baseUrl}/renew`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(req),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      return data; // 返回创建结果
+    } else {
+      return response;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+
 // 解除质押
 export async function usStake(mashineId: any) {
   const url = `${baseUrl}/unStake?mashineId=${mashineId}`;

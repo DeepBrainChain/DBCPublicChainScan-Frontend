@@ -409,5 +409,15 @@
   "deep_unlock_plan": "Plan de desbloqueo",
   "deep_next_unlock_time": "Próximo tiempo de desbloqueo",
   "deep_pending_unlock": "Desbloqueo pendiente",
-  "deep_no_unlock_plan": "No hay plan de desbloqueo por ahora"
+  "deep_no_unlock_plan": "No hay plan de desbloqueo por ahora",
+  "renewing": "Renovando...",
+  "renew_in_progress": "Operación de renovación en curso",
+  "renew_success": "Renovación exitosa",
+  "renew_operation_success": "La operación de renovación fue exitosa",
+  "renew": "Renovar",
+  "machine_renew": "Renovación de máquina",
+  "renew_time": "Hora de renovación",
+  "enter_renew_time": "Por favor, ingrese el tiempo de renovación para esta máquina",
+  "renew_action": "Renovar",
+  "hour": "Hora"
 }

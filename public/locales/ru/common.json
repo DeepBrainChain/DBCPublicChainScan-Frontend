@@ -409,5 +409,15 @@
   "deep_unlock_plan": "План разблокировки",
   "deep_next_unlock_time": "Следующее время разблокировки",
   "deep_pending_unlock": "Ожидающая разблокировка",
-  "deep_no_unlock_plan": "Плана разблокировки пока нет"
+  "deep_no_unlock_plan": "Плана разблокировки пока нет",
+  "renewing": "Продление...",
+  "renew_in_progress": "Выполняется продление",
+  "renew_success": "Продление выполнено успешно",
+  "renew_operation_success": "Операция продления прошла успешно",
+  "renew": "Продлить",
+  "machine_renew": "Продление машины",
+  "renew_time": "Время продления",
+  "enter_renew_time": "Пожалуйста, введите время продления этой машины",
+  "renew_action": "Продлить",
+  "hour": "Час"
 }

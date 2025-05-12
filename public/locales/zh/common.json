@@ -22,19 +22,15 @@
   "deeplink-network": "将CPU机器加入到DeepLink网络中",
   "staking-rewards-rule": "质押越多收益越大，此步骤也可以跳过，不质押DLC，参考规则",
   "deeplink-network-machine-info": "查看已加入到DeepLink网络中的机器信息",
-
   "stake-dbc": "质押DBC",
   "gpu-count": "机器的GPU数量：",
   "input-gpu-count": "请输入机器的GPU数量",
   "gpu-stake-requirement": "每个GPU需要质押1000个DBC",
-
   "submit": "提交",
-
   "stake-nft-node": "质押NFT节点",
   "nft-stake-count": "质押的NFT数量：",
   "input-nft-stake-count": "请输入质押的NFT数量",
   "nft-stake-requirement": "最少需要质押1个NFT,最多质押20个NFT",
-
   "stake-dlc": "质押DLC",
   "dlc-stake-count": "质押的DLC数量：",
   "input-dlc-stake-count": "请输入质押的DLC数量",
@@ -50,14 +46,12 @@
   "add-rented-gpu-to-deeplink": "将租赁的GPU机器加入到Deeplink网络中",
   "skip-dlc-pledge": "此步骤也可以跳过，不质押DLC，参考规则",
   "view-deeplink-machine-info": "查看已加入到Deeplink网络中的机器信息",
-
   "pledge-nft-nodes": "质押NFT节点",
   "nft-nodes-pledge-count": "质押的NFT节点数量",
   "input-nft-nodes-count": "请输入节点数量",
   "nft-pledge-requirement": "最少需要质押1个NFT，最多质押20个NFT",
   "rent-id": "租赁ID",
   "input-rent-id": "请输入租赁ID",
-
   "pledge-dlc": "质押DLC",
   "dlc-pledge-amount": "质押的DLC数量",
   "input-dlc-pledge-amount": "请输入质押的DLC数量",
@@ -70,7 +64,6 @@
   "click-on-cloud-computer": "点击“云GPU”",
   "my-computer": "出租我的电脑",
   "add-machine": "添加机器",
-
   "latest-batch": "最新批次",
   "total-blocks": "总区块数",
   "average-block-time": "平均出块时间",
@@ -79,24 +72,19 @@
   "wallet-addresses": "钱包地址数",
   "gas-tracker": "Gas追踪器",
   "btc-locked-in-2wp": "锁定在2WP中的BTC",
-
   "last-update": "最后更新",
   "fast": "快速",
   "normal": "普通",
   "slow": "慢速",
   "gas-tracker-overview": "Gas追踪器概览",
-
   "daily-transactions": "每日交易数",
   "transactions-yesterday": "昨天的交易数量（0:00 - 23:59 UTC）。图表显示过去30天的每日交易数。",
-
   "market-cap": "市值",
   "market-cap-hint": "加密货币流通供应的总市场价值，类似于股票市场的自由流通市值。市值 = 当前价格 × 流通供应量。",
   "total-value-locked": "总锁仓价值",
   "total-value-locked-hint": "链上锁仓或质押的数字资产总价值。",
-
   "price": "价格",
   "token-daily-price-usd": "代币每日价格（美元）。",
-
   "latest-blocks": "最新区块",
   "latest-transactions": "最新交易",
   "network-utilization": "网络利用率",
@@ -106,7 +94,6 @@
   "miner": "矿工",
   "txn": "交易",
   "reward": "奖励",
-
   "contract-call": "合约调用",
   "blob-txn": "Blob交易",
   "contract-creation": "合约创建",
@@ -116,18 +103,15 @@
   "remasc": "REMASC",
   "bridge": "桥接",
   "transaction": "交易",
-
   "additional-info": "附加信息",
   "transaction-fee": "交易费用",
   "gas-limit-usage": "交易的Gas限制与使用量",
   "others": "其他",
   "more-details": "更多详情",
   "gas-fees": "Gas费用",
-
   "base": "基础",
   "max": "最大",
   "max-priority": "最大优先级",
-
   "txn-type": "交易类型",
   "nonce": "交易序号",
   "position": "交易位置",
@@ -136,7 +120,6 @@
   "view-all-transactions": "查看所有交易",
   "container_id": "容器 ID",
   "enter_container_id": "请输入容器 ID",
-
   "block_chain": "区块链",
   "block_tokens": "代币",
   "block_dapps": "去中心化应用",
@@ -147,7 +130,6 @@
   "block_other": "其他",
   "block_verify_contract": "验证合约",
   "block_gas_tracker": "燃气追踪器",
-
   "block_top_accounts": "顶级账户",
   "block_blocks": "区块",
   "block_transactions": "交易",
@@ -159,18 +141,14 @@
   "block_graphql": "GraphQL",
   "block_rpc_api": "RPC API",
   "block_eth_rpc_api": "Eth RPC API",
-
   "token_item": "代币",
   "token_price": "价格",
   "token_onchain_market_cap": "链上市值",
   "token_holders": "持有者",
-
   "token_name_or_symbol": "代币名称或符号",
   "token_filter": "筛选",
-
   "token_type": "类型",
   "token_reset": "重置",
-
   "machine_ID": "机器ID",
   "machine_Stake": "质押",
   "machine_Reg": "地区",
@@ -186,7 +164,6 @@
   "machine_Unstake": "解除质押",
   "machine_Withdraw": "领取收益",
   "machine_List": "机器列表",
-
   "withdrawDialog_machineId": "机器ID",
   "withdrawDialog_isStaking": "是否在质押",
   "withdrawDialog_totalRewards": "已质押的数量",
@@ -194,7 +171,6 @@
   "withdrawDialog_lockedRewards": "锁仓奖励数量",
   "withdrawDialog_action": "操作",
   "withdrawDialog_searchKeywords": "请输入搜索关键词",
-
   "hint": "提示",
   "cpudbc_connect_wallet": "请先连接你的钱包",
   "staking": "质押中",
@@ -206,7 +182,6 @@
   "cpudbc_stake_success": "DBC质押成功！",
   "failed": "失败",
   "operation_failed": "操作失败",
-
   "cpunft_hint": "提示",
   "cpunft_connect_wallet": "请先连接你的钱包",
   "cpunft_staking": "质押中",
@@ -220,21 +195,16 @@
   "cpunft_stake_success": "质押成功！",
   "cpunft_failed": "失败",
   "cpunft_operation_failed": "操作失败",
-
   "dlcstake_stake_success": "DLC质押成功！",
-
   "not_staked_yet": "此机器还没有质押过NFT，请先进行NFT质押！",
   "stakeEndTime": "质押结束时间",
-
   "withdraw_confirmation": "确认",
   "withdraw_areYouSure": "您确定要提取收益吗？",
   "withdraw_pendingRewards": "待领取奖励",
   "withdraw_cancel": "取消",
   "withdraw_confirm": "确认",
-
   "grok3_blocks_indexed": "区块已索引",
   "grok3_indexing_notice": "我们正在索引这条链。部分计数可能不准确。",
-
   "grok3_DeepBrainChain": "深脑链",
   "grok3_Home": "首页",
   "grok3_Developers": "开发者",
@@ -244,7 +214,6 @@
   "grok3_Twitter": "推特",
   "grok3_Telegram": "电报",
   "grok3_Reddit": "Reddit",
-
   "deep_network_utilization": "网络利用率",
   "deep_last_50_blocks": "最近50个区块",
   "deep_load": "负载",
@@ -257,7 +226,6 @@
   "deep_gas_used": "燃气使用量",
   "deep_reward": "奖励",
   "deep_burnt_fees": "销毁费用",
-
   "deep_token_transfer": "代币转账",
   "deep_deposit": "存款",
   "deep_block": "区块",
@@ -265,20 +233,15 @@
   "deep_scanning_new": "扫描新数据",
   "deep2_blocks": "区块",
   "deep_Top_accounts": "顶级账户",
-
   "deep_rank": "排名",
   "deep_address": "地址",
   "deep_public_tag": "公共标签",
   "deep_percentage": "百分比",
   "deep_txn_count": "交易计数",
-
   "deep_no_verified_contracts": "没有已验证的合约。",
-
   "deep_total_contracts": "合约总数",
   "deep_verified_contracts": "已验证合约",
-
   "deep_search_by_contract_name_or_address": "按合约名称或地址搜索",
-
   "deep_contract": "合约",
   "deep_balance": "余额",
   "deep_txs": "交易",
@@ -286,70 +249,49 @@
   "deep_settings": "设置",
   "deep_verified": "已验证",
   "deep_license": "许可证",
-
   "deep_find_app_by_name_or_keyword": "按名称或关键字查找应用...",
-
   "deep_AI + DePIN + Cloud Gaming + GPU": "AI + 去中心化物理基础设施 + 云游戏 + GPU",
   "deep_DeepLink_description": "深链是一个由AI和区块链技术驱动的去中心化云游戏协议。它将人工智能、游戏、GPU、现实世界资产代币化和去中心化物理基础设施网络融合到一个项目中，堪称叙事的终极组合。DEEPLINK提供超低延迟的游戏渲染技术，支持多种应用，如云电竞、云网吧、基于云的3A游戏、区块链集成游戏以及云VR/AR/XR等。深链协议通过AI技术增强，可以提升游戏的渲染分辨率和清晰度。",
-
   "deep_AI + DePIN + GPU + AGI": "AI + 去中心化物理基础设施 + GPU + 通用人工智能",
   "deep_DecentralGPT_description": "去中心化GPT支持多种开源大型语言模型。它致力于构建一个安全、隐私保护、民主、透明、开源且全球可访问的通用人工智能（AGI）。",
-
   "deep_AI + DePIN + GPU + Image": "AI + 去中心化物理基础设施 + GPU + 图像",
   "deep_SuperImage_description": "超级图像拥有多个潜在的文本到图像扩散模型，可以根据任何文本输入生成逼真的照片级图像，培养自主自由创作惊艳图像的能力，使数十亿人能够在几秒钟内创造出令人惊叹的艺术作品。",
-
   "deep_GPU Cloud": "GPU云",
   "deep_dot": ".",
   "deep_HibaoCloud_description": ".",
   "deep_Hycons_description": ".",
-
   "deep_Luanchpad": "发射台",
   "deep_Node launchpad": "节点发射台",
   "deep_DRCPad_description": "DRCPad - 首个AI节点交易的初级市场。它是一个基于Deepbrain AI市场的筹资、推广和营销平台。DBC和USDT是DRCPad的两种主网代币。",
-
   "deep_Wallet": "钱包",
   "deep_DeepBrainChain_description": "深脑链2.0是一个AI公共链。AI开发者可以基于DBC开发去中心化的AI产品。",
-
   "deep_more_info": "更多信息",
-
   "deep_overview": "概览",
-
   "deep_submit_app": "提交应用",
   "deep_suggest_ideas": "建议想法",
   "deep_dapps": "去中心化应用",
-
   "deep_gpu_race": "GPU竞赛",
-
   "deep_DeAI": "去中心化AI",
   "deep_AI + DePIN + GPU + AGIxxxx": "AI + 去中心化物理基础设施 + GPU + AGIxxxx",
   "deep_DecentralGPT_Andromeda_description": "去中心化GPT仙女座项目",
-
   "deep_AI + DePIN + GPU": "AI + 去中心化物理基础设施 + GPU",
   "deep_DeepLink_Orion_description": "深链猎户座项目",
-
   "deep_DeepBrainChain_GalaxyRace_description": "深脑链银河竞赛项目",
   "deep_gpu_mining": "GPU挖矿",
-
   "deep_daily_mining_reward": "每日挖矿奖励",
   "deep_gpu_count": "GPU数量",
-
   "deep_find_chart_metric": "查找图表和指标...",
-
   "deep_verify_publish_contract": "验证并发布合约",
   "deep_contract_address_to_verify": "待验证的合约地址",
   "deep_loading_data_please_wait": "正在加载数据，请稍候...",
-
   "deep_contract_license_best_practices": "为了遵循最佳实践，鼓励所有合约源代码持有者、发布者和作者为其提供的已验证合约源代码指定相应的许可证。",
-
   "deep_smart_contract_address": "智能合约 / 地址 (0x...)",
   "deep_invalid_format": "格式无效",
   "deep_contract_license": "合约许可证",
-
   "deep_currently_blockscout_supports_1": "当前，Blockscout支持",
   "deep_contract_verification_methods": "合约验证方法",
   "deep_currently_blockscout_supports_2": "当前，Blockscout支持",
   "deep_methods": "方法",
-
   "deep_verification_method_compiler_type": "验证方法（编译器类型）",
   "deep_verification_through": "通过以下方式验证",
   "deep_sourcify": "Sourcify",
@@ -364,12 +306,10 @@
   "deep_verification_through_flattened_source_code": "通过扁平化源代码验证",
   "deep_verification_of_multi_part_solidity_files": "多部分Solidity文件验证",
   "deep_gas_tracker": "燃气跟踪器",
-
   "deep_gas_price_history": "燃气价格历史",
   "deep_charts": "图表",
   "deep_stats": "统计",
   "deep_last_updated": "最后更新",
-
   "deep_long_term_rental_note": "注意：对于长期租赁模式，GPU服务器需托管在专业数据中心，且电源和网络需全年365天无中断运行，否则DBC代币将受到处罚。",
   "deep_rent_own_machine_until_andromeda_end_1": "首先，在DBC网络中租赁您自己的机器，直到当前阶段的仙女座GPU竞赛结束。",
   "deep_rent_own_machine_until_andromeda_end_2": "在DBC网络中租赁您自己的机器，租赁期限应持续到当前阶段的仙女座GPU竞赛结束。",
@@ -380,7 +320,6 @@
   "deep_view_decentralgpt_network_machine_info": "查看已加入DecentralGPT网络的机器信息",
   "deep_installation_documentation": "安装文档",
   "deep_download_address": "下载地址",
-
   "deep2_free_mode_note": "注意：自由模式下的机器可以放置在任何地方。然而，单台GPU机器的网络上行带宽需至少为5Mbps。详细规则请查看：https://and.decentralgpt.org/rule",
   "deep2_install_dbc_worker_node_first": "首先，安装DBC工作节点。安装文档",
   "deep2_obtain_machine_id_and_private_key": "并获取机器ID和私钥",
@@ -389,12 +328,10 @@
   "deep2_view_decentralgpt_network_machine_info": "查看已加入DecentralGPT网络的机器信息",
   "deep_region_not_supported_hint": "提示：不支持机器所在区域，请换到其他区域的机器",
   "deep_unstake_dbc": "解除质押DBC",
-
   "deep_unstaking_in_progress": "解除质押中",
   "deep_processing_unstake_request": "正在处理您的解除质押请求，请稍候...",
   "deep_unstake_dbc_transaction_failed": "解除质押DBC交易失败",
   "deep_unstake_dbc_success": "解除质押DBC成功！",
-
   "deepx_confirmation": "确认",
   "deepx_are_you_sure_unstake": "您确定要解除质押吗？",
   "deepx_are_you_sure_unstake2": "您确定要解除质押DBC吗？",
@@ -409,7 +346,6 @@
   "register_important_notice": "重要提示",
   "register_before_staking_notice": "在开始质押之前，请先运行带宽程序以确保其正常工作，然后点击按钮完成机器注册",
   "register_machine": "注册机器",
-
   "deep_is_online": "是否在线",
   "deep_initial_computing_power": "初始算力",
   "deep_nft_computing_power": "NFT算力",
@@ -417,7 +353,6 @@
   "deep_total_amount": "总金额",
   "deep_claimed_amount": "已领取金额",
   "deep_released_amount": "已释放金额",
-
   "deep_total_machine_base_power": "总的机器原始算力 (不包含质押nft/租用等行为 对算力的增幅)",
   "deep_total_machine_power_with_nft": "总的机器算力 (包含质押nft 对算力的增幅)",
   "deep_total_machine_power_with_nft_rental": "总的机器算力 (包含质押nft/租用等行为 对算力的增幅)",
@@ -425,19 +360,16 @@
   "deep_total_claimed_reward_amount": "已领取的总奖励金额",
   "deep_total_released_reward_amount": "已释放的奖励金额",
   "deep_locked_reward": "锁仓奖励",
-
   "deep_adding_nft_in_progress": "追加NFT中",
   "deep_processing_add_nft_request": "正在处理您的追加NFT请求，请稍候...",
   "deep_insufficient_nft_balance": "您的钱包nft数量不足",
   "deep_add_nft_transaction_failed": "追加NFT交易失败",
   "deep_add_nft_success": "追加NFT成功！",
-
   "deep_add_nft": "追加NFT",
   "deep_nft_amount_to_add": "要追加的NFT数量",
   "deep_enter_nft_amount_to_add": "请输入要追加的NFT数量",
   "deep_cancel": "取消",
   "deep_confirm_add": "追加",
-
   "deep_view_details": "查看详情",
   "deep_balance_details": "余额详情",
   "deep_total_token_amount": "总额代币数量",
@@ -446,12 +378,9 @@
   "deep_next_estimated_unlock_time": "下一笔预计解锁时间",
   "deep_estimated_unlock_time": "预计解锁时间",
   "deep_after_unlock": "后解锁",
-
   "deep_reward_address_optional": "接受奖励的地址（可选）",
   "deep_enter_reward_address": "请输入接受奖励的地址",
-
   "deep_region": "地域",
-
   "deeplink": {
     "totalItems": "共 {{count}} 条",
     "currentPage": "第 {{page}} 页"
@@ -480,5 +409,15 @@
   "deep_unlock_plan": "解锁计划",
   "deep_next_unlock_time": "下一笔解锁时间",
   "deep_pending_unlock": "待解锁",
-  "deep_no_unlock_plan": "暂无解锁计划"
+  "deep_no_unlock_plan": "暂无解锁计划",
+  "renewing": "续租中...",
+  "renew_in_progress": "正在进行续租操作",
+  "renew_success": "续租成功",
+  "renew_operation_success": "续租操作成功",
+  "renew": "续租",
+  "machine_renew": "机器续租",
+  "renew_time": "要续租的时间",
+  "enter_renew_time": "请输入该机器续租的时间",
+  "renew_action": "续租",
+  "hour": "小时"
 }

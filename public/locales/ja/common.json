@@ -22,19 +22,15 @@
   "deeplink-network": "CPUマシンをDeepLinkネットワークに追加する",
   "staking-rewards-rule": "ステーキング越多、収益越大。このステップはスキップ可能で、DLCをステーキングしなくても可能です。ルールを参照してください。",
   "deeplink-network-machine-info": "DeepLinkネットワークに追加されたマシンの情報を確認する",
-
   "stake-dbc": "DBCをステーキング",
   "gpu-count": "マシンのGPU数：",
   "input-gpu-count": "マシンのGPU数を入力してください",
   "gpu-stake-requirement": "各GPUにつき1000 DBCのステーキングが必要です",
-
   "submit": "送信",
-
   "stake-nft-node": "NFTノードをステーキング",
   "nft-stake-count": "ステーキングするNFT数：",
   "input-nft-stake-count": "ステーキングするNFT数を入力してください",
   "nft-stake-requirement": "最低1個、最大20個のNFTをステーキングする必要があります",
-
   "stake-dlc": "DLCをステーキング",
   "dlc-stake-count": "ステーキングするDLC数：",
   "input-dlc-stake-count": "ステーキングするDLC数を入力してください",
@@ -50,14 +46,12 @@
   "add-rented-gpu-to-deeplink": "レンタルしたGPUマシンをDeepLinkネットワークに追加する",
   "skip-dlc-pledge": "このステップはスキップ可能で、DLCをステーキングしなくても可能です。ルールを参照してください。",
   "view-deeplink-machine-info": "DeepLinkネットワークに追加されたマシンの情報を確認する",
-
   "pledge-nft-nodes": "NFTノードをステーキング",
   "nft-nodes-pledge-count": "ステーキングするNFTノード数",
   "input-nft-nodes-count": "ノード数を入力してください",
   "nft-pledge-requirement": "最低1個、最大20個のNFTをステーキングする必要があります",
   "rent-id": "レンタルID",
   "input-rent-id": "レンタルIDを入力してください",
-
   "pledge-dlc": "DLCをステーキング",
   "dlc-pledge-amount": "ステーキングするDLC数",
   "input-dlc-pledge-amount": "ステーキングするDLC数を入力してください",
@@ -70,7 +64,6 @@
   "click-on-cloud-computer": "「クラウドGPU」をクリック",
   "my-computer": "マイコンピュータをレンタル",
   "add-machine": "マシン追加",
-
   "latest-batch": "最新バッチ",
   "total-blocks": "総ブロック数",
   "average-block-time": "平均ブロック生成時間",
@@ -79,24 +72,19 @@
   "wallet-addresses": "ウォレットアドレス数",
   "gas-tracker": "ガス追跡器",
   "btc-locked-in-2wp": "2WPにロックされたBTC",
-
   "last-update": "最終更新",
   "fast": "高速",
   "normal": "標準",
   "slow": "低速",
   "gas-tracker-overview": "ガス追跡概要",
-
   "daily-transactions": "日次取引数",
   "transactions-yesterday": "昨日の取引数（0:00 - 23:59 UTC）。グラフは過去30日間の日次取引数を表示します。",
-
   "market-cap": "時価総額",
   "market-cap-hint": "暗号通貨の流通供給の総市場価値で、株式市場の自由流通時価総額に似ています。時価総額 = 現在の価格 × 流通供給量。",
   "total-value-locked": "総ロック価値",
   "total-value-locked-hint": "チェーン上でロックまたはステーキングされたデジタル資産の総価値。",
-
   "price": "価格",
   "token-daily-price-usd": "トークンの日次価格（米ドル）。",
-
   "latest-blocks": "最新ブロック",
   "latest-transactions": "最新取引",
   "network-utilization": "ネットワーク利用率",
@@ -106,7 +94,6 @@
   "miner": "マイナー",
   "txn": "取引",
   "reward": "報酬",
-
   "contract-call": "コントラクト呼び出し",
   "blob-txn": "Blob取引",
   "contract-creation": "コントラクト作成",
@@ -116,18 +103,15 @@
   "remasc": "REMASC",
   "bridge": "ブリッジ",
   "transaction": "取引",
-
   "additional-info": "追加情報",
   "transaction-fee": "取引手数料",
   "gas-limit-usage": "取引のガス制限と使用量",
   "others": "その他",
   "more-details": "詳細情報",
   "gas-fees": "ガス手数料",
-
   "base": "基本",
   "max": "最大",
   "max-priority": "最大優先度",
-
   "txn-type": "取引タイプ",
   "nonce": "取引シーケンス",
   "position": "取引位置",
@@ -136,7 +120,6 @@
   "view-all-transactions": "すべての取引を表示",
   "container_id": "コンテナID",
   "enter_container_id": "コンテナIDを入力してください",
-
   "block_chain": "ブロックチェーン",
   "block_tokens": "トークン",
   "block_dapps": "分散型アプリケーション",
@@ -147,7 +130,6 @@
   "block_other": "その他",
   "block_verify_contract": "コントラクト検証",
   "block_gas_tracker": "ガス追跡器",
-
   "block_top_accounts": "トップアカウント",
   "block_blocks": "ブロック",
   "block_transactions": "取引",
@@ -159,18 +141,14 @@
   "block_graphql": "GraphQL",
   "block_rpc_api": "RPC API",
   "block_eth_rpc_api": "Eth RPC API",
-
   "token_item": "トークン",
   "token_price": "価格",
   "token_onchain_market_cap": "オンチェーン時価総額",
   "token_holders": "保有者",
-
   "token_name_or_symbol": "トークン名またはシンボル",
   "token_filter": "フィルター",
-
   "token_type": "タイプ",
   "token_reset": "リセット",
-
   "machine_ID": "マシンID",
   "machine_Stake": "ステーキング",
   "machine_Reg": "地域",
@@ -186,7 +164,6 @@
   "machine_Unstake": "ステーキング解除",
   "machine_Withdraw": "収益受領",
   "machine_List": "マシンリスト",
-
   "withdrawDialog_machineId": "マシンID",
   "withdrawDialog_isStaking": "ステーキング中か",
   "withdrawDialog_totalRewards": "ステーキング済み数量",
@@ -194,7 +171,6 @@
   "withdrawDialog_lockedRewards": "ロック報酬数量",
   "withdrawDialog_action": "操作",
   "withdrawDialog_searchKeywords": "検索キーワードを入力してください",
-
   "hint": "ヒント",
   "cpudbc_connect_wallet": "まずウォレットを接続してください",
   "staking": "ステーキング中",
@@ -206,7 +182,6 @@
   "cpudbc_stake_success": "DBCステーキング成功！",
   "failed": "失敗",
   "operation_failed": "操作に失敗しました",
-
   "cpunft_hint": "ヒント",
   "cpunft_connect_wallet": "まずウォレットを接続してください",
   "cpunft_staking": "ステーキング中",
@@ -220,21 +195,16 @@
   "cpunft_stake_success": "ステーキング成功！",
   "cpunft_failed": "失敗",
   "cpunft_operation_failed": "操作に失敗しました",
-
   "dlcstake_stake_success": "DLCステーキング成功！",
-
   "not_staked_yet": "このマシンはまだNFTをステーキングしていません。まずNFTをステーキングしてください！",
   "stakeEndTime": "ステーキング終了時間",
-
   "withdraw_confirmation": "確認",
   "withdraw_areYouSure": "収益を本当に引き出しますか？",
   "withdraw_pendingRewards": "受領待ち報酬",
   "withdraw_cancel": "キャンセル",
   "withdraw_confirm": "確認",
-
   "grok3_blocks_indexed": "ブロックがインデックス済み",
   "grok3_indexing_notice": "このチェーンをインデックス中です。一部のカウントが正確でない場合があります。",
-
   "grok3_DeepBrainChain": "深脳鎖",
   "grok3_Home": "ホーム",
   "grok3_Developers": "開発者",
@@ -244,7 +214,6 @@
   "grok3_Twitter": "Twitter",
   "grok3_Telegram": "Telegram",
   "grok3_Reddit": "Reddit",
-
   "deep_network_utilization": "ネットワーク利用率",
   "deep_last_50_blocks": "最近50ブロック",
   "deep_load": "負荷",
@@ -257,7 +226,6 @@
   "deep_gas_used": "ガス使用量",
   "deep_reward": "報酬",
   "deep_burnt_fees": "焼却手数料",
-
   "deep_token_transfer": "トークン転送",
   "deep_deposit": "入金",
   "deep_block": "ブロック",
@@ -265,20 +233,15 @@
   "deep_scanning_new": "新規データスキャン中",
   "deep2_blocks": "ブロック",
   "deep_Top_accounts": "トップアカウント",
-
   "deep_rank": "ランク",
   "deep_address": "アドレス",
   "deep_public_tag": "公開タグ",
   "deep_percentage": "割合",
   "deep_txn_count": "取引数",
-
   "deep_no_verified_contracts": "検証済みのコントラクトがありません。",
-
   "deep_total_contracts": "コントラクト総数",
   "deep_verified_contracts": "検証済みコントラクト",
-
   "deep_search_by_contract_name_or_address": "コントラクト名またはアドレスで検索",
-
   "deep_contract": "コントラクト",
   "deep_balance": "残高",
   "deep_txs": "取引",
@@ -286,70 +249,49 @@
   "deep_settings": "設定",
   "deep_verified": "検証済み",
   "deep_license": "ライセンス",
-
   "deep_find_app_by_name_or_keyword": "名前またはキーワードでアプリを検索...",
-
   "deep_AI + DePIN + Cloud Gaming + GPU": "AI + 分散型物理インフラ + クラウドゲーミング + GPU",
   "deep_DeepLink_description": "深鏈は、AIとブロックチェーン技術によって駆動される分散型クラウドゲーミングプロトコルです。人工知能、ゲーム、GPU、現実世界の資産トークン化、分散型物理インフラネットワークを1つのプロジェクトに統合し、究極のナラティブの組み合わせと言えます。DEEPLINKは超低遅延のゲームレンダリング技術を提供し、クラウドeスポーツ、クラウドネットカフェ、クラウドベースの3Aゲーム、ブロックチェーン統合ゲーム、クラウドVR/AR/XRなどの多様なアプリケーションをサポートします。深鏈プロトコルはAI技術により、ゲームのレンダリング解像度と鮮明さを向上させます。",
-
   "deep_AI + DePIN + GPU + AGI": "AI + 分散型物理インフラ + GPU + 汎用人工知能",
   "deep_DecentralGPT_description": "分散型GPTは、複数のオープンソース大規模言語モデルをサポートします。安全、プライバシー保護、民主的、透明、オープンソース、かつグローバルにアクセス可能な汎用人工知能（AGI）の構築を目指しています。",
-
   "deep_AI + DePIN + GPU + Image": "AI + 分散型物理インフラ + GPU + 画像",
   "deep_SuperImage_description": "スーパーイメージは、複数の潜在的なテキストから画像への拡散モデルを備え、任意のテキスト入力からリアルな写真レベルの画像を生成できます。自由で驚異的な画像創作能力を育み、何十億もの人々が数秒で驚くべきアート作品を生み出せるようにします。",
-
   "deep_GPU Cloud": "GPUクラウド",
   "deep_dot": ".",
   "deep_HibaoCloud_description": ".",
   "deep_Hycons_description": ".",
-
   "deep_Luanchpad": "ローンチパッド",
   "deep_Node launchpad": "ノードローンチパッド",
   "deep_DRCPad_description": "DRCPad - 初のAIノード取引のプライマリーマーケット。Deepbrain AI市場を基盤とした資金調達、プロモーション、マーケティングプラットフォームです。DBCとUSDTはDRCPadの2つのメインネットトークンです。",
-
   "deep_Wallet": "ウォレット",
   "deep_DeepBrainChain_description": "深脳鎖2.0はAIパブリックチェーンです。AI開発者はDBCを基盤に分散型AI製品を開発できます。",
-
   "deep_more_info": "詳細情報",
-
   "deep_overview": "概要",
-
   "deep_submit_app": "アプリを提出",
   "deep_suggest_ideas": "アイデアを提案",
   "deep_dapps": "分散型アプリ",
-
   "deep_gpu_race": "GPUコンペティション",
-
   "deep_DeAI": "分散型AI",
   "deep_AI + DePIN + GPU + AGIxxxx": "AI + 分散型物理インフラ + GPU + AGIxxxx",
   "deep_DecentralGPT_Andromeda_description": "分散型GPTアンドロメダプロジェクト",
-
   "deep_AI + DePIN + GPU": "AI + 分散型物理インフラ + GPU",
   "deep_DeepLink_Orion_description": "深鏈オリオンプロジェクト",
-
   "deep_DeepBrainChain_GalaxyRace_description": "深脳鎖ギャラクシーレースプロジェクト",
   "deep_gpu_mining": "GPUマイニング",
-
   "deep_daily_mining_reward": "日次マイニング報酬",
   "deep_gpu_count": "GPU数",
-
   "deep_find_chart_metric": "チャートと指標を検索...",
-
   "deep_verify_publish_contract": "コントラクトを検証・公開",
   "deep_contract_address_to_verify": "検証するコントラクトアドレス",
   "deep_loading_data_please_wait": "データ読み込み中、少々お待ちください...",
-
   "deep_contract_license_best_practices": "ベストプラクティスに従うため、すべてのコントラクトソースコードの保有者、公開者、作成者は、提供する検証済みコントラクトソースコードに適切なライセンスを指定することが推奨されます。",
-
   "deep_smart_contract_address": "スマートコントラクト / アドレス (0x...)",
   "deep_invalid_format": "無効な形式",
   "deep_contract_license": "コントラクトライセンス",
-
   "deep_currently_blockscout_supports_1": "現在、Blockscoutは",
   "deep_contract_verification_methods": "コントラクト検証方法",
   "deep_currently_blockscout_supports_2": "現在、Blockscoutは",
   "deep_methods": "方法",
-
   "deep_verification_method_compiler_type": "検証方法（コンパイラタイプ）",
   "deep_verification_through": "以下で検証",
   "deep_sourcify": "Sourcify",
@@ -364,12 +306,10 @@
   "deep_verification_through_flattened_source_code": "フラット化されたソースコードで検証",
   "deep_verification_of_multi_part_solidity_files": "複数部分Solidityファイル検証",
   "deep_gas_tracker": "ガス追跡器",
-
   "deep_gas_price_history": "ガス価格履歴",
   "deep_charts": "チャート",
   "deep_stats": "統計",
   "deep_last_updated": "最終更新",
-
   "deep_long_term_rental_note": "注意：長期レンタルモードでは、GPUサーバーは専門データセンターでホストされ、365日間電源とネットワークが中断されないようにする必要があります。さもなければ、DBCトークンのペナルティが課されます。",
   "deep_rent_own_machine_until_andromeda_end_1": "まず、DBCネットワークで自身のマシンをレンタルし、現在のアンドロメダGPUコンペティション終了まで維持してください。",
   "deep_rent_own_machine_until_andromeda_end_2": "DBCネットワークで自身のマシンをレンタルし、レンタル期間は現在のアンドロメダGPUコンペティション終了まで継続する必要があります。",
@@ -380,7 +320,6 @@
   "deep_view_decentralgpt_network_machine_info": "DecentralGPTネットワークに追加されたマシンの情報を確認",
   "deep_installation_documentation": "インストールドキュメント",
   "deep_download_address": "ダウンロードアドレス",
-
   "deep2_free_mode_note": "注意：フリーモードでは、マシンはどこにでも設置可能です。ただし、単一GPUマシンのネットワーク上り帯域は最低5Mbps必要です。詳細なルールは以下を参照してください：https://and.decentralgpt.org/rule",
   "deep2_install_dbc_worker_node_first": "まず、DBCワーカーノードをインストールしてください。インストールドキュメント",
   "deep2_obtain_machine_id_and_private_key": "マシンIDと秘密鍵を取得",
@@ -389,12 +328,10 @@
   "deep2_view_decentralgpt_network_machine_info": "DecentralGPTネットワークに追加されたマシンの情報を確認",
   "deep_region_not_supported_hint": "ヒント：マシンの地域はサポートされていません。他の地域のマシンに変更してください",
   "deep_unstake_dbc": "DBCステーキング解除",
-
   "deep_unstaking_in_progress": "ステーキング解除中",
   "deep_processing_unstake_request": "ステーキング解除リクエストを処理中です、少々お待ちください...",
   "deep_unstake_dbc_transaction_failed": "DBCステーキング解除取引に失敗しました",
   "deep_unstake_dbc_success": "DBCステーキング解除成功！",
-
   "deepx_confirmation": "確認",
   "deepx_are_you_sure_unstake": "ステーキングを解除しますか？",
   "deepx_are_you_sure_unstake2": "DBCのステーキングを解除しますか？",
@@ -409,7 +346,6 @@
   "register_important_notice": "重要なお知らせ",
   "register_before_staking_notice": "ステーキングを開始する前に、帯域プログラムを実行して正常に動作することを確認し、ボタンをクリックしてマシン登録を完了してください",
   "register_machine": "マシン登録",
-
   "deep_is_online": "オンラインか",
   "deep_initial_computing_power": "初期計算力",
   "deep_nft_computing_power": "NFT計算力",
@@ -417,7 +353,6 @@
   "deep_total_amount": "総額",
   "deep_claimed_amount": "受領済み金額",
   "deep_released_amount": "解放済み金額",
-
   "deep_total_machine_base_power": "マシンの基本計算力合計（NFTステーキングやレンタルなどによる計算力増幅を含まない）",
   "deep_total_machine_power_with_nft": "マシンの総計算力（NFTステーキングによる計算力増幅を含む）",
   "deep_total_machine_power_with_nft_rental": "マシンの総計算力（NFTステーキングやレンタルなどによる計算力増幅を含む）",
@@ -425,19 +360,16 @@
   "deep_total_claimed_reward_amount": "受領済み報酬総額",
   "deep_total_released_reward_amount": "解放済み報酬金額",
   "deep_locked_reward": "ロック報酬",
-
   "deep_adding_nft_in_progress": "NFT追加中",
   "deep_processing_add_nft_request": "NFT追加リクエストを処理中です、少々お待ちください...",
   "deep_insufficient_nft_balance": "ウォレットのNFT数が不足しています",
   "deep_add_nft_transaction_failed": "NFT追加取引に失敗しました",
   "deep_add_nft_success": "NFT追加成功！",
-
   "deep_add_nft": "NFT追加",
   "deep_nft_amount_to_add": "追加するNFT数",
   "deep_enter_nft_amount_to_add": "追加するNFT数を入力してください",
   "deep_cancel": "キャンセル",
   "deep_confirm_add": "追加",
-
   "deep_view_details": "詳細を確認",
   "deep_balance_details": "残高詳細",
   "deep_total_token_amount": "トークン総数",
@@ -446,12 +378,9 @@
   "deep_next_estimated_unlock_time": "次の予想解除時間",
   "deep_estimated_unlock_time": "予想解除時間",
   "deep_after_unlock": "後に解除",
-
   "deep_reward_address_optional": "報酬受取アドレス（任意）",
   "deep_enter_reward_address": "報酬受取アドレスを入力してください",
-
   "deep_region": "地域",
-
   "deeplink": {
     "totalItems": "合計 {{count}} 件",
     "currentPage": "{{page}} ページ目"
@@ -480,5 +409,15 @@
   "deep_unlock_plan": "アンロックプラン",
   "deep_next_unlock_time": "次回アンロック時間",
   "deep_pending_unlock": "アンロック待ち",
-  "deep_no_unlock_plan": "アンロックプランなし"
+  "deep_no_unlock_plan": "アンロックプランなし",
+  "renewing": "更新中...",
+  "renew_in_progress": "更新処理を実行中",
+  "renew_success": "更新成功",
+  "renew_operation_success": "更新処理が成功しました",
+  "renew": "更新",
+  "machine_renew": "マシン更新",
+  "renew_time": "更新する時間",
+  "enter_renew_time": "このマシンの更新時間を入力してください",
+  "renew_action": "更新",
+  "hour": "時間"
 }

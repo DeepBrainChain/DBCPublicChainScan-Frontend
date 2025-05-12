@@ -19,25 +19,18 @@
   "cpu-mining": "CPU Bandwidth Mining",
   "cpu-mining-requirements": "Note: CPU bandwidth mining requires CPU servers to be hosted in professional data centers or leased from vendors, with electricity and network connectivity maintained uninterrupted for 365 days. Otherwise, penalties in DLC Tokens will be incurred",
   "deeplink-installation-instruction": "First, you need to install the DeepLink-related programs on the CPU machine. Refer to the documentation",
-
   "deeplink-network": "Add the CPU machine to the DeepLink network",
-
   "staking-rewards-rule": "The more you stake, the greater the rewards. This step can also be skipped, and you can choose not to stake DLC. Refer to the rules",
-
   "deeplink-network-machine-info": "View the information of machines that have joined the DeepLink network",
-
   "stake-dbc": "Stake DBC",
   "gpu-count": "Number of GPUs on the machine:",
   "input-gpu-count": "Please enter the number of GPUs on the machine",
   "gpu-stake-requirement": "Each GPU requires staking 1000 DBC",
-
   "submit": "Submit",
-
   "stake-nft-node": "Stake NFT node",
   "nft-stake-count": "Number of NFTs to stake:",
   "input-nft-stake-count": "Please enter the number of NFTs to stake",
   "nft-stake-requirement": "You need to stake at least 1 NFT and at most 20 NFTs",
-
   "stake-dlc": "Stake DLC",
   "dlc-stake-count": "Number of DLC to stake:",
   "input-dlc-stake-count": "Please enter the number of DLC to stake",
@@ -53,14 +46,12 @@
   "add-rented-gpu-to-deeplink": "Add rented GPU machines to the Deeplink network",
   "skip-dlc-pledge": "This step can also be skipped without pledging DLC, refer to the rules",
   "view-deeplink-machine-info": "View machine information that has been added to the Deeplink network",
-
   "pledge-nft-nodes": "Pledge NFT Nodes",
   "nft-nodes-pledge-count": "Number of NFT nodes to pledge",
   "input-nft-nodes-count": "Enter number of nodes",
   "nft-pledge-requirement": "A minimum of 1 NFT and a maximum of 20 NFT need to be pledged",
   "rent-id": "rentId",
   "input-rent-id": "Enter the rentId",
-
   "pledge-dlc": "Pledge DLC",
   "dlc-pledge-amount": "Amount of DLC to Pledge",
   "input-dlc-pledge-amount": "Enter the amount of DLC to pledge",
@@ -73,7 +64,6 @@
   "click-on-cloud-computer": "Click on \"Cloud GPU\"",
   "my-computer": "My Computer",
   "add-machine": "Add Machine",
-
   "latest-batch": "Latest Batch",
   "total-blocks": "Total Blocks",
   "average-block-time": "Average Block Time",
@@ -82,21 +72,17 @@
   "wallet-addresses": "Wallet Addresses",
   "gas-tracker": "Gas Tracker",
   "btc-locked-in-2wp": "BTC Locked in 2WP",
-
   "last-update": "Last Update",
   "fast": "Fast",
   "normal": "Normal",
   "slow": "Slow",
   "gas-tracker-overview": "Gas Tracker Overview",
-
   "daily-transactions": "Daily Transactions",
   "transactions-yesterday": "Number of transactions yesterday (0:00 - 23:59 UTC). The chart displays daily transactions for the past 30 days.",
-
   "market-cap": "Market Cap",
   "market-cap-hint": "The total market value of a cryptocurrency's circulating supply. It is analogous to the free-float capitalization in the stock market. Market Cap = Current Price x Circulating Supply.",
   "total-value-locked": "Total Value Locked",
   "total-value-locked-hint": "Total value of digital assets locked or staked in a chain.",
-
   "price": "price",
   "token-daily-price-usd": "token daily price in USD.",
   "latest-blocks": "Latest Blocks",
@@ -108,7 +94,6 @@
   "miner": "Miner",
   "txn": "Txn",
   "reward": "Reward",
-
   "contract-call": "Contract Call",
   "blob-txn": "Blob Txn",
   "contract-creation": "Contract Creation",
@@ -118,18 +103,15 @@
   "remasc": "REMASC",
   "bridge": "Bridge",
   "transaction": "Transaction",
-
   "additional-info": "Additional Info",
   "transaction-fee": "Transaction Fee",
   "gas-limit-usage": "Gas Limit & Usage by Transaction",
   "others": "Others",
   "more-details": "More Details",
   "gas-fees": "Gas Fees",
-
   "base": "Base",
   "max": "Max",
   "max-priority": "Max Priority",
-
   "txn-type": "Txn Type",
   "nonce": "Nonce",
   "position": "Position",
@@ -138,7 +120,6 @@
   "view-all-transactions": "View All Transactions",
   "container_id": "Container ID",
   "enter_container_id": "Enter Container ID",
-
   "block_chain": "Blockchain",
   "block_tokens": "Tokens",
   "block_dapps": "DApps",
@@ -149,7 +130,6 @@
   "block_other": "Other",
   "block_verify_contract": "Verify contract",
   "block_gas_tracker": "Gas tracker",
-
   "block_top_accounts": "Top accounts",
   "block_blocks": "Blocks",
   "block_transactions": "Transactions",
@@ -161,15 +141,12 @@
   "block_graphql": "GraphQL",
   "block_rpc_api": "RPC API",
   "block_eth_rpc_api": "Eth RPC API",
-
   "token_item": "Token",
   "token_price": "Price",
   "token_onchain_market_cap": "On-chain market cap",
   "token_holders": "Holders",
-
   "token_name_or_symbol": "Token name or symbol",
   "token_filter": "Filter",
-
   "token_type": "Type",
   "token_reset": "Reset",
   "machine_ID": "ID",
@@ -187,7 +164,6 @@
   "machine_Unstake": "Unstake",
   "machine_Withdraw": "Withdraw",
   "machine_List": "Machine List",
-
   "withdrawDialog_machineId": "Machine ID",
   "withdrawDialog_isStaking": "Is Staking",
   "withdrawDialog_totalRewards": "Staked Amount",
@@ -195,7 +171,6 @@
   "withdrawDialog_lockedRewards": "Locked Rewards",
   "withdrawDialog_action": "Action",
   "withdrawDialog_searchKeywords": "Please enter keywords for search",
-
   "hint": "Hint",
   "cpudbc_connect_wallet": "Please connect your wallet first",
   "staking": "Staking",
@@ -207,7 +182,6 @@
   "cpudbc_stake_success": "DBC staked successfully!",
   "failed": "Failed",
   "operation_failed": "Operation failed",
-
   "cpunft_hint": "Hint",
   "cpunft_connect_wallet": "Please connect your wallet first",
   "cpunft_staking": "Staking",
@@ -221,20 +195,16 @@
   "cpunft_stake_success": "Staking successful!",
   "cpunft_failed": "Failed",
   "cpunft_operation_failed": "Operation failed",
-
   "dlcstake_stake_success": "DLC staked successfully!",
   "not_staked_yet": "This machine has not yet staked an NFT, please stake an NFT first!",
   "stakeEndTime": "Stake End Time",
-
   "withdraw_confirmation": "Confirmation",
   "withdraw_areYouSure": "Are you sure you want to withdraw the earnings?",
   "withdraw_pendingRewards": "Pending Rewards",
   "withdraw_cancel": "Cancel",
   "withdraw_confirm": "Confirm",
-
   "grok3_blocks_indexed": "Blocks Indexed",
   "grok3_indexing_notice": "We're indexing this chain right now. Some of the counts may be inaccurate.",
-
   "grok3_DeepBrainChain": "DeepBrainChain",
   "grok3_Home": "Home",
   "grok3_Developers": "Developers",
@@ -244,7 +214,6 @@
   "grok3_Twitter": "Twitter",
   "grok3_Telegram": "Telegram",
   "grok3_Reddit": "Reddit",
-
   "deep_network_utilization": "Network utilization",
   "deep_last_50_blocks": "last 50 blocks",
   "deep_load": "load",
@@ -252,13 +221,11 @@
   "deep_all": "All",
   "deep_forked": "Forked",
   "deep_uncles": "Uncles",
-
   "deep_size_bytes": "Size, bytes",
   "deep_txn": "Txn",
   "deep_gas_used": "Gas used",
   "deep_reward": "Reward",
   "deep_burnt_fees": "Burnt fees",
-
   "deep_token_transfer": "token transfer",
   "deep_deposit": "deposit",
   "deep_block": "block",
@@ -266,18 +233,15 @@
   "deep_scanning_new": "scanning new",
   "deep2_blocks": "Blocks",
   "deep_Top_accounts": "Top accounts",
-
   "deep_rank": "Rank",
   "deep_address": "Address",
   "deep_public_tag": "Public tag",
   "deep_percentage": "Percentage",
   "deep_txn_count": "Txn count",
   "deep_no_verified_contracts": "There are no verified contracts.",
-
   "deep_total_contracts": "Total contracts",
   "deep_verified_contracts": "Verified contracts",
   "deep_search_by_contract_name_or_address": "Search by contract name or address",
-
   "deep_contract": "Contract",
   "deep_balance": "Balance",
   "deep_txs": "Txs",
@@ -286,68 +250,48 @@
   "deep_verified": "Verified",
   "deep_license": "License",
   "deep_find_app_by_name_or_keyword": "Find app by name or keyword...",
-
   "deep_AI + DePIN + Cloud Gaming + GPU": "AI + DePIN + Cloud Gaming + GPU",
   "deep_DeepLink_description": "DeepLink is a decentralized cloud gaming protocol driven by AI and blockchain technology. The ultimate combination of narratives, bringing Artificial Intelligence, Gaming, GPUs, Real World Asset Tokenization, and Decentralized Physical Infrastructure Networks together into ONE project. DEEPLINK offers ultra-low latency gaming rendering technology that supports a wide array of applications, such as cloud esports, cloud internet cafes, cloud-based 3A games, blockchain integrated gaming and cloud VR/AR/XR, among others. The Deeplink protocol, enhanced by AI technology, can improve the rendering resolution and clarity of games.",
-
   "deep_AI + DePIN + GPU + AGI": "AI + DePIN + GPU + AGI",
   "deep_DecentralGPT_description": "DecentralGPT supports a variety of open-source large language models. It is committed to building a safe, privacy-protective, democratic, transparent, open-source, and universally accessible AGI.",
-
   "deep_AI + DePIN + GPU + Image": "AI + DePIN + GPU + Image",
   "deep_SuperImage_description": "SuperImage has multiple latent text-to-image diffusion models of generating photo-realistic images given any text input, cultivates autonomous freedom to produce incredible imagery, empowers billions of people to create stunning art within seconds.",
-
   "deep_GPU Cloud": "GPU Cloud",
   "deep_dot": ".",
   "deep_HibaoCloud_description": ".",
   "deep_Hycons_description": ".",
-
   "deep_Luanchpad": "Luanchpad",
   "deep_Node launchpad": "Node launchpad",
   "deep_DRCPad_description": "DRCPad - the first primary market for trading AI nodes. It is a fundraising, promotion, and marketing platform for new projects based on the Deepbrain AI market. DBC and USDT are two mainnet tokens of DRCPad",
-
   "deep_Wallet": "Wallet",
   "deep_DeepBrainChain_description": "DeepBrain Chain 2.0 is an AI public chain. AI developers can develop decentralized AI products based on DBC.",
-
   "deep_more_info": "More info",
-
   "deep_overview": "Overview",
-
   "deep_submit_app": "Submit app",
   "deep_suggest_ideas": "Suggest ideas",
-
   "deep_dapps": "DApps",
-
   "deep_gpu_race": "GPU Race",
-
   "deep_DeAI": "DeAI",
   "deep_AI + DePIN + GPU + AGIxxxx": "AI + DePIN + GPU + AGIxxxx",
   "deep_DecentralGPT_Andromeda_description": "DecentralGPT Andromeda Project",
-
   "deep_AI + DePIN + GPU": "AI + DePIN + GPU",
   "deep_DeepLink_Orion_description": "DeepLink Orion Project",
-
   "deep_DeepBrainChain_GalaxyRace_description": "DeepBrain Chain Galaxy Race Project",
   "deep_gpu_mining": "GPU Mining",
-
   "deep_daily_mining_reward": "Daily Mining Reward",
   "deep_gpu_count": "GPU Count",
-
   "deep_find_chart_metric": "Find chart, metric...",
-
   "deep_verify_publish_contract": "Verify & publish contract",
   "deep_contract_address_to_verify": "Contract address to verify",
   "deep_loading_data_please_wait": "Loading data, please wait...",
   "deep_contract_license_best_practices": "For best practices, all contract source code holders, publishers and authors are encouraged to also specify the accompanying license for their verified contract source code provided.",
-
   "deep_smart_contract_address": "Smart contract / Address (0x...)",
   "deep_invalid_format": "Invalid format",
   "deep_contract_license": "Contract license",
-
   "deep_currently_blockscout_supports_1": "Currently, Blockscout supports",
   "deep_contract_verification_methods": "contract verification methods",
   "deep_currently_blockscout_supports_2": "Currently, Blockscout supports",
   "deep_methods": "methods",
-
   "deep_verification_method_compiler_type": "Verification method (compiler type)",
   "deep_verification_through": "Verification through",
   "deep_sourcify": "Sourcify",
@@ -362,12 +306,10 @@
   "deep_verification_through_flattened_source_code": "Verification through flattened source code",
   "deep_verification_of_multi_part_solidity_files": "Verification of multi-part Solidity files",
   "deep_gas_tracker": "Gas tracker",
-
   "deep_gas_price_history": "Gas price history",
   "deep_charts": "Charts",
   "deep_stats": "stats",
   "deep_last_updated": "Last updated",
-
   "deep_long_term_rental_note": "Note: For the long-term rental mode, the GPU server needs to be hosted in a professional data center, and the power and network should be maintained without interruption for 365 days. Otherwise, DBC Tokens will be penalized.",
   "deep_rent_own_machine_until_andromeda_end_1": "First, Rent your own machine in the DBC network until the end of the current stage of the Andromeda GPU competition.",
   "deep_rent_own_machine_until_andromeda_end_2": "Rent your own machine in the DBC network, and the rental period should last until the end of the current stage of the Andromeda GPU competition.",
@@ -378,7 +320,6 @@
   "deep_view_decentralgpt_network_machine_info": "View the information of machines that have joined the DecentralGPT network",
   "deep_installation_documentation": "Installation documentation",
   "deep_download_address": "Download address",
-
   "deep2_free_mode_note": "Note: Machines in the free mode can be placed anywhere. However, the network upstream bandwidth of a single GPU machine needs to be at least 5Mbps. For detailed rules, please check: https://and.decentralgpt.org/rule",
   "deep2_install_dbc_worker_node_first": "First, install the DBC Worker node. Installation documentation",
   "deep2_obtain_machine_id_and_private_key": "and obtain the machine ID and private key",
@@ -387,12 +328,10 @@
   "deep2_view_decentralgpt_network_machine_info": "View the information of machines that have joined the DecentralGPT network",
   "deep_region_not_supported_hint": "Hint: The region where the machine is located is not supported. Please switch to a machine in another region.",
   "deep_unstake_dbc": "Unstake DBC",
-
   "deep_unstaking_in_progress": "Unstaking in progress",
   "deep_processing_unstake_request": "Processing your unstake request, please wait...",
   "deep_unstake_dbc_transaction_failed": "Unstake DBC transaction failed",
   "deep_unstake_dbc_success": "Unstake DBC successful!",
-
   "deepx_confirmation": "Confirmation",
   "deepx_are_you_sure_unstake": "Are you sure you want to unstake?",
   "deepx_are_you_sure_unstake2": "Are you sure you want to unstake DBC?",
@@ -407,7 +346,6 @@
   "register_important_notice": "Important notice",
   "register_before_staking_notice": "Before starting staking, please run the bandwidth program to ensure it works properly, then click the button to complete machine registration",
   "register_machine": "Register machine",
-
   "deep_is_online": "Online",
   "deep_initial_computing_power": "Init",
   "deep_nft_computing_power": "NFT",
@@ -415,7 +353,6 @@
   "deep_total_amount": "Total",
   "deep_claimed_amount": "Claimed",
   "deep_released_amount": "Released",
-
   "deep_total_machine_base_power": "Total machine base computing power (excluding boosts from staking NFTs/rentals, etc.)",
   "deep_total_machine_power_with_nft": "Total machine computing power (including boosts from staking NFTs)",
   "deep_total_machine_power_with_nft_rental": "Total machine computing power (including boosts from staking NFTs/rentals, etc.)",
@@ -423,34 +360,27 @@
   "deep_total_claimed_reward_amount": "Total claimed reward amount",
   "deep_total_released_reward_amount": "Total released reward amount",
   "deep_locked_reward": "Locked reward",
-
   "deep_adding_nft_in_progress": "Adding NFT in progress",
   "deep_processing_add_nft_request": "Processing your add NFT request, please wait...",
   "deep_insufficient_nft_balance": "Insufficient NFT balance in your wallet",
   "deep_add_nft_transaction_failed": "Add NFT transaction failed",
   "deep_add_nft_success": "Add NFT successful!",
-
   "deep_add_nft": "Add NFT",
   "deep_nft_amount_to_add": "NFT amount to add",
   "deep_enter_nft_amount_to_add": "Please enter the NFT amount to add",
   "deep_cancel": "Cancel",
   "deep_confirm_add": "Add",
-
   "deep_view_details": "View Details",
   "deep_balance_details": "Balance Details",
   "deep_total_token_amount": "Total Token Amount",
   "deep_available_token_amount": "Available Token Amount",
   "deep_locked_token_amount": "Locked Token Amount",
   "deep_next_estimated_unlock_time": "Next Estimated Unlock Time",
-
   "deep_estimated_unlock_time": "Estimated Unlock Time",
   "deep_after_unlock": "After Unlock",
-
   "deep_reward_address_optional": "Reward Address (Optional)",
   "deep_enter_reward_address": "Please Enter Reward Address",
-
   "deep_region": "Region",
-
   "deeplink": {
     "totalItems": "Total {{count}} items",
     "currentPage": "Page {{page}}"
@@ -469,11 +399,9 @@
     "deep_decimal_places": "Number of digits after the decimal place in token value",
     "deep_dapp": "Dapp",
     "deep_dapp_link": "Link to the dapp",
-
     "deep_inventory": "Inventory",
     "deep_token_transfers": "Token transfers",
     "deep_holders": "Holders",
-
     "deep_txn_hash": "Txn hash",
     "deep_method": "Method",
     "deep_from_to": "From/To"
@@ -481,5 +409,15 @@
   "deep_unlock_plan": "Unlock Plan",
   "deep_next_unlock_time": "Next Unlock Time",
   "deep_pending_unlock": "Pending Unlock",
-  "deep_no_unlock_plan": "No Unlock Plan"
+  "deep_no_unlock_plan": "No Unlock Plan",
+  "renewing": "Renewing...",
+  "renew_in_progress": "Renewal in progress",
+  "renew_success": "Renewed successfully",
+  "renew_operation_success": "Renewal operation successful",
+  "renew": "Renew",
+  "machine_renew": "Machine Renewal",
+  "renew_time": "Time to Renew",
+  "enter_renew_time": "Please enter the renewal time for this machine",
+  "renew_action": "Renew",
+  "hour": "Hour"
 }

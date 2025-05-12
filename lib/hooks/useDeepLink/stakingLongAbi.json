@@ -22,11 +22,6 @@
   },
   {
     "inputs": [],
-    "name": "CPURateLessThan3500",
-    "type": "error"
-  },
-  {
-    "inputs": [],
     "name": "CallerNotRentContract",
     "type": "error"
   },
@@ -239,6 +234,16 @@
     "type": "error"
   },
   {
+    "inputs": [],
+    "name": "RewardNotEnough",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "ShouldPaySlashBeforeStake",
+    "type": "error"
+  },
+  {
     "inputs": [
       {
         "internalType": "string",
@@ -299,6 +304,43 @@
     "inputs": [],
     "name": "ZeroNFTTokenIds",
     "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "stakeholder",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "nftTokenIds",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "nftTokenIdBalances",
+        "type": "uint256[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "newCalcPoint",
+        "type": "uint256"
+      }
+    ],
+    "name": "AddedNFTsToStake",
+    "type": "event"
   },
   {
     "anonymous": false,
@@ -599,6 +641,31 @@
     "anonymous": false,
     "inputs": [
       {
+        "indexed": false,
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "stakeholder",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "receiver",
+        "type": "address"
+      }
+    ],
+    "name": "SetRewardReceiver",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
         "indexed": true,
         "internalType": "address",
         "name": "stakeholder",
@@ -789,6 +856,30 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "calcPoint",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "reservedAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "_getMachineShares",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "string",
         "name": "machineId",
         "type": "string"
@@ -807,6 +898,29 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "nftTokenIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "nftTokenIdBalances",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "addNFTsToStake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_holder",
         "type": "address"
@@ -818,6 +932,29 @@
       }
     ],
     "name": "addRentedGPUCount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "holder",
+        "type": "address"
+      },
+      {
+        "internalType": "string[]",
+        "name": "machineIds",
+        "type": "string[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "additionHoursList",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "addStakeHours",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -887,13 +1024,6 @@
       }
     ],
     "name": "claim",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "claimAll",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -1159,6 +1289,97 @@
   {
     "inputs": [
       {
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      }
+    ],
+    "name": "getMachineStakeInfo",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "address",
+            "name": "holder",
+            "type": "address"
+          },
+          {
+            "internalType": "uint256",
+            "name": "startAtTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "lastClaimAtTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endAtTimestamp",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "calcPoint",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "reservedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "nftTokenIds",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "tokenIdBalances",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nftCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "claimedAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "isRentedByUser",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "gpuCount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "nextRenterCanRentAt",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "rentId",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct NFTStaking.StakeInfo",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "startIndex",
         "type": "uint256"
@@ -1265,6 +1486,25 @@
         "internalType": "uint256",
         "name": "claimedAmount",
         "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      }
+    ],
+    "name": "getRewardReceiver",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       }
     ],
     "stateMutability": "view",
@@ -1666,6 +1906,25 @@
         "type": "string"
       }
     ],
+    "name": "machineId2RewardReceiver",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
     "name": "machineId2StakeInfos",
     "outputs": [
       {
@@ -1880,6 +2139,35 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "calcPoint",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "nftCount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "reserveAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "preCalculateRewards",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "precompileContract",
     "outputs": [
@@ -1987,6 +2275,19 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "rewardPerShareAtRewardStart",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -2254,9 +2555,52 @@
         "internalType": "uint256",
         "name": "rentId",
         "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "rewardReceiver",
+        "type": "address"
       }
     ],
     "name": "stake",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "stakeholder",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "machineId",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "nftTokenIds",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "nftTokenIdBalances",
+        "type": "uint256[]"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rentId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "rewardReceiver",
+        "type": "address"
+      }
+    ],
+    "name": "stake1",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

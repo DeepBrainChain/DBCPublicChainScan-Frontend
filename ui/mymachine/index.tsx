@@ -22,6 +22,8 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import MymachineSearchTop from './modules/mymachine-search-top';
 import WithdrawBtn from './modules/WithdrawBtn-btn-dialog';
 import AddNft from './modules/AddNft-btn-dialog';
+import RenewalOfLease from './modules/RenewalOfLease';
+import RenewalOfLeaseAll from './modules/RenewalOfLeaseAll';
 import { IoCopy, IoCheckmark } from 'react-icons/io5';
 import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
 import { useAccount } from 'wagmi';
@@ -113,7 +115,7 @@ function Index() {
 
   // thead 数据
   const thead = [
-    { t: t('withdrawDialog_machineId'), pcW: '300px' },
+    { t: t('withdrawDialog_machineId'), pcW: '220px' },
 
     { t: t('withdrawDialog_isStaking'), pcW: '100px' },
     { t: t('stakeEndTime'), pcW: '170px' },
@@ -135,7 +137,7 @@ function Index() {
             v5: item.totalReservedAmount, // 总奖励数量
             v6: item.totalClaimedRewardAmount, // 已领取奖励数量
             v7: item.totalReleasedRewardAmount, // 锁仓奖励数量
-            v11: [WithdrawBtn, AddNft], // 操作按钮
+            v11: [WithdrawBtn, AddNft, RenewalOfLease], // 操作按钮
           };
         })
       : [];
@@ -271,6 +273,9 @@ function Index() {
               run(v);
             }}
           />
+          {/* <div className={'max-w-[300px]'}>
+            <RenewalOfLeaseAll />
+          </div> */}
         </div>
       </CardHeader>
       <CardBody className="!p-0">
