@@ -57,10 +57,7 @@ function RenewalOfLease({ id, forceRerender }: { id: string; forceRerender: any 
     if (time === '') {
       return false;
     }
-    setBtnData({
-      isLoading: true,
-      loadingText: 'loading',
-    });
+
     setBtnData({ isLoading: true, loadingText: 'Sending...' });
     const toastId = toast({
       position: 'top',
