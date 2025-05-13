@@ -27,7 +27,7 @@ import { useTranslation } from 'next-i18next';
 import { formatEther } from 'viem';
 import { createMachine, renewMachine } from '../../../ui/mymachine/modules/api/index';
 
-function RenewalOfLease({ id, forceRerender }: { id: string; forceRerender: any }) {
+function RenewalOfLease({ id, forceRerender, stake, key }: { id: string; forceRerender: any; stake: any; key: any }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const config = useConfig();
   const toast = useToast();
@@ -120,7 +120,7 @@ function RenewalOfLease({ id, forceRerender }: { id: string; forceRerender: any 
 
   return (
     <>
-      <Button size="sm" variant="outline" onClick={onOpenH}>
+      <Button isDisabled={!stake} size="sm" variant="outline" onClick={onOpenH}>
         {t('renew')}
       </Button>
 

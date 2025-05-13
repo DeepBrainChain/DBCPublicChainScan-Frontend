@@ -389,6 +389,7 @@ function Index() {
                           <ItemComponent
                             forceRerender={() => setKey((key) => key + 1)}
                             id={item.machineId}
+                            stake={item.v0}
                             key={index3}
                           />
                         ))}
