@@ -13,13 +13,14 @@ import {
 import { useTimeoutFn } from '@reactuses/core';
 import React from 'react';
 import { useWriteContract, useAccount, useConfig } from 'wagmi';
-import { waitForTransactionReceipt, readContract, estimateGas, getFeeHistory, getBlock } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract, estimateGas, getFeeHistory, simulateContract } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../abi/stakeaib.json';
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { formatEther } from 'viem';
 import { parseUnits } from 'viem/utils';
+import { ethers, Contract } from 'ethers';
 
 function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; id: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -97,6 +98,8 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
   //   }
   // };
 
+  // 待领取奖励质押合约实例
+
   const getClaim = async () => {
     if (!isConnected) {
       toast({
@@ -120,14 +123,26 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
     });
     console.log(id, '机器id');
     try {
+      // 估算 Gas
+      const simulation = await simulateContract(config, {
+        address: CPU_CONTRACT_ADDRESS_STAKING,
+        abi: stakingAbi,
+        functionName: 'claim',
+        args: [id],
+        account: address,
+      });
+      const estimatedGas = BigInt(simulation.request.gas || 200_000); // 显式转换为 BigInt，默认 200,000
+      const gasLimit = (estimatedGas * 120n) / 100n; // 增加 20% 缓冲，确保都是 BigInt
+
       // 开始领取收益
       const claimHash = await claim.writeContractAsync({
         address: CPU_CONTRACT_ADDRESS_STAKING,
         abi: stakingAbi,
         functionName: 'claim',
         args: [id],
-        type: 'legacy', // 强制使用Legacy交易
-        gasPrice: BigInt(20_000_000_000), // 20 Gwei，可根据网络调整
+        type: 'legacy', // 强制 Legacy 交易
+        gasPrice: BigInt(20_000_000_000), // 20 Gwei
+        gasLimit: gasLimit, // 动态 Gas Limit
       });
       const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash });
       if (stakeReceipt.status !== 'success') {
@@ -145,11 +160,15 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       onClose();
       fetchMachineInfoData();
     } catch (error: any) {
+      let errorMessage = error.message || '操作失败';
+      if (error.message.includes('not stakeholder')) {
+        errorMessage = '当前账户不是该机器的利益相关者，请检查钱包地址或机器 ID';
+      }
       toast.update(toastId, {
         position: 'top',
         title: '失败',
         status: 'error',
-        description: error.message || '操作失败',
+        description: errorMessage,
         isClosable: true,
         duration: 5000,
       });
