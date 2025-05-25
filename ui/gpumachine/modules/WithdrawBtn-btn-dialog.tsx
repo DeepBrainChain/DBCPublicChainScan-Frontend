@@ -13,12 +13,13 @@ import {
 import { useTimeoutFn } from '@reactuses/core';
 import React from 'react';
 import { useWriteContract, useAccount, useConfig } from 'wagmi';
-import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract, estimateGas, getFeeHistory, getBlock } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../abi/stakeaib.json';
 import { useTranslation } from 'next-i18next';
 import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { formatEther } from 'viem';
+import { parseUnits } from 'viem/utils';
 
 function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; id: string }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,6 +38,65 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
   // 待领取奖励质押合约实例
   const claim = useWriteContract();
 
+  // const getClaim = async () => {
+  //   if (!isConnected) {
+  //     toast({
+  //       position: 'top',
+  //       title: '提示',
+  //       description: '请先连接你的钱包',
+  //       status: 'warning',
+  //       duration: 5000,
+  //       isClosable: true,
+  //     });
+  //     return;
+  //   }
+  //   setBtnData({ isLoading: true, loadingText: 'Sending...' });
+  //   const toastId = toast({
+  //     position: 'top',
+  //     title: '领取收益中',
+  //     description: '正在处理您的领取收益请求，请稍候...',
+  //     status: 'loading',
+  //     duration: null,
+  //     isClosable: false,
+  //   });
+  //   console.log(id, '机器id');
+  //   try {
+  //     // 开始领取收益
+  //     const claimHash = await claim.writeContractAsync({
+  //       address: CPU_CONTRACT_ADDRESS_STAKING,
+  //       abi: stakingAbi,
+  //       functionName: 'claim',
+  //       args: [id],
+  //     });
+  //     const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash });
+  //     if (stakeReceipt.status !== 'success') {
+  //       throw new Error('领取收益交易失败');
+  //     }
+
+  //     toast.update(toastId, {
+  //       position: 'top',
+  //       title: '成功',
+  //       status: 'success',
+  //       description: '领取收益成功！',
+  //       duration: 5000,
+  //       isClosable: true,
+  //     });
+  //     onClose();
+  //     fetchMachineInfoData();
+  //   } catch (error: any) {
+  //     toast.update(toastId, {
+  //       position: 'top',
+  //       title: '失败',
+  //       status: 'error',
+  //       description: error.message || '操作失败',
+  //       isClosable: true,
+  //       duration: 5000,
+  //     });
+  //   } finally {
+  //     setBtnData({ isLoading: false, loadingText: '' });
+  //   }
+  // };
+
   const getClaim = async () => {
     if (!isConnected) {
       toast({
@@ -49,7 +109,9 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       });
       return;
     }
+
     setBtnData({ isLoading: true, loadingText: 'Sending...' });
+
     const toastId = toast({
       position: 'top',
       title: '领取收益中',
@@ -58,19 +120,38 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       duration: null,
       isClosable: false,
     });
-    console.log(id, '机器id');
+
     try {
-      // 开始领取收益
+      // 1. 估算 gasLimit
+      const estimatedGas = await estimateGas(config, {
+        address: CPU_CONTRACT_ADDRESS_STAKING as any,
+        abi: stakingAbi,
+        functionName: 'claim',
+        args: [id],
+      });
+
+      // const gasLimit = (estimatedGas * 120n) / 100n;
+      const gasLimit = (estimatedGas * BigInt(120)) / BigInt(100);
+      // 2. 获取 baseFee & priority fee
+      const latestBlock = await getBlock(config, { blockTag: 'latest' });
+
+      const maxFeePerGas = latestBlock.baseFeePerGas! * BigInt(2);
+      const maxPriorityFeePerGas = parseUnits('2', 9); // 2 gwei
+
+      // 3. 发起交易
       const claimHash = await claim.writeContractAsync({
         address: CPU_CONTRACT_ADDRESS_STAKING,
         abi: stakingAbi,
         functionName: 'claim',
         args: [id],
+        gas: gasLimit,
+        maxFeePerGas,
+        maxPriorityFeePerGas,
       });
-      const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash });
-      if (stakeReceipt.status !== 'success') {
-        throw new Error('领取收益交易失败');
-      }
+
+      const receipt = await waitForTransactionReceipt(config, { hash: claimHash });
+
+      if (receipt.status !== 'success') throw new Error('领取收益交易失败');
 
       toast.update(toastId, {
         position: 'top',
@@ -80,6 +161,7 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
         duration: 5000,
         isClosable: true,
       });
+
       onClose();
       fetchMachineInfoData();
     } catch (error: any) {
@@ -95,6 +177,7 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       setBtnData({ isLoading: false, loadingText: '' });
     }
   };
+
   const [btn, setBtn] = React.useState({
     loading: false,
     data: '0',
