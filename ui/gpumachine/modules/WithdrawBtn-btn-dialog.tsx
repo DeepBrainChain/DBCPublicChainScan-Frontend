@@ -109,9 +109,7 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       });
       return;
     }
-
     setBtnData({ isLoading: true, loadingText: 'Sending...' });
-
     const toastId = toast({
       position: 'top',
       title: '领取收益中',
@@ -120,38 +118,21 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       duration: null,
       isClosable: false,
     });
-
+    console.log(id, '机器id');
     try {
-      // 1. 估算 gasLimit
-      const estimatedGas = await estimateGas(config, {
-        address: CPU_CONTRACT_ADDRESS_STAKING as any,
-        abi: stakingAbi,
-        functionName: 'claim',
-        args: [id],
-      });
-
-      // const gasLimit = (estimatedGas * 120n) / 100n;
-      const gasLimit = (estimatedGas * BigInt(120)) / BigInt(100);
-      // 2. 获取 baseFee & priority fee
-      const latestBlock = await getBlock(config, { blockTag: 'latest' });
-
-      const maxFeePerGas = latestBlock.baseFeePerGas! * BigInt(2);
-      const maxPriorityFeePerGas = parseUnits('2', 9); // 2 gwei
-
-      // 3. 发起交易
+      // 开始领取收益
       const claimHash = await claim.writeContractAsync({
         address: CPU_CONTRACT_ADDRESS_STAKING,
         abi: stakingAbi,
         functionName: 'claim',
         args: [id],
-        gas: gasLimit,
-        maxFeePerGas,
-        maxPriorityFeePerGas,
+        type: 'legacy', // 强制使用Legacy交易
+        gasPrice: BigInt(20_000_000_000), // 20 Gwei，可根据网络调整
       });
-
-      const receipt = await waitForTransactionReceipt(config, { hash: claimHash });
-
-      if (receipt.status !== 'success') throw new Error('领取收益交易失败');
+      const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash });
+      if (stakeReceipt.status !== 'success') {
+        throw new Error('领取收益交易失败');
+      }
 
       toast.update(toastId, {
         position: 'top',
@@ -161,7 +142,6 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
         duration: 5000,
         isClosable: true,
       });
-
       onClose();
       fetchMachineInfoData();
     } catch (error: any) {
