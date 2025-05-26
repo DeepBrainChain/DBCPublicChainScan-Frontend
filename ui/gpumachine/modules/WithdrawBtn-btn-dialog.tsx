@@ -13,7 +13,7 @@ import {
 import { useTimeoutFn } from '@reactuses/core';
 import React from 'react';
 import { useWriteContract, useAccount, useConfig } from 'wagmi';
-import { waitForTransactionReceipt, readContract, estimateGas, getFeeHistory, simulateContract } from 'wagmi/actions';
+import { waitForTransactionReceipt, readContract, estimateGas, getFeeHistory, getWalletClient } from 'wagmi/actions';
 import { useToast } from '@chakra-ui/react';
 import stakingAbi from '../abi/stakeaib.json';
 import { useTranslation } from 'next-i18next';
@@ -112,7 +112,9 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       });
       return;
     }
+
     setBtnData({ isLoading: true, loadingText: 'Sending...' });
+
     const toastId = toast({
       position: 'top',
       title: '领取收益中',
@@ -121,32 +123,31 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       duration: null,
       isClosable: false,
     });
-    console.log(id, '机器id');
-    try {
-      // 估算 Gas
-      const simulation = await simulateContract(config, {
-        address: CPU_CONTRACT_ADDRESS_STAKING,
-        abi: stakingAbi,
-        functionName: 'claim',
-        args: [id],
-        account: address,
-      });
-      const estimatedGas = BigInt(simulation.request.gas || 200_000); // 显式转换为 BigInt，默认 200,000
-      const gasLimit = (estimatedGas * 120n) / 100n; // 增加 20% 缓冲，确保都是 BigInt
 
-      // 开始领取收益
-      const claimHash = await claim.writeContractAsync({
-        address: CPU_CONTRACT_ADDRESS_STAKING,
-        abi: stakingAbi,
-        functionName: 'claim',
-        args: [id],
-        type: 'legacy', // 强制 Legacy 交易
-        gasPrice: BigInt(20_000_000_000), // 20 Gwei
-        gasLimit: gasLimit, // 动态 Gas Limit
+    try {
+      const walletClient = await getWalletClient(config);
+      const provider = new ethers.BrowserProvider(walletClient as any);
+      const signer = await provider.getSigner();
+
+      const contract = new ethers.Contract(
+        CPU_CONTRACT_ADDRESS_STAKING, // 替换为你真实的 CPU_CONTRACT_ADDRESS_STAKING
+        stakingAbi,
+        signer
+      );
+
+      const estimatedGas = await contract.claim.estimateGas(id);
+      const gasLimit = (estimatedGas * 120n) / 100n; // 放大 20%
+
+      const tx = await contract.claim(id, {
+        gasLimit,
+        gasPrice: ethers.parseUnits('20', 'gwei'), // 强制 Legacy
+        type: 0,
       });
-      const stakeReceipt = await waitForTransactionReceipt(config, { hash: claimHash });
-      if (stakeReceipt.status !== 'success') {
-        throw new Error('领取收益交易失败');
+
+      const receipt = await tx.wait();
+
+      if (receipt.status !== 1) {
+        throw new Error('领取失败，交易未成功上链');
       }
 
       toast.update(toastId, {
@@ -157,18 +158,15 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
         duration: 5000,
         isClosable: true,
       });
+
       onClose();
       fetchMachineInfoData();
     } catch (error: any) {
-      let errorMessage = error.message || '操作失败';
-      if (error.message.includes('not stakeholder')) {
-        errorMessage = '当前账户不是该机器的利益相关者，请检查钱包地址或机器 ID';
-      }
       toast.update(toastId, {
         position: 'top',
         title: '失败',
         status: 'error',
-        description: errorMessage,
+        description: error.message || '操作失败',
         isClosable: true,
         duration: 5000,
       });
