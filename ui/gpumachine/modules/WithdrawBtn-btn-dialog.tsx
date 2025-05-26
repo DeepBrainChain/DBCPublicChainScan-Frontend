@@ -183,7 +183,7 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
   async function getRewardInfoH(address: string) {
     try {
       const balance = await readContract(config, {
-        address: CPU_CONTRACT_ADDRESS_STAKING,
+        address: '0xc663ee691f98d80e5f1cce3c9ad53a14da676a23',
         abi: stakingAbi,
         functionName: 'getRewardInfo',
         args: [address],
