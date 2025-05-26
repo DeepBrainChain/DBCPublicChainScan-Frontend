@@ -130,7 +130,7 @@ function WithdrawBtn({ fetchMachineInfoData, id }: { fetchMachineInfoData: any; 
       const signer = await provider.getSigner();
 
       const contract = new ethers.Contract(
-        CPU_CONTRACT_ADDRESS_STAKING, // 替换为你真实的 CPU_CONTRACT_ADDRESS_STAKING
+        '0xc663ee691f98d80e5f1cce3c9ad53a14da676a23', // 替换为你真实的 CPU_CONTRACT_ADDRESS_STAKING
         stakingAbi,
         signer
       );
