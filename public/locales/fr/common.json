@@ -419,5 +419,9 @@
   "renew_time": "Heure de renouvellement",
   "enter_renew_time": "Veuillez saisir l'heure de renouvellement pour cette machine",
   "renew_action": "Renouveler",
-  "hour": "Heure"
+  "hour": "Heure",
+  "longminingTitle": "Renouvellement en un clic",
+  "longminingDescription": "Tous les appareils en location seront automatiquement renouvelés pour correspondre à la durée de location sur la chaîne.",
+  "longminingNote": "Cette opération est obligatoire, sinon le renouvellement ne réussira pas.",
+  "longminingButton": "Renouveler"
 }

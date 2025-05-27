@@ -419,5 +419,9 @@
   "renew_time": "更新する時間",
   "enter_renew_time": "このマシンの更新時間を入力してください",
   "renew_action": "更新",
-  "hour": "時間"
+  "hour": "時間",
+  "longminingTitle": "ワンクリック更新",
+  "longminingDescription": "リース中のすべてのデバイスは、チェーン上のリース期間と一致するように自動的に更新されます。",
+  "longminingNote": "この操作は必須であり、そうでないと更新が成功しません。",
+  "longminingButton": "更新"
 }

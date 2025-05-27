@@ -419,5 +419,9 @@
   "renew_time": "Hora de renovación",
   "enter_renew_time": "Por favor, ingrese el tiempo de renovación para esta máquina",
   "renew_action": "Renovar",
-  "hour": "Hora"
+  "hour": "Hora",
+  "longminingTitle": "Renovación con un clic",
+  "longminingDescription": "Todos los dispositivos alquilados se renovarán automáticamente para alinearse con la duración del alquiler en la cadena.",
+  "longminingNote": "Esta operación es obligatoria; de lo contrario, la renovación no tendrá éxito.",
+  "longminingButton": "Renovar"
 }

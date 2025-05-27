@@ -61,7 +61,7 @@ function RenewalOfLeaseAll({ forceRerender }) {
             totalCalcPoint
           }
           stakeHolders(where: {
-            holder: "${`0x5559636738c2cc864a076a30ac6f3da64645666d`}"
+            holder: "${address}"
           }) {
             holder
             totalClaimedRewardAmount
@@ -181,8 +181,8 @@ function RenewalOfLeaseAll({ forceRerender }) {
 
   return (
     <>
-      <Button size="sm" variant="outline" onClick={onOpenH}>
-        一键续租
+      <Button isDisabled={machineData.length !== 0} size="sm" variant="outline" onClick={onOpenH}>
+        {t('longminingTitle')}
       </Button>
 
       <AlertDialog
@@ -194,12 +194,12 @@ function RenewalOfLeaseAll({ forceRerender }) {
       >
         <AlertDialogOverlay />
         <AlertDialogContent className="!max-w-[500px]">
-          <AlertDialogHeader>一键续租</AlertDialogHeader>
+          <AlertDialogHeader>{t('longminingTitle')}</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
             <FormControl mb={4} size="sm">
-              <FormLabel fontSize="sm">所有处于租赁的设备将自动续租与链上保持一致的租用时间</FormLabel>
-              <FormHelperText fontSize="xs">此操作是必须的否则不会续租成功</FormHelperText>
+              <FormLabel fontSize="sm">{t('longminingDescription')}</FormLabel>
+              <FormHelperText fontSize="xs">{t('longminingNote')}</FormHelperText>
             </FormControl>
           </AlertDialogBody>
           <AlertDialogFooter>
@@ -208,7 +208,7 @@ function RenewalOfLeaseAll({ forceRerender }) {
                 {t('deep_cancel')}
               </Button>
               <Button isLoading={btnData.isLoading} loadingText={btnData.loadingText} onClick={getClaim}>
-                续租
+                {t('longminingButton')}
               </Button>
             </div>
           </AlertDialogFooter>

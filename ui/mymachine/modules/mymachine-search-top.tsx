@@ -26,11 +26,8 @@ const mymachineSearchTop = ({ currentPage, totalItems, pageSize, onPageChange, s
   const handleChange = (event) => searchH(event.target.value);
   return (
     <Skeleton isLoaded={!isPending}>
-      <div className="flex items-center gap-4 flex-wrap justify-between">
-        <div className={'max-w-[300px] ml-auto'}>
-          <RenewalOfLeaseAll forceRerender={forceRerender} />
-        </div>
-        <div className="flex-1">
+      <div className="flex items-center gap-4 flex-wrap justify-between w-full">
+        <div className="flex-1 flex">
           <InputGroup size="sm">
             <InputLeftAddon>
               <Popover>
@@ -51,7 +48,9 @@ const mymachineSearchTop = ({ currentPage, totalItems, pageSize, onPageChange, s
             <Input onChange={handleChange} type="tel" placeholder={t('withdrawDialog_searchKeywords')} />
           </InputGroup>
         </div>
-
+        <div className={'max-w-[300px]'}>
+          <RenewalOfLeaseAll forceRerender={forceRerender} />
+        </div>
         <Pagination currentPage={currentPage} totalItems={totalItems} pageSize={pageSize} onPageChange={onPageChange} />
       </div>
     </Skeleton>

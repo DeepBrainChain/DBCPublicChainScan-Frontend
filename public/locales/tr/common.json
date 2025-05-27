@@ -419,5 +419,9 @@
   "renew_time": "Yenilenecek süre",
   "enter_renew_time": "Lütfen bu makine için yenileme süresini girin",
   "renew_action": "Yenile",
-  "hour": "Saat"
+  "hour": "Saat",
+  "longminingTitle": "Tek Tıkla Yenileme",
+  "longminingDescription": "Kiralık tüm cihazlar, zincirdeki kiralama süresiyle uyumlu olacak şekilde otomatik olarak yenilenecektir.",
+  "longminingNote": "Bu işlem zorunludur, aksi takdirde yenileme başarılı olmaz.",
+  "longminingButton": "Yenile"
 }

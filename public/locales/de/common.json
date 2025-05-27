@@ -419,5 +419,9 @@
   "renew_time": "Verlängerungszeit",
   "enter_renew_time": "Bitte geben Sie die Verlängerungszeit für diese Maschine ein",
   "renew_action": "Verlängern",
-  "hour": "Stunde"
+  "hour": "Stunde",
+  "longminingTitle": "Ein-Klick-Verlängerung",
+  "longminingDescription": "Alle gemieteten Geräte werden automatisch verlängert, um mit der Mietdauer auf der Blockchain übereinzustimmen.",
+  "longminingNote": "Dieser Vorgang ist erforderlich, sonst wird die Verlängerung nicht erfolgreich sein.",
+  "longminingButton": "Verlängern"
 }

@@ -419,5 +419,9 @@
   "renew_time": "연장할 시간",
   "enter_renew_time": "해당 장비의 연장할 시간을 입력하세요",
   "renew_action": "연장",
-  "hour": "시간"
+  "hour": "시간",
+  "longminingTitle": "원클릭 갱신",
+  "longminingDescription": "임대 중인 모든 장치는 체인상의 임대 기간과 일치하도록 자동으로 갱신됩니다.",
+  "longminingNote": "이 작업은 필수이며, 그렇지 않으면 갱신이 성공하지 않습니다.",
+  "longminingButton": "갱신"
 }

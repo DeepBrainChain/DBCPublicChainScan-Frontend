@@ -419,5 +419,9 @@
   "renew_time": "Thời gian cần gia hạn",
   "enter_renew_time": "Vui lòng nhập thời gian gia hạn cho máy này",
   "renew_action": "Gia hạn",
-  "hour": "Giờ"
+  "hour": "Giờ",
+  "longminingTitle": "Gia hạn một cú nhấp chuột",
+  "longminingDescription": "Tất cả các thiết bị đang được thuê sẽ tự động gia hạn để phù hợp với thời gian thuê trên chuỗi.",
+  "longminingNote": "Thao tác này là bắt buộc, nếu không việc gia hạn sẽ không thành công.",
+  "longminingButton": "Gia hạn"
 }

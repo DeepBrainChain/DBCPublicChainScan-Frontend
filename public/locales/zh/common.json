@@ -419,5 +419,9 @@
   "renew_time": "要续租的时间",
   "enter_renew_time": "请输入该机器续租的时间",
   "renew_action": "续租",
-  "hour": "小时"
+  "hour": "小时",
+  "longminingTitle": "一键续租",
+  "longminingDescription": "所有处于租赁的设备将自动续租与链上保持一致的租用时间。",
+  "longminingNote": "此操作是必须的，否则不会续租成功。",
+  "longminingButton": "续租"
 }
