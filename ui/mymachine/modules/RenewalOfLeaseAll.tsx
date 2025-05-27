@@ -38,9 +38,7 @@ function RenewalOfLeaseAll({ forceRerender }) {
   const NFT_CONTRACT_ADDRESS = useContractAddress('NFT_CONTRACT_ADDRESS');
 
   const { t } = useTranslation('common');
-  const [amount, setAmount] = React.useState(1);
   const [machineData, setAmachineData] = React.useState([]);
-  const [times, setTimes] = React.useState([]);
   const [btnData, setBtnData] = React.useState({
     isLoading: false,
     loadingText: '',
@@ -91,16 +89,10 @@ function RenewalOfLeaseAll({ forceRerender }) {
         };
       });
       setAmachineData(arr);
+    } else {
+      setAmachineData([]);
     }
   };
-
-  useEffect(() => {
-    if (machineData.length !== 0) {
-      // 根据机器和用户选择的时间生成时间数据
-      const timesArr: any = machineData.map(() => amount);
-      setTimes(timesArr);
-    }
-  }, [amount, machineData]);
 
   const getClaim = async () => {
     if (!isConnected) {
@@ -114,14 +106,13 @@ function RenewalOfLeaseAll({ forceRerender }) {
       });
       return;
     }
-    if (amount <= 0) {
+    if (machineData.length <= 0) {
       return false;
     }
     console.log(
       JSON.stringify({
         holder: address,
         machineIds: machineData,
-        additionHoursList: times,
       })
     );
     setBtnData({ isLoading: true, loadingText: 'Sending...' });
@@ -139,7 +130,6 @@ function RenewalOfLeaseAll({ forceRerender }) {
       const res: any = await renewMachine({
         holder: address,
         machineIds: machineData,
-        additionHoursList: times,
       });
 
       if (res.code !== 1000) {
@@ -147,7 +137,6 @@ function RenewalOfLeaseAll({ forceRerender }) {
           ${res.msg}  参数是：${JSON.stringify({
           holder: address,
           machineIds: machineData,
-          additionHoursList: times,
         })}`);
       }
       toast.update(toastId, {
@@ -181,7 +170,7 @@ function RenewalOfLeaseAll({ forceRerender }) {
 
   return (
     <>
-      <Button isDisabled={machineData.length !== 0} size="sm" variant="outline" onClick={onOpenH}>
+      <Button isDisabled={machineData.length === 0} size="sm" variant="outline" onClick={onOpenH}>
         {t('longminingTitle')}
       </Button>
 
