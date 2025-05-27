@@ -18,14 +18,18 @@ import React, { useState } from 'react';
 import { BsFilter } from 'react-icons/bs';
 import { useTranslation } from 'next-i18next';
 import Pagination from '../../../ui/pagination';
+import RenewalOfLeaseAll from './RenewalOfLeaseAll';
 
-const mymachineSearchTop = ({ currentPage, totalItems, pageSize, onPageChange, searchH }) => {
+const mymachineSearchTop = ({ currentPage, totalItems, pageSize, onPageChange, searchH, forceRerender }) => {
   const [isPending, start] = useTimeoutFn(() => {}, 2000, { immediate: true });
   const { t } = useTranslation('common');
   const handleChange = (event) => searchH(event.target.value);
   return (
     <Skeleton isLoaded={!isPending}>
       <div className="flex items-center gap-4 flex-wrap justify-between">
+        <div className={'max-w-[300px] ml-auto'}>
+          <RenewalOfLeaseAll forceRerender={forceRerender} />
+        </div>
         <div className="flex-1">
           <InputGroup size="sm">
             <InputLeftAddon>

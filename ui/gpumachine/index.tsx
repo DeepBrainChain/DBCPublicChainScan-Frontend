@@ -192,7 +192,7 @@ function Index() {
   return (
     <Card variant="subtle">
       <div className="flex flex-col gap-4">
-        <CardHeader className="!p-0">
+        <CardHeader>
           <div className="flex flex-col w-full gap-4">
             <Heading size="md">{t('machine_List')}</Heading>
             <MymachineSearchTop
@@ -206,7 +206,7 @@ function Index() {
             />
           </div>
         </CardHeader>
-        <CardBody className="!p-0">
+        <CardBody>
           <MymachineTable
             fetchMachineInfoData={fetchMachineInfoData}
             machineData={machineData}

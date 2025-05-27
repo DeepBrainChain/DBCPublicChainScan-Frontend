@@ -12,8 +12,10 @@ import {
   FormLabel,
   Input,
   FormHelperText,
+  InputGroup,
+  InputRightAddon,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useWriteContract, useAccount, useReadContract } from 'wagmi';
 import { waitForTransactionReceipt, readContract } from 'wagmi/actions';
 import { useConfig } from 'wagmi';
@@ -23,8 +25,10 @@ import { useContractAddress } from '../../../lib/hooks/useContractAddress';
 import { useTranslation } from 'next-i18next';
 import { formatEther } from 'viem';
 import nftAbi from '../../../lib/hooks/useDeepLink/nftAbi.json';
+import dayjs from 'dayjs';
+import { renewMachine } from '../../../ui/mymachine/modules/api/index';
 
-function RenewalOfLeaseAll() {
+function RenewalOfLeaseAll({ forceRerender }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const config = useConfig();
   const toast = useToast();
@@ -34,30 +38,69 @@ function RenewalOfLeaseAll() {
   const NFT_CONTRACT_ADDRESS = useContractAddress('NFT_CONTRACT_ADDRESS');
 
   const { t } = useTranslation('common');
-  const [amount, setAmount] = React.useState('');
+  const [amount, setAmount] = React.useState(1);
+  const [machineData, setAmachineData] = React.useState([]);
+  const [times, setTimes] = React.useState([]);
   const [btnData, setBtnData] = React.useState({
     isLoading: false,
     loadingText: '',
   });
 
-  // 定义读取函数
-  async function getBalanceH(address: string) {
-    try {
-      const balance = await readContract(config, {
-        address: NFT_CONTRACT_ADDRESS,
-        abi: nftAbi,
-        functionName: 'getBalance',
-        args: [address, amount],
-      });
-      return balance;
-    } catch (error) {
-      console.error('读取合约失败:', error);
-      throw error;
+  //获取机器数据
+  const fetchGraphQLData = async () => {
+    const endpoint = 'https://dbcswap.io/subgraph/name/long-staking-state';
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+        query {
+          stateSummaries(first: 1) {
+            totalCalcPoint
+          }
+          stakeHolders(where: {
+            holder: "${`0x5559636738c2cc864a076a30ac6f3da64645666d`}"
+          }) {
+            holder
+            totalClaimedRewardAmount
+            totalReleasedRewardAmount
+            machineInfos(first: 1000,where: {
+        isStaking: true
+      }) {
+             machineId
+             stakeEndTime
+            }
+          }
+        }
+      `,
+      }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
-  }
+    const res: any = await response.json();
+    console.log(res, 'resresresresres2222222222222');
+    if (res.data.stakeHolders.length !== 0) {
+      console.log(res.data.stakeHolders[0].machineInfos);
+      let arr = res.data.stakeHolders[0].machineInfos.map((item) => {
+        return {
+          machineId: item.machineId,
+          stakeEndTime: item.stakeEndTime,
+        };
+      });
+      setAmachineData(arr);
+    }
+  };
 
-  // 待领取奖励质押合约实例
-  const claim = useWriteContract();
+  useEffect(() => {
+    if (machineData.length !== 0) {
+      // 根据机器和用户选择的时间生成时间数据
+      const timesArr: any = machineData.map(() => amount);
+      setTimes(timesArr);
+    }
+  }, [amount, machineData]);
 
   const getClaim = async () => {
     if (!isConnected) {
@@ -71,54 +114,52 @@ function RenewalOfLeaseAll() {
       });
       return;
     }
-    if (amount === '') {
+    if (amount <= 0) {
       return false;
     }
+    console.log(
+      JSON.stringify({
+        holder: address,
+        machineIds: machineData,
+        additionHoursList: times,
+      })
+    );
     setBtnData({ isLoading: true, loadingText: 'Sending...' });
     const toastId = toast({
       position: 'top',
-      title: t('deep_adding_nft_in_progress'),
-      description: t('deep_processing_add_nft_request'),
+      title: t('renewing'),
+      description: t('renew_in_progress'),
       status: 'loading',
       duration: null,
       isClosable: false,
     });
+
     try {
-      const rs: any = await getBalanceH(address as string);
-      console.log(rs);
-      if (rs[0].length === 0 && rs[1].length === 0) {
-        console.log('nft数量不足');
-        toast.update(toastId, {
-          position: 'top',
-          title: t('failed'),
-          status: 'warning',
-          description: t('deep_insufficient_nft_balance'),
-          isClosable: true,
-          duration: null,
-        });
-        return false;
-      } else {
-        // 追加nft
-        const addNftHash = await claim.writeContractAsync({
-          address: ADDNFT_CONTRACT_ADDRESS,
-          abi: addNftAbi,
-          functionName: 'addNFTsToStake',
-          args: [rs[0], rs[1]],
-        });
-        const stakeReceipt = await waitForTransactionReceipt(config, { hash: addNftHash });
-        if (stakeReceipt.status !== 'success') {
-          throw new Error(t('deep_add_nft_transaction_failed'));
-        }
-        toast.update(toastId, {
-          position: 'top',
-          title: t('cpunft_success'),
-          status: 'success',
-          description: t('deep_add_nft_success'),
-          duration: 5000,
-          isClosable: true,
-        });
-        onClose();
+      // 开始续租
+      const res: any = await renewMachine({
+        holder: address,
+        machineIds: machineData,
+        additionHoursList: times,
+      });
+
+      if (res.code !== 1000) {
+        throw new Error(`
+          ${res.msg}  参数是：${JSON.stringify({
+          holder: address,
+          machineIds: machineData,
+          additionHoursList: times,
+        })}`);
       }
+      toast.update(toastId, {
+        position: 'top',
+        title: t('renew_success'),
+        status: 'success',
+        description: t('renew_operation_success'),
+        duration: 5000,
+        isClosable: true,
+      });
+      forceRerender();
+      onClose();
     } catch (error: any) {
       toast.update(toastId, {
         position: 'top',
@@ -135,6 +176,7 @@ function RenewalOfLeaseAll() {
 
   const onOpenH = async () => {
     onOpen();
+    fetchGraphQLData();
   };
 
   return (
@@ -152,20 +194,12 @@ function RenewalOfLeaseAll() {
       >
         <AlertDialogOverlay />
         <AlertDialogContent className="!max-w-[500px]">
-          <AlertDialogHeader>续租</AlertDialogHeader>
+          <AlertDialogHeader>一键续租</AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
             <FormControl mb={4} size="sm">
-              <FormLabel fontSize="sm">要续租时间：</FormLabel>
-
-              <Input
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                size="sm"
-                placeholder={t('请选择该机器续租的时间')}
-                type="datetime-local"
-              />
-              <FormHelperText fontSize="xs">{t('所有处于租赁的设备将在这一天到期')}</FormHelperText>
+              <FormLabel fontSize="sm">所有处于租赁的设备将自动续租与链上保持一致的租用时间</FormLabel>
+              <FormHelperText fontSize="xs">此操作是必须的否则不会续租成功</FormHelperText>
             </FormControl>
           </AlertDialogBody>
           <AlertDialogFooter>
@@ -174,7 +208,7 @@ function RenewalOfLeaseAll() {
                 {t('deep_cancel')}
               </Button>
               <Button isLoading={btnData.isLoading} loadingText={btnData.loadingText} onClick={getClaim}>
-                {t('deep_confirm_add')}
+                续租
               </Button>
             </div>
           </AlertDialogFooter>

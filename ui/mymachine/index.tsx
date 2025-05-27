@@ -23,7 +23,6 @@ import MymachineSearchTop from './modules/mymachine-search-top';
 import WithdrawBtn from './modules/WithdrawBtn-btn-dialog';
 import AddNft from './modules/AddNft-btn-dialog';
 import RenewalOfLease from './modules/RenewalOfLease';
-import RenewalOfLeaseAll from './modules/RenewalOfLeaseAll';
 import { IoCopy, IoCheckmark } from 'react-icons/io5';
 import { IoCheckmarkCircle, IoCloseCircle } from 'react-icons/io5';
 import { useAccount } from 'wagmi';
@@ -77,7 +76,7 @@ function Index() {
             totalCalcPoint
           }
           stakeHolders(where: {
-            holder: "${address}"
+            holder: "${`0x5559636738c2cc864a076a30ac6f3da64645666d`}"
           }) {
             holder
             totalClaimedRewardAmount
@@ -137,7 +136,7 @@ function Index() {
             v5: item.totalReservedAmount, // 总奖励数量
             v6: item.totalClaimedRewardAmount, // 已领取奖励数量
             v7: item.totalReleasedRewardAmount, // 锁仓奖励数量
-            v11: [WithdrawBtn, AddNft, RenewalOfLease], // 操作按钮
+            v11: [WithdrawBtn, AddNft], // 操作按钮
           };
         })
       : [];
@@ -184,7 +183,7 @@ function Index() {
             totalCalcPoint
           }
           stakeHolders(where: {
-            holder: "${address}"
+            holder: "${`0x5559636738c2cc864a076a30ac6f3da64645666d`}"
           }) {
             holder
             totalClaimedRewardAmount
@@ -261,7 +260,7 @@ function Index() {
 
   return (
     <Card variant="subtle" gap={3}>
-      <CardHeader className="!p-0">
+      <CardHeader>
         <div className="flex flex-col w-full gap-y-4">
           <Heading size="md">{t('machine_List')}</Heading>
           <MymachineSearchTop
@@ -272,13 +271,11 @@ function Index() {
             searchH={(v) => {
               run(v);
             }}
+            forceRerender={() => setKey((key) => key + 1)}
           />
-          {/* <div className={'max-w-[300px]'}>
-            <RenewalOfLeaseAll />
-          </div> */}
         </div>
       </CardHeader>
-      <CardBody className="!p-0">
+      <CardBody>
         <TableContainer className="!overflow-x-scroll">
           <Table size="sm" className={isMobile ? '!w-auto' : ''}>
             <Thead>
