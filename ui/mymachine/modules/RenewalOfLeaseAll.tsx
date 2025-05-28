@@ -170,7 +170,7 @@ function RenewalOfLeaseAll({ forceRerender }) {
 
   return (
     <>
-      <Button isDisabled={machineData.length === 0} size="sm" variant="outline" onClick={onOpenH}>
+      <Button size="sm" variant="outline" onClick={onOpenH}>
         {t('longminingTitle')}
       </Button>
 
