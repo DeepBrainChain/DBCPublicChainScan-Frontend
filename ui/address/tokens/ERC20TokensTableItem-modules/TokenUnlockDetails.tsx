@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { formatEther } from 'viem';
 import dayjs from 'dayjs';
 import { useTranslation } from 'next-i18next';
+import { formatWithThousandSeparator } from 'lib/utils/formatNumber';
 
 // Motion 组件，用于动画效果
 const MotionBox = motion(Box);
@@ -68,7 +69,7 @@ export default function TokenUnlockDetails({ unlockRounds }) {
           <HStack spacing={2}>
             {/* 代币图标和数量 */}
             <FaCoins style={{ color: '#D69E2E', fontSize: '14px' }} />
-            <Text fontSize="sm">{nextUnlock.amount.toFixed(5)} DLC</Text>
+            <Text fontSize="sm">{formatWithThousandSeparator(nextUnlock.amount.toFixed(5))} DLC</Text>
             {/* 时间图标和格式化时间 */}
             <FaClock style={{ color: '#3182CE', fontSize: '14px' }} className={'ml-4'} />
             <Text fontSize="sm">{dayjs(nextUnlock.unlockTime).format('YYYY/MM/DD HH:mm:ss')}</Text>
@@ -102,7 +103,7 @@ export default function TokenUnlockDetails({ unlockRounds }) {
                   {/* 代币数量 */}
                   <div className={'flex items-center gap-1 flex-1'}>
                     <FaCoins style={{ color: '#D69E2E', fontSize: '14px' }} />
-                    <Text fontSize="sm">{round.amount.toFixed(5)} DLC</Text>
+                    <Text fontSize="sm">{formatWithThousandSeparator(round.amount.toFixed(5))} DLC</Text>
                   </div>
                   {/* 解锁时间 */}
                   <div className={'flex items-center gap-1 flex-1'}>

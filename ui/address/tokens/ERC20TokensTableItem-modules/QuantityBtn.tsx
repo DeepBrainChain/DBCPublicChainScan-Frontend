@@ -26,6 +26,7 @@ import { formatEther } from 'viem';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import TokenUnlockDetails from './TokenUnlockDetails';
+import { formatWithThousandSeparator } from 'lib/utils/formatNumber';
 
 // 0x6f8F70C74FE7d7a61C8EAC0f35A4Ba39a51E1BEe
 // 定义动画组件
@@ -204,7 +205,7 @@ function QuantityBtn() {
                       {t('deep_total_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {balanceData.totalAmount} DLC
+                      {formatWithThousandSeparator(balanceData.totalAmount)} DLC
                     </Text>
                   </Box>
                 </MotionDiv>
@@ -222,7 +223,7 @@ function QuantityBtn() {
                       {t('deep_available_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {balanceData.availableTokens} DLC
+                      {formatWithThousandSeparator(balanceData.availableTokens)} DLC
                     </Text>
                   </Box>
                 </MotionDiv>
@@ -240,7 +241,7 @@ function QuantityBtn() {
                       {t('deep_locked_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {balanceData.lockedTokens} DLC
+                      {formatWithThousandSeparator(balanceData.lockedTokens)} DLC
                     </Text>
                   </Box>
                 </MotionDiv>

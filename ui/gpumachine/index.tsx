@@ -5,7 +5,12 @@ import { useTranslation } from 'next-i18next';
 import MymachineTable from './modules/MymachineTable';
 import { useDebounceFn } from '@reactuses/core';
 import { formatEther } from 'viem';
-import { useAccount } from 'wagmi';
+import { useAccount, useConfig } from 'wagmi';
+import { formatWithThousandSeparator } from 'lib/utils/formatNumber';
+import { useContractAddress } from 'lib/hooks/useContractAddress';
+import stakingAbi from './abi/stakeaib.json';
+import { waitForTransactionReceipt, readContract, estimateGas, getFeeHistory, getWalletClient } from 'wagmi/actions';
+// import { config } from 'lib/web3/mainnetConf';
 
 function Index() {
   const { t } = useTranslation('common');
@@ -14,98 +19,140 @@ function Index() {
   const [machineData, setMachineData] = useState<any[]>([]); // 存储请求数据
   const { address, isConnected } = useAccount();
   const toast = useToast();
-  //  获取当前钱包下的列表数据
+  const CPU_CONTRACT_ADDRESS_STAKING = useContractAddress('CPU_CONTRACT_ADDRESS_STAKING');
+  const config = useConfig();
+
+  // 定义读取函数
+  async function getRewardInfoH(machineId: string) {
+    console.log(config, 'configconfigconfigconfigconfig');
+    try {
+      const balance = await readContract(config, {
+        address: CPU_CONTRACT_ADDRESS_STAKING,
+        abi: stakingAbi,
+        functionName: 'machineId2LockedRewardDetail',
+        args: [machineId],
+      });
+      return balance;
+    } catch (error) {
+      console.error('读取合约失败:', error);
+      throw error;
+    }
+  }
+
+  // 合约调用 + 锁仓值计算（返回字符串）
+  async function getLockedValue(machineId: string): Promise<string> {
+    try {
+      const rewardDetail: any = await getRewardInfoH(machineId);
+      if (!rewardDetail || rewardDetail.length < 3) return '0';
+
+      const total = parseFloat(formatEther(rewardDetail[0]));
+      const released = parseFloat(formatEther(rewardDetail[3]));
+      const locked = total - released;
+      return locked.toFixed(5); // 返回小数保留位数
+    } catch (error) {
+      console.error(`读取锁仓失败: ${machineId}`, error);
+      return '0';
+    }
+  }
+
+  // 主函数：获取 machineInfos 并补充 Locked 字段
   const fetchMachineInfoData = async (v = '') => {
     try {
       setLoading(true);
+
       const endpoint = 'https://dbcswap.io/subgraph/name/bandwidth-staking-state';
-      // 动态构建 where 条件
+
       const whereClause = {
         holder: '$holderAddress',
-        ...(v && { machineId: `"${v}"` }), // 当 v 不为空时添加 machineId 过滤
+        ...(v && { machineId: `"${v}"` }),
       };
 
-      const skip = v ? 0 : (currentPage - 1) * pageSize; // 搜索时忽略 skip
-      const fetchSize = v ? 1000 : pageSize; // 搜索时获取更多数据
+      const skip = v ? 0 : (currentPage - 1) * pageSize;
+      const fetchSize = v ? 1000 : pageSize;
+
       const query = `
-        query($holderAddress: String!) {
-          machineInfos(where: { ${Object.entries(whereClause)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join(', ')} },first: ${fetchSize}, skip: ${skip}) {
-            id
-            holder
-            holderRef {
-              id
-              holder
-            }
-            machineId
-            totalCalcPoint
-            totalCalcPointWithNFT
-            fullTotalCalcPoint
-            totalReservedAmount
-            blockNumber
-            blockTimestamp
-            transactionHash
-            isStaking
-            online
-            registered
-            totalClaimedRewardAmount
-            totalReleasedRewardAmount
-            region
-          }
+      query($holderAddress: String!) {
+        machineInfos(where: { ${Object.entries(whereClause)
+          .map(([key, value]) => `${key}: ${value}`)
+          .join(', ')} }, first: ${fetchSize}, skip: ${skip}) {
+          id
+          holder
+          machineId
+          totalCalcPoint
+          totalCalcPointWithNFT
+          fullTotalCalcPoint
+          totalReservedAmount
+          blockNumber
+          blockTimestamp
+          transactionHash
+          isStaking
+          online
+          registered
+          totalClaimedRewardAmount
+          totalReleasedRewardAmount
+          region
         }
-      `;
+      }
+    `;
 
       const response = await fetch(endpoint, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           query,
           variables: {
-            holderAddress: address, // Ensure address is lowercase
+            holderAddress: address, // 注意小写地址格式
           },
         }),
       });
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        throw new Error(`GraphQL 请求失败，状态码: ${response.status}`);
       }
 
       const res: any = await response.json();
-      console.log(res, 'KKK');
+
       if (res.errors) {
         setError(res.errors.map((e: any) => e.message).join(', '));
+        return;
       }
 
-      if (res.data.machineInfos.length > 0) {
-        let arr: any = [];
-        arr = res.data.machineInfos.map((item) => {
+      const machineInfos = res.data.machineInfos;
+      if (!machineInfos || machineInfos.length === 0) {
+        setMachineData([]);
+        return;
+      }
+
+      // 并发获取 Locked 数据
+      const resultList = await Promise.all(
+        machineInfos.map(async (item: any) => {
+          const locked = await getLockedValue(item.machineId);
+
           return {
             machineId: item.machineId,
             isStaking: item.isStaking,
             online: item.online,
             region: item.region,
             registered: item.registered,
-            totalCalcPoint: item.totalCalcPoint,
-            totalCalcPointWithNFT: item.totalCalcPointWithNFT,
-            fullTotalCalcPoint: item.fullTotalCalcPoint,
-            totalReservedAmount: Number(formatEther(item.totalReservedAmount)).toFixed(5),
-            totalClaimedRewardAmount: Number(formatEther(item.totalClaimedRewardAmount)).toFixed(5),
-            totalReleasedRewardAmount: Number(formatEther(item.totalReleasedRewardAmount)).toFixed(5),
-            Locked: (
-              Number(formatEther(item.totalClaimedRewardAmount)) - Number(formatEther(item.totalReleasedRewardAmount))
-            ).toFixed(5),
+            totalCalcPoint: formatWithThousandSeparator(item.totalCalcPoint),
+            totalCalcPointWithNFT: formatWithThousandSeparator(item.totalCalcPointWithNFT),
+            fullTotalCalcPoint: formatWithThousandSeparator(item.fullTotalCalcPoint),
+            totalReservedAmount: formatWithThousandSeparator(Number(formatEther(item.totalReservedAmount)).toFixed(5)),
+            totalClaimedRewardAmount: formatWithThousandSeparator(
+              Number(formatEther(item.totalClaimedRewardAmount)).toFixed(5)
+            ),
+            totalReleasedRewardAmount: formatWithThousandSeparator(
+              Number(formatEther(item.totalReleasedRewardAmount)).toFixed(5)
+            ),
+            Locked: formatWithThousandSeparator(locked),
           };
-        });
-        setMachineData(arr); // Return all matching MachineInfo records
-        console.log(machineData, 'machineDatamachineData');
-      } else {
-        setMachineData([]); // No machines found for this address
-      }
+        })
+      );
+
+      // ✅ 所有数据 Promise 全部解析完后再设置到状态中
+      setMachineData(resultList);
     } catch (error) {
-      console.error('Error fetching GraphQL data:', error);
+      console.error('fetchMachineInfoData 出错:', error);
       throw error;
     } finally {
       setLoading(false);
