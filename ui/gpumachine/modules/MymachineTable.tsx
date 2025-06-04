@@ -10,8 +10,6 @@ import {
   Td,
   Tooltip,
   TableContainer,
-  CardHeader,
-  Heading,
   Skeleton,
   useToast,
 } from '@chakra-ui/react';
@@ -42,8 +40,8 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
     { t: t('deep_initial_computing_power'), pcW: '70px' }, //初始算力
     { t: t('deep_nft_computing_power'), pcW: '70px' }, //NFT算力
     { t: t('deep_total_computing_power'), pcW: '70px' }, //总算力
-    { t: t('deep_total_amount'), pcW: '120px' }, //总金额
-    { t: t('deep_claimed_amount'), pcW: '120px' }, //已领取金额
+    { t: t('staking_amount'), pcW: '120px' }, //质押金额
+    { t: t('total_rewards'), pcW: '120px' }, //总奖励
     { t: t('deep_released_amount'), pcW: '120px' }, //已释放金额
     { t: t('machine_LckRwd'), pcW: '120px' }, // 锁仓奖励
     { t: t('machine_Act'), pcW: '' }, // 操作
@@ -131,12 +129,12 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
                     <div className="flex items-center space-x-2">
                       {item.isStaking === true ? (
                         <>
-                          <IoCheckmarkCircle size={20} className="text-green-500" />
+                          <IoCheckmarkCircle size={17} className="text-green-500" />
                           <span className="text-green-600 font-medium">Yes</span>
                         </>
                       ) : (
                         <>
-                          <IoCloseCircle size={20} className="text-red-500" />
+                          <IoCloseCircle size={17} className="text-red-500" />
                           <span className="text-red-600 font-medium">No</span>
                         </>
                       )}
@@ -146,12 +144,12 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
                     <div className="flex items-center space-x-2">
                       {item.online === true ? (
                         <>
-                          <IoCheckmarkCircle size={20} className="text-green-500" />
+                          <IoCheckmarkCircle size={17} className="text-green-500" />
                           <span className="text-green-600 font-medium">Yes</span>
                         </>
                       ) : (
                         <>
-                          <IoCloseCircle size={20} className="text-red-500" />
+                          <IoCloseCircle size={17} className="text-red-500" />
                           <span className="text-red-600 font-medium">No</span>
                         </>
                       )}
@@ -182,7 +180,7 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
                   <Td>
                     <Tooltip label={`${t('deep_total_staked_amount')}: ${item.totalReservedAmount} DLC`}>
                       <div className="flex items-center space-x-2 text-blue-600 ">
-                        <FaLock size={16} className="text-[#FFD700] " />
+                        <FaLock size={17} className="text-[#FFD700] " />
                         <Text color="blue.500" className="truncate ">
                           {item.totalReservedAmount}
                         </Text>
@@ -192,15 +190,15 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
 
                   <Td>
                     <Tooltip label={`${t('deep_total_claimed_reward_amount')}: ${item.totalClaimedRewardAmount} DLC`}>
-                      <div className="flex items-center space-x-2 text-blue-600 ">
-                        <FaCheckCircle size={22} className="text-[#FFD700]" />
+                      <div className="flex items-center space-x-1 text-blue-600 ">
+                        <FaCheckCircle size={17} className="text-[#FFD700]" />
                         <Text className="truncate ">{item.totalClaimedRewardAmount}</Text>
                       </div>
                     </Tooltip>
                   </Td>
                   <Td>
                     <Tooltip label={`${t('deep_total_released_reward_amount')}: ${item.totalReleasedRewardAmount} DLC`}>
-                      <div className="flex items-center space-x-2 text-blue-600 ">
+                      <div className="flex items-center space-x-1 text-blue-600 ">
                         <FaUnlock size={17} className="text-green-500" />
                         <Text className="truncate ">{item.totalReleasedRewardAmount}</Text>
                       </div>
@@ -208,8 +206,8 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
                   </Td>
                   <Td>
                     <Tooltip label={`${t('deep_locked_reward')}: ${item.Locked} DLC`}>
-                      <div className="flex items-center space-x-2 text-blue-600 ">
-                        <IoLockClosedOutline size={25} className="text-gray-500" />
+                      <div className="flex items-center space-x-1 text-blue-600 ">
+                        <IoLockClosedOutline size={17} className="text-gray-500" />
                         <Text className="truncate ">{item.Locked}</Text>
                       </div>
                     </Tooltip>

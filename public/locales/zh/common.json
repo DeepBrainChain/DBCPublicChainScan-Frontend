@@ -423,5 +423,7 @@
   "longminingTitle": "一键续租",
   "longminingDescription": "所有处于租赁的设备将自动续租与链上保持一致的租用时间。",
   "longminingNote": "此操作是必须的，否则不会续租成功。",
-  "longminingButton": "续租"
+  "longminingButton": "续租",
+  "staking_amount": "质押金额",
+  "total_rewards": "总奖励"
 }

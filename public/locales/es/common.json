@@ -423,5 +423,7 @@
   "longminingTitle": "Renovación con un clic",
   "longminingDescription": "Todos los dispositivos alquilados se renovarán automáticamente para alinearse con la duración del alquiler en la cadena.",
   "longminingNote": "Esta operación es obligatoria; de lo contrario, la renovación no tendrá éxito.",
-  "longminingButton": "Renovar"
+  "longminingButton": "Renovar",
+  "staking_amount": "Monto de Staking",
+  "total_rewards": "Recompensas Totales"
 }

@@ -423,5 +423,7 @@
   "longminingTitle": "Renouvellement en un clic",
   "longminingDescription": "Tous les appareils en location seront automatiquement renouvelés pour correspondre à la durée de location sur la chaîne.",
   "longminingNote": "Cette opération est obligatoire, sinon le renouvellement ne réussira pas.",
-  "longminingButton": "Renouveler"
+  "longminingButton": "Renouveler",
+  "staking_amount": "Montant de Staking",
+  "total_rewards": "Récompenses Totales"
 }

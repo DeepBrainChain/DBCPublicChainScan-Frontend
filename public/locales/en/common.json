@@ -423,5 +423,7 @@
   "longminingTitle": "One-Click Renewal",
   "longminingDescription": "All leased devices will automatically renew to align with the on-chain lease duration.",
   "longminingNote": "This operation is mandatory; otherwise, the renewal will not succeed.",
-  "longminingButton": "Renew"
+  "longminingButton": "Renew",
+  "staking_amount": "Staking Amount",
+  "total_rewards": "Total Rewards"
 }

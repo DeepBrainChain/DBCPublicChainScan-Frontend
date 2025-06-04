@@ -423,5 +423,7 @@
   "longminingTitle": "Ein-Klick-Verlängerung",
   "longminingDescription": "Alle gemieteten Geräte werden automatisch verlängert, um mit der Mietdauer auf der Blockchain übereinzustimmen.",
   "longminingNote": "Dieser Vorgang ist erforderlich, sonst wird die Verlängerung nicht erfolgreich sein.",
-  "longminingButton": "Verlängern"
+  "longminingButton": "Verlängern",
+  "staking_amount": "Einsatzbetrag",
+  "total_rewards": "Gesamtbelohnungen"
 }

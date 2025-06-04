@@ -9,7 +9,7 @@ import { useAccount, useConfig } from 'wagmi';
 import { formatWithThousandSeparator } from 'lib/utils/formatNumber';
 import { useContractAddress } from 'lib/hooks/useContractAddress';
 import stakingAbi from './abi/stakeaib.json';
-import { waitForTransactionReceipt, readContract, estimateGas, getFeeHistory, getWalletClient } from 'wagmi/actions';
+import { readContract } from 'wagmi/actions';
 // import { config } from 'lib/web3/mainnetConf';
 
 function Index() {
@@ -48,7 +48,7 @@ function Index() {
       const total = parseFloat(formatEther(rewardDetail[0]));
       const released = parseFloat(formatEther(rewardDetail[3]));
       const locked = total - released;
-      return locked.toFixed(5); // 返回小数保留位数
+      return locked.toFixed(2); // 返回小数保留位数
     } catch (error) {
       console.error(`读取锁仓失败: ${machineId}`, error);
       return '0';
@@ -137,12 +137,12 @@ function Index() {
             totalCalcPoint: formatWithThousandSeparator(item.totalCalcPoint),
             totalCalcPointWithNFT: formatWithThousandSeparator(item.totalCalcPointWithNFT),
             fullTotalCalcPoint: formatWithThousandSeparator(item.fullTotalCalcPoint),
-            totalReservedAmount: formatWithThousandSeparator(Number(formatEther(item.totalReservedAmount)).toFixed(5)),
+            totalReservedAmount: formatWithThousandSeparator(Number(formatEther(item.totalReservedAmount)).toFixed(2)),
             totalClaimedRewardAmount: formatWithThousandSeparator(
-              Number(formatEther(item.totalClaimedRewardAmount)).toFixed(5)
+              Number(Number(formatEther(item.totalReleasedRewardAmount)) + Number(locked)).toFixed(2)
             ),
             totalReleasedRewardAmount: formatWithThousandSeparator(
-              Number(formatEther(item.totalReleasedRewardAmount)).toFixed(5)
+              Number(formatEther(item.totalReleasedRewardAmount)).toFixed(2)
             ),
             Locked: formatWithThousandSeparator(locked),
           };

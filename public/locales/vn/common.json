@@ -423,5 +423,7 @@
   "longminingTitle": "Gia hạn một cú nhấp chuột",
   "longminingDescription": "Tất cả các thiết bị đang được thuê sẽ tự động gia hạn để phù hợp với thời gian thuê trên chuỗi.",
   "longminingNote": "Thao tác này là bắt buộc, nếu không việc gia hạn sẽ không thành công.",
-  "longminingButton": "Gia hạn"
+  "longminingButton": "Gia hạn",
+  "staking_amount": "Số tiền đặt cược",
+  "total_rewards": "Tổng phần thưởng"
 }

@@ -423,5 +423,7 @@
   "longminingTitle": "Tek Tıkla Yenileme",
   "longminingDescription": "Kiralık tüm cihazlar, zincirdeki kiralama süresiyle uyumlu olacak şekilde otomatik olarak yenilenecektir.",
   "longminingNote": "Bu işlem zorunludur, aksi takdirde yenileme başarılı olmaz.",
-  "longminingButton": "Yenile"
+  "longminingButton": "Yenile",
+  "staking_amount": "Stake Miktarı",
+  "total_rewards": "Toplam Ödüller"
 }
