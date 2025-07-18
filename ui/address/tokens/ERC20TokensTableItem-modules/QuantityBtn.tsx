@@ -12,9 +12,6 @@ import {
   useToast, // 新增 SkeletonText 组件
   Box,
   Text,
-  VStack,
-  HStack,
-  Divider,
 } from '@chakra-ui/react';
 import { FaCoins, FaLock, FaUnlock, FaClock } from 'react-icons/fa';
 import { motion } from 'framer-motion';
@@ -32,10 +29,11 @@ import { formatWithThousandSeparator } from 'lib/utils/formatNumber';
 // 定义动画组件
 const MotionDiv = motion.div;
 
-function QuantityBtn() {
+function QuantityBtn({ token }) {
+  console.log(token, 'YYYYYYYYYYYYYYYYYYYYYYYY');
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
-  const TOKEN_CONTRACT_ADDRESS = useContractAddress('TOKEN_CONTRACT_ADDRESS');
+  // const TOKEN_CONTRACT_ADDRESS = useContractAddress('TOKEN_CONTRACT_ADDRESS');
   const config = useConfig();
   const [loading, setLoading] = useState(false);
   const { address, isConnected } = useAccount();
@@ -89,7 +87,7 @@ function QuantityBtn() {
     setLoading(true);
     try {
       const balance: any = await readContract(config, {
-        address: TOKEN_CONTRACT_ADDRESS,
+        address: token?.address,
         abi: tokenAbi,
         functionName: 'getAvailableAmount',
         args: [address],
@@ -128,7 +126,7 @@ function QuantityBtn() {
   async function getRewardInfoH2(address: string) {
     try {
       const balance: any = await readContract(config, {
-        address: TOKEN_CONTRACT_ADDRESS,
+        address: token?.address,
         abi: tokenAbi,
         functionName: 'getLockInfos',
         args: [address],
@@ -171,7 +169,7 @@ function QuantityBtn() {
           as={MotionDiv}
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.3 } as any}
         >
           {/* 优化后的标题 */}
           <AlertDialogHeader className="text-lg text-left font-semibold text-gray-800 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 py-3">
@@ -205,7 +203,7 @@ function QuantityBtn() {
                       {t('deep_total_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {formatWithThousandSeparator(balanceData.totalAmount)} DLC
+                      {formatWithThousandSeparator(balanceData.totalAmount)} {token?.symbol}
                     </Text>
                   </Box>
                 </MotionDiv>
@@ -223,7 +221,7 @@ function QuantityBtn() {
                       {t('deep_available_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {formatWithThousandSeparator(balanceData.availableTokens)} DLC
+                      {formatWithThousandSeparator(balanceData.availableTokens)} {token?.symbol}
                     </Text>
                   </Box>
                 </MotionDiv>
@@ -241,7 +239,7 @@ function QuantityBtn() {
                       {t('deep_locked_token_amount')}
                     </Text>
                     <Text fontSize="lg" fontWeight="semibold" color="gray.800" _dark={{ color: 'white' }}>
-                      {formatWithThousandSeparator(balanceData.lockedTokens)} DLC
+                      {formatWithThousandSeparator(balanceData.lockedTokens)} {token?.symbol}
                     </Text>
                   </Box>
                 </MotionDiv>
@@ -263,7 +261,7 @@ function QuantityBtn() {
                     </Text>
                   </Box>
                 </MotionDiv> */}
-                <TokenUnlockDetails unlockRounds={balanceData.estimatedUnlockTime} />
+                <TokenUnlockDetails token={token} unlockRounds={balanceData.estimatedUnlockTime} />
               </div>
             )}
           </AlertDialogBody>

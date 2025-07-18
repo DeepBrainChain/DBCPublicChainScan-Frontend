@@ -47,7 +47,7 @@ const ERC20TokensTableItem = ({ token, value, isLoading }: Props) => {
       <Td isNumeric verticalAlign="middle">
         <Skeleton isLoaded={!isLoading} display="inline">
           <div className="flex flex-col  items-end gap-2 flex-wrap">
-            <span>{tokenQuantity}</span> {token.symbol === 'DLC' ? <QuantityBtn /> : null}
+            <span>{tokenQuantity}</span> {token.type === 'ERC-20' ? <QuantityBtn token={token} /> : null}
           </div>
         </Skeleton>
       </Td>

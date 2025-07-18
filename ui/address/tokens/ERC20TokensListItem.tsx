@@ -55,7 +55,7 @@ const ERC20TokensListItem = ({ token, value, isLoading }: Props) => {
       </HStack>
       <HStack spacing={3} alignItems="baseline">
         <Skeleton isLoaded={!isLoading} fontSize="sm" fontWeight={500}>
-          {token.symbol === 'DLC' ? <QuantityBtn /> : null}
+          {token.type === 'ERC-20' ? <QuantityBtn token={token} /> : null}
         </Skeleton>
       </HStack>
       {tokenValue !== undefined && (

@@ -99,11 +99,11 @@ function LongNftStake() {
     });
     try {
       // 先判断是否已经质押过了
-      const resBefore: any = await getRewardInfoH();
-      if (resBefore) {
-        throw new Error(t('cpunft_already_staked'));
-      }
-      console.log(resBefore, 'resBefore');
+      // const resBefore: any = await getRewardInfoH();
+      // if (resBefore) {
+      //   throw new Error(t('cpunft_already_staked'));
+      // }
+      // console.log(resBefore, 'resBefore');
       // 授权
       const approvalHash = await nftApproval.writeContractAsync({
         address: NFT_CONTRACT_ADDRESS,

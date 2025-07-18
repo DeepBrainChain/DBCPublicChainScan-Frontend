@@ -38,7 +38,7 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
     { t: t('deep_is_online'), pcW: '75px' }, //是否在线
     { t: t('deep_region'), pcW: '80px' }, //是否在线
     { t: t('deep_initial_computing_power'), pcW: '70px' }, //初始算力
-    { t: t('deep_nft_computing_power'), pcW: '70px' }, //NFT算力
+    // { t: t('deep_nft_computing_power'), pcW: '70px' }, //NFT算力
     { t: t('deep_total_computing_power'), pcW: '70px' }, //总算力
     { t: t('staking_amount'), pcW: '120px' }, //质押金额
     { t: t('total_rewards'), pcW: '120px' }, //总奖励
@@ -167,11 +167,11 @@ function MymachineTable({ fetchMachineInfoData, machineData, loading, error }) {
                       <Text color="blue.500">{item.totalCalcPoint}</Text>
                     </Tooltip>
                   </Td>
-                  <Td>
+                  {/* <Td>
                     <Tooltip label={`${t('deep_total_machine_power_with_nft')}: ${item.totalCalcPointWithNFT}`}>
                       <Text color="blue.500">{item.totalCalcPointWithNFT}</Text>
                     </Tooltip>
-                  </Td>
+                  </Td> */}
                   <Td>
                     <Tooltip label={`${t('deep_total_machine_power_with_nft_rental')}: ${item.fullTotalCalcPoint}`}>
                       <Text color="blue.500">{item.fullTotalCalcPoint}</Text>

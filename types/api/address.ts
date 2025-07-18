@@ -38,7 +38,7 @@ export interface AddressCounters {
 }
 
 export interface AddressTokenBalance {
-  token: TokenInfo;
+  token: TokenInfo | any;
   token_id: string | null;
   value: string;
   token_instance: TokenInstance | null;
@@ -48,13 +48,13 @@ export type AddressNFT = TokenInstance & {
   token: TokenInfo;
   token_type: Omit<TokenType, 'DRC-20'>;
   value: string;
-}
+};
 
 export type AddressCollection = {
   token: TokenInfo;
   amount: string;
   token_instances: Array<Omit<AddressNFT, 'token'>>;
-}
+};
 
 export interface AddressTokensResponse {
   items: Array<AddressTokenBalance>;
@@ -99,13 +99,13 @@ export interface AddressTransactionsResponse {
   } | null;
 }
 
-export const AddressFromToFilterValues = [ 'from', 'to' ] as const;
+export const AddressFromToFilterValues = ['from', 'to'] as const;
 
-export type AddressFromToFilter = typeof AddressFromToFilterValues[number] | undefined;
+export type AddressFromToFilter = (typeof AddressFromToFilterValues)[number] | undefined;
 
 export type AddressTxsFilters = {
   filter: AddressFromToFilter;
-}
+};
 
 export interface AddressTokenTransferResponse {
   items: Array<TokenTransfer>;
@@ -116,15 +116,15 @@ export type AddressTokenTransferFilters = {
   filter?: AddressFromToFilter;
   type?: Array<TokenType>;
   token?: string;
-}
+};
 
 export type AddressTokensFilter = {
   type: TokenType;
-}
+};
 
 export type AddressNFTTokensFilter = {
   type: Array<NFTTokenType> | undefined;
-}
+};
 
 export interface AddressCoinBalanceHistoryItem {
   block_number: number;
@@ -146,7 +146,7 @@ export interface AddressCoinBalanceHistoryResponse {
 export type AddressCoinBalanceHistoryChartOld = Array<{
   date: string;
   value: string;
-}>
+}>;
 
 export type AddressCoinBalanceHistoryChart = {
   items: Array<{
@@ -179,7 +179,7 @@ export type AddressWithdrawalsResponse = {
     index: number;
     items_count: number;
   };
-}
+};
 
 export type AddressWithdrawalsItem = {
   amount: string;
@@ -187,7 +187,7 @@ export type AddressWithdrawalsItem = {
   index: number;
   timestamp: string;
   validator_index: number;
-}
+};
 
 export type AddressTabsCounters = {
   internal_txs_count: number | null;
@@ -197,4 +197,4 @@ export type AddressTabsCounters = {
   transactions_count: number | null;
   validations_count: number | null;
   withdrawals_count: number | null;
-}
+};

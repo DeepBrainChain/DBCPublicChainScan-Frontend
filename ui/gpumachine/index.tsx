@@ -135,7 +135,7 @@ function Index() {
             region: item.region,
             registered: item.registered,
             totalCalcPoint: formatWithThousandSeparator(item.totalCalcPoint),
-            totalCalcPointWithNFT: formatWithThousandSeparator(item.totalCalcPointWithNFT),
+            // totalCalcPointWithNFT: formatWithThousandSeparator(item.totalCalcPointWithNFT),
             fullTotalCalcPoint: formatWithThousandSeparator(item.fullTotalCalcPoint),
             totalReservedAmount: formatWithThousandSeparator(Number(formatEther(item.totalReservedAmount)).toFixed(2)),
             totalClaimedRewardAmount: formatWithThousandSeparator(
