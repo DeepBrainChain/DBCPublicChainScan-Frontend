@@ -157,7 +157,7 @@ function cpuStakeDbcBtn() {
     });
 
     try {
-      // 先注册
+      // 注册
       const res: any = await register();
       if (res.code !== 0) {
         throw new Error(res.message || t('cpudbc_register_interface_failed'));
