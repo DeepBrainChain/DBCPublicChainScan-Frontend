@@ -15,6 +15,7 @@ if [ ! -f "$config_file" ]; then
 fi
 
 # download assets for the running instance
+
 dotenv \
   -e $config_file \
   -- bash -c './deploy/scripts/download_assets.sh ./public/assets'

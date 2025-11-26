@@ -1,7 +1,14 @@
-import type { TokenInfoApplication, TokenInfoApplications, VerifiedAddress, VerifiedAddressResponse } from 'types/api/account';
+import type {
+  TokenInfoApplication,
+  TokenInfoApplications,
+  VerifiedAddress,
+  VerifiedAddressResponse,
+} from 'types/api/account';
+
 import type { AddressValidationResponseSuccess } from 'ui/addressVerification/types';
 
-export const SIGNATURE = '0x96491e0cd1b99c14951552361b7f6ff64f41651b5d1c12501914342c8a6847e21e08726c3505e11ba2af9a40ac0b05c8d113e7fd1f74594224b9c7276ebb3a661b';
+export const SIGNATURE =
+  '0x96491e0cd1b99c14951552361b7f6ff64f41651b5d1c12501914342c8a6847e21e08726c3505e11ba2af9a40ac0b05c8d113e7fd1f74594224b9c7276ebb3a661b';
 
 export const VERIFIED_ADDRESS: Record<string, VerifiedAddress> = {
   NEW_ITEM: {
@@ -40,8 +47,8 @@ export const ADDRESS_CHECK_RESPONSE = {
   SUCCESS: {
     status: 'SUCCESS',
     result: {
-      // eslint-disable-next-line max-len
-      signingMessage: '[eth-goerli.blockscout.com] [2023-04-18 18:47:40] I, hereby verify that I am the owner/creator of the address [0xf822070d07067d1519490dbf49448a7e30ee9ea5]',
+      signingMessage:
+        '[eth-goerli.blockscout.com] [2023-04-18 18:47:40] I, hereby verify that I am the owner/creator of the address [0xf822070d07067d1519490dbf49448a7e30ee9ea5]',
       contractCreator: '0xd0e3010d1ecdbd17aae178b2bf36eb413d8a7441',
       contractOwner: '0xa8FCe579a11E551635b9c9CB915BEcd873C51254',
     },
@@ -68,10 +75,7 @@ export const ADDRESS_VERIFY_RESPONSE: Record<string, AddressValidationResponseSu
 
 export const VERIFIED_ADDRESS_RESPONSE: Record<string, VerifiedAddressResponse> = {
   DEFAULT: {
-    verifiedAddresses: [
-      VERIFIED_ADDRESS.ITEM_1,
-      VERIFIED_ADDRESS.ITEM_2,
-    ],
+    verifiedAddresses: [VERIFIED_ADDRESS.ITEM_1, VERIFIED_ADDRESS.ITEM_2],
   },
 };
 
@@ -132,10 +136,7 @@ export const TOKEN_INFO_APPLICATION: Record<string, TokenInfoApplication> = {
 
 export const TOKEN_INFO_APPLICATIONS_RESPONSE: Record<string, TokenInfoApplications> = {
   DEFAULT: {
-    submissions: [
-      TOKEN_INFO_APPLICATION.APPROVED,
-      TOKEN_INFO_APPLICATION.IN_PROCESS,
-    ],
+    submissions: [TOKEN_INFO_APPLICATION.APPROVED, TOKEN_INFO_APPLICATION.IN_PROCESS],
   },
   FOR_UPDATE: {
     submissions: [
