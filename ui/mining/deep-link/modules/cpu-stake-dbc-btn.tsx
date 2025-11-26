@@ -130,6 +130,9 @@ function cpuStakeDbcBtn() {
     ['South Africa', true],
   ]);
 
+  // 设备id白名单
+  const deviceIds = ['b8500578dd0d21b669d82e1d22762717f17227292cc9d4c6c21167b39ead7f7e'];
+
   // 开始质押dbc
   const startStakeDBC = async () => {
     if (!isConnected) {
@@ -155,18 +158,18 @@ function cpuStakeDbcBtn() {
 
     try {
       // 先注册
-      // const res: any = await register();
-      // if (res.code !== 0) {
-      //   throw new Error(res.message || t('cpudbc_register_interface_failed'));
-      // }
+      const res: any = await register();
+      if (res.code !== 0) {
+        throw new Error(res.message || t('cpudbc_register_interface_failed'));
+      }
       // 判断他的地域
       const resBefore0: any = await getRewardInfoH2();
       console.log(resBefore0, 'resBefore0resBefore0resBefore0', resBefore0[4]);
       const isHaveRegion = regionMap.has(resBefore0[4]);
       if (!isHaveRegion) {
         throw new Error(
-          `${t('deep_region_not_in_mining_reward_range')}，\n\n地域数据：${resBefore0.toString()}\n
-          ${isHaveRegion}\n机器ID:${machineId}，\n地域是：${resBefore0[4]}`
+          `${t('deep_region_not_in_mining_reward_range')}，\n\nregionData：${resBefore0.toString()}\n
+      ${isHaveRegion}\nmachineID:${machineId}，\nregion：${resBefore0[4]}`
         );
       }
       console.log(isHaveRegion, '是否在地区内');
