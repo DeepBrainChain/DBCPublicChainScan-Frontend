@@ -11,6 +11,7 @@ import useIsMobile from 'lib/hooks/useIsMobile';
 import useMarketplaceApps from 'ui/marketplace/useMarketplaceApps';
 import TextAd from 'ui/shared/ad/TextAd';
 import ContentLoader from 'ui/shared/ContentLoader';
+import LinkInternal from 'ui/shared/LinkInternal';
 import type { ApiCategory, ItemsCategoriesMap } from 'ui/shared/search/utils';
 import { getItemCategory, searchCategories } from 'ui/shared/search/utils';
 
@@ -102,7 +103,52 @@ const SearchBarSuggest = ({ query, searchTerm, onItemClick, containerId }: Props
 
   const bgColor = useColorModeValue('white', 'gray.900');
 
+  // Detect Substrate SS58 address or extrinsic index
+  const isSubstrateAddress = /^[1-9A-HJ-NP-Za-km-z]{46,48}$/.test(searchTerm.trim());
+  const isSubstrateExtrinsic = /^\d+-\d+$/.test(searchTerm.trim());
+
   const content = (() => {
+    // Show direct Substrate link suggestion
+    if (isSubstrateAddress) {
+      return (
+        <LinkInternal
+          href={ `/substrate/account/${searchTerm.trim()}` }
+          onClick={ onItemClick }
+          display="flex"
+          alignItems="center"
+          py={ 3 }
+          px={ 2 }
+          borderRadius="md"
+          _hover={{ bg: 'blackAlpha.50' }}
+        >
+          <Box>
+            <Text fontWeight={ 600 } fontSize="sm">Substrate Account</Text>
+            <Text fontSize="xs" color="gray.500" fontFamily="mono" wordBreak="break-all">{ searchTerm.trim() }</Text>
+          </Box>
+        </LinkInternal>
+      );
+    }
+
+    if (isSubstrateExtrinsic) {
+      return (
+        <LinkInternal
+          href={ `/substrate/extrinsic/${searchTerm.trim()}` }
+          onClick={ onItemClick }
+          display="flex"
+          alignItems="center"
+          py={ 3 }
+          px={ 2 }
+          borderRadius="md"
+          _hover={{ bg: 'blackAlpha.50' }}
+        >
+          <Box>
+            <Text fontWeight={ 600 } fontSize="sm">Substrate Extrinsic</Text>
+            <Text fontSize="xs" color="gray.500">{ searchTerm.trim() }</Text>
+          </Box>
+        </LinkInternal>
+      );
+    }
+
     if (query.isPending || marketplaceApps.isPlaceholderData) {
       return <ContentLoader text="We are searching, please wait... " fontSize="sm"/>;
     }

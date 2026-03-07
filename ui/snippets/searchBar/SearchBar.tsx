@@ -50,6 +50,22 @@ const SearchBar = ({ isHomepage }: Props) => {
   const handleSubmit = React.useCallback((event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (searchTerm) {
+      const trimmed = searchTerm.trim();
+
+      // Detect Substrate SS58 address (starts with 1-9 or A-H/J-N/P-Z, 46-48 chars, base58 charset)
+      if (/^[1-9A-HJ-NP-Za-km-z]{46,48}$/.test(trimmed)) {
+        saveToRecentKeywords(trimmed);
+        router.push({ pathname: '/substrate/account/[id]', query: { id: trimmed } } as any);
+        return;
+      }
+
+      // Detect Substrate extrinsic index format (e.g. 6301070-0)
+      if (/^\d+-\d+$/.test(trimmed)) {
+        saveToRecentKeywords(trimmed);
+        router.push({ pathname: '/substrate/extrinsic/[id]', query: { id: trimmed } } as any);
+        return;
+      }
+
       const url = route({ pathname: '/search-results', query: { q: searchTerm } });
       mixpanel.logEvent(mixpanel.EventTypes.SEARCH_QUERY, {
         'Search query': searchTerm,

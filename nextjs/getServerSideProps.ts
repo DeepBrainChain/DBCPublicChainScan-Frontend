@@ -196,6 +196,44 @@ export const csvExport: GetServerSideProps<Props> = async (context) => {
   return base(context);
 };
 
+export const staking: GetServerSideProps<Props> = async(context) => {
+  if (!config.features.staking.isEnabled) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return base(context);
+};
+
+export const governance: GetServerSideProps<Props> = async(context) => {
+  if (!config.features.governance.isEnabled) {
+    return { notFound: true };
+  }
+  return base(context);
+};
+
+export const priceOracle: GetServerSideProps<Props> = async (context) => {
+  if (!config.features.priceOracle.isEnabled) {
+    return { notFound: true };
+  }
+  return base(context);
+};
+
+export const substrateExplorer: GetServerSideProps<Props> = async (context) => {
+  if (!config.features.substrateExplorer.isEnabled) {
+    return { notFound: true };
+  }
+  return base(context);
+};
+
+export const tokenInfo: GetServerSideProps<Props> = async (context) => {
+  if (!config.features.tokenInfo.isEnabled) {
+    return { notFound: true };
+  }
+  return base(context);
+};
+
 export const stats: GetServerSideProps<Props> = async (context) => {
   if (!config.features.stats.isEnabled) {
     return {

@@ -79,3 +79,11 @@ export type TokenVerifiedInfo = Omit<TokenInfoApplication, 'id' | 'status'>;
 export type TokenInventoryFilters = {
   holder_address_hash?: string;
 }
+
+export interface TokenDistribution {
+  total_issuance: string;
+  available_balance: string;
+  staking_locked: string;
+  treasury_balance: string;
+  other_locked: string;
+}

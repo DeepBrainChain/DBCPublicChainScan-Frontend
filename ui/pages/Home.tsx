@@ -4,6 +4,7 @@ import React from 'react';
 import config from 'configs/app';
 import ChainIndicators from 'ui/home/indicators/ChainIndicators';
 import LatestBlocks from 'ui/home/LatestBlocks';
+import LatestSubstrateExtrinsics from 'ui/home/LatestSubstrateExtrinsics';
 import LatestZkEvmL2Batches from 'ui/home/LatestZkEvmL2Batches';
 import Stats from 'ui/home/Stats';
 import Transactions from 'ui/home/Transactions';
@@ -51,6 +52,11 @@ const Home = () => {
           <Transactions/>
         </Box>
       </Flex>
+      { config.features.substrateExplorer.isEnabled && (
+        <Flex mt={ 8 } direction={{ base: 'column', lg: 'row' }} columnGap={ 12 } rowGap={ 8 }>
+          <LatestSubstrateExtrinsics/>
+        </Flex>
+      ) }
     </Box>
   );
 };

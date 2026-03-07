@@ -2,6 +2,7 @@ import { Box, Text, Grid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+import config from 'configs/app';
 import throwOnResourceLoadError from 'lib/errors/throwOnResourceLoadError';
 import useIsMounted from 'lib/hooks/useIsMounted';
 import getQueryParamString from 'lib/router/getQueryParamString';
@@ -17,6 +18,7 @@ import TxEntity from 'ui/shared/entities/tx/TxEntity';
 
 import AddressBalance from './details/AddressBalance';
 import AddressNameInfo from './details/AddressNameInfo';
+import AddressSubstrateIdentity from './AddressSubstrateIdentity';
 import TokenSelect from './tokenSelect/TokenSelect';
 import useAddressCountersQuery from './utils/useAddressCountersQuery';
 import type { AddressQuery } from './utils/useAddressQuery';
@@ -219,6 +221,11 @@ const AddressDetails = ({ addressQuery, scrollRef }: Props) => {
         ) }
         <DetailsSponsoredItem isLoading={ addressQuery.isPlaceholderData }/>
       </Grid>
+      { config.features.substrateExplorer.isEnabled && (
+        <Box mt={ 6 }>
+          <AddressSubstrateIdentity address={ data.hash }/>
+        </Box>
+      ) }
     </>
   );
 };

@@ -172,8 +172,22 @@ export default function useNavItems(): ReturnType {
     ].filter(Boolean);
 
     const mainNavItems: ReturnType['mainNavItems'] = [
+      config.features.substrateExplorer.isEnabled
+        ? {
+            text: t('nav_substrate', { defaultValue: 'DBC Mainchain' }),
+            icon: 'block' as const,
+            isActive: pathname.startsWith('/substrate'),
+            subItems: [
+              { text: t('substrate_blocks_nav', { defaultValue: 'Blocks' }), icon: 'block' as const, nextRoute: { pathname: '/substrate/blocks' as const }, isActive: pathname === '/substrate/blocks' || pathname === '/substrate/block/[id]' },
+              { text: t('substrate_extrinsics_nav', { defaultValue: 'Extrinsics' }), icon: 'transactions' as const, nextRoute: { pathname: '/substrate/extrinsics' as const }, isActive: pathname === '/substrate/extrinsics' || pathname === '/substrate/extrinsic/[id]' },
+              { text: t('substrate_events_nav', { defaultValue: 'Events' }), icon: 'token' as const, nextRoute: { pathname: '/substrate/events' as const }, isActive: pathname === '/substrate/events' || pathname === '/substrate/event/[id]' },
+              { text: t('substrate_transfers_nav', { defaultValue: 'Transfers' }), icon: 'arrows/north-east' as const, nextRoute: { pathname: '/substrate/transfers' as const }, isActive: pathname === '/substrate/transfers' },
+              { text: t('substrate_accounts_nav', { defaultValue: 'Accounts' }), icon: 'top-accounts' as const, nextRoute: { pathname: '/substrate/accounts' as const }, isActive: pathname === '/substrate/accounts' },
+            ],
+          }
+        : null,
       {
-        text: t('block_chain'),
+        text: t('nav_evm', { defaultValue: 'EVM' }),
         icon: 'globe-b',
         isActive: blockchainNavItems.flat().some((item) => isInternalItem(item) && item.isActive),
         subItems: blockchainNavItems,
@@ -190,6 +204,30 @@ export default function useNavItems(): ReturnType {
             nextRoute: { pathname: '/apps' as const },
             icon: 'apps',
             isActive: pathname.startsWith('/app'),
+          }
+        : null,
+      config.features.staking.isEnabled
+        ? {
+            text: t('block_staking'),
+            nextRoute: { pathname: '/staking' as const },
+            icon: 'stats',
+            isActive: pathname.startsWith('/staking'),
+          }
+        : null,
+      config.features.governance.isEnabled
+        ? {
+            text: t('block_governance'),
+            nextRoute: { pathname: '/governance' as const },
+            icon: 'token' as const,
+            isActive: pathname.startsWith('/governance'),
+          }
+        : null,
+      config.features.priceOracle.isEnabled
+        ? {
+            text: t('block_price_oracle'),
+            nextRoute: { pathname: '/price' as const },
+            icon: 'token' as const,
+            isActive: pathname.startsWith('/price'),
           }
         : null,
       config.features.marketplace.isEnabled

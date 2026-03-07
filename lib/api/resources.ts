@@ -73,6 +73,7 @@ import type { Counters, StatsCharts, StatsChart, HomeStats } from 'types/api/sta
 import type {
   TokenCounters,
   TokenInfo,
+  TokenDistribution,
   TokenHolders,
   TokenInventoryResponse,
   TokenInstance,
@@ -98,6 +99,26 @@ import type { UserOpsResponse, UserOp, UserOpsFilters, UserOpsAccount } from 'ty
 import type { ValidatorsCountersResponse, ValidatorsFilters, ValidatorsResponse, ValidatorsSorting } from 'types/api/validators';
 import type { VerifiedContractsSorting } from 'types/api/verifiedContracts';
 import type { VisualizedContract } from 'types/api/visualization';
+import type { StakingOverview, StakingValidator, StakingValidatorsResponse } from 'types/api/staking';
+import type {
+  GovernanceOverview,
+  DemocracyProposalsResponse,
+  ReferendumsResponse,
+  CouncilMotionsResponse,
+  TreasuryProposalsResponse,
+  CouncilProposalDetail,
+  DemocracyProposalDetail,
+  TreasuryProposalDetail,
+} from 'types/api/governance';
+import type { PriceInfo, PriceHistoryResponse, DailyStatsResponse } from 'types/api/price';
+import type {
+  SubstrateExtrinsicsResponse,
+  SubstrateExtrinsicDetail,
+  SubstrateEventsResponse,
+  SubstrateEventDetail,
+  SubstrateTransfersResponse,
+  SubstrateAccountsResponse,
+} from 'types/api/substrate';
 import type { WithdrawalsResponse, WithdrawalsCounters } from 'types/api/withdrawals';
 import type {
   ZkEvmL2DepositsResponse,
@@ -123,6 +144,20 @@ export interface ApiResource {
   pathParams?: Array<string>;
   needAuth?: boolean; // for external APIs which require authentication
   headers?: RequestInit['headers'];
+}
+
+interface TokenInfoDashboard {
+  symbol: string;
+  price: string;
+  price_change: string;
+  total_issuance: string;
+  available_balance: string;
+  locked_balance: string;
+  validator_bonded: string;
+  nominator_bonded: string;
+  treasury_balance: string;
+  inflation: string;
+  token_decimals: number;
 }
 
 export const SORTING_FIELDS = [ 'sort', 'order' ];
@@ -551,6 +586,106 @@ export const RESOURCES = {
     filterFields: [],
   },
 
+  // STAKING
+  staking_overview: {
+    path: '/api/v2/staking/overview',
+  },
+  staking_validators: {
+    path: '/api/v2/staking/validators',
+    filterFields: [],
+  },
+  staking_validator: {
+    path: '/api/v2/staking/validators/:address',
+    pathParams: [ 'address' as const ],
+  },
+
+  // GOVERNANCE
+  governance_overview: {
+    path: '/api/v2/governance/overview',
+  },
+  governance_democracy_proposals: {
+    path: '/api/v2/governance/democracy/proposals',
+    filterFields: [],
+  },
+  governance_democracy_referendums: {
+    path: '/api/v2/governance/democracy/referendums',
+    filterFields: [],
+  },
+  governance_council_motions: {
+    path: '/api/v2/governance/council/motions',
+    filterFields: [],
+  },
+  governance_treasury_proposals: {
+    path: '/api/v2/governance/treasury/proposals',
+    filterFields: [],
+  },
+  governance_council_proposal_detail: {
+    path: '/api/v2/governance/council/proposals/:id',
+    pathParams: [ 'id' ],
+  },
+  governance_democracy_proposal_detail: {
+    path: '/api/v2/governance/democracy/proposals/:id',
+    pathParams: [ 'id' ],
+  },
+  governance_treasury_proposal_detail: {
+    path: '/api/v2/governance/treasury/proposals/:id',
+    pathParams: [ 'id' ],
+  },
+
+  // TOKEN INFO
+  token_info: {
+    path: '/api/v2/token-info/info',
+  },
+  token_distribution: {
+    path: '/api/v2/token-info/distribution',
+  },
+
+  // PRICE ORACLE
+  price_current: {
+    path: '/api/v2/price/current',
+  },
+  price_history: {
+    path: '/api/v2/price/history',
+    filterFields: [],
+  },
+  price_daily: {
+    path: '/api/v2/price/daily',
+    filterFields: [],
+  },
+
+  // SUBSTRATE EXPLORER
+  substrate_blocks: {
+    path: '/api/v2/substrate/blocks',
+  },
+  substrate_block: {
+    path: '/api/v2/substrate/block/:id',
+    pathParams: [ 'id' ],
+  },
+  substrate_extrinsics: {
+    path: '/api/v2/substrate/extrinsics',
+  },
+  substrate_extrinsic: {
+    path: '/api/v2/substrate/extrinsic/:id',
+    pathParams: [ 'id' ],
+  },
+  substrate_events: {
+    path: '/api/v2/substrate/events',
+  },
+  substrate_event: {
+    path: '/api/v2/substrate/event/:id',
+    pathParams: [ 'id' ],
+  },
+  substrate_transfers: {
+    path: '/api/v2/substrate/transfers',
+  },
+  substrate_accounts: {
+    path: '/api/v2/substrate/accounts',
+  },
+  substrate_account: {
+    path: '/api/v2/substrate/account/:id',
+    pathParams: [ 'id' ],
+  },
+
   // APP STATS
   stats: {
     path: '/api/v2/stats',
@@ -871,6 +1006,28 @@ Q extends 'watchlist' ? WatchlistResponse :
 Q extends 'verified_addresses' ? VerifiedAddressResponse :
 Q extends 'token_info_applications_config' ? TokenInfoApplicationConfig :
 Q extends 'token_info_applications' ? TokenInfoApplications :
+Q extends 'staking_overview' ? StakingOverview :
+Q extends 'staking_validators' ? StakingValidatorsResponse :
+Q extends 'staking_validator' ? StakingValidator :
+Q extends 'governance_overview' ? GovernanceOverview :
+Q extends 'governance_democracy_proposals' ? DemocracyProposalsResponse :
+Q extends 'governance_democracy_referendums' ? ReferendumsResponse :
+Q extends 'governance_council_motions' ? CouncilMotionsResponse :
+Q extends 'governance_treasury_proposals' ? TreasuryProposalsResponse :
+Q extends 'governance_council_proposal_detail' ? CouncilProposalDetail :
+Q extends 'governance_democracy_proposal_detail' ? DemocracyProposalDetail :
+Q extends 'governance_treasury_proposal_detail' ? TreasuryProposalDetail :
+Q extends 'token_info' ? TokenInfoDashboard :
+Q extends 'token_distribution' ? TokenDistribution :
+Q extends 'price_current' ? PriceInfo :
+Q extends 'price_history' ? PriceHistoryResponse :
+Q extends 'price_daily' ? DailyStatsResponse :
+Q extends 'substrate_extrinsics' ? SubstrateExtrinsicsResponse :
+Q extends 'substrate_extrinsic' ? SubstrateExtrinsicDetail :
+Q extends 'substrate_events' ? SubstrateEventsResponse :
+Q extends 'substrate_event' ? SubstrateEventDetail :
+Q extends 'substrate_transfers' ? SubstrateTransfersResponse :
+Q extends 'substrate_accounts' ? SubstrateAccountsResponse :
 Q extends 'stats' ? HomeStats :
 Q extends 'stats_charts_txs' ? ChartTransactionResponse :
 Q extends 'stats_charts_market' ? ChartMarketResponse :
